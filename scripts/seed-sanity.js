@@ -69,11 +69,13 @@ async function seed() {
 
   // 2. Home Page Singleton
   console.log('Seeding homePage...');
+  const heroImageAsset = await uploadImage('public/images/hero-industrial.jpg');
   const homePageDoc = {
     _id: 'homePage',
     _type: 'homePage',
     heroHeadline: 'Advanced Graphite & Industrial Material Solutions',
     heroSubheadline: 'Engineered high-temperature graphite products, coating, metalizing solutions, and industrial sealing materials designed for rigorous manufacturing operations.',
+    heroImage: heroImageAsset,
     primaryCtaText: 'Explore Products',
     secondaryCtaText: 'Get a Quote',
     strengthsHeadline: 'Pioneering Excellence in Industrial Graphite Manufacturing',

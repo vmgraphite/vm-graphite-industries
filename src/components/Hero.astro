@@ -10,10 +10,12 @@ export interface Props {
 const {
   headline = 'Advanced Graphite & Industrial Material Solutions',
   subheadline = 'Precision-manufactured high-density graphite crucibles, colloidal graphite suspensions, synthetic seals, and high-tensile doctor blades engineered for severe thermal and chemical operating environments.',
-  heroImage = '/images/categories/graphite-carbon.jpg',
+  heroImage: propHeroImage,
   primaryCtaText = 'Explore Products',
   secondaryCtaText = 'Get a Quote',
 } = Astro.props;
+
+const heroImage = propHeroImage || '/images/hero-industrial.jpg';
 ---
 
 <section class="relative bg-gradient-to-b from-white via-slate-50 to-slate-100/70 text-slate-900 overflow-hidden py-24 lg:py-32 industrial-grid-light-bg border-b border-slate-200/80">

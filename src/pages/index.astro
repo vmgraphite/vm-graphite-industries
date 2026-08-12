@@ -29,7 +29,7 @@ const homeContent = await getHomePageContent();
   <Hero
     headline={homeContent?.heroHeadline}
     subheadline={homeContent?.heroSubheadline}
-    heroImage={homeContent?.heroImageUrl}
+    heroImage={homeContent?.heroImageUrl || '/images/hero-industrial.jpg'}
     primaryCtaText={homeContent?.primaryCtaText}
     secondaryCtaText={homeContent?.secondaryCtaText}
   />
