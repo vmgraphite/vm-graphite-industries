@@ -1,0 +1,118 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import EmptyState from '../../components/EmptyState.astro';
+import { getCategories, getAllProducts } from '../../lib/data';
+
+const categories = await getCategories();
+const allProducts = await getAllProducts();
+
+const selectedCategory = Astro.url.searchParams.get('category') || 'all';
+const searchQuery = Astro.url.searchParams.get('search')?.toLowerCase() || '';
+
+const filteredProducts = allProducts.filter((product) => {
+  const matchesCategory = selectedCategory === 'all' || product.categorySlug === selectedCategory;
+  const matchesSearch =
+    !searchQuery ||
+    product.name.toLowerCase().includes(searchQuery) ||
+    product.shortDescription.toLowerCase().includes(searchQuery) ||
+    product.categoryName.toLowerCase().includes(searchQuery);
+
+  return matchesCategory && matchesSearch;
+});
+---
+
+<Layout
+  title="Industrial Product Catalog | VM Graphite Industries LLP"
+  description="Browse VM Graphite complete catalog of graphite crucibles, suspensions, expanded foil tapes, end seals, and metering doctor blades."
+  breadcrumbs={[
+    { name: 'Products Catalog', item: '/products' }
+  ]}
+>
+  <!-- Page Header -->
+  <section class="bg-slate-950 text-white py-14 industrial-grid-bg border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ name: 'Products Catalog', item: '/products' }]} />
+
+      <div class="max-w-3xl space-y-3 pt-2">
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          Industrial Product Catalog
+        </h1>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Explore our complete range of high-purity industrial graphite, thermal coating suspensions, sealing products, and doctor blades.
+        </p>
+      </div>
+
+      <!-- Search & Filter Controls Bar -->
+      <div class="mt-8 pt-6 border-t border-slate-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+        
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap items-center gap-2">
+          <a
+            href="/products?category=all"
+            class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+              selectedCategory === 'all'
+                ? 'bg-industrial-copper text-white shadow-md'
+                : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+            }`}
+          >
+            All Products ({allProducts.length})
+          </a>
+          {categories.map((cat) => {
+            const count = allProducts.filter((p) => p.categorySlug === cat.slug).length;
+            const isCatActive = selectedCategory === cat.slug;
+            return (
+              <a
+                href={`/products?category=${cat.slug}`}
+                class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+                  isCatActive
+                    ? 'bg-industrial-copper text-white shadow-md'
+                    : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+                }`}
+              >
+                {cat.name} ({count})
+              </a>
+            );
+          })}
+        </div>
+
+        <!-- Search Input -->
+        <form method="GET" action="/products" class="relative max-w-xs w-full">
+          {selectedCategory !== 'all' && <input type="hidden" name="category" value={selectedCategory} />}
+          <input
+            type="text"
+            name="search"
+            value={searchQuery}
+            placeholder="Search products..."
+            class="w-full bg-slate-900 border border-slate-800 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-industrial-copper"
+          />
+          <svg class="w-4 h-4 text-slate-500 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Grid Content -->
+  <section class="py-16 bg-slate-50 min-h-[500px]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      {filteredProducts.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProducts.map((product) => (
+            <ProductCard product={product} />
+          ))}
+        </div>
+      ) : (
+        <EmptyState
+          title="No Matching Industrial Products"
+          message={`No products match your criteria "${searchQuery || selectedCategory}". Reset your search or contact our technical team for custom material formulations.`}
+          actionText="Clear All Filters"
+          actionUrl="/products"
+        />
+      )}
+
+    </div>
+  </section>
+</Layout>

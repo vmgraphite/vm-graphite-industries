@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import DownloadCard from '../components/DownloadCard.astro';
+import { getResources } from '../lib/data';
+
+const resources = await getResources();
+const selectedCategory = Astro.url.searchParams.get('category') || 'all';
+
+const filteredResources = resources.filter((res) => {
+  if (selectedCategory === 'all') return true;
+  return res.category === selectedCategory;
+});
+---
+
+<Layout
+  title="Downloads & Technical Resources | VM Graphite Industries LLP"
+  description="Download official VM Graphite corporate brochures, product catalogs, engineering technical datasheets, and ISO 9001 quality certificates."
+  breadcrumbs={[{ name: 'Downloads', item: '/downloads' }]}
+>
+  <!-- Page Header -->
+  <section class="bg-slate-950 text-white py-14 industrial-grid-bg border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ name: 'Downloads', item: '/downloads' }]} />
+
+      <div class="max-w-3xl space-y-3 pt-2">
+        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
+          Downloads &amp; Resource Hub
+        </h1>
+        <p class="text-slate-300 text-sm sm:text-base">
+          Access official PDF datasheets, product catalogs, technical guidelines, and quality certificates.
+        </p>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="mt-8 pt-6 border-t border-slate-800 flex flex-wrap items-center gap-2">
+        <a
+          href="/downloads?category=all"
+          class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            selectedCategory === 'all'
+              ? 'bg-industrial-copper text-white shadow-md'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+          }`}
+        >
+          All Resources ({resources.length})
+        </a>
+        <a
+          href="/downloads?category=catalog"
+          class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            selectedCategory === 'catalog'
+              ? 'bg-industrial-copper text-white shadow-md'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+          }`}
+        >
+          Catalogs
+        </a>
+        <a
+          href="/downloads?category=brochure"
+          class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            selectedCategory === 'brochure'
+              ? 'bg-industrial-copper text-white shadow-md'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+          }`}
+        >
+          Brochures
+        </a>
+        <a
+          href="/downloads?category=datasheet"
+          class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            selectedCategory === 'datasheet'
+              ? 'bg-industrial-copper text-white shadow-md'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+          }`}
+        >
+          Technical Datasheets
+        </a>
+        <a
+          href="/downloads?category=certification"
+          class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
+            selectedCategory === 'certification'
+              ? 'bg-industrial-copper text-white shadow-md'
+              : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
+          }`}
+        >
+          Certifications
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download Grid Content -->
+  <section class="py-16 bg-slate-50 min-h-[500px]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filteredResources.map((res) => (
+          <DownloadCard resource={res} />
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

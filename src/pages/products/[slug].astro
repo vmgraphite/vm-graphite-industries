@@ -1,0 +1,205 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import ProductSpecs from '../../components/ProductSpecs.astro';
+import ProductCard from '../../components/ProductCard.astro';
+import BrochureCTA from '../../components/BrochureCTA.astro';
+
+import { getProductBySlug, getAllProducts } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const products = await getAllProducts();
+  return products.map((product) => ({
+    params: { slug: product.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const product = await getProductBySlug(slug as string);
+
+if (!product) {
+  return Astro.redirect('/404');
+}
+
+const breadcrumbItems = [
+  { name: 'Products Catalog', href: '/products' },
+  { name: product.categoryName, href: `/products?category=${product.categorySlug}` },
+  { name: product.name },
+];
+---
+
+<Layout
+  title={product.seoTitle || `${product.name} | VM Graphite Industries`}
+  description={product.seoDescription || product.shortDescription}
+  image={product.mainImage}
+  type="product"
+  productData={{
+    name: product.name,
+    description: product.shortDescription,
+    image: product.mainImage,
+    category: product.categoryName,
+  }}
+  breadcrumbs={breadcrumbItems.map((b) => ({ name: b.name, item: b.href || Astro.url.href }))}
+>
+  <!-- Detail Header Banner -->
+  <section class="bg-slate-950 text-white py-12 industrial-grid-bg border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbItems} />
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start pt-4">
+        
+        <!-- Left Product Images Gallery (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
+          <div class="rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 aspect-4/3 shadow-industrial">
+            <img
+              id="main-product-img"
+              src={product.mainImage}
+              alt={product.name}
+              class="w-full h-full object-cover"
+            />
+          </div>
+
+          {product.gallery && product.gallery.length > 0 && (
+            <div class="flex items-center gap-3 overflow-x-auto pb-2">
+              <button
+                type="button"
+                class="w-20 h-16 rounded-lg overflow-hidden border-2 border-industrial-copper shrink-0 focus:outline-none"
+                onclick={`document.getElementById('main-product-img').src='${product.mainImage}'`}
+              >
+                <img src={product.mainImage} alt={product.name} class="w-full h-full object-cover" />
+              </button>
+              {product.gallery.map((imgUrl) => (
+                <button
+                  type="button"
+                  class="w-20 h-16 rounded-lg overflow-hidden border border-slate-800 hover:border-slate-600 shrink-0 focus:outline-none"
+                  onclick={`document.getElementById('main-product-img').src='${imgUrl}'`}
+                >
+                  <img src={imgUrl} alt={`${product.name} gallery image`} class="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <!-- Right Product Summary & Actions (7 cols) -->
+        <div class="lg:col-span-7 space-y-6">
+          <div class="space-y-2">
+            <div class="inline-block px-3 py-1 bg-industrial-copper/20 text-industrial-copper border border-industrial-copper/30 rounded-md text-xs font-bold uppercase tracking-wider">
+              {product.categoryName}
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+              {product.name}
+            </h1>
+          </div>
+
+          <p class="text-base text-slate-300 leading-relaxed font-normal">
+            {product.shortDescription}
+          </p>
+
+          <!-- Top Spec Summary Highlights -->
+          {product.specifications && product.specifications.length > 0 && (
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-slate-900 border border-slate-800 p-4 rounded-xl">
+              {product.specifications.slice(0, 3).map((spec) => (
+                <div>
+                  <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">{spec.name}</div>
+                  <div class="text-sm font-bold text-white font-mono mt-0.5">{spec.value}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <!-- Commercial Action CTAs -->
+          <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+            <button
+              type="button"
+              data-open-quote-modal
+              data-product-name={product.name}
+              data-product-category={product.categoryName}
+              class="px-8 py-4 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white font-bold rounded-xl shadow-industrial flex items-center justify-center gap-2.5 transition-all transform active:scale-95 text-base cursor-pointer"
+            >
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+              <span>Get Best Quote</span>
+            </button>
+
+            {product.productPdfUrl && (
+              <a
+                href={product.productPdfUrl}
+                target="_blank"
+                download
+                class="px-6 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold rounded-xl border border-slate-700/80 flex items-center justify-center gap-2 transition-colors text-sm"
+              >
+                <svg class="w-4 h-4 text-industrial-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                <span>Download Tech Datasheet (PDF)</span>
+              </a>
+            )}
+          </div>
+
+          <div class="text-xs text-slate-400 flex items-center gap-4 pt-1">
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              In Stock &amp; Made to Custom Order
+            </span>
+            <span class="flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              Global Shipping Available
+            </span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications & Detailed Overview Section -->
+  <section class="py-16 bg-white text-slate-900 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      
+      <!-- Structured Specifications Table -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-extrabold text-slate-900">Technical Specifications Matrix</h2>
+          <span class="text-xs font-mono text-slate-500 uppercase">STANDARDS: ISO / ASTM METALLURGICAL</span>
+        </div>
+        
+        <ProductSpecs specifications={product.specifications} />
+      </div>
+
+      <!-- Detailed Description / Application Notes -->
+      <div class="space-y-4 pt-6 border-t border-slate-200">
+        <h2 class="text-2xl font-extrabold text-slate-900">Detailed Product Overview &amp; Applications</h2>
+        <div class="prose max-w-none text-slate-600 text-sm leading-relaxed space-y-4">
+          <p>{product.fullDescription || product.shortDescription}</p>
+          <p>
+            Engineered specifically for demanding B2B industrial environments. All batches undergo non-destructive ultrasonic density scanning, spectrographic carbon purity testing, and dimensional inspection.
+          </p>
+        </div>
+      </div>
+
+      <!-- Related Products Section -->
+      {product.relatedProducts && product.relatedProducts.length > 0 && (
+        <div class="space-y-6 pt-12 border-t border-slate-200">
+          <h2 class="text-2xl font-extrabold text-slate-900">Complementary Products &amp; Materials</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {product.relatedProducts.map((rel: any) => (
+              <a
+                href={`/products/${rel.slug}`}
+                class="bg-slate-50 border border-slate-200 rounded-xl p-4 flex items-center gap-4 hover:border-industrial-copper transition-colors group"
+              >
+                <img src={rel.mainImage} alt={rel.name} class="w-16 h-16 rounded-lg object-cover bg-slate-900 shrink-0" />
+                <div>
+                  <div class="text-[10px] font-bold text-industrial-copper uppercase">{rel.categoryName}</div>
+                  <h4 class="text-sm font-bold text-slate-900 group-hover:text-industrial-copper transition-colors">{rel.name}</h4>
+                  <span class="text-xs text-slate-500 font-semibold mt-1 block">View Specs &rarr;</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
+
+    </div>
+  </section>
+
+  <!-- Brochure CTA Banner -->
+  <BrochureCTA />
+</Layout>

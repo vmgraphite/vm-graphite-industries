@@ -1,0 +1,36 @@
+---
+import type { SpecRow } from '../lib/mockData';
+
+export interface Props {
+  specifications: SpecRow[];
+}
+
+const { specifications } = Astro.props;
+---
+
+<div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-sm">
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="bg-slate-900 text-white text-xs uppercase tracking-wider font-bold">
+        <th class="py-3.5 px-5 w-1/2">Technical Parameter / Attribute</th>
+        <th class="py-3.5 px-5 w-1/2">Standard Specification / Value</th>
+      </tr>
+    </thead>
+    <tbody class="divide-y divide-slate-200 text-sm">
+      {specifications && specifications.length > 0 ? (
+        specifications.map((spec, idx) => (
+          <tr class={idx % 2 === 0 ? 'bg-white hover:bg-slate-50' : 'bg-slate-50/80 hover:bg-slate-100'}>
+            <td class="py-3.5 px-5 font-semibold text-slate-700">{spec.name}</td>
+            <td class="py-3.5 px-5 font-bold font-mono text-slate-900">{spec.value}</td>
+          </tr>
+        ))
+      ) : (
+        <tr>
+          <td colspan="2" class="py-4 px-5 text-center text-slate-500 text-xs italic">
+            Custom specifications available upon engineering request.
+          </td>
+        </tr>
+      )}
+    </tbody>
+  </table>
+</div>

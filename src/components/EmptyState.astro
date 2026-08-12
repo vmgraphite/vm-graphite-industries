@@ -1,0 +1,31 @@
+---
+export interface Props {
+  title?: string;
+  message?: string;
+  actionText?: string;
+  actionUrl?: string;
+}
+
+const {
+  title = 'No Products Found',
+  message = 'We could not find any products matching your current search or category filter. Try clearing your filters or contact our technical team for custom material sourcing.',
+  actionText = 'View All Products',
+  actionUrl = '/products',
+} = Astro.props;
+---
+
+<div class="bg-white border border-slate-200 rounded-2xl p-12 text-center max-w-lg mx-auto my-12 shadow-sm space-y-4">
+  <div class="w-16 h-16 bg-slate-100 text-slate-400 rounded-full flex items-center justify-center mx-auto">
+    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+  </div>
+  <h3 class="text-xl font-bold text-slate-900">{title}</h3>
+  <p class="text-xs text-slate-600 leading-relaxed">{message}</p>
+  <div class="pt-2">
+    <a
+      href={actionUrl}
+      class="inline-flex items-center gap-2 px-6 py-2.5 bg-slate-900 hover:bg-industrial-copper text-white text-xs font-bold rounded-lg transition-colors"
+    >
+      <span>{actionText}</span>
+    </a>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+---
+const strengths = [
+  {
+    title: 'Manufacturing Expertise',
+    description: 'In-house precision machining, chemical formulation, and high-density pressing engineered by experienced metallurgists.',
+    icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 01-.517-3.86l.477-2.387a2 2 0 00-.547-1.022l-1.07-1.07a2 2 0 00-2.828 0l-1.07 1.07a2 2 0 000 2.828l1.07 1.07z',
+  },
+  {
+    title: 'Custom Sizes & Specifications',
+    description: 'Bespoke component engineering according to OEM drawings, tight tolerances (±0.02mm), and specific density targets.',
+    icon: 'M11 4a2 2 0 114 0v1a2 2 0 01-2 2h-1.5a1 1 0 00-1 1v2.5a1 1 0 001 1H15a2 2 0 012 2v1a2 2 0 11-4 0v-1a2 2 0 012-2h1.5a1 1 0 001-1V9.5a1 1 0 00-1-1H13a2 2 0 01-2-2V4z',
+  },
+  {
+    title: 'High-Temperature Applications',
+    description: 'Thermal stability up to 3000°C in inert atmospheres. Resistant to thermal shock, oxidation, and molten metal erosion.',
+    icon: 'M17.657 18.657A8 8 0 016.343 7.343S7 9 9 10c0-2 .5-5 2.986-7C14 5 16.09 5.777 17.656 7.343A7.975 7.975 0 0120 13a7.975 7.975 0 01-2.343 5.657z',
+  },
+  {
+    title: 'Quality-Focused Production',
+    description: 'Strict spectrographic analysis, ash testing, ultrasonic density scanning, and batch certification for zero-defect output.',
+    icon: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+  },
+  {
+    title: 'Timely Delivery & Logistics',
+    description: 'Streamlined supply chain logistics across domestic industrial hubs and international ports for minimal lead times.',
+    icon: 'M13 10V3L4 14h7v7l9-11h-7z',
+  },
+  {
+    title: 'Reliable Industrial Solutions',
+    description: 'Long-standing partnership with foundries, flexo printers, steel plants, and glass manufacturers across 20+ countries.',
+    icon: 'M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457-.312-2.841-.873-4.084',
+  },
+];
+---
+
+<section class="py-20 bg-slate-900 text-white border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+      <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Core Competencies</h2>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Why Industry Leaders Choose VM Graphite</h3>
+      <p class="text-slate-400 text-base">
+        Our commitment to precision engineering, continuous material innovation, and strict quality control sets the benchmark in industrial graphite manufacturing.
+      </p>
+    </div>
+
+    <!-- Strengths Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      {strengths.map((item) => (
+        <div class="bg-slate-950/80 border border-slate-800 hover:border-industrial-copper/50 p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 shadow-industrial group">
+          <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-industrial-copper group-hover:bg-industrial-copper group-hover:text-white flex items-center justify-center transition-colors mb-6">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3 group-hover:text-industrial-copper transition-colors">{item.title}</h4>
+          <p class="text-sm text-slate-400 leading-relaxed">{item.description}</p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

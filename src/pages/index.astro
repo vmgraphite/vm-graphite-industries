@@ -1,0 +1,85 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import CompanyStrengths from '../components/CompanyStrengths.astro';
+import FeaturedCategories from '../components/FeaturedCategories.astro';
+import Capabilities from '../components/Capabilities.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import FeaturedProducts from '../components/FeaturedProducts.astro';
+import BrochureCTA from '../components/BrochureCTA.astro';
+
+import {
+  getSiteSettings,
+  getCategories,
+  getFeaturedProducts,
+  getHomePageContent,
+} from '../lib/data';
+
+const siteSettings = await getSiteSettings();
+const categories = await getCategories();
+const featuredProducts = await getFeaturedProducts();
+const homeContent = await getHomePageContent();
+---
+
+<Layout
+  title="VM Graphite Industries LLP | Advanced Industrial Graphite Solutions"
+  description="Premier manufacturer of industrial graphite crucibles, colloidal graphite suspensions, sealing foil tapes, and doctor blades in India. Iso-pressed quality, high thermal stability."
+>
+  <!-- Hero Section -->
+  <Hero
+    headline={homeContent?.heroHeadline}
+    subheadline={homeContent?.heroSubheadline}
+    heroImage={homeContent?.heroImageUrl}
+    primaryCtaText={homeContent?.primaryCtaText}
+    secondaryCtaText={homeContent?.secondaryCtaText}
+  />
+
+  <!-- Key Company Strengths -->
+  <CompanyStrengths />
+
+  <!-- Featured Categories -->
+  <FeaturedCategories categories={categories} />
+
+  <!-- Manufacturing Capabilities Section -->
+  <Capabilities />
+
+  <!-- Why Choose Us -->
+  <WhyChooseUs />
+
+  <!-- Featured Products -->
+  <FeaturedProducts products={featuredProducts} />
+
+  <!-- Brochure Download Banner -->
+  <BrochureCTA brochureUrl={siteSettings.companyBrochureUrl} />
+
+  <!-- Final Lead Generation Banner -->
+  <section class="py-20 bg-slate-950 text-white border-t border-slate-800 relative overflow-hidden">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
+      <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Custom Material Engineering</h2>
+      <h3 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+        Looking for a Specific Industrial Material or Dimension?
+      </h3>
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Our metallurgists and engineering team specialize in custom grain sizes, specialized liquid formulations, and high-precision CNC turned graphite parts.
+      </p>
+
+      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <button
+          type="button"
+          data-open-quote-modal
+          class="w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white font-bold rounded-xl shadow-industrial-lg flex items-center justify-center gap-2 transition-all transform active:scale-95 text-base cursor-pointer"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Request Custom Quotation</span>
+        </button>
+
+        <a
+          href="/contact"
+          class="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold rounded-xl border border-slate-700/80 transition-colors text-base"
+        >
+          Contact Technical Sales
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

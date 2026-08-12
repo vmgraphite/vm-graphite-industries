@@ -1,0 +1,56 @@
+---
+const advantages = [
+  {
+    title: 'Zero Thermal Cracking',
+    desc: 'High thermal shock resistance prevents cracking during rapid induction heating cycles.',
+  },
+  {
+    title: 'Extremely Low Ash Content',
+    desc: 'Purified carbon formulation (<0.1% ash) guarantees clean melt pools without slag inclusions.',
+  },
+  {
+    title: 'Chemical Inertness',
+    desc: 'Resistant to strong acids, molten aluminum, zinc alloys, and aggressive flexographic inks.',
+  },
+  {
+    title: 'Self-Lubricating Surface',
+    desc: 'Eliminates friction and dry-wear in high-pressure steam pump packing and valve stems.',
+  },
+  {
+    title: 'Strict Quality Traceability',
+    desc: 'Every shipment includes spectrographic test certificates and physical parameter logs.',
+  },
+  {
+    title: 'Global Export Readiness',
+    desc: 'Export-standard sea-worthy wooden pallet packaging for safe global transit.',
+  },
+];
+---
+
+<section class="py-20 bg-slate-900 text-white border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
+      <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Engineering Excellence</h2>
+      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">The VM Graphite Advantage</h3>
+      <p class="text-slate-400 text-base">
+        Delivering consistent material purity, extended operational life, and reduced maintenance downtime for modern industrial operations.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {advantages.map((adv) => (
+        <div class="bg-slate-950 border border-slate-800 p-6 rounded-xl flex items-start gap-4 hover:border-slate-700 transition-colors">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+          </div>
+          <div>
+            <h4 class="text-base font-bold text-white mb-1">{adv.title}</h4>
+            <p class="text-xs text-slate-400 leading-relaxed">{adv.desc}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

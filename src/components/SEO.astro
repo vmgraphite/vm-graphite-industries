@@ -1,0 +1,126 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+  type?: 'website' | 'product' | 'article';
+  productData?: {
+    name: string;
+    description: string;
+    image: string;
+    category: string;
+    sku?: string;
+  };
+  breadcrumbs?: { name: string; item: string }[];
+}
+
+const {
+  title = 'VM Graphite Industries LLP | Advanced Industrial Graphite Solutions',
+  description = 'Leading manufacturer of high-purity industrial graphite crucibles, colloidal graphite suspensions, sealing tapes, flexible foil gaskets, and doctor blades in India.',
+  image = '/images/logo.svg',
+  canonicalUrl = Astro.url.href,
+  type = 'website',
+  productData,
+  breadcrumbs,
+} = Astro.props;
+
+const siteName = 'VM Graphite Industries LLP';
+const formattedTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
+const fullImageUrl = image.startsWith('http') ? image : new URL(image, Astro.site).href;
+
+// JSON-LD Organization Schema
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'VM Graphite Industries LLP',
+  url: 'https://vmgraphiteindustries.com',
+  logo: new URL('/images/logo.svg', Astro.site).href,
+  description: 'Manufacturer of high-performance industrial graphite products, colloidal suspensions, sealing materials, and printing doctor blades.',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: '+91-9876543210',
+    contactType: 'sales',
+    areaServed: 'IN',
+    availableLanguage: ['English', 'Hindi'],
+  },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Plot No. 42, Industrial Area, Phase II',
+    addressLocality: 'New Delhi',
+    postalCode: '110020',
+    addressCountry: 'IN',
+  },
+};
+
+// JSON-LD WebSite Schema
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: 'VM Graphite Industries LLP',
+  url: 'https://vmgraphiteindustries.com',
+};
+
+// JSON-LD Product Schema (if product page)
+const productSchema = productData
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'Product',
+      name: productData.name,
+      image: [productData.image.startsWith('http') ? productData.image : new URL(productData.image, Astro.site).href],
+      description: productData.description,
+      category: productData.category,
+      brand: {
+        '@type': 'Brand',
+        name: 'VM Graphite Industries',
+      },
+      offers: {
+        '@type': 'AggregateOffer',
+        priceCurrency: 'INR',
+        price: 'Contact for Quote',
+        availability: 'https://schema.org/InStock',
+      },
+    }
+  : null;
+
+// JSON-LD Breadcrumb Schema
+const breadcrumbSchema = breadcrumbs
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: breadcrumbs.map((crumb, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: crumb.name,
+        item: crumb.item.startsWith('http') ? crumb.item : new URL(crumb.item, Astro.site).href,
+      })),
+    }
+  : null;
+---
+
+<!-- Primary Meta Tags -->
+<title>{formattedTitle}</title>
+<meta name="title" content={formattedTitle} />
+<meta name="description" content={description} />
+<link rel="canonical" href={canonicalUrl} />
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content={type} />
+<meta property="og:url" content={canonicalUrl} />
+<meta property="og:title" content={formattedTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={fullImageUrl} />
+<meta property="og:site_name" content={siteName} />
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalUrl} />
+<meta property="twitter:title" content={formattedTitle} />
+<meta property="twitter:description" content={description} />
+<meta property="twitter:image" content={fullImageUrl} />
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+{productSchema && <script type="application/ld+json" set:html={JSON.stringify(productSchema)} />}
+{breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}

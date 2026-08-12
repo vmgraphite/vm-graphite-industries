@@ -1,0 +1,78 @@
+---
+const capabilities = [
+  {
+    step: '01',
+    title: 'Isostatic & Hydraulic Pressing',
+    desc: 'High-density graphite forming under multi-directional hydrostatic pressure to achieve ultra-fine grain uniformity and zero micro-void integrity.',
+    metric: 'Max 1.95 g/cm³ Density',
+  },
+  {
+    step: '02',
+    title: 'Precision CNC Machining',
+    desc: '5-axis high-speed CNC milling and turning centers capable of executing tight tolerance sleeve, ring, and custom mold geometry.',
+    metric: '±0.02 mm Tolerance',
+  },
+  {
+    step: '03',
+    title: 'Thermal Metalizing & Coating',
+    desc: 'Automated spray suspension lines for applying protective boron nitride, micro-graphite, and ceramic thermal barrier films.',
+    metric: 'Up to 3000°C Thermal Stability',
+  },
+  {
+    step: '04',
+    title: 'Spectrographic & Ash Testing',
+    desc: 'In-house spectrographic purity analysis, ash content verification, and ultrasonic density scans for every production batch.',
+    metric: '99.9% Carbon Assurance',
+  },
+];
+---
+
+<section class="py-20 bg-slate-950 text-white relative overflow-hidden border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      
+      <!-- Left Column Text -->
+      <div class="lg:col-span-5 space-y-6">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-industrial-copper/10 text-industrial-copper border border-industrial-copper/20 text-xs font-bold uppercase tracking-wider">
+          Plant Infrastructure
+        </div>
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+          Advanced Precision Manufacturing Capabilities
+        </h2>
+        <p class="text-slate-300 text-base leading-relaxed">
+          Our state-of-the-art manufacturing plants in New Delhi and Gujarat house specialized equipment engineered for extreme material processing. From high-purity synthetic graphite machining to automated colloidal liquid suspensions, we maintain total quality control over every production phase.
+        </p>
+
+        <div class="pt-4 flex items-center gap-4">
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+            <div class="text-2xl font-black text-white">50,000+</div>
+            <div class="text-xs font-medium text-slate-400">Sq. Ft. Production Floor</div>
+          </div>
+          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+            <div class="text-2xl font-black text-industrial-copper">100%</div>
+            <div class="text-xs font-medium text-slate-400">Batch Inspection</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column Interactive Capabilities Stack -->
+      <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {capabilities.map((cap) => (
+          <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl relative group hover:border-industrial-copper/50 transition-all duration-300">
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-xs font-black text-industrial-copper bg-industrial-copper/10 px-2.5 py-1 rounded-md border border-industrial-copper/20">
+                STAGE {cap.step}
+              </span>
+              <span class="text-[11px] font-semibold text-slate-400 font-mono">{cap.metric}</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-industrial-copper transition-colors">{cap.title}</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">{cap.desc}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+
+  </div>
+</section>

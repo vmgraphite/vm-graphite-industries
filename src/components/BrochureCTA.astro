@@ -1,0 +1,52 @@
+---
+export interface Props {
+  brochureUrl?: string;
+}
+
+const { brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf' } = Astro.props;
+---
+
+<section class="py-16 bg-gradient-to-r from-slate-950 via-slate-900 to-slate-950 text-white relative overflow-hidden border-b border-slate-800">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <div class="bg-slate-900/90 border border-slate-800 rounded-3xl p-8 sm:p-12 shadow-industrial-lg flex flex-col lg:flex-row items-center justify-between gap-8 relative overflow-hidden">
+      
+      <!-- Background Technical Accent -->
+      <div class="absolute -right-12 -bottom-12 w-80 h-80 bg-industrial-copper/10 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="space-y-4 max-w-2xl text-center lg:text-left relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-industrial-copper/20 text-industrial-copper border border-industrial-copper/30 text-xs font-bold uppercase tracking-wider">
+          Official Documentation
+        </div>
+        <h3 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+          Download VM Graphite Corporate Brochure &amp; Technical Catalog
+        </h3>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
+          Access complete product dimensions, thermal performance charts, chemical resistance matrices, and ISO manufacturing certifications in a single convenient PDF datasheet.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-4 relative z-10 shrink-0">
+        <a
+          href={brochureUrl}
+          target="_blank"
+          download="VM_Graphite_Industries_Brochure.pdf"
+          class="w-full sm:w-auto px-8 py-4 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white font-bold rounded-xl shadow-industrial flex items-center justify-center gap-3 transition-all transform active:scale-95 text-base"
+          aria-label="Download VM Graphite Corporate PDF Brochure"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <span>Download PDF Brochure</span>
+        </a>
+
+        <a
+          href="/downloads"
+          class="w-full sm:w-auto px-6 py-4 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-bold rounded-xl transition-colors text-center"
+        >
+          View All Datasheets
+        </a>
+      </div>
+
+    </div>
+
+  </div>
+</section>

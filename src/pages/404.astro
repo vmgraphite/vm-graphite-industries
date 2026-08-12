@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="404 - Page Not Found | VM Graphite Industries LLP">
+  <section class="py-24 bg-slate-950 text-white min-h-[70vh] flex items-center justify-center industrial-grid-bg">
+    <div class="max-w-md mx-auto px-4 text-center space-y-6">
+      <div class="w-20 h-20 bg-industrial-copper/20 text-industrial-copper rounded-2xl flex items-center justify-center mx-auto border border-industrial-copper/30">
+        <span class="text-3xl font-black">404</span>
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-3xl font-black text-white">Industrial Resource Not Found</h1>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          The requested page or product specification could not be located. It may have been renamed or moved within our Sanity catalog.
+        </p>
+      </div>
+
+      <div class="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+        <a
+          href="/"
+          class="w-full sm:w-auto px-6 py-3 bg-industrial-copper hover:bg-industrial-copper-hover text-white text-xs font-bold rounded-xl shadow-md transition-colors"
+        >
+          Return to Home Page
+        </a>
+        <a
+          href="/products"
+          class="w-full sm:w-auto px-6 py-3 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-bold rounded-xl border border-slate-800 transition-colors"
+        >
+          Explore Product Catalog
+        </a>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" fill="none">
+  <defs>
+    <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D97706" />
+      <stop offset="100%" stop-color="#B45309" />
+    </linearGradient>
+    <linearGradient id="slate-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Hexagonal Graphite Crystal Icon -->
+  <g transform="translate(10, 10)">
+    <polygon points="25,2 48,15 48,40 25,53 2,40 2,15" fill="url(#slate-grad)" stroke="url(#logo-grad)" stroke-width="2.5"/>
+    <polygon points="25,12 38,20 38,35 25,43 12,35 12,20" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3 2"/>
+    <circle cx="25" cy="27" r="5" fill="url(#logo-grad)"/>
+    <line x1="25" y1="2" x2="25" y2="12" stroke="url(#logo-grad)" stroke-width="2"/>
+    <line x1="48" y1="15" x2="38" y2="20" stroke="url(#logo-grad)" stroke-width="2"/>
+    <line x1="48" y1="40" x2="38" y2="35" stroke="url(#logo-grad)" stroke-width="2"/>
+  </g>
+  
+  <!-- Typography -->
+  <text x="75" y="34" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#F8FAFC" letter-spacing="1">VM GRAPHITE</text>
+  <text x="75" y="52" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#D97706" letter-spacing="2.5">INDUSTRIES LLP</text>
+</svg>

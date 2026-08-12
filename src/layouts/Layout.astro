@@ -1,0 +1,72 @@
+---
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import QuoteModal from '../components/QuoteModal';
+import { getSiteSettings, getCategories } from '../lib/data';
+import '../styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'product' | 'article';
+  productData?: any;
+  breadcrumbs?: { name: string; item: string }[];
+}
+
+const { title, description, image, type, productData, breadcrumbs } = Astro.props;
+const siteSettings = await getSiteSettings();
+const categories = await getCategories();
+---
+
+<!xhtml>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <SEO
+      title={title}
+      description={description}
+      image={image}
+      type={type}
+      productData={productData}
+      breadcrumbs={breadcrumbs}
+    />
+  </head>
+  <body class="bg-slate-50 text-slate-900 font-sans antialiased min-h-screen flex flex-col selection:bg-industrial-copper selection:text-white">
+    <Header siteSettings={siteSettings} categories={categories} />
+    
+    <main class="flex-grow">
+      <slot />
+    </main>
+
+    <Footer siteSettings={siteSettings} categories={categories} />
+
+    <!-- WhatsApp Floating Action Button -->
+    <WhatsAppButton whatsappNumber={siteSettings.whatsappNumber} />
+
+    <!-- Global Product Quote Request Modal -->
+    <QuoteModal client:idle />
+
+    <!-- Custom Event Script for Quote Modal Buttons -->
+    <script>
+      document.addEventListener('click', (e) => {
+        const target = (e.target as HTMLElement).closest('[data-open-quote-modal]');
+        if (target) {
+          const productName = target.getAttribute('data-product-name') || '';
+          const categoryName = target.getAttribute('data-product-category') || '';
+          window.dispatchEvent(
+            new CustomEvent('open-quote-modal', {
+              detail: { productName, categoryName },
+            })
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

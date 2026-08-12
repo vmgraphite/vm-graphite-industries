@@ -1,0 +1,95 @@
+import { defineType, defineField } from 'sanity';
+
+export const siteSettingsSchema = defineType({
+  name: 'siteSettings',
+  title: 'Site Settings & Contact Information',
+  type: 'document',
+  fields: [
+    defineField({
+      name: 'companyName',
+      title: 'Company Legal Name',
+      type: 'string',
+      initialValue: 'VM Graphite Industries LLP',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'tagline',
+      title: 'Company Tagline / Subtitle',
+      type: 'string',
+      initialValue: 'Advanced Industrial Graphite & Sealing Material Solutions',
+    }),
+    defineField({
+      name: 'logo',
+      title: 'Company Logo',
+      type: 'image',
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: 'primaryPhone',
+      title: 'Primary Phone Number',
+      type: 'string',
+      description: 'Format: +91 98XXX XXXXX or landline number displayed on website.',
+      initialValue: '+91 98765 43210',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'secondaryPhone',
+      title: 'Secondary Phone / Sales Number',
+      type: 'string',
+    }),
+    defineField({
+      name: 'whatsappNumber',
+      title: 'WhatsApp Business Number (with country code)',
+      type: 'string',
+      description: 'Digits only with country code (e.g. 919876543210) for instant WhatsApp click-to-chat.',
+      initialValue: '919876543210',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'email',
+      title: 'Official Email Address',
+      type: 'string',
+      initialValue: 'sales@vmgraphiteindustries.com',
+      validation: (Rule) => Rule.required().email(),
+    }),
+    defineField({
+      name: 'officeAddress',
+      title: 'Corporate / Registered Office Address',
+      type: 'text',
+      rows: 3,
+      initialValue: 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'plantAddress',
+      title: 'Manufacturing Plant Address',
+      type: 'text',
+      rows: 3,
+      initialValue: 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+    }),
+    defineField({
+      name: 'googleMapsUrl',
+      title: 'Google Maps Link or Embed URL',
+      type: 'url',
+      description: 'Full Google Maps share link or iframe embed URL for contact page map.',
+    }),
+    defineField({
+      name: 'workingHours',
+      title: 'Working Hours',
+      type: 'string',
+      initialValue: 'Mon - Sat: 9:00 AM - 6:30 PM (IST)',
+    }),
+    defineField({
+      name: 'companyBrochure',
+      title: 'Main Company Brochure PDF',
+      type: 'file',
+      description: 'Upload main PDF brochure. Visitors can download this across hero, footer, and CTA banners.',
+      options: { accept: '.pdf' },
+    }),
+    defineField({
+      name: 'seo',
+      title: 'Default Site-wide SEO Settings',
+      type: 'seo',
+    }),
+  ],
+});
