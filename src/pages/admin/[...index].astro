@@ -26,13 +26,16 @@ export function getStaticPaths() {
   </div>
 
   <script>
-    import { renderStudio } from 'sanity';
+    import React from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { Studio } from 'sanity';
     import config from '../../../sanity.config';
 
     const rootElement = document.getElementById('sanity-studio-root');
     if (rootElement && import.meta.env.PUBLIC_SANITY_PROJECT_ID) {
       try {
-        renderStudio(rootElement, config);
+        const root = createRoot(rootElement);
+        root.render(React.createElement(Studio, { config }));
       } catch (err) {
         console.log('Sanity Studio initialization waiting for credentials:', err);
       }
