@@ -27,47 +27,51 @@ const capabilities = [
 ];
 ---
 
-<section class="py-20 bg-slate-950 text-white relative overflow-hidden border-b border-slate-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-24 bg-white text-slate-900 relative overflow-hidden border-b border-slate-200/80">
+  
+  <!-- Subtle Light Ambient Aura -->
+  <div class="absolute bottom-0 left-1/3 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       
       <!-- Left Column Text -->
-      <div class="lg:col-span-5 space-y-6">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-industrial-copper/10 text-industrial-copper border border-industrial-copper/20 text-xs font-bold uppercase tracking-wider">
+      <div class="lg:col-span-5 space-y-6 reveal-on-scroll">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 text-industrial-copper border border-amber-500/20 text-xs font-bold uppercase tracking-wider font-mono">
           Plant Infrastructure
         </div>
-        <h2 class="text-3xl sm:text-4xl font-extrabold text-white leading-tight">
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
           Advanced Precision Manufacturing Capabilities
         </h2>
-        <p class="text-slate-300 text-base leading-relaxed">
+        <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
           Our state-of-the-art manufacturing plants in New Delhi and Gujarat house specialized equipment engineered for extreme material processing. From high-purity synthetic graphite machining to automated colloidal liquid suspensions, we maintain total quality control over every production phase.
         </p>
 
-        <div class="pt-4 flex items-center gap-4">
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-            <div class="text-2xl font-black text-white">50,000+</div>
-            <div class="text-xs font-medium text-slate-400">Sq. Ft. Production Floor</div>
+        <div class="pt-4 grid grid-cols-2 gap-4">
+          <div class="glass-card-light p-5 rounded-2xl border border-slate-200/80">
+            <div class="text-3xl font-black text-slate-900 font-mono mb-1">50,000+</div>
+            <div class="text-xs font-medium text-slate-600">Sq. Ft. Production Floor</div>
           </div>
-          <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
-            <div class="text-2xl font-black text-industrial-copper">100%</div>
-            <div class="text-xs font-medium text-slate-400">Batch Inspection</div>
+          <div class="glass-card-light p-5 rounded-2xl border border-slate-200/80">
+            <div class="text-3xl font-black text-industrial-copper font-mono mb-1">100%</div>
+            <div class="text-xs font-medium text-slate-600">Batch Quality Inspection</div>
           </div>
         </div>
       </div>
 
-      <!-- Right Column Interactive Capabilities Stack -->
+      <!-- Right Column Capabilities Grid -->
       <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
         {capabilities.map((cap) => (
-          <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl relative group hover:border-industrial-copper/50 transition-all duration-300">
-            <div class="flex items-center justify-between mb-4">
-              <span class="text-xs font-black text-industrial-copper bg-industrial-copper/10 px-2.5 py-1 rounded-md border border-industrial-copper/20">
+          <div class="glass-card-light p-7 rounded-2xl relative group transition-all duration-300 transform hover:-translate-y-1.5 reveal-on-scroll">
+            <div class="flex items-center justify-between mb-5">
+              <span class="text-xs font-black text-industrial-copper bg-amber-500/10 px-3 py-1 rounded-md border border-amber-500/20 font-mono">
                 STAGE {cap.step}
               </span>
-              <span class="text-[11px] font-semibold text-slate-400 font-mono">{cap.metric}</span>
+              <span class="text-[11px] font-semibold text-slate-700 font-mono bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/80">{cap.metric}</span>
             </div>
-            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-industrial-copper transition-colors">{cap.title}</h3>
-            <p class="text-xs text-slate-400 leading-relaxed">{cap.desc}</p>
+            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-industrial-copper transition-colors">{cap.title}</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{cap.desc}</p>
           </div>
         ))}
       </div>
@@ -76,3 +80,5 @@ const capabilities = [
 
   </div>
 </section>
+
+

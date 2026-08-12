@@ -9,23 +9,26 @@ export interface Props {
 const { products } = Astro.props;
 ---
 
-<section class="py-20 bg-slate-900 text-white border-b border-slate-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-24 bg-white text-slate-900 border-b border-slate-200/80 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal-on-scroll">
       <div class="space-y-3 max-w-2xl">
-        <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Handpicked Solutions</h2>
-        <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Featured Industrial Products</h3>
-        <p class="text-slate-400 text-base">
-          Our flagship high-purity graphite and sealing components utilized in high-temperature manufacturing.
+        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 text-industrial-copper border border-amber-500/20 text-xs font-bold uppercase tracking-widest font-mono">
+          Handpicked Solutions
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+          Featured Industrial Products
+        </h2>
+        <p class="text-slate-600 text-base sm:text-lg leading-relaxed">
+          Our flagship high-purity graphite and sealing components engineered for high-temperature manufacturing.
         </p>
       </div>
       <a
         href="/products"
-        class="inline-flex items-center gap-2 text-sm font-bold text-industrial-copper hover:text-amber-400 transition-colors"
+        class="inline-flex items-center gap-2 text-sm font-bold text-industrial-copper hover:text-amber-700 transition-colors shrink-0"
       >
-        <span>View Complete Catalog ({products.length}+ Products)</span>
-        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <span>View Complete Catalog ({products.length}+ Products) &rarr;</span>
       </a>
     </div>
 
@@ -37,3 +40,5 @@ const { products } = Astro.props;
 
   </div>
 </section>
+
+

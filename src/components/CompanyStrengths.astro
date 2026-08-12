@@ -33,14 +33,22 @@ const strengths = [
 ];
 ---
 
-<section class="py-20 bg-slate-900 text-white border-b border-slate-800">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section class="py-24 bg-white text-slate-900 border-b border-slate-200/80 relative overflow-hidden">
+  
+  <!-- Subtle Light Ambient Glow -->
+  <div class="absolute top-1/2 right-0 w-80 h-80 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
     <!-- Section Header -->
-    <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-      <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Core Competencies</h2>
-      <h3 class="text-3xl sm:text-4xl font-extrabold text-white">Why Industry Leaders Choose VM Graphite</h3>
-      <p class="text-slate-400 text-base">
+    <div class="text-center max-w-3xl mx-auto space-y-4 mb-16 reveal-on-scroll">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 text-industrial-copper border border-amber-500/20 text-xs font-bold uppercase tracking-widest font-mono">
+        Core Competencies
+      </div>
+      <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight">
+        Why Industry Leaders Choose VM Graphite
+      </h2>
+      <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
         Our commitment to precision engineering, continuous material innovation, and strict quality control sets the benchmark in industrial graphite manufacturing.
       </p>
     </div>
@@ -48,17 +56,19 @@ const strengths = [
     <!-- Strengths Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {strengths.map((item) => (
-        <div class="bg-slate-950/80 border border-slate-800 hover:border-industrial-copper/50 p-8 rounded-2xl transition-all duration-300 hover:-translate-y-1 shadow-industrial group">
-          <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 text-industrial-copper group-hover:bg-industrial-copper group-hover:text-white flex items-center justify-center transition-colors mb-6">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <div class="glass-card-light p-8 rounded-2xl transition-all duration-300 transform hover:-translate-y-1.5 group reveal-on-scroll">
+          <div class="w-14 h-14 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-industrial-copper group-hover:bg-industrial-copper group-hover:text-white flex items-center justify-center transition-all duration-300 mb-6 shadow-2xs">
+            <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon} />
             </svg>
           </div>
-          <h4 class="text-xl font-bold text-white mb-3 group-hover:text-industrial-copper transition-colors">{item.title}</h4>
-          <p class="text-sm text-slate-400 leading-relaxed">{item.description}</p>
+          <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-industrial-copper transition-colors">{item.title}</h3>
+          <p class="text-sm text-slate-600 leading-relaxed font-normal">{item.description}</p>
         </div>
       ))}
     </div>
 
   </div>
 </section>
+
+

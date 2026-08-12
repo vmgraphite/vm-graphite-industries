@@ -9,23 +9,23 @@ const { product } = Astro.props;
 const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [];
 ---
 
-<div class="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-industrial hover:border-industrial-copper/60 transition-all duration-300 flex flex-col h-full group">
+<div class="glass-card-light rounded-2xl overflow-hidden transition-all duration-300 flex flex-col h-full group reveal-on-scroll">
   
   <!-- Image Banner -->
   <a href={`/products/${product.slug}`} class="aspect-4/3 overflow-hidden relative bg-slate-900 block">
     <img
       src={product.mainImage}
       alt={product.name}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-500"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent"></div>
     
-    <div class="absolute top-3 left-3 bg-slate-950/80 backdrop-blur-md px-2.5 py-1 rounded-md text-[11px] font-bold text-industrial-copper border border-slate-800">
+    <div class="absolute top-3 left-3 bg-white/95 backdrop-blur-md px-3 py-1 rounded-full text-[11px] font-bold text-industrial-copper border border-slate-200/90 font-mono shadow-2xs">
       {product.categoryName}
     </div>
 
     {product.isFeatured && (
-      <div class="absolute top-3 right-3 bg-industrial-copper text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-md shadow-sm">
+      <div class="absolute top-3 right-3 bg-gradient-to-r from-industrial-copper to-amber-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-xs">
         Featured
       </div>
     )}
@@ -37,14 +37,14 @@ const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [
       <h3 class="text-xl font-bold text-slate-900 group-hover:text-industrial-copper transition-colors mb-2">
         <a href={`/products/${product.slug}`}>{product.name}</a>
       </h3>
-      <p class="text-xs text-slate-600 line-clamp-3 leading-relaxed">
+      <p class="text-xs sm:text-sm text-slate-600 line-clamp-3 leading-relaxed font-normal">
         {product.shortDescription}
       </p>
     </div>
 
-    <!-- Structured Key Spec Chips -->
+    <!-- Key Spec Chips -->
     {topSpecs.length > 0 && (
-      <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3 space-y-1.5">
+      <div class="bg-slate-50 border border-slate-200/80 rounded-xl p-3 space-y-2">
         {topSpecs.map((spec) => (
           <div class="flex justify-between items-center text-xs">
             <span class="text-slate-500 font-medium">{spec.name}:</span>
@@ -55,26 +55,28 @@ const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [
     )}
 
     <!-- Action Buttons -->
-    <div class="pt-2 grid grid-cols-2 gap-2">
+    <div class="pt-2 grid grid-cols-2 gap-2.5">
       <button
         type="button"
         data-open-quote-modal
         data-product-name={product.name}
         data-product-category={product.categoryName}
-        class="w-full py-2.5 px-3 bg-industrial-copper hover:bg-industrial-copper-hover text-white text-xs font-bold rounded-lg shadow-sm transition-colors cursor-pointer flex items-center justify-center gap-1.5"
+        class="w-full py-3 px-3 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white text-xs font-bold rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
       >
         <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-        <span>Get Best Quote</span>
+        <span>Get Quote</span>
       </button>
 
       <a
         href={`/products/${product.slug}`}
-        class="w-full py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-1"
+        class="w-full py-3 px-3 bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold rounded-xl transition-colors flex items-center justify-center gap-1"
       >
-        <span>View Details</span>
-        <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+        <span>Details</span>
+        <svg class="w-3.5 h-3.5 text-slate-500 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
       </a>
     </div>
   </div>
 
 </div>
+
+

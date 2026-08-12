@@ -18,27 +18,30 @@ const navItems = [
 ];
 ---
 
-<header class="sticky top-0 z-40 w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800 text-slate-100 transition-all">
+<header class="sticky top-0 z-40 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200/80 text-slate-900 transition-all shadow-xs">
   <!-- Top Utility Bar -->
-  <div class="hidden lg:block bg-slate-950 border-b border-slate-800/80 text-xs py-2">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center text-slate-400">
+  <div class="hidden lg:block bg-slate-900 text-slate-300 text-xs py-2 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
       <div class="flex items-center gap-6">
         <span class="flex items-center gap-1.5">
           <svg class="w-3.5 h-3.5 text-industrial-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-          New Delhi & Gujarat Plant Units
+          New Delhi &amp; Gujarat Manufacturing Facilities
         </span>
-        <span class="flex items-center gap-1.5">
+        <span class="flex items-center gap-1.5 font-mono">
           <svg class="w-3.5 h-3.5 text-industrial-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           {siteSettings.workingHours}
         </span>
       </div>
       <div class="flex items-center gap-6">
-        <a href={`tel:${siteSettings.primaryPhone}`} class="hover:text-industrial-copper flex items-center gap-1.5 transition-colors">
+        <a href={`tel:${siteSettings.primaryPhone}`} class="hover:text-amber-400 flex items-center gap-1.5 transition-colors font-mono">
           <svg class="w-3.5 h-3.5 text-industrial-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
           {siteSettings.primaryPhone}
         </a>
-        <a href={`https://wa.me/${siteSettings.whatsappNumber}?text=Hello%20VM%20Graphite,%20I%20have%20a%20product%20inquiry.`} target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <a href={`https://wa.me/${siteSettings.whatsappNumber}?text=Hello%20VM%20Graphite,%20I%20have%20a%20product%20inquiry.`} target="_blank" rel="noopener noreferrer" class="text-emerald-400 hover:text-emerald-300 flex items-center gap-1.5 transition-colors font-mono font-medium">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
           WhatsApp Chat
         </a>
       </div>
@@ -51,7 +54,7 @@ const navItems = [
       
       <!-- Brand Logo -->
       <a href="/" class="flex items-center gap-3 group focus:outline-none" aria-label="VM Graphite Industries LLP Home">
-        <img src="/images/logo.svg" alt="VM Graphite Industries Logo" class="h-12 w-auto transition-transform group-hover:scale-105" />
+        <img src="/images/logo.svg" alt="VM Graphite Industries Logo" class="h-12 w-auto transition-transform duration-300 group-hover:scale-105" />
       </a>
 
       <!-- Desktop Navigation Links -->
@@ -64,27 +67,28 @@ const navItems = [
               <div class="relative group">
                 <a
                   href={item.href}
-                  class={`px-4 py-2 rounded-lg text-sm font-semibold flex items-center gap-1.5 transition-all ${
-                    isActive ? 'text-industrial-copper bg-slate-800/80' : 'text-slate-200 hover:text-white hover:bg-slate-800/50'
+                  class={`px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-1.5 transition-all ${
+                    isActive ? 'text-industrial-copper bg-amber-500/10 border border-amber-500/20' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100/80'
                   }`}
                 >
                   <span>{item.name}</span>
-                  <svg class="w-4 h-4 text-slate-400 group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+                  <svg class="w-4 h-4 text-slate-500 group-hover:rotate-180 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
                 </a>
 
                 {/* Dropdown Menu */}
-                <div class="absolute left-0 top-full pt-2 w-72 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-200 z-50">
-                  <div class="bg-slate-900 border border-slate-800 rounded-xl shadow-industrial-lg p-3 space-y-1">
-                    <a href="/products" class="block px-3 py-2 text-xs font-bold text-industrial-copper uppercase tracking-wider hover:bg-slate-800 rounded-lg">
+                <div class="absolute left-0 top-full pt-2 w-80 opacity-0 translate-y-3 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+                  <div class="bg-white rounded-2xl shadow-2xl p-4 space-y-1.5 border border-slate-200">
+                    <a href="/products" class="block px-3.5 py-2.5 rounded-xl text-xs font-bold text-industrial-copper uppercase tracking-wider hover:bg-slate-50 transition-colors font-mono">
                       All Categories Overview &rarr;
                     </a>
-                    <div class="h-px bg-slate-800 my-1"></div>
+                    <div class="h-px bg-slate-100 my-1"></div>
                     {categories.map((cat) => (
                       <a
                         href={`/products?category=${cat.slug}`}
-                        class="block px-3 py-2 rounded-lg text-sm text-slate-300 hover:text-white hover:bg-slate-800 transition-colors"
+                        class="block px-3.5 py-2.5 rounded-xl text-sm text-slate-700 hover:text-slate-900 hover:bg-slate-50 transition-colors"
                       >
-                        <div class="font-medium">{cat.name}</div>
+                        <div class="font-semibold text-slate-900">{cat.name}</div>
+                        <div class="text-[11px] text-slate-500 line-clamp-1">{cat.description}</div>
                       </a>
                     ))}
                   </div>
@@ -96,8 +100,8 @@ const navItems = [
           return (
             <a
               href={item.href}
-              class={`px-4 py-2 rounded-lg text-sm font-semibold transition-all ${
-                isActive ? 'text-industrial-copper bg-slate-800/80' : 'text-slate-200 hover:text-white hover:bg-slate-800/50'
+              class={`px-4 py-2 rounded-xl text-sm font-semibold transition-all ${
+                isActive ? 'text-industrial-copper bg-amber-500/10 border border-amber-500/20' : 'text-slate-700 hover:text-slate-900 hover:bg-slate-100/80'
               }`}
             >
               {item.name}
@@ -111,7 +115,7 @@ const navItems = [
         <button
           type="button"
           data-open-quote-modal
-          class="px-5 py-2.5 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white text-sm font-bold rounded-lg shadow-md transition-all transform active:scale-95 cursor-pointer flex items-center gap-2"
+          class="px-6 py-2.5 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white text-sm font-bold rounded-xl shadow-[0_4px_16px_rgba(217,119,6,0.25)] transition-all transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer flex items-center gap-2"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           <span>Get a Quote</span>
@@ -123,7 +127,7 @@ const navItems = [
         <button
           id="mobile-menu-btn"
           type="button"
-          class="p-2.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg focus:outline-none"
+          class="p-2.5 text-slate-700 hover:text-slate-900 hover:bg-slate-100 rounded-xl focus:outline-none transition-colors"
           aria-label="Toggle Navigation Menu"
         >
           <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
@@ -134,37 +138,37 @@ const navItems = [
   </div>
 
   <!-- Mobile Menu Drawer -->
-  <div id="mobile-menu" class="hidden md:hidden bg-slate-950 border-b border-slate-800 px-4 pt-3 pb-6 space-y-3">
+  <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-6 space-y-4 shadow-lg">
     <div class="space-y-1">
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="block px-4 py-3 rounded-lg text-base font-medium text-slate-200 hover:text-white hover:bg-slate-900 transition-colors"
+          class="block px-4 py-3 rounded-xl text-base font-semibold text-slate-800 hover:text-slate-900 hover:bg-slate-50 transition-colors"
         >
           {item.name}
         </a>
       ))}
     </div>
 
-    <div class="pt-3 border-t border-slate-800 space-y-2">
-      <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider px-4">Categories</div>
+    <div class="pt-3 border-t border-slate-100 space-y-2">
+      <div class="text-xs font-bold text-industrial-copper uppercase tracking-wider px-4 font-mono">Product Divisions</div>
       {categories.map((cat) => (
         <a
           href={`/products?category=${cat.slug}`}
-          class="block px-4 py-2 text-sm text-slate-300 hover:text-industrial-copper"
+          class="block px-4 py-2 text-sm text-slate-600 hover:text-slate-900 transition-colors"
         >
           • {cat.name}
         </a>
       ))}
     </div>
 
-    <div class="pt-4 border-t border-slate-800 space-y-2">
+    <div class="pt-4 border-t border-slate-100">
       <button
         type="button"
         data-open-quote-modal
-        class="w-full py-3 bg-industrial-copper text-white text-center font-bold rounded-lg shadow-md cursor-pointer block"
+        class="w-full py-3.5 bg-gradient-to-r from-industrial-copper to-amber-600 text-white text-center font-bold rounded-xl shadow-md cursor-pointer block text-base"
       >
-        Request a Quote
+        Request Commercial Quote
       </button>
     </div>
   </div>
@@ -182,3 +186,4 @@ const navItems = [
     closeIcon?.classList.toggle('hidden');
   });
 </script>
+

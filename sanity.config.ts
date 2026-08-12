@@ -2,8 +2,8 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './sanity/schemas';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'demo_project_id';
-const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
+const projectId = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) || process.env.PUBLIC_SANITY_PROJECT_ID || 'twycammz';
+const dataset = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_DATASET) || process.env.PUBLIC_SANITY_DATASET || 'production';
 
 export default defineConfig({
   name: 'vm-graphite-studio',

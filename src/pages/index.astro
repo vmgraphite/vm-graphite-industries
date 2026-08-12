@@ -53,13 +53,18 @@ const homeContent = await getHomePageContent();
   <BrochureCTA brochureUrl={siteSettings.companyBrochureUrl} />
 
   <!-- Final Lead Generation Banner -->
-  <section class="py-20 bg-slate-950 text-white border-t border-slate-800 relative overflow-hidden">
-    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6 relative z-10">
-      <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Custom Material Engineering</h2>
-      <h3 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
+  <section class="py-24 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 text-white border-t border-slate-800 relative overflow-hidden">
+    <!-- Ambient Radial Glow -->
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(217,119,6,0.15),transparent_70%)] pointer-events-none"></div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8 relative z-10 reveal-on-scroll">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-industrial-copper/15 text-amber-400 border border-industrial-copper/30 text-xs font-bold uppercase tracking-widest font-mono">
+        Custom Material Engineering
+      </div>
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
         Looking for a Specific Industrial Material or Dimension?
-      </h3>
-      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+      </h2>
+      <p class="text-slate-300 text-base sm:text-xl max-w-3xl mx-auto leading-relaxed font-normal">
         Our metallurgists and engineering team specialize in custom grain sizes, specialized liquid formulations, and high-precision CNC turned graphite parts.
       </p>
 
@@ -67,7 +72,7 @@ const homeContent = await getHomePageContent();
         <button
           type="button"
           data-open-quote-modal
-          class="w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white font-bold rounded-xl shadow-industrial-lg flex items-center justify-center gap-2 transition-all transform active:scale-95 text-base cursor-pointer"
+          class="w-full sm:w-auto px-9 py-4 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-500 hover:to-amber-600 text-white font-bold rounded-xl shadow-[0_4px_20px_rgba(217,119,6,0.35)] flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base cursor-pointer"
         >
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
           <span>Request Custom Quotation</span>
@@ -75,7 +80,7 @@ const homeContent = await getHomePageContent();
 
         <a
           href="/contact"
-          class="w-full sm:w-auto px-8 py-4 bg-slate-900 hover:bg-slate-800 text-slate-200 font-bold rounded-xl border border-slate-700/80 transition-colors text-base"
+          class="w-full sm:w-auto px-8 py-4 bg-slate-800/90 hover:bg-slate-800 text-slate-200 hover:text-white font-bold rounded-xl border border-slate-700/80 transition-colors text-base"
         >
           Contact Technical Sales
         </a>
