@@ -1,7 +1,5 @@
 import type { APIRoute } from 'astro';
 
-export const prerender = false; // Serverless endpoint
-
 export const GET: APIRoute = async () => {
   return new Response(
     JSON.stringify({
