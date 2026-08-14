@@ -57,12 +57,12 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-emerald-950/30 border border-emerald-500/40 p-8 rounded-xl text-center space-y-4">
+      <div className="bg-emerald-950/40 border border-emerald-500/50 p-8 rounded-xl text-center space-y-4">
         <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto">
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <h3 className="text-2xl font-bold text-slate-900">Message Delivered!</h3>
-        <p className="text-slate-600 max-w-md mx-auto text-sm">
+        <h3 className="text-2xl font-bold text-white">Message Delivered!</h3>
+        <p className="text-slate-300 max-w-md mx-auto text-sm">
           Thank you for contacting VM Graphite Industries LLP. Your inquiry has been routed to our corporate sales team. We will respond promptly.
         </p>
       </div>
@@ -72,8 +72,8 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {status === 'error' && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-lg flex items-start gap-3 text-red-700 text-sm">
-          <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+        <div className="p-4 bg-red-950/40 border border-red-500/50 rounded-lg flex items-start gap-3 text-red-200 text-sm">
+          <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <div>{errorMessage}</div>
         </div>
       )}
@@ -89,8 +89,8 @@ export default function ContactForm() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Full Name <span className="text-industrial-copper">*</span>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+            Full Name <span className="text-gold-400">*</span>
           </label>
           <input
             type="text"
@@ -99,11 +99,11 @@ export default function ContactForm() {
             value={formData.name}
             onChange={handleChange}
             placeholder="John Doe"
-            className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper"
+            className="w-full bg-[#06080e] border border-white/15 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400"
           />
         </div>
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
             Company / Business Name
           </label>
           <input
@@ -112,15 +112,15 @@ export default function ContactForm() {
             value={formData.company}
             onChange={handleChange}
             placeholder="Acme Manufacturing Ltd"
-            className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper"
+            className="w-full bg-[#06080e] border border-white/15 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Official Email <span className="text-industrial-copper">*</span>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+            Official Email <span className="text-gold-400">*</span>
           </label>
           <input
             type="email"
@@ -129,12 +129,12 @@ export default function ContactForm() {
             value={formData.email}
             onChange={handleChange}
             placeholder="john@acme.com"
-            className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper"
+            className="w-full bg-[#06080e] border border-white/15 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400"
           />
         </div>
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Phone / Mobile Number <span className="text-industrial-copper">*</span>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+            Phone / Mobile Number <span className="text-gold-400">*</span>
           </label>
           <input
             type="tel"
@@ -143,13 +143,13 @@ export default function ContactForm() {
             value={formData.phone}
             onChange={handleChange}
             placeholder="+91 98765 43210"
-            className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper"
+            className="w-full bg-[#06080e] border border-white/15 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
           Subject / Area of Inquiry
         </label>
         <input
@@ -158,13 +158,13 @@ export default function ContactForm() {
           value={formData.subject}
           onChange={handleChange}
           placeholder="Bulk Pricing / Technical Specification / Export Partnership"
-          className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper"
+          className="w-full bg-[#06080e] border border-white/15 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400"
         />
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-          Detailed Message <span className="text-industrial-copper">*</span>
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+          Detailed Message <span className="text-gold-400">*</span>
         </label>
         <textarea
           name="message"
@@ -173,23 +173,23 @@ export default function ContactForm() {
           value={formData.message}
           onChange={handleChange}
           placeholder="Please detail your industrial requirements, material grades, or annual volume estimates..."
-          className="w-full bg-white border border-slate-300 rounded-lg px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper"
+          className="w-full bg-[#06080e] border border-white/15 rounded-lg px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400"
         ></textarea>
       </div>
 
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full py-3.5 px-6 bg-slate-900 hover:bg-industrial-copper text-white font-bold rounded-lg shadow-md flex items-center justify-center gap-2 transition-colors disabled:opacity-50 cursor-pointer"
+        className="w-full py-3.5 px-6 bg-gradient-to-r from-amber-400 via-gold-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black rounded-xl border border-amber-200/80 shadow-[0_4px_20px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer uppercase tracking-wider font-sans"
       >
         {status === 'submitting' ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin text-slate-950" />
             <span>Sending Message...</span>
           </>
         ) : (
           <>
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5 text-slate-950" />
             <span>Send Direct Message</span>
           </>
         )}

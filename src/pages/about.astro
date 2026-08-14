@@ -16,44 +16,54 @@ const aboutContent = await getAboutPageContent();
   ]}
 >
   <!-- Page Header Banner -->
-  <section class="bg-slate-950 text-white py-16 industrial-grid-bg border-b border-slate-800">
+  <section class="bg-[#040508] text-white py-16 industrial-grid-bg border-b border-gold-500/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <Breadcrumbs items={[{ name: 'About Us', href: '/about' }]} />
 
       <div class="max-w-3xl space-y-4 pt-4">
-        <span class="inline-block px-3 py-1 bg-industrial-copper/20 text-industrial-copper border border-industrial-copper/30 rounded-full text-xs font-bold uppercase tracking-wider">
-          Company Profile &amp; Infrastructure
+        <span class="inline-block px-3 py-1 bg-gold-500/15 text-gold-400 border border-gold-500/30 rounded-full text-xs font-bold uppercase tracking-wider font-mono">
+          Company Profile &amp; Vision
         </span>
         <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
           {aboutContent?.title || 'About VM Graphite Industries LLP'}
         </h1>
-        <p class="text-lg text-slate-300">
-          {aboutContent?.subtitle || 'Engineering High-Performance Industrial Materials & Sealing Solutions Since Inception'}
+        <p class="text-lg text-slate-300 font-medium leading-relaxed">
+          {aboutContent?.subtitle || "Striving to Become India's Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."}
         </p>
       </div>
     </div>
   </section>
 
+  <!-- Company Aim & Vision Banner -->
+  <section class="py-10 bg-gradient-to-r from-[#0d111a] via-[#141b2d] to-[#0d111a] border-b border-gold-500/25">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
+      <span class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Our Corporate Aim</span>
+      <h2 class="text-xl sm:text-2xl font-black text-white max-w-4xl mx-auto leading-relaxed">
+        "VM Graphite Industries LLP: Striving to Become India's Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."
+      </h2>
+    </div>
+  </section>
+
   <!-- Company Overview Section -->
-  <section class="py-20 bg-white text-slate-900 border-b border-slate-200">
+  <section class="py-20 bg-[#080a10] text-slate-100 border-b border-gold-500/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- Left Image Card -->
         <div class="lg:col-span-6">
-          <div class="relative rounded-2xl overflow-hidden shadow-industrial border border-slate-200 bg-slate-900">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gold-500/30 bg-[#0e131f]">
             <img
               src="/images/facility-plant.jpg"
               alt="VM Graphite Industrial Plant Infrastructure"
-              class="w-full h-auto object-cover"
+              class="w-full h-auto object-cover opacity-90"
             />
-            <div class="p-6 bg-slate-950 text-white flex justify-between items-center">
+            <div class="p-6 bg-[#040508] text-white flex justify-between items-center border-t border-white/10">
               <div>
-                <div class="text-xs font-bold text-industrial-copper uppercase">Manufacturing Hub</div>
-                <div class="text-sm font-semibold">New Delhi &amp; Gujarat Units</div>
+                <div class="text-xs font-bold text-gold-400 uppercase tracking-wider font-mono">Manufacturing Hub &amp; R&amp;D Center</div>
+                <div class="text-sm font-semibold text-white">New Delhi &amp; Gujarat Units</div>
               </div>
               <div class="text-right font-mono text-xs text-slate-400">
-                ISO 9001:2015 CERTIFIED
+                ESTABLISHED 2021
               </div>
             </div>
           </div>
@@ -61,36 +71,34 @@ const aboutContent = await getAboutPageContent();
 
         <!-- Right Overview Content -->
         <div class="lg:col-span-6 space-y-6">
-          <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Who We Are</h2>
-          <h3 class="text-3xl font-extrabold text-slate-900 leading-tight">
-            Pioneering Material Science &amp; Technical Manufacturing Excellence
+          <h2 class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Who We Are</h2>
+          <h3 class="text-3xl font-extrabold text-white leading-tight">
+            Advanced Alubonding Technology &amp; Technical Manufacturing Excellence
           </h3>
 
-          <div class="prose text-slate-600 text-sm leading-relaxed space-y-4">
+          <div class="prose text-slate-300 text-sm leading-relaxed space-y-4">
             <p>
-              <strong>VM Graphite Industries LLP</strong> is an established industrial manufacturer specializing in synthetic and natural graphite materials, colloidal liquid suspensions, flexible graphite foil sealing products, and high-performance flexographic metering doctor blades.
+              <strong class="text-white">VM Graphite Industries LLP</strong> was established in 2021 by partners <strong class="text-gold-400">Ayush Patel</strong> and <strong class="text-gold-400">Himanshu Bisth</strong>. The company specializes in manufacturing high-quality graphite suspension and foil tape &amp; other industrial materials.
             </p>
             <p>
-              Headquartered with corporate operations in New Delhi and state-of-the-art manufacturing facilities in Gujarat, we serve Foundries, Steel Plants, Printing &amp; Packaging lines, Glass Manufacturers, and Chemical Processing facilities globally.
+              Leveraging extensive research and development along with advanced <strong class="text-white font-semibold">Alubonding technology</strong>, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality.
             </p>
             <p>
-              Our engineering philosophy combines rigid material selection, high-density isostatic pressing, precision CNC machining, and automated chemical liquid compounding to ensure zero thermal cracking and maximum operational endurance.
+              Their foil tape is available in various sizes to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.
             </p>
           </div>
 
-          <!-- Key Metrics Badges -->
-          <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-200">
-            <div>
-              <div class="text-2xl font-black text-slate-900">99.9%</div>
-              <div class="text-xs font-medium text-slate-500">Carbon Purity Grade</div>
+          <!-- Key Leadership & Metrics -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
+            <div class="p-4 bg-[#0d111a] rounded-xl border border-white/5">
+              <div class="text-xs font-bold text-gold-400 font-mono uppercase">Founders &amp; Leadership</div>
+              <div class="text-sm font-bold text-white mt-1">Ayush Patel &amp; Himanshu Bisth</div>
+              <div class="text-xs text-slate-400 mt-0.5">Partners &amp; Co-Founders</div>
             </div>
-            <div>
-              <div class="text-2xl font-black text-industrial-copper">3000°C</div>
-              <div class="text-xs font-medium text-slate-500">Max Temp Limit</div>
-            </div>
-            <div>
-              <div class="text-2xl font-black text-slate-900">20+</div>
-              <div class="text-xs font-medium text-slate-500">Export Countries</div>
+            <div class="p-4 bg-[#0d111a] rounded-xl border border-white/5">
+              <div class="text-xs font-bold text-gold-400 font-mono uppercase">Core Innovation</div>
+              <div class="text-sm font-bold text-white mt-1">Alubonding Technology</div>
+              <div class="text-xs text-slate-400 mt-0.5">Proprietary R&amp;D Process</div>
             </div>
           </div>
         </div>
@@ -99,47 +107,61 @@ const aboutContent = await getAboutPageContent();
     </div>
   </section>
 
+  <!-- Exceptional Production Capacity & Commitment ("What We Have") -->
+  <section class="py-16 bg-[#040508] text-white border-b border-gold-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="p-8 sm:p-12 rounded-3xl bg-[#0d111a] border border-gold-500/30 text-center space-y-4 max-w-4xl mx-auto shadow-2xl">
+        <span class="inline-block px-3.5 py-1 bg-gold-500/10 border border-gold-500/30 rounded-full text-gold-400 text-xs font-bold uppercase tracking-widest font-mono">
+          Production Capacity &amp; Quality Standard
+        </span>
+        <p class="text-base sm:text-xl font-medium text-slate-200 leading-relaxed font-sans">
+          "We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality. Discover how our solutions can meet your industrial needs with speed and excellence."
+        </p>
+      </div>
+    </div>
+  </section>
+
   <!-- Quality Commitment & Facility Pillars -->
-  <section class="py-20 bg-slate-900 text-white border-b border-slate-800">
+  <section class="py-20 bg-[#07090e] text-white border-b border-gold-500/20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-        <h2 class="text-xs font-bold text-industrial-copper uppercase tracking-widest">Quality Assurance</h2>
+        <h2 class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Quality Assurance</h2>
         <h3 class="text-3xl font-extrabold text-white">Rigorous Quality &amp; Production Standards</h3>
-        <p class="text-slate-400 text-sm">
+        <p class="text-slate-300 text-sm">
           Every production lot undergoes rigorous physical, thermal, and chemical laboratory testing before dispatch.
         </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         
-        <div class="bg-slate-950 border border-slate-800 p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-industrial-copper/20 text-industrial-copper rounded-xl flex items-center justify-center">
+        <div class="glass-card-dark border border-gold-500/20 p-8 rounded-2xl space-y-4">
+          <div class="w-12 h-12 bg-gold-500/20 text-gold-400 rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h4 class="text-xl font-bold text-white">Material Purity Testing</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            Spectrographic analysis ensures carbon purity standards exceeding 99.5%, guaranteeing zero slag contamination in foundry melt crucibles.
+          <h4 class="text-xl font-bold text-white">Alubonding &amp; Material R&amp;D</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Proprietary Alubonding thermal bonding and chemical formulation techniques yield superior heat resistance, low ash content, and structural integrity.
           </p>
         </div>
 
-        <div class="bg-slate-950 border border-slate-800 p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-sky-500/20 text-sky-400 rounded-xl flex items-center justify-center">
+        <div class="glass-card-dark border border-gold-500/20 p-8 rounded-2xl space-y-4">
+          <div class="w-12 h-12 bg-sky-500/20 text-sky-400 rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 01-.517-3.86l.477-2.387a2 2 0 00-.547-1.022l-1.07-1.07a2 2 0 00-2.828 0l-1.07 1.07a2 2 0 000 2.828l1.07 1.07z"/></svg>
           </div>
-          <h4 class="text-xl font-bold text-white">Dimensional Precision</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            State-of-the-art CNC lathes and mills achieve micro-tolerances down to ±0.02mm for seamless integration in custom machinery.
+          <h4 class="text-xl font-bold text-white">Foil Tape Custom Sizing</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Our high-purity graphite foil tape is engineered in various custom widths, thicknesses, and adhesive backings to suit diverse industrial sealing requirements.
           </p>
         </div>
 
-        <div class="bg-slate-950 border border-slate-800 p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center">
+        <div class="glass-card-dark border border-gold-500/20 p-8 rounded-2xl space-y-4">
+          <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
           </div>
-          <h4 class="text-xl font-bold text-white">Export Seaworthy Packing</h4>
-          <p class="text-xs text-slate-400 leading-relaxed">
-            All shipments are vacuum-sealed, moisture protected, and strapped onto export-certified wooden pallets for safe long-distance freight.
+          <h4 class="text-xl font-bold text-white">Timely Delivery Guarantee</h4>
+          <p class="text-xs text-slate-300 leading-relaxed">
+            Robust production scheduling and export-grade protective packaging ensure every order is fulfilled on schedule without compromising on quality.
           </p>
         </div>
 

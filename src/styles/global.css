@@ -6,13 +6,109 @@
   html {
     scroll-behavior: smooth;
     font-family: 'Inter', sans-serif;
-    color: #0f172a;
-    background-color: #f8fafc;
+    color: #f8fafc;
+    background-color: #080a10;
   }
   
+  body {
+    background-color: #080a10;
+    color: #f8fafc;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Outfit', 'Inter', sans-serif;
   }
+}
+
+/* Metallic Gold Text Utilities */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #f7d070 0%, #d4af37 40%, #c59635 80%, #f3e5ab 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #f7d070 0%, #d4af37 50%, #c59635 100%);
+}
+
+.border-gold-glow {
+  border-color: rgba(212, 175, 55, 0.35);
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+/* PDF Gold Corner Shape (Matching Page 1 top-right shape) */
+.pdf-gold-corner {
+  position: absolute;
+  top: 110px;
+  right: 0;
+  width: 260px;
+  height: 260px;
+  background: linear-gradient(135deg, #f7d070 0%, #d4af37 50%, #c59635 100%);
+  clip-path: polygon(100% 0, 0 0, 100% 100%);
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+/* Diamond Rotated Container Utilities (Matching PDF Pages 2 & 3 "WHAT WE HAVE") */
+.diamond-card-wrapper {
+  width: 170px;
+  height: 170px;
+  transform: rotate(45deg);
+  overflow: hidden;
+  border-radius: 20px;
+  border: 2px solid rgba(212, 175, 55, 0.4);
+  background: #0e131f;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 20px rgba(212, 175, 55, 0.15);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.diamond-card-wrapper:hover {
+  transform: rotate(45deg) scale(1.06);
+  border-color: #f7d070;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.4);
+}
+
+.diamond-card-inner {
+  width: 240px;
+  height: 240px;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Glassmorphism Dark Utilities */
+.glass-panel-dark {
+  background: rgba(14, 19, 31, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.glass-card-dark {
+  background: rgba(14, 19, 31, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 12px 36px -4px rgba(0, 0, 0, 0.5);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-dark:hover {
+  border-color: rgba(212, 175, 55, 0.45);
+  box-shadow: 0 20px 45px -8px rgba(0, 0, 0, 0.8), 0 0 25px -2px rgba(212, 175, 55, 0.25);
+  transform: translateY(-4px);
+}
+
+.industrial-grid-bg {
+  background-color: #080a10;
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(212, 175, 55, 0.12) 0%, transparent 60%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
 /* Custom Keyframe Animations */
@@ -27,12 +123,12 @@
 
 @keyframes pulseGlow {
   0%, 100% {
-    opacity: 0.5;
+    opacity: 0.4;
     transform: scale(1);
   }
   50% {
-    opacity: 0.9;
-    transform: scale(1.04);
+    opacity: 0.8;
+    transform: scale(1.05);
   }
 }
 
@@ -42,57 +138,6 @@
 
 .animate-pulse-glow {
   animation: pulseGlow 4s ease-in-out infinite;
-}
-
-/* Glassmorphism & Industrial Utilities (Light Theme Focus) */
-.glass-panel-light {
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-}
-
-.glass-card-light {
-  background: #ffffff;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.03);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.glass-card-light:hover {
-  border-color: rgba(217, 119, 6, 0.4);
-  box-shadow: 0 20px 40px -8px rgba(15, 23, 42, 0.08), 0 0 20px -3px rgba(217, 119, 6, 0.15);
-  transform: translateY(-4px);
-}
-
-.industrial-grid-light-bg {
-  background-color: #f8fafc;
-  background-image: 
-    radial-gradient(circle at 50% 0%, rgba(217, 119, 6, 0.08) 0%, transparent 55%),
-    linear-gradient(to right, rgba(203, 213, 225, 0.35) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(203, 213, 225, 0.35) 1px, transparent 1px);
-  background-size: 100% 100%, 40px 40px, 40px 40px;
-}
-
-.industrial-mesh-light-bg {
-  background-color: #ffffff;
-  background-image: 
-    radial-gradient(at 0% 0%, rgba(217, 119, 6, 0.06) 0px, transparent 50%),
-    radial-gradient(at 100% 100%, rgba(2, 132, 199, 0.06) 0px, transparent 50%);
-}
-
-.industrial-gradient-border {
-  position: relative;
-}
-
-.industrial-gradient-border::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #d97706 0%, #0284c7 50%, #d97706 100%);
 }
 
 /* Scroll Reveal Animation Utility */
@@ -108,23 +153,21 @@
   transform: translateY(0);
 }
 
-/* Custom Light Scrollbar */
+/* Custom Dark Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: #080a10;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #1e293b;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #d97706;
+  background: #d4af37;
 }
-
-

@@ -18,12 +18,10 @@ const {
 const heroImage = propHeroImage || '/images/hero-industrial.jpg';
 ---
 
-<section class="relative bg-gradient-to-b from-white via-slate-50 to-slate-100/70 text-slate-900 overflow-hidden py-24 lg:py-32 industrial-grid-light-bg border-b border-slate-200/80">
+<section class="relative bg-[#07090e] text-slate-100 overflow-hidden py-28 lg:py-36 border-b border-white/5">
   
-  <!-- Dynamic Light Ambient Glow Backdrops -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-amber-500/10 via-amber-400/5 to-sky-500/5 rounded-full blur-[120px] pointer-events-none animate-pulse-glow"></div>
-  <div class="absolute top-10 right-10 w-96 h-96 bg-amber-500/5 rounded-full blur-3xl pointer-events-none"></div>
-  <div class="absolute bottom-10 left-10 w-96 h-96 bg-sky-500/5 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Dynamic Ambient Glow Backdrops -->
+  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(212,175,55,0.08),transparent_70%)] pointer-events-none animate-pulse-glow"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -32,62 +30,62 @@ const heroImage = propHeroImage || '/images/hero-industrial.jpg';
       <div class="lg:col-span-7 space-y-8 reveal-on-scroll">
         
         <!-- Trust Badge -->
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white border border-slate-200 shadow-xs text-xs font-semibold text-slate-700 backdrop-blur-md">
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0d111a] border border-gold-500/30 text-xs font-semibold text-slate-200 shadow-xl backdrop-blur-md">
           <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-industrial-copper"></span>
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold-500"></span>
           </span>
-          <span class="tracking-wide uppercase font-mono text-[11px] text-slate-800">ISO 9001:2015 CERTIFIED B2B MANUFACTURER</span>
+          <span class="tracking-widest uppercase font-mono text-[11px] text-gold-400">ISO 9001:2015 CERTIFIED B2B MANUFACTURER</span>
         </div>
 
         <!-- Main Title -->
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-slate-900 tracking-tight leading-[1.1]">
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
           {headline.split('&').map((part, index) => (
             index === 0 ? (
               <span>{part} &amp; <br class="hidden sm:inline" /></span>
             ) : (
-              <span class="text-transparent bg-clip-text bg-gradient-to-r from-industrial-copper via-amber-600 to-amber-700 font-extrabold">{part}</span>
+              <span class="text-gold-gradient font-black">{part}</span>
             )
           ))}
         </h1>
 
-        <!-- Supporting Text -->
-        <p class="text-base sm:text-lg text-slate-600 max-w-2xl font-normal leading-relaxed">
+        <!-- Supporting Subheadline -->
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed">
           {subheadline}
         </p>
 
         <!-- Feature Pills -->
         <div class="flex flex-wrap items-center gap-3 pt-1">
-          <div class="flex items-center gap-2 bg-white border border-slate-200 hover:border-slate-300 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-700 backdrop-blur-sm transition-colors shadow-2xs">
-            <svg class="w-4 h-4 text-industrial-copper shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          <div class="flex items-center gap-2 bg-[#0d111a]/90 border border-white/10 px-4 py-2 rounded-xl text-xs font-medium text-slate-200 backdrop-blur-sm shadow-md">
+            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             <span>High-Temp Coating &amp; Metalizing</span>
           </div>
-          <div class="flex items-center gap-2 bg-white border border-slate-200 hover:border-slate-300 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-700 backdrop-blur-sm transition-colors shadow-2xs">
-            <svg class="w-4 h-4 text-industrial-copper shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          <div class="flex items-center gap-2 bg-[#0d111a]/90 border border-white/10 px-4 py-2 rounded-xl text-xs font-medium text-slate-200 backdrop-blur-sm shadow-md">
+            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             <span>Custom Machining &amp; Tolerances</span>
           </div>
-          <div class="flex items-center gap-2 bg-white border border-slate-200 hover:border-slate-300 px-3.5 py-2 rounded-xl text-xs font-medium text-slate-700 backdrop-blur-sm transition-colors shadow-2xs">
-            <svg class="w-4 h-4 text-industrial-copper shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          <div class="flex items-center gap-2 bg-[#0d111a]/90 border border-white/10 px-4 py-2 rounded-xl text-xs font-medium text-slate-200 backdrop-blur-sm shadow-md">
+            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
             <span>Severe Thermal Environments</span>
           </div>
         </div>
 
         <!-- Action CTAs -->
-        <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+        <div class="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
           <a
             href="/products"
-            class="relative group overflow-hidden px-8 py-4 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white font-bold rounded-xl shadow-[0_4px_20px_rgba(217,119,6,0.3)] flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base"
+            class="relative group overflow-hidden px-8 py-4 bg-gradient-to-r from-amber-400 via-gold-400 to-amber-500 hover:from-amber-300 hover:via-gold-300 hover:to-amber-400 text-slate-950 font-black rounded-xl border border-amber-200/80 shadow-[0_4px_25px_rgba(245,158,11,0.4),0_0_0_1px_rgba(251,191,36,0.3)] hover:shadow-[0_6px_30px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base uppercase tracking-wider font-sans"
           >
             <span class="relative z-10">{primaryCtaText}</span>
-            <svg class="w-5 h-5 relative z-10 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-5 h-5 relative z-10 text-slate-950 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
 
           <button
             type="button"
             data-open-quote-modal
-            class="px-8 py-4 bg-white hover:bg-slate-50 text-slate-800 font-bold rounded-xl border border-slate-300 hover:border-amber-500/50 flex items-center justify-center gap-2 transition-all cursor-pointer text-base shadow-xs"
+            class="px-8 py-4 bg-[#0d111a] hover:bg-[#141b2d] text-slate-100 font-extrabold rounded-xl border border-white/15 hover:border-gold-400 flex items-center justify-center gap-2 transition-all cursor-pointer text-base shadow-lg"
           >
-            <svg class="w-5 h-5 text-industrial-copper" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
             <span>{secondaryCtaText}</span>
           </button>
         </div>
@@ -96,37 +94,37 @@ const heroImage = propHeroImage || '/images/hero-industrial.jpg';
 
       <!-- Right Visual Card Column (5 cols) -->
       <div class="lg:col-span-5 relative reveal-on-scroll">
-        <div class="relative rounded-2xl overflow-hidden border border-slate-200/90 bg-white shadow-xl p-2.5 group hover:border-industrial-copper/40 transition-all duration-500">
+        <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-[#0d111a] shadow-2xl p-3 group hover:border-gold-500/40 transition-all duration-500">
           
           <!-- Image Wrapper -->
-          <div class="aspect-4/3 rounded-xl overflow-hidden relative bg-slate-900">
+          <div class="aspect-4/3 rounded-2xl overflow-hidden relative bg-[#040508]">
             <img
               src={heroImage}
               alt="VM Graphite High Temperature Material Processing"
-              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90"
             />
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-slate-950/20 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0d111a] via-transparent to-transparent"></div>
             
             <!-- Live Badge Overlay -->
-            <div class="absolute top-4 right-4 bg-white/95 backdrop-blur-md border border-slate-200 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-md">
-              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-              <span class="text-[11px] font-bold text-slate-800 tracking-wide uppercase font-mono">Precision Engineered</span>
+            <div class="absolute top-4 right-4 bg-[#07090e]/90 backdrop-blur-md border border-gold-500/30 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-xl">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-[11px] font-bold text-gold-400 tracking-wide uppercase font-mono">Precision Engineered</span>
             </div>
           </div>
 
           <!-- Technical Metrics Overlay Grid -->
-          <div class="p-6 grid grid-cols-3 gap-4 border-t border-slate-100 bg-slate-50/90 rounded-b-xl">
-            <div class="text-center border-r border-slate-200/80 pr-2">
-              <div class="text-xl sm:text-2xl font-black text-industrial-copper font-mono">99.9%</div>
-              <div class="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mt-0.5">Carbon Purity</div>
+          <div class="p-6 grid grid-cols-3 gap-4 border-t border-white/10 bg-[#07090e]/90 rounded-b-2xl">
+            <div class="text-center border-r border-white/10 pr-2">
+              <div class="text-xl sm:text-2xl font-black text-gold-400 font-mono">99.9%</div>
+              <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">Carbon Purity</div>
             </div>
-            <div class="text-center border-r border-slate-200/80 pr-2">
-              <div class="text-xl sm:text-2xl font-black text-slate-900 font-mono">3000°C</div>
-              <div class="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mt-0.5">Max Temp</div>
+            <div class="text-center border-r border-white/10 pr-2">
+              <div class="text-xl sm:text-2xl font-black text-white font-mono">3000°C</div>
+              <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">Max Temp</div>
             </div>
             <div class="text-center">
-              <div class="text-xl sm:text-2xl font-black text-emerald-600 font-mono">Zero</div>
-              <div class="text-[10px] sm:text-xs font-bold text-slate-600 uppercase tracking-wider mt-0.5">Defect Quality</div>
+              <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Zero</div>
+              <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">Defect Quality</div>
             </div>
           </div>
 
@@ -136,5 +134,3 @@ const heroImage = propHeroImage || '/images/hero-industrial.jpg';
     </div>
   </div>
 </section>
-
-

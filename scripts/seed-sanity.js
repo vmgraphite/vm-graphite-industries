@@ -50,7 +50,7 @@ async function seed() {
     _id: 'siteSettings',
     _type: 'siteSettings',
     companyName: 'VM Graphite Industries LLP',
-    tagline: 'Advanced Industrial Graphite & Sealing Material Solutions',
+    tagline: 'Delivering Premium Graphite Solutions with Unmatched Quality and Speed',
     primaryPhone: '+91 98765 43210',
     secondaryPhone: '+91 11 2345 6789',
     whatsappNumber: '919876543210',
@@ -62,7 +62,7 @@ async function seed() {
     seo: {
       _type: 'seo',
       metaTitle: 'VM Graphite Industries LLP | Industrial Graphite & Sealing Materials',
-      metaDescription: 'Leading manufacturer of synthetic graphite crucibles, graphite foil tapes, doctor blades, gland packing, and high-temperature lubricants.',
+      metaDescription: 'Striving to become India\'s leading supplier of unmatched quality graphite suspension, foil tape, and industrial materials.',
     },
   };
   await client.createOrReplace(siteSettingsDoc);
@@ -80,7 +80,7 @@ async function seed() {
     secondaryCtaText: 'Get a Quote',
     strengthsHeadline: 'Pioneering Excellence in Industrial Graphite Manufacturing',
     capabilitiesHeadline: 'State-of-the-Art Precision Manufacturing Capabilities',
-    capabilitiesDescription: 'Our modern manufacturing plant is equipped with precision machinery for high-density graphite machining, high-temperature thermal coating, custom roll metalizing, and specialized slit-gasket processing to strict industry specifications.',
+    capabilitiesDescription: 'We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality. Discover how our solutions can meet your industrial needs with speed and excellence.',
     whyChooseUsHeadline: 'Why Industry Leaders Trust VM Graphite',
     seo: {
       _type: 'seo',
@@ -96,7 +96,7 @@ async function seed() {
     _id: 'aboutPage',
     _type: 'aboutPage',
     title: 'About VM Graphite Industries LLP',
-    subtitle: 'Engineering High-Performance Industrial Materials Since Inception',
+    subtitle: 'Striving to Become India\'s Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape.',
     companyIntroduction: [
       {
         _type: 'block',
@@ -106,7 +106,7 @@ async function seed() {
           {
             _type: 'span',
             _key: 's1',
-            text: 'VM Graphite Industries LLP is a premier manufacturer and global supplier of high-purity synthetic and natural graphite components, flexible sealing solutions, and precision industrial blades. Established with a commitment to quality and technical innovation, we cater to demanding sectors including metallurgy, flexographic printing, chemical processing, HVAC, and power generation.',
+            text: 'VM Graphite Industries LLP was established in 2021 by partners Ayush Patel and Himanshu Bisth. The company specializes in manufacturing high-quality graphite suspension and foil tape & other industrial materials. Leveraging extensive research and development along with advanced Alubonding technology, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality. Their foil tape is available in various sizes to meet diverse needs.',
           },
         ],
       },
@@ -444,6 +444,61 @@ async function seed() {
       ],
       isFeatured: true,
       displayOrder: 13,
+    },
+    {
+      _id: 'prod-14',
+      name: 'SS Doctor Blades',
+      slug: 'ss-doctor-blades',
+      categorySlug: 'industrial-blades-materials',
+      shortDescription: 'High-corrosion-resistant Stainless Steel (SS) doctor blades engineered for water-based flexographic printing inks and corrosive fluid metering.',
+      fullDescription: 'VM Stainless Steel (SS) Doctor Blades are precision manufactured from premium surgical-grade stainless steel.',
+      mainImagePath: 'public/images/products/ss-doctor-blades.jpg',
+      specifications: [
+        { name: 'Material Grade', value: 'Martensitic Stainless Steel (AISI 420)' },
+        { name: 'Tensile Strength', value: '1800 - 1980 N/mm²' },
+        { name: 'Vickers Hardness', value: '570 - 600 HV' },
+        { name: 'Edge Geometry', value: 'Lamella Tip (0.07mm - 0.10mm) / Bevel' },
+        { name: 'Corrosion Resistance', value: '100% Resistant to Acid & Water Inks' },
+        { name: 'Standard Thicknesses', value: '0.15 mm, 0.20 mm, 0.25 mm' },
+      ],
+      isFeatured: true,
+      displayOrder: 14,
+    },
+    {
+      _id: 'prod-15',
+      name: 'Magnetic Ink Mixing Roller',
+      slug: 'magnetic-ink-mixing-roller',
+      categorySlug: 'industrial-blades-materials',
+      shortDescription: 'Heavy-duty magnetic core ink fountain mixing rollers designed for continuous ink agitation in gravure and flexographic press ink pans.',
+      fullDescription: 'VM Magnetic Ink Mixing Rollers utilize high-coercivity rare earth magnetic cores enclosed within chemical-resistant metallic tubing.',
+      mainImagePath: 'public/images/products/magnetic-ink-mixing-roller.jpg',
+      specifications: [
+        { name: 'Core Type', value: 'Neodymium Permanent Magnet Core' },
+        { name: 'Outer Sheath', value: 'Stainless Steel 316 / PTFE Coated' },
+        { name: 'Standard Diameters', value: '25 mm, 32 mm, 40 mm' },
+        { name: 'Length Range', value: '300 mm to 1800 mm (Custom Cut)' },
+        { name: 'Chemical Compatibility', value: 'Solvent, Water & UV Curable Inks' },
+      ],
+      isFeatured: true,
+      displayOrder: 15,
+    },
+    {
+      _id: 'prod-16',
+      name: 'Rope Ink Mixing Roller',
+      slug: 'rope-ink-mixing-roller',
+      categorySlug: 'industrial-blades-materials',
+      shortDescription: 'Spiral rope-wound ink mixing rollers engineered for uniform ink distribution and anti-skinning fluid flow across printing press fountains.',
+      fullDescription: 'VM Rope Ink Mixing Rollers feature a continuous spiral rope winding over an aluminum/steel core.',
+      mainImagePath: 'public/images/products/rope-ink-mixing-roller.jpg',
+      specifications: [
+        { name: 'Winding Material', value: 'Solvent-Resistant Synthetic Rope' },
+        { name: 'Core Construction', value: 'Extruded Aluminum / Stainless Steel' },
+        { name: 'Standard Diameters', value: '30 mm, 38 mm, 50 mm' },
+        { name: 'Max Operating Temp', value: '120°C' },
+        { name: 'Fountain Width Compatibility', value: 'Up to 2200 mm' },
+      ],
+      isFeatured: true,
+      displayOrder: 16,
     },
   ];
 

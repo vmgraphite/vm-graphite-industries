@@ -1,26 +1,53 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 70" fill="none">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 460 90" fill="none">
   <defs>
-    <linearGradient id="logo-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#D97706" />
-      <stop offset="100%" stop-color="#B45309" />
+    <!-- Metallic Gold Gradient -->
+    <linearGradient id="pdf-gold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F7D070" />
+      <stop offset="35%" stop-color="#E5B242" />
+      <stop offset="70%" stop-color="#C59635" />
+      <stop offset="100%" stop-color="#F3E5AB" />
     </linearGradient>
-    <linearGradient id="slate-grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#1E293B" />
-      <stop offset="100%" stop-color="#0F172A" />
+
+    <!-- White Glow Gradient -->
+    <linearGradient id="pure-white-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E2E8F0" />
     </linearGradient>
+
+    <filter id="gold-shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="#D4AF37" flood-opacity="0.3" />
+    </filter>
   </defs>
-  
-  <!-- Hexagonal Graphite Crystal Icon -->
-  <g transform="translate(10, 10)">
-    <polygon points="25,2 48,15 48,40 25,53 2,40 2,15" fill="url(#slate-grad)" stroke="url(#logo-grad)" stroke-width="2.5"/>
-    <polygon points="25,12 38,20 38,35 25,43 12,35 12,20" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="3 2"/>
-    <circle cx="25" cy="27" r="5" fill="url(#logo-grad)"/>
-    <line x1="25" y1="2" x2="25" y2="12" stroke="url(#logo-grad)" stroke-width="2"/>
-    <line x1="48" y1="15" x2="38" y2="20" stroke="url(#logo-grad)" stroke-width="2"/>
-    <line x1="48" y1="40" x2="38" y2="35" stroke="url(#logo-grad)" stroke-width="2"/>
+
+  <!-- Group: Stylized Slashed VM Logo (matching PDF) -->
+  <g transform="translate(15, 12)">
+    <!-- Slashed V Left Bar -->
+    <polygon points="0,0 16,0 28,48 12,48" fill="url(#pure-white-grad)" />
+    <!-- Slashed V Right Bar -->
+    <polygon points="22,0 38,0 26,48 10,48" fill="url(#pdf-gold-grad)" />
+    
+    <!-- Gap Separator -->
+    
+    <!-- Slashed M Left Leg -->
+    <polygon points="46,0 60,0 52,48 38,48" fill="url(#pure-white-grad)" />
+    <!-- Slashed M Peak -->
+    <polygon points="62,0 76,0 68,26 54,26" fill="url(#pdf-gold-grad)" />
+    <!-- Slashed M Right Leg -->
+    <polygon points="78,0 94,0 84,48 68,48" fill="url(#pure-white-grad)" />
   </g>
-  
-  <!-- Typography -->
-  <text x="75" y="34" font-family="Inter, sans-serif" font-weight="900" font-size="22" fill="#F8FAFC" letter-spacing="1">VM GRAPHITE</text>
-  <text x="75" y="52" font-family="Inter, sans-serif" font-weight="600" font-size="11" fill="#D97706" letter-spacing="2.5">INDUSTRIES LLP</text>
+
+  <!-- Subtitle: GRAPHITE INDUSTRIES (matching PDF spaced tracking) -->
+  <g transform="translate(15, 72)">
+    <text x="0" y="0" font-family="'Outfit', 'Inter', sans-serif" font-weight="800" font-size="9" fill="#94A3B8" letter-spacing="4.5">GRAPHITE INDUSTRIES</text>
+  </g>
+
+  <!-- Divider Line -->
+  <line x1="125" y1="18" x2="125" y2="68" stroke="url(#pdf-gold-grad)" stroke-width="1.5" opacity="0.6" />
+
+  <!-- Typography Right Side: VM Graphite Industries LLP -->
+  <g transform="translate(142, 38)">
+    <text x="0" y="0" font-family="'Outfit', 'Inter', sans-serif" font-weight="900" font-size="21" fill="#FFFFFF" letter-spacing="0.5">VM GRAPHITE</text>
+    <text x="0" y="20" font-family="'Outfit', 'Inter', sans-serif" font-weight="700" font-size="12" fill="url(#pdf-gold-grad)" letter-spacing="1.5">INDUSTRIES LLP</text>
+    <text x="0" y="32" font-family="'Inter', sans-serif" font-weight="500" font-size="8.5" fill="#64748B" letter-spacing="0.8">A Complete Solution For Coating &amp; Metalizer</text>
+  </g>
 </svg>

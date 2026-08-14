@@ -73,23 +73,23 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
 
   if (status === 'success') {
     return (
-      <div className="bg-emerald-50 border border-emerald-200 p-8 rounded-2xl text-center space-y-4">
-        <div className="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-2xs">
+      <div className="bg-emerald-950/40 border border-emerald-500/50 p-8 rounded-2xl text-center space-y-4">
+        <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-lg">
           <CheckCircle2 className="w-10 h-10" />
         </div>
-        <h3 className="text-2xl font-bold text-slate-900">Quote Request Received!</h3>
-        <p className="text-slate-600 max-w-md mx-auto text-sm leading-relaxed">
-          Thank you for inquiring about <span className="text-industrial-copper font-semibold">{formData.product || 'our industrial solutions'}</span>. Our technical sales team will review your specifications and contact you within 24 business hours.
+        <h3 className="text-2xl font-bold text-white">Quote Request Received!</h3>
+        <p className="text-slate-300 max-w-md mx-auto text-sm leading-relaxed">
+          Thank you for inquiring about <span className="text-gold-400 font-semibold">{formData.product || 'our industrial solutions'}</span>. Our technical sales team will review your specifications and contact you within 24 business hours.
         </p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 text-slate-900">
+    <form onSubmit={handleSubmit} className="space-y-4 text-white">
       {status === 'error' && (
-        <div className="p-4 bg-red-50 border border-red-200 rounded-xl flex items-start gap-3 text-red-700 text-sm">
-          <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
+        <div className="p-4 bg-red-950/40 border border-red-500/50 rounded-xl flex items-start gap-3 text-red-200 text-sm">
+          <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <div>{errorMessage}</div>
         </div>
       )}
@@ -107,7 +107,7 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
             Target Product
           </label>
           <input
@@ -116,11 +116,11 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             value={formData.product}
             onChange={handleChange}
             placeholder="e.g. Graphite Crucibles"
-            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+            className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
           />
         </div>
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
             Quantity Required
           </label>
           <input
@@ -129,15 +129,15 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             value={formData.quantity}
             onChange={handleChange}
             placeholder="e.g. 50 Pcs / 500 Kgs / 10 Rolls"
-            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+            className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Full Name <span className="text-industrial-copper">*</span>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+            Full Name <span className="text-gold-400">*</span>
           </label>
           <input
             type="text"
@@ -146,11 +146,11 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             value={formData.name}
             onChange={handleChange}
             placeholder="John Doe"
-            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+            className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
           />
         </div>
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
             Company Name
           </label>
           <input
@@ -159,15 +159,15 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             value={formData.company}
             onChange={handleChange}
             placeholder="Acme Industrial Corp"
-            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+            className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
           />
         </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Work Email <span className="text-industrial-copper">*</span>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+            Work Email <span className="text-gold-400">*</span>
           </label>
           <input
             type="email"
@@ -176,12 +176,12 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             value={formData.email}
             onChange={handleChange}
             placeholder="john@company.com"
-            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+            className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
           />
         </div>
         <div>
-          <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
-            Phone / WhatsApp <span className="text-industrial-copper">*</span>
+          <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
+            Phone / WhatsApp <span className="text-gold-400">*</span>
           </label>
           <input
             type="tel"
@@ -190,13 +190,13 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             value={formData.phone}
             onChange={handleChange}
             placeholder="+91 98765 43210"
-            className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+            className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
           />
         </div>
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
           Technical Specifications / Custom Dimensions
         </label>
         <input
@@ -205,12 +205,12 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
           value={formData.specifications}
           onChange={handleChange}
           placeholder="e.g. Density: 1.85 g/cm³, Size: 50mm OD x 40mm ID x 100mm L"
-          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+          className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
         />
       </div>
 
       <div>
-        <label className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">
+        <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
           Additional Requirements / Message
         </label>
         <textarea
@@ -219,23 +219,23 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
           value={formData.message}
           onChange={handleChange}
           placeholder="Specify delivery destination, application temperature, or special packaging preferences..."
-          className="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:border-industrial-copper focus:ring-1 focus:ring-industrial-copper transition-colors"
+          className="w-full bg-[#06080e] border border-white/15 rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-gold-400 focus:ring-1 focus:ring-gold-400 transition-colors"
         ></textarea>
       </div>
 
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="w-full py-3.5 px-6 bg-gradient-to-r from-industrial-copper to-amber-600 hover:from-amber-600 hover:to-industrial-copper text-white font-bold rounded-xl shadow-[0_4px_16px_rgba(217,119,6,0.25)] flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 cursor-pointer text-base"
+        className="w-full py-3.5 px-6 bg-gradient-to-r from-amber-400 via-gold-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 font-black rounded-xl border border-amber-200/80 shadow-[0_4px_20px_rgba(245,158,11,0.35)] flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-50 cursor-pointer text-base uppercase tracking-wider font-sans"
       >
         {status === 'submitting' ? (
           <>
-            <Loader2 className="w-5 h-5 animate-spin" />
+            <Loader2 className="w-5 h-5 animate-spin text-slate-950" />
             <span>Submitting Technical Inquiry...</span>
           </>
         ) : (
           <>
-            <Send className="w-5 h-5" />
+            <Send className="w-5 h-5 text-slate-950" />
             <span>Request Instant Quotation</span>
           </>
         )}

@@ -2,76 +2,81 @@
 const capabilities = [
   {
     step: '01',
-    title: 'Isostatic & Hydraulic Pressing',
-    desc: 'High-density graphite forming under multi-directional hydrostatic pressure to achieve ultra-fine grain uniformity and zero micro-void integrity.',
-    metric: 'Max 1.95 g/cm³ Density',
+    title: 'Isostatic & Hydrostatic Pressing',
+    desc: 'High-density graphite forming under multi-directional hydrostatic pressure for ultra-fine grain uniformity.',
+    metric: '1.95 g/cm³ Density',
   },
   {
     step: '02',
-    title: 'Precision CNC Machining',
-    desc: '5-axis high-speed CNC milling and turning centers capable of executing tight tolerance sleeve, ring, and custom mold geometry.',
+    title: '5-Axis Precision CNC Machining',
+    desc: 'High-speed CNC milling and turning centers capable of executing tight-tolerance graphite sleeve and mold geometry.',
     metric: '±0.02 mm Tolerance',
   },
   {
     step: '03',
     title: 'Thermal Metalizing & Coating',
-    desc: 'Automated spray suspension lines for applying protective boron nitride, micro-graphite, and ceramic thermal barrier films.',
-    metric: 'Up to 3000°C Thermal Stability',
+    desc: 'Automated spray coating lines applying protective micro-graphite, boron nitride, and ceramic thermal barrier films.',
+    metric: '3000°C Thermal Limit',
   },
   {
     step: '04',
-    title: 'Spectrographic & Ash Testing',
-    desc: 'In-house spectrographic purity analysis, ash content verification, and ultrasonic density scans for every production batch.',
+    title: 'Spectrographic Purity Analysis',
+    desc: 'In-house spectrographic purity analysis, ash content verification, and ultrasonic density scans for every batch.',
     metric: '99.9% Carbon Assurance',
   },
 ];
 ---
 
-<section class="py-24 bg-white text-slate-900 relative overflow-hidden border-b border-slate-200/80">
+<section class="py-28 lg:py-36 bg-[#090c15] text-slate-100 relative overflow-hidden border-b border-white/5">
   
-  <!-- Subtle Light Ambient Aura -->
-  <div class="absolute bottom-0 left-1/3 w-[500px] h-[500px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none"></div>
+  <!-- Subtle Ambient Glow -->
+  <div class="absolute bottom-0 left-1/3 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(212,175,55,0.06),transparent_70%)] pointer-events-none"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
       
-      <!-- Left Column Text -->
-      <div class="lg:col-span-5 space-y-6 reveal-on-scroll">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/10 text-industrial-copper border border-amber-500/20 text-xs font-bold uppercase tracking-wider font-mono">
-          Plant Infrastructure
-        </div>
-        <h2 class="text-3xl sm:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
-          Advanced Precision Manufacturing Capabilities
-        </h2>
-        <p class="text-slate-600 text-base sm:text-lg leading-relaxed font-normal">
-          Our state-of-the-art manufacturing plants in New Delhi and Gujarat house specialized equipment engineered for extreme material processing. From high-purity synthetic graphite machining to automated colloidal liquid suspensions, we maintain total quality control over every production phase.
-        </p>
-
-        <div class="pt-4 grid grid-cols-2 gap-4">
-          <div class="glass-card-light p-5 rounded-2xl border border-slate-200/80">
-            <div class="text-3xl font-black text-slate-900 font-mono mb-1">50,000+</div>
-            <div class="text-xs font-medium text-slate-600">Sq. Ft. Production Floor</div>
+      <!-- Left Column Text & Facility Stats -->
+      <div class="lg:col-span-5 space-y-8 reveal-on-scroll">
+        <div class="space-y-4">
+          <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 text-gold-400 border border-gold-500/25 text-xs font-bold uppercase tracking-widest font-mono">
+            Manufacturing Infrastructure
           </div>
-          <div class="glass-card-light p-5 rounded-2xl border border-slate-200/80">
-            <div class="text-3xl font-black text-industrial-copper font-mono mb-1">100%</div>
-            <div class="text-xs font-medium text-slate-600">Batch Quality Inspection</div>
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
+            State-of-the-Art <span class="text-gold-gradient font-black">Plant Capabilities</span>
+          </h2>
+          <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+            Our specialized manufacturing plants house high-tech machinery engineered for extreme material processing. From high-purity synthetic graphite machining to automated colloidal suspensions, we maintain strict quality control.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div class="bg-[#0e131f] p-6 rounded-2xl border border-white/10 shadow-xl">
+            <div class="text-3xl font-black text-white font-mono mb-1">50,000+</div>
+            <div class="text-xs font-medium text-slate-400">Sq. Ft. Production Floor</div>
+          </div>
+          <div class="bg-[#0e131f] p-6 rounded-2xl border border-white/10 shadow-xl">
+            <div class="text-3xl font-black text-gold-400 font-mono mb-1">100%</div>
+            <div class="text-xs font-medium text-slate-400">Batch Spectro Inspection</div>
           </div>
         </div>
       </div>
 
-      <!-- Right Column Capabilities Grid -->
+      <!-- Right Column Stages Grid -->
       <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-6">
         {capabilities.map((cap) => (
-          <div class="glass-card-light p-7 rounded-2xl relative group transition-all duration-300 transform hover:-translate-y-1.5 reveal-on-scroll">
-            <div class="flex items-center justify-between mb-5">
-              <span class="text-xs font-black text-industrial-copper bg-amber-500/10 px-3 py-1 rounded-md border border-amber-500/20 font-mono">
+          <div class="bg-[#0e131f] p-8 rounded-3xl relative group transition-all duration-500 hover:-translate-y-1.5 reveal-on-scroll border border-white/10 hover:border-gold-500/40 shadow-2xl flex flex-col justify-between space-y-4">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black text-gold-400 bg-gold-500/10 px-3 py-1 rounded-lg border border-gold-500/25 font-mono">
                 STAGE {cap.step}
               </span>
-              <span class="text-[11px] font-semibold text-slate-700 font-mono bg-slate-100 px-2.5 py-1 rounded-md border border-slate-200/80">{cap.metric}</span>
+              <span class="text-[11px] font-bold text-slate-300 font-mono bg-[#07090e] px-3 py-1 rounded-lg border border-white/10">{cap.metric}</span>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-industrial-copper transition-colors">{cap.title}</h3>
-            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed font-normal">{cap.desc}</p>
+
+            <div>
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-gold-400 transition-colors">{cap.title}</h3>
+              <p class="text-sm text-slate-300 leading-relaxed font-normal">{cap.desc}</p>
+            </div>
           </div>
         ))}
       </div>
@@ -80,5 +85,3 @@ const capabilities = [
 
   </div>
 </section>
-
-
