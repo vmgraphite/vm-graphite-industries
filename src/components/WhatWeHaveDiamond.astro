@@ -16,88 +16,122 @@ const showcaseProducts: ProductShowcaseItem[] = [
   { name: 'High-Temp End Seals', slug: 'end-seals', image: '/images/products/end-seals.jpg', category: 'Chamber Sealing' },
   { name: 'Graphite Machined Sleeves & Bushings', slug: 'graphite-sleeves', image: '/images/products/graphite-sleeves.jpg', category: 'Precision CNC Machining' },
 ];
+
+// First product is the hero bento item
+const [heroProduct, ...gridProducts] = showcaseProducts;
 ---
 
-<section class="py-28 lg:py-36 bg-[#07090e] border-t border-b border-white/5 relative overflow-hidden">
-  <!-- Soft Ambient Glow -->
-  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(ellipse_at_center,rgba(212,175,55,0.08),transparent_70%)] pointer-events-none"></div>
+<section class="py-24 lg:py-32 relative overflow-hidden dot-matrix-bg border-t border-white/5">
+
+  <!-- Ambient glow -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,160,32,0.06),transparent_65%)] pointer-events-none"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    
-    <!-- Section Header -->
-    <div class="max-w-3xl mx-auto text-center space-y-5 mb-20 reveal-on-scroll">
-      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/25 text-gold-400 text-xs font-bold uppercase tracking-widest font-mono">
-        Product Portfolio Overview
-      </div>
 
-      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-        What We <span class="text-gold-gradient font-black">Have</span>
+    <!-- Section header -->
+    <div class="max-w-3xl space-y-4 mb-16 reveal-on-scroll">
+      <span class="amber-pill">Product Portfolio</span>
+      <h2 class="display-lg text-white font-black tracking-tighter" style="font-family:'Outfit',sans-serif;">
+        What We <span class="text-amber-gradient">Have</span>
       </h2>
-
-      <p class="text-slate-300 text-base sm:text-lg font-normal leading-relaxed">
-        We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality. Discover how our solutions can meet your industrial needs with speed and excellence.
+      <p class="text-slate-400 text-base sm:text-lg leading-relaxed">
+        We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality.
       </p>
     </div>
 
-    <!-- Spacious Modern Product Grid -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-      {showcaseProducts.map((item) => (
-        <div class="group relative bg-[#0d111a] rounded-2xl overflow-hidden border border-white/10 hover:border-gold-500/40 transition-all duration-500 hover:-translate-y-2 shadow-2xl flex flex-col justify-between reveal-on-scroll">
-          
-          <div>
-            <!-- Image Frame -->
-            <div class="aspect-4/3 overflow-hidden relative bg-[#040508]">
-              <img
-                src={item.image}
-                alt={item.name}
-                class="w-full h-full object-cover group-hover:scale-108 transition-transform duration-700 opacity-90 group-hover:opacity-100"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-[#0d111a] via-transparent to-transparent"></div>
-              
-              <!-- Category Badge -->
-              <div class="absolute top-3 left-3 bg-[#07090e]/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-gold-400 border border-gold-500/30 font-mono shadow-md">
-                {item.category}
-              </div>
-            </div>
+    <!-- Bento Grid -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-5">
 
-            <!-- Content -->
-            <div class="p-6 space-y-2">
-              <h3 class="text-lg font-bold text-white group-hover:text-gold-400 transition-colors leading-snug">
-                {item.name}
-              </h3>
+      <!-- Hero bento cell — spans 2 cols and 2 rows -->
+      <div class="col-span-2 row-span-2 group relative bg-[#111318] rounded-2xl overflow-hidden border border-white/8 hover:border-[rgba(232,160,32,0.3)] transition-all duration-500 shadow-[0_12px_40px_rgba(0,0,0,0.6)] reveal-on-scroll" style="min-height: 420px;">
+        <a href={`/products/${heroProduct.slug}`} class="block h-full">
+          <div class="absolute inset-0 overflow-hidden">
+            <img
+              src={heroProduct.image}
+              alt={heroProduct.name}
+              class="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-700"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-[#0a0b0f] via-[rgba(10,11,15,0.4)] to-transparent"></div>
+          </div>
+
+          <!-- Content overlay at bottom -->
+          <div class="absolute bottom-0 left-0 right-0 p-6 space-y-3">
+            <span class="text-[10px] font-bold text-[#e8a020] bg-[rgba(232,160,32,0.12)] border border-[rgba(232,160,32,0.25)] px-3 py-1 rounded font-mono uppercase tracking-widest">
+              {heroProduct.category}
+            </span>
+            <h3 class="text-2xl font-black text-white leading-tight tracking-tight" style="font-family:'Outfit',sans-serif;">
+              {heroProduct.name}
+            </h3>
+            <div class="flex items-center gap-2 text-sm font-bold text-[#e8a020] font-mono uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
+              Explore Specs
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </div>
           </div>
 
-          <!-- Bottom Action Link -->
-          <div class="px-6 pb-6 pt-2 flex items-center justify-between border-t border-white/5 mt-2">
-            <a
-              href={`/products/${item.slug}`}
-              class="text-xs font-bold text-gold-400 hover:text-gold-300 flex items-center gap-1.5 font-mono tracking-wide transition-colors"
-            >
-              <span>Explore Specs</span>
-              <svg class="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </a>
+          <!-- Quote button -->
+          <button
+            type="button"
+            data-open-quote-modal
+            data-product-name={heroProduct.name}
+            data-product-category={heroProduct.category}
+            class="absolute top-4 right-4 bg-[#0a0b0f]/80 backdrop-blur-md border border-[rgba(232,160,32,0.3)] text-[#e8a020] text-[11px] font-bold font-mono px-3 py-1.5 rounded-md hover:bg-[#e8a020] hover:text-[#0a0b0f] transition-all cursor-pointer uppercase tracking-wider"
+            onclick="event.preventDefault(); event.stopPropagation();"
+          >
+            Quote →
+          </button>
+        </a>
+      </div>
 
+      <!-- Remaining grid cells -->
+      {gridProducts.map((item) => (
+        <div class="group relative bg-[#111318] rounded-2xl overflow-hidden border border-white/8 hover:border-[rgba(232,160,32,0.3)] transition-all duration-400 shadow-[0_4px_20px_rgba(0,0,0,0.4)] reveal-on-scroll" style="min-height: 195px;">
+          <a href={`/products/${item.slug}`} class="block h-full">
+            <!-- Image background -->
+            <div class="absolute inset-0 overflow-hidden">
+              <img
+                src={item.image}
+                alt={item.name}
+                class="w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-[#0a0b0f] via-[rgba(10,11,15,0.6)] to-transparent"></div>
+            </div>
+
+            <!-- Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-4 space-y-1.5">
+              <span class="text-[9px] font-bold text-[#e8a020] font-mono uppercase tracking-widest">
+                {item.category}
+              </span>
+              <h3 class="text-sm font-bold text-white leading-snug group-hover:text-[#f7c355] transition-colors">
+                {item.name}
+              </h3>
+            </div>
+
+            <!-- Quote mini button -->
             <button
               type="button"
               data-open-quote-modal
               data-product-name={item.name}
               data-product-category={item.category}
-              class="px-3 py-1.5 bg-gold-500/10 hover:bg-gold-500/20 text-gold-300 border border-gold-500/30 rounded-lg text-[11px] font-semibold transition-colors cursor-pointer"
+              class="absolute top-3 right-3 bg-[rgba(232,160,32,0.12)] border border-[rgba(232,160,32,0.25)] text-[#e8a020] text-[10px] font-bold font-mono px-2.5 py-1 rounded hover:bg-[#e8a020] hover:text-[#0a0b0f] transition-all cursor-pointer opacity-0 group-hover:opacity-100"
+              onclick="event.preventDefault(); event.stopPropagation();"
             >
-              Quote &rarr;
+              Quote
             </button>
-          </div>
-
+          </a>
         </div>
       ))}
+
     </div>
 
-    <!-- Bottom Statement Banner -->
-    <div class="mt-20 p-8 sm:p-12 rounded-3xl bg-gradient-to-r from-[#0d111a] via-[#121724] to-[#0d111a] border border-gold-500/25 text-center max-w-4xl mx-auto shadow-2xl reveal-on-scroll">
-      <p class="text-base sm:text-xl font-bold text-slate-200 uppercase tracking-wide leading-relaxed font-heading">
-        Delivering Premium <span class="text-gold-gradient font-black">Graphite Solutions</span> with Unmatched Quality and Speed.
+    <!-- Bottom statement -->
+    <div class="mt-12 flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t border-white/8 reveal-on-scroll">
+      <p class="text-lg font-bold text-slate-200 max-w-xl leading-snug" style="font-family:'Outfit',sans-serif;">
+        Delivering Premium <span class="text-amber-gradient font-black">Graphite Solutions</span> with Unmatched Quality and Speed.
       </p>
+      <a href="/products" class="forge-btn-ghost rounded-lg shrink-0">
+        View Full Catalog
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+      </a>
     </div>
 
   </div>

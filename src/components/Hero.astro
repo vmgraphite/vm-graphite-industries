@@ -16,121 +16,119 @@ const {
 } = Astro.props;
 
 const heroImage = propHeroImage || '/images/hero-industrial.jpg';
+
+// Split headline for styled treatment
+const parts = headline.split('&');
+const headlinePart1 = parts[0]?.trim() || headline;
+const headlinePart2 = parts[1]?.trim() || '';
 ---
 
-<section class="relative bg-[#07090e] text-slate-100 overflow-hidden py-28 lg:py-36 border-b border-white/5">
-  
-  <!-- Dynamic Ambient Glow Backdrops -->
-  <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(212,175,55,0.08),transparent_70%)] pointer-events-none animate-pulse-glow"></div>
+<section class="relative flex items-center overflow-hidden bg-[#0a0b0f] pt-8 pb-14 lg:pt-10 lg:pb-16">
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-      
-      <!-- Left Hero Content (7 cols) -->
+  <!-- Background layers -->
+  <!-- Radial amber glow -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.12),transparent_65%)] pointer-events-none"></div>
+  <!-- Bottom fade -->
+  <div class="absolute bottom-0 inset-x-0 h-40 bg-gradient-to-t from-[#0a0b0f] to-transparent pointer-events-none"></div>
+  <!-- Vertical amber rule - decorative -->
+  <div class="absolute top-0 left-[62%] bottom-0 w-px bg-gradient-to-b from-transparent via-[rgba(232,160,32,0.15)] to-transparent pointer-events-none hidden lg:block"></div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+      <!-- LEFT: Headline + CTA -->
       <div class="lg:col-span-7 space-y-8 reveal-on-scroll">
         
-        <!-- Trust Badge -->
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#0d111a] border border-gold-500/30 text-xs font-semibold text-slate-200 shadow-xl backdrop-blur-md">
-          <span class="relative flex h-2.5 w-2.5">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-gold-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-gold-500"></span>
+        <!-- Trust badge -->
+        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-[rgba(232,160,32,0.3)] bg-[rgba(232,160,32,0.07)] text-[#e8a020] font-mono text-[11px] font-bold uppercase tracking-widest">
+          <span class="relative flex h-2 w-2">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#e8a020] opacity-60"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-[#e8a020]"></span>
           </span>
-          <span class="tracking-widest uppercase font-mono text-[11px] text-gold-400">ISO 9001:2015 CERTIFIED B2B MANUFACTURER</span>
+          ISO 9001:2015 Certified B2B Manufacturer
         </div>
 
-        <!-- Main Title -->
-        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.1]">
-          {headline.split('&').map((part, index) => (
-            index === 0 ? (
-              <span>{part} &amp; <br class="hidden sm:inline" /></span>
-            ) : (
-              <span class="text-gold-gradient font-black">{part}</span>
-            )
-          ))}
+        <!-- Main headline -->
+        <h1 class="font-black text-white tracking-tighter leading-[1.05]" style="font-size: clamp(2.4rem, 5vw, 4.2rem); font-family: 'Outfit', sans-serif;">
+          {headlinePart1}
+          {headlinePart2 && (
+            <>
+              <span class="block text-amber-gradient font-black">&amp; {headlinePart2}</span>
+            </>
+          )}
         </h1>
 
-        <!-- Supporting Subheadline -->
-        <p class="text-base sm:text-lg text-slate-300 max-w-2xl font-normal leading-relaxed">
+        <!-- Subheadline -->
+        <p class="text-slate-400 text-sm max-w-md leading-relaxed font-normal">
           {subheadline}
         </p>
 
-        <!-- Feature Pills -->
-        <div class="flex flex-wrap items-center gap-3 pt-1">
-          <div class="flex items-center gap-2 bg-[#0d111a]/90 border border-white/10 px-4 py-2 rounded-xl text-xs font-medium text-slate-200 backdrop-blur-sm shadow-md">
-            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            <span>High-Temp Coating &amp; Metalizing</span>
-          </div>
-          <div class="flex items-center gap-2 bg-[#0d111a]/90 border border-white/10 px-4 py-2 rounded-xl text-xs font-medium text-slate-200 backdrop-blur-sm shadow-md">
-            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            <span>Custom Machining &amp; Tolerances</span>
-          </div>
-          <div class="flex items-center gap-2 bg-[#0d111a]/90 border border-white/10 px-4 py-2 rounded-xl text-xs font-medium text-slate-200 backdrop-blur-sm shadow-md">
-            <svg class="w-4 h-4 text-gold-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            <span>Severe Thermal Environments</span>
-          </div>
-        </div>
-
-        <!-- Action CTAs -->
-        <div class="pt-3 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
-          <a
-            href="/products"
-            class="relative group overflow-hidden px-8 py-4 bg-gradient-to-r from-amber-400 via-gold-400 to-amber-500 hover:from-amber-300 hover:via-gold-300 hover:to-amber-400 text-slate-950 font-black rounded-xl border border-amber-200/80 shadow-[0_4px_25px_rgba(245,158,11,0.4),0_0_0_1px_rgba(251,191,36,0.3)] hover:shadow-[0_6px_30px_rgba(245,158,11,0.6)] flex items-center justify-center gap-2 transition-all transform hover:-translate-y-0.5 active:translate-y-0 text-base uppercase tracking-wider font-sans"
-          >
-            <span class="relative z-10">{primaryCtaText}</span>
-            <svg class="w-5 h-5 relative z-10 text-slate-950 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 pt-2">
+          <a href="/products" class="forge-btn-primary rounded-lg">
+            {primaryCtaText}
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
           </a>
-
-          <button
-            type="button"
-            data-open-quote-modal
-            class="px-8 py-4 bg-[#0d111a] hover:bg-[#141b2d] text-slate-100 font-extrabold rounded-xl border border-white/15 hover:border-gold-400 flex items-center justify-center gap-2 transition-all cursor-pointer text-base shadow-lg"
-          >
-            <svg class="w-5 h-5 text-gold-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>{secondaryCtaText}</span>
+          <button type="button" data-open-quote-modal class="forge-btn-ghost rounded-lg">
+            <svg class="w-4 h-4 text-[#e8a020]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+            {secondaryCtaText}
           </button>
         </div>
-
       </div>
 
-      <!-- Right Visual Card Column (5 cols) -->
-      <div class="lg:col-span-5 relative reveal-on-scroll">
-        <div class="relative rounded-3xl overflow-hidden border border-white/10 bg-[#0d111a] shadow-2xl p-3 group hover:border-gold-500/40 transition-all duration-500">
-          
-          <!-- Image Wrapper -->
-          <div class="aspect-4/3 rounded-2xl overflow-hidden relative bg-[#040508]">
-            <img
-              src={heroImage}
-              alt="VM Graphite High Temperature Material Processing"
-              class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 opacity-90"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0d111a] via-transparent to-transparent"></div>
-            
-            <!-- Live Badge Overlay -->
-            <div class="absolute top-4 right-4 bg-[#07090e]/90 backdrop-blur-md border border-gold-500/30 px-3 py-1.5 rounded-full flex items-center gap-2 shadow-xl">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span class="text-[11px] font-bold text-gold-400 tracking-wide uppercase font-mono">Precision Engineered</span>
+      <!-- RIGHT: Compact data card -->
+      <div class="lg:col-span-5 reveal-on-scroll">
+        <div class="bg-[#111318] rounded-xl border border-white/8 overflow-hidden shadow-[0_8px_40px_rgba(0,0,0,0.6)]">
+
+          <!-- HUD header -->
+          <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/8 bg-[#0e1016]">
+            <div class="flex items-center gap-2">
+              <span class="w-1.5 h-1.5 rounded-full bg-[#e8a020] animate-ambient-pulse"></span>
+              <span class="text-[10px] font-bold text-[#e8a020] uppercase tracking-widest font-mono">Material Specs</span>
+            </div>
+            <span class="text-[10px] text-slate-600 font-mono">ISO 9001:2015</span>
+          </div>
+
+          <!-- Metrics grid -->
+          <div class="grid grid-cols-3 divide-x divide-white/8">
+            <div class="px-4 py-5 text-center">
+              <div class="text-xl font-black text-[#e8a020] font-mono leading-none">99.9%</div>
+              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1 font-mono">Purity</div>
+            </div>
+            <div class="px-4 py-5 text-center">
+              <div class="text-xl font-black text-white font-mono leading-none">3000°C</div>
+              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1 font-mono">Max Temp</div>
+            </div>
+            <div class="px-4 py-5 text-center">
+              <div class="text-xl font-black text-[#7dd3fc] font-mono leading-none">20+</div>
+              <div class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mt-1 font-mono">Countries</div>
             </div>
           </div>
 
-          <!-- Technical Metrics Overlay Grid -->
-          <div class="p-6 grid grid-cols-3 gap-4 border-t border-white/10 bg-[#07090e]/90 rounded-b-2xl">
-            <div class="text-center border-r border-white/10 pr-2">
-              <div class="text-xl sm:text-2xl font-black text-gold-400 font-mono">99.9%</div>
-              <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">Carbon Purity</div>
-            </div>
-            <div class="text-center border-r border-white/10 pr-2">
-              <div class="text-xl sm:text-2xl font-black text-white font-mono">3000°C</div>
-              <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">Max Temp</div>
-            </div>
-            <div class="text-center">
-              <div class="text-xl sm:text-2xl font-black text-emerald-400 font-mono">Zero</div>
-              <div class="text-[10px] sm:text-xs font-bold text-slate-400 uppercase tracking-wider mt-0.5">Defect Quality</div>
-            </div>
+          <!-- Feature list -->
+          <div class="px-4 py-4 border-t border-white/8 space-y-2.5">
+            {[
+              'Isostatic pressed high-density graphite',
+              'Custom CNC machining to ±0.02mm',
+              'Colloidal suspensions for die casting',
+              'Flexible graphite foil & sealing tapes',
+            ].map((f) => (
+              <div class="flex items-center gap-2.5 text-xs text-slate-400">
+                <span class="w-1 h-1 rounded-full bg-[#e8a020] shrink-0"></span>
+                {f}
+              </div>
+            ))}
           </div>
 
+          <!-- Bottom link -->
+          <div class="px-4 py-3 bg-[#0e1016] border-t border-white/8 flex justify-end">
+            <a href="/products" class="text-[11px] font-bold text-[#e8a020] hover:text-[#f7c355] transition-colors font-mono uppercase tracking-wider">View Catalog →</a>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
+
+
 </section>
