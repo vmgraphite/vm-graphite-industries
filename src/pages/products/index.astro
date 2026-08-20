@@ -31,21 +31,24 @@ const filteredProducts = allProducts.filter((product) => {
   ]}
 >
   <!-- Page Header -->
-  <section class="bg-[#040508] text-white py-14 industrial-grid-bg border-b border-gold-500/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/10 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.12),transparent_65%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Products Catalog', href: '/products' }]} />
 
-      <div class="max-w-3xl space-y-3 pt-2">
-        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Industrial <span class="text-gold-gradient font-black">Product Catalog</span>
+      <div class="max-w-3xl space-y-3 pt-6 reveal-on-scroll">
+        <span class="amber-pill">Industrial Product Catalog</span>
+        <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
+          Precision-Manufactured <span class="text-gold-gradient">Solutions</span>
         </h1>
-        <p class="text-slate-300 text-sm sm:text-base">
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
           Explore our complete range of high-purity industrial graphite, thermal coating suspensions, sealing products, and doctor blades.
         </p>
       </div>
 
       <!-- Search & Filter Controls Bar -->
-      <div class="mt-8 pt-6 border-t border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
+      <div class="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         
         <!-- Category Filter Tabs -->
         <div class="flex flex-wrap items-center gap-2">
@@ -53,8 +56,8 @@ const filteredProducts = allProducts.filter((product) => {
             href="/products?category=all"
             class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
               selectedCategory === 'all'
-                ? 'bg-gradient-to-r from-amber-400 via-gold-400 to-amber-500 text-slate-950 font-black border border-amber-200/80 shadow-md'
-                : 'bg-[#0e131f] text-slate-300 hover:bg-[#141b2d] border border-white/10'
+                ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-black border border-amber-300/80 shadow-md'
+                : 'bg-[#0d1017] text-slate-300 hover:bg-[#141923] border border-white/10'
             }`}
           >
             All Products ({allProducts.length})
@@ -67,8 +70,8 @@ const filteredProducts = allProducts.filter((product) => {
                 href={`/products?category=${cat.slug}`}
                 class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
                   isCatActive
-                    ? 'bg-gradient-to-r from-amber-400 via-gold-400 to-amber-500 text-slate-950 font-black border border-amber-200/80 shadow-md'
-                    : 'bg-[#0e131f] text-slate-300 hover:bg-[#141b2d] border border-white/10'
+                    ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-black border border-amber-300/80 shadow-md'
+                    : 'bg-[#0d1017] text-slate-300 hover:bg-[#141923] border border-white/10'
                 }`}
               >
                 {cat.name} ({count})
@@ -84,10 +87,10 @@ const filteredProducts = allProducts.filter((product) => {
             type="text"
             name="search"
             value={searchQuery}
-            placeholder="Search products..."
-            class="w-full bg-[#0e131f] border border-gold-500/30 rounded-xl pl-9 pr-4 py-2 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-gold-400"
+            placeholder="Search products & specs..."
+            class="w-full bg-[#0d1017] border border-white/10 hover:border-amber-500/30 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors"
           />
-          <svg class="w-4 h-4 text-gold-400 absolute left-3 top-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <svg class="w-4 h-4 text-[#f7c355] absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </form>
 
       </div>
@@ -95,7 +98,7 @@ const filteredProducts = allProducts.filter((product) => {
   </section>
 
   <!-- Product Grid Content -->
-  <section class="py-16 bg-[#080a10] min-h-[500px]">
+  <section class="py-16 bg-[#07090e] min-h-[500px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       {filteredProducts.length > 0 ? (

@@ -10,7 +10,7 @@ export default defineConfig({
   title: 'VM Graphite Industries Studio',
   projectId,
   dataset,
-  basePath: '/admin',
+  basePath: '/admin/studio',
   plugins: [
     structureTool({
       structure: (S) =>

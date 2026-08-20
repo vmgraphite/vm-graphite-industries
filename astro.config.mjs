@@ -2,6 +2,18 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 
+const sanityStudioSpaFallback = () => ({
+  name: 'sanity-studio-spa-fallback',
+  configureServer(server) {
+    server.middlewares.use((req, res, next) => {
+      if (req.url && req.url.startsWith('/admin/studio/') && !req.url.includes('.')) {
+        req.url = '/admin/studio';
+      }
+      next();
+    });
+  },
+});
+
 // https://astro.build/config
 export default defineConfig({
   site: 'https://vmgraphiteindustries.com',
@@ -10,7 +22,7 @@ export default defineConfig({
   ],
   output: 'static',
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [tailwindcss(), sanityStudioSpaFallback()],
     optimizeDeps: {
       include: ['sanity', 'styled-components'],
     },

@@ -13,15 +13,18 @@ const siteSettings = await getSiteSettings();
   breadcrumbs={[{ name: 'Contact Us', item: '/contact' }]}
 >
   <!-- Page Header -->
-  <section class="bg-[#040508] text-white py-14 industrial-grid-bg border-b border-gold-500/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/10 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.12),transparent_65%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Contact Us', href: '/contact' }]} />
 
-      <div class="max-w-3xl space-y-3 pt-2">
-        <h1 class="text-3xl sm:text-5xl font-black text-white tracking-tight">
-          Contact &amp; <span class="text-gold-gradient font-black">Factory Locations</span>
+      <div class="max-w-3xl space-y-3 pt-6 reveal-on-scroll">
+        <span class="amber-pill">Direct Channels</span>
+        <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
+          Contact &amp; <span class="text-gold-gradient">Factory Locations</span>
         </h1>
-        <p class="text-slate-300 text-sm sm:text-base">
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
           Reach out to our technical sales team, request custom sample trials, or schedule a facility visit.
         </p>
       </div>
@@ -29,58 +32,58 @@ const siteSettings = await getSiteSettings();
   </section>
 
   <!-- Contact Content & Locations -->
-  <section class="py-16 bg-[#080a10] text-slate-100">
+  <section class="py-16 bg-[#07090e] text-slate-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
         
         <!-- Left Contact Cards Column (5 cols) -->
         <div class="lg:col-span-5 space-y-6">
           
           <!-- Corporate Office Card -->
-          <div class="glass-card-dark rounded-2xl p-6 border border-gold-500/25 shadow-2xl space-y-3">
-            <div class="flex items-center gap-3 text-gold-400">
+          <div class="glow-card rounded-2xl p-6 border border-white/10 shadow-xl space-y-3 reveal-on-scroll">
+            <div class="flex items-center gap-3 text-[#f7c355]">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-              <h3 class="text-lg font-bold text-white">Corporate &amp; Sales Office</h3>
+              <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">Corporate &amp; Sales Office</h3>
             </div>
-            <p class="text-xs text-slate-300 leading-relaxed font-medium">
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
               {siteSettings.officeAddress}
             </p>
           </div>
 
           <!-- Manufacturing Plant Card -->
-          <div class="glass-card-dark rounded-2xl p-6 border border-gold-500/25 shadow-2xl space-y-3">
-            <div class="flex items-center gap-3 text-sky-400">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 01-.517-3.86l.477-2.387a2 2 0 00-.547-1.022l-1.07-1.07a2 2 0 00-2.828 0l-1.07 1.07a2 2 0 000 2.828l1.07 1.07z"/></svg>
-              <h3 class="text-lg font-bold text-white">Manufacturing Plant Unit</h3>
+          <div class="glow-card rounded-2xl p-6 border border-white/10 shadow-xl space-y-3 reveal-on-scroll">
+            <div class="flex items-center gap-3 text-[#38bdf8]">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/></svg>
+              <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">Manufacturing Plant Unit</h3>
             </div>
-            <p class="text-xs text-slate-300 leading-relaxed font-medium">
+            <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
               {siteSettings.plantAddress}
             </p>
           </div>
 
           <!-- Direct Communication Channels -->
-          <div class="bg-[#040508] text-white rounded-2xl p-6 border border-gold-500/30 shadow-2xl space-y-4">
-            <h4 class="text-sm font-bold uppercase tracking-wider text-gold-400 font-mono">Direct Channels</h4>
+          <div class="glow-card rounded-2xl p-6 border border-white/10 shadow-xl space-y-5 reveal-on-scroll bg-[#0d1017]">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-[#f7c355] font-mono">Direct Communication</h4>
             
-            <div class="space-y-3 text-xs">
+            <div class="space-y-4 text-xs">
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-[#0e131f] text-gold-400 flex items-center justify-center shrink-0 border border-gold-500/20">
+                <div class="w-9 h-9 rounded-xl bg-amber-500/10 text-[#f7c355] flex items-center justify-center shrink-0 border border-amber-500/20">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                 </div>
                 <div>
-                  <div class="text-slate-400 font-semibold">Primary Sales Phone</div>
-                  <a href={`tel:${siteSettings.primaryPhone}`} class="font-bold text-white hover:text-gold-300">{siteSettings.primaryPhone}</a>
+                  <div class="text-slate-400 font-mono text-[11px]">Primary Phone</div>
+                  <a href={`tel:${siteSettings.primaryPhone}`} class="font-bold text-white hover:text-[#f7c355] font-mono text-sm">{siteSettings.primaryPhone}</a>
                 </div>
               </div>
 
               <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded-lg bg-[#0e131f] text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
+                <div class="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0 border border-emerald-500/20">
                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                 </div>
                 <div>
-                  <div class="text-slate-400 font-semibold">Official Email</div>
-                  <a href={`mailto:${siteSettings.email}`} class="font-bold text-white hover:text-gold-300">{siteSettings.email}</a>
+                  <div class="text-slate-400 font-mono text-[11px]">Official Email</div>
+                  <a href={`mailto:${siteSettings.email}`} class="font-bold text-white hover:text-[#f7c355] font-mono text-sm">{siteSettings.email}</a>
                 </div>
               </div>
             </div>
@@ -90,22 +93,22 @@ const siteSettings = await getSiteSettings();
               href={`https://wa.me/${siteSettings.whatsappNumber.replace(/[^0-9]/g, '')}?text=Hello%20VM%20Graphite,%20I%20have%20an%20urgent%20inquiry.`}
               target="_blank"
               rel="noopener noreferrer"
-              class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors font-sans"
+              class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors font-sans uppercase tracking-wider shadow-md"
             >
-              <span>Instant WhatsApp Sales Chat</span>
+              <span>Instant WhatsApp Sales Desk</span>
             </a>
           </div>
 
         </div>
 
         <!-- Right Form Column (7 cols) -->
-        <div class="lg:col-span-7">
-          <div class="glass-card-dark rounded-2xl p-8 border border-gold-500/30 shadow-2xl space-y-6">
+        <div class="lg:col-span-7 reveal-scale">
+          <div class="glow-card rounded-2xl p-7 sm:p-9 border border-white/10 shadow-2xl space-y-6 bg-[#0d1017]">
             <div>
-              <h2 class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Inquiry Desk</h2>
-              <h3 class="text-2xl font-black text-white mt-1">Send a Direct Message</h3>
-              <p class="text-xs text-slate-300 mt-1">
-                Fill out the form below to connect directly with our technical engineers or sales representatives.
+              <span class="amber-pill">Inquiry Desk</span>
+              <h3 class="display-lg text-white font-black mt-2" style="font-family:'Outfit',sans-serif;">Send a Direct Message</h3>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1 font-normal">
+                Fill out the form below to connect directly with our engineering or technical sales team.
               </p>
             </div>
 

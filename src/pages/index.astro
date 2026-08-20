@@ -2,6 +2,10 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.astro';
 import FeaturedCategories from '../components/FeaturedCategories.astro';
+import WhatWeHaveDiamond from '../components/WhatWeHaveDiamond.astro';
+import Capabilities from '../components/Capabilities.astro';
+import CompanyStrengths from '../components/CompanyStrengths.astro';
+import BrochureCTA from '../components/BrochureCTA.astro';
 
 import {
   getSiteSettings,
@@ -12,23 +16,14 @@ import {
 const siteSettings = await getSiteSettings();
 const categories = await getCategories();
 const homeContent = await getHomePageContent();
-
-const products = [
-  { name: 'High-Density Graphite Crucibles', slug: 'graphite-crucibles', image: '/images/products/graphite-crucibles.jpg', category: 'Foundry & Metallurgy' },
-  { name: 'Colloidal Graphite Suspension', slug: 'graphite-suspension', image: '/images/products/graphite-suspension.jpg', category: 'Liquid Formulations' },
-  { name: 'Carbon Steel Doctor Blades', slug: 'carbon-steel-doctor-blades', image: '/images/products/carbon-steel-doctor-blades.jpg', category: 'Flexo & Gravure Printing' },
-  { name: 'Graphite Foil Tape & Sheet', slug: 'graphite-foil-tape', image: '/images/products/graphite-foil-tape.jpg', category: 'Thermal Gasketing' },
-  { name: 'Graphite Gland Rope & Packing', slug: 'graphite-gland-rope', image: '/images/products/graphite-gland-rope.jpg', category: 'High-Temp Sealing' },
-  { name: 'Graphite Sleeves & Bushings', slug: 'graphite-sleeves', image: '/images/products/graphite-sleeves.jpg', category: 'Precision CNC Machining' },
-];
 ---
 
 <Layout
   title="VM Graphite Industries LLP | Advanced Industrial Graphite Solutions"
-  description="Premier manufacturer of industrial graphite crucibles, colloidal graphite suspensions, sealing foil tapes, and doctor blades in India."
+  description="Premier manufacturer of high-purity industrial graphite crucibles, colloidal graphite suspensions, sealing foil tapes, and doctor blades in India."
 >
 
-  <!-- ① Hero -->
+  <!-- ① Hero Section -->
   <Hero
     headline={homeContent?.heroHeadline}
     subheadline={homeContent?.heroSubheadline}
@@ -37,135 +32,46 @@ const products = [
     secondaryCtaText={homeContent?.secondaryCtaText}
   />
 
-  <!-- ② Metrics strip -->
-  <div class="bg-[#111318] border-t border-b border-white/8">
+  <!-- ② Interactive Metrics Bar with Live Animated Counters -->
+  <div class="bg-[#0b0e15] border-t border-b border-white/10 relative z-20 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 lg:grid-cols-4 divide-x divide-white/8">
+      <div class="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
         {[
-          { metric: '99.9%', label: 'Carbon Purity', color: 'text-[#e8a020]' },
-          { metric: '3000°C', label: 'Max Thermal Rating', color: 'text-white' },
-          { metric: '20+', label: 'Countries Served', color: 'text-[#7dd3fc]' },
-          { metric: 'ISO', label: '9001:2015 Certified', color: 'text-[#4ade80]' },
+          { metric: '99.9', suffix: '%', decimals: 1, label: 'Carbon Purity', color: 'text-[#f7c355]', sub: 'Ultra-pure synthetic grades' },
+          { metric: '3000', suffix: '°C', decimals: 0, label: 'Max Thermal Rating', color: 'text-white', sub: 'Extreme heat resistance' },
+          { metric: '20', suffix: '+', decimals: 0, label: 'Countries Served', color: 'text-[#38bdf8]', sub: 'Worldwide export network' },
+          { metric: '100', suffix: '%', decimals: 0, label: 'ISO 9001:2015', color: 'text-emerald-400', sub: 'Zero defect inspection' },
         ].map((item) => (
-          <div class="py-5 px-6 text-center">
-            <div class={`text-2xl font-black font-mono ${item.color}`}>{item.metric}</div>
-            <div class="text-xs text-slate-500 mt-1 font-medium">{item.label}</div>
+          <div class="py-6 px-6 text-center hover:bg-white/[0.02] transition-colors reveal-on-scroll">
+            <div
+              class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${item.color}`}
+              data-counter-target={item.metric}
+              data-counter-decimals={item.decimals}
+              data-counter-suffix={item.suffix}
+            >
+              {item.metric}{item.suffix}
+            </div>
+            <div class="text-xs text-slate-200 mt-1.5 font-bold uppercase tracking-wider font-mono">{item.label}</div>
+            <div class="text-[11px] text-slate-400 mt-0.5 font-normal">{item.sub}</div>
           </div>
         ))}
       </div>
     </div>
   </div>
 
-  <!-- ③ Product Divisions -->
+  <!-- ③ Product Divisions (Featured Categories) -->
   <FeaturedCategories categories={categories} />
 
-  <!-- ④ Featured Products -->
-  <section class="py-16 bg-[#0a0b0f] border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-end justify-between mb-8 reveal-on-scroll">
-        <div>
-          <span class="amber-pill mb-3 inline-flex">Product Range</span>
-          <h2 class="text-2xl font-black text-white tracking-tight mt-2" style="font-family:'Outfit',sans-serif;">
-            Featured Products
-          </h2>
-        </div>
-        <a href="/products" class="forge-btn-ghost rounded-lg text-xs px-4 py-2 shrink-0">
-          View All →
-        </a>
-      </div>
+  <!-- ④ Flagship Products Bento Showcase (What We Have) -->
+  <WhatWeHaveDiamond />
 
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-4 reveal-on-scroll">
-        {products.map((p) => (
-          <a
-            href={`/products/${p.slug}`}
-            class="group relative bg-[#111318] rounded-xl overflow-hidden border border-white/8 hover:border-[rgba(232,160,32,0.3)] transition-all duration-300 hover:-translate-y-0.5"
-          >
-            <div class="h-40 overflow-hidden relative bg-[#080a10]">
-              <img
-                src={p.image}
-                alt={p.name}
-                class="w-full h-full object-cover opacity-70 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-[#111318] via-transparent to-transparent"></div>
-              <span class="absolute top-2 left-2 text-[9px] font-bold font-mono text-[#e8a020] bg-[rgba(10,11,15,0.85)] border border-[rgba(232,160,32,0.2)] px-2 py-0.5 rounded uppercase tracking-wider">
-                {p.category}
-              </span>
-            </div>
-            <div class="p-4 flex items-center justify-between gap-2">
-              <span class="text-sm font-semibold text-white group-hover:text-[#f7c355] transition-colors leading-snug" style="font-family:'Outfit',sans-serif;">
-                {p.name}
-              </span>
-              <svg class="w-3.5 h-3.5 text-[#e8a020] shrink-0 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- ⑤ State-of-the-Art Plant Capabilities & Infrastructure Pipeline -->
+  <Capabilities />
 
-  <!-- ⑤ Why VM Graphite -->
-  <section class="py-16 bg-[#0a0b0f] border-t border-white/5">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+  <!-- ⑥ Why Industrial Leaders Choose VM Graphite (Strengths & Alubonding) -->
+  <CompanyStrengths />
 
-        <div class="space-y-4 reveal-on-scroll">
-          <span class="amber-pill">Manufacturing Advantage</span>
-          <h2 class="font-black text-white tracking-tight leading-tight mt-2" style="font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-family:'Outfit',sans-serif;">
-            Precision Manufacturing.<br/>
-            <span class="text-amber-gradient">Delivered Reliably.</span>
-          </h2>
-          <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
-            From isostatic pressing to spectrographic purity analysis — every step engineered for zero-defect B2B delivery.
-          </p>
-          <div class="flex gap-3 pt-2">
-            <a href="/about" class="forge-btn-ghost rounded-lg text-xs px-5 py-2.5">About Us</a>
-            <a href="/contact" class="forge-btn-ghost rounded-lg text-xs px-5 py-2.5">Contact</a>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-1 gap-3 reveal-on-scroll">
-          {[
-            { title: 'Custom Engineering', desc: 'Bespoke grain sizes, custom CNC-machined geometries, and specialized liquid formulations on demand.', icon: 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z' },
-            { title: 'Strict Quality Control', desc: 'Spectrographic purity analysis, ash content verification, and dimensional checks on every shipment.', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4' },
-            { title: 'Global Export Ready', desc: 'Seaworthy packaging and reliable logistics to 20+ countries with on-time delivery commitment.', icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V7a2 2 0 00-2-2h-1.5A2.5 2.5 0 0113 2.5V2' },
-          ].map((item) => (
-            <div class="flex items-start gap-4 bg-[#111318] border border-white/8 hover:border-[rgba(232,160,32,0.2)] rounded-xl p-4 transition-colors group">
-              <div class="w-8 h-8 rounded-lg bg-[rgba(232,160,32,0.08)] border border-[rgba(232,160,32,0.15)] flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-4 h-4 text-[#e8a020]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon} />
-                </svg>
-              </div>
-              <div>
-                <div class="text-white font-bold text-sm mb-1 group-hover:text-[#f7c355] transition-colors" style="font-family:'Outfit',sans-serif;">{item.title}</div>
-                <p class="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ⑥ CTA -->
-  <section class="relative bg-[#0a0b0f] border-t border-white/5">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,160,32,0.07),transparent_65%)] pointer-events-none"></div>
-    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center relative z-10 reveal-on-scroll">
-      <span class="amber-pill mb-5 inline-flex">Custom Orders</span>
-      <h2 class="font-black text-white tracking-tight mt-4 mb-3" style="font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-family:'Outfit',sans-serif;">
-        Need a Custom Component<br/>or Formulation?
-      </h2>
-      <p class="text-slate-400 text-sm max-w-md mx-auto mb-8 leading-relaxed">
-        Our engineering team handles custom grain sizes, CNC-precision components, and specialized colloidal formulations.
-      </p>
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
-        <button type="button" data-open-quote-modal class="forge-btn-primary rounded-lg w-full sm:w-auto px-8 py-3 text-sm cursor-pointer">
-          Request a Quote
-        </button>
-        <a href={siteSettings.companyBrochureUrl || '/docs/VM_Graphite_Corporate_Brochure.pdf'} target="_blank" download class="forge-btn-ghost rounded-lg w-full sm:w-auto px-8 py-3 text-sm">
-          Download Brochure
-        </a>
-      </div>
-    </div>
-  </section>
+  <!-- ⑦ High-Conversion Official Technical Brochure & Custom Orders CTA -->
+  <BrochureCTA brochureUrl={siteSettings.companyBrochureUrl} />
 
 </Layout>

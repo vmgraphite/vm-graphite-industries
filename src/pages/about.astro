@@ -16,18 +16,20 @@ const aboutContent = await getAboutPageContent();
   ]}
 >
   <!-- Page Header Banner -->
-  <section class="bg-[#040508] text-white py-16 industrial-grid-bg border-b border-gold-500/20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/10 relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.12),transparent_65%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'About Us', href: '/about' }]} />
 
-      <div class="max-w-3xl space-y-4 pt-4">
-        <span class="inline-block px-3 py-1 bg-gold-500/15 text-gold-400 border border-gold-500/30 rounded-full text-xs font-bold uppercase tracking-wider font-mono">
+      <div class="max-w-3xl space-y-4 pt-6 reveal-on-scroll">
+        <span class="amber-pill">
           Company Profile &amp; Vision
         </span>
-        <h1 class="text-4xl sm:text-5xl font-black text-white tracking-tight">
+        <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
           {aboutContent?.title || 'About VM Graphite Industries LLP'}
         </h1>
-        <p class="text-lg text-slate-300 font-medium leading-relaxed">
+        <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
           {aboutContent?.subtitle || "Striving to Become India's Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."}
         </p>
       </div>
@@ -35,68 +37,68 @@ const aboutContent = await getAboutPageContent();
   </section>
 
   <!-- Company Aim & Vision Banner -->
-  <section class="py-10 bg-gradient-to-r from-[#0d111a] via-[#141b2d] to-[#0d111a] border-b border-gold-500/25">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
-      <span class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Our Corporate Aim</span>
-      <h2 class="text-xl sm:text-2xl font-black text-white max-w-4xl mx-auto leading-relaxed">
+  <section class="py-12 bg-gradient-to-r from-[#07090e] via-[#0f1420] to-[#07090e] border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 reveal-on-scroll">
+      <span class="text-xs font-bold text-[#f7c355] uppercase tracking-widest font-mono">Our Corporate Aim</span>
+      <h2 class="text-xl sm:text-2xl font-black text-white max-w-4xl mx-auto leading-relaxed" style="font-family:'Outfit',sans-serif;">
         "VM Graphite Industries LLP: Striving to Become India's Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."
       </h2>
     </div>
   </section>
 
   <!-- Company Overview Section -->
-  <section class="py-20 bg-[#080a10] text-slate-100 border-b border-gold-500/20">
+  <section class="py-20 bg-[#07090e] text-slate-100 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- Left Image Card -->
-        <div class="lg:col-span-6">
-          <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gold-500/30 bg-[#0e131f]">
+        <div class="lg:col-span-6 reveal-scale">
+          <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0d1017] glow-card">
             <img
               src="/images/facility-plant.jpg"
               alt="VM Graphite Industrial Plant Infrastructure"
-              class="w-full h-auto object-cover opacity-90"
+              class="w-full h-auto object-cover opacity-90 hover:scale-105 transition-transform duration-700"
             />
-            <div class="p-6 bg-[#040508] text-white flex justify-between items-center border-t border-white/10">
+            <div class="p-6 bg-[#07090e] text-white flex justify-between items-center border-t border-white/10">
               <div>
-                <div class="text-xs font-bold text-gold-400 uppercase tracking-wider font-mono">Manufacturing Hub &amp; R&amp;D Center</div>
+                <div class="text-xs font-bold text-[#f7c355] uppercase tracking-wider font-mono">Manufacturing Hub &amp; R&amp;D Center</div>
                 <div class="text-sm font-semibold text-white">New Delhi &amp; Gujarat Units</div>
               </div>
-              <div class="text-right font-mono text-xs text-slate-400">
-                ESTABLISHED 2021
+              <div class="text-right font-mono text-xs text-slate-400 bg-white/5 px-2.5 py-1 rounded border border-white/8">
+                EST. 2021
               </div>
             </div>
           </div>
         </div>
 
         <!-- Right Overview Content -->
-        <div class="lg:col-span-6 space-y-6">
-          <h2 class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Who We Are</h2>
-          <h3 class="text-3xl font-extrabold text-white leading-tight">
+        <div class="lg:col-span-6 space-y-6 reveal-on-scroll">
+          <span class="amber-pill">Who We Are</span>
+          <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight" style="font-family:'Outfit',sans-serif;">
             Advanced Alubonding Technology &amp; Technical Manufacturing Excellence
           </h3>
 
-          <div class="prose text-slate-300 text-sm leading-relaxed space-y-4">
+          <div class="text-slate-300 text-sm sm:text-base leading-relaxed space-y-4 font-normal">
             <p>
-              <strong class="text-white">VM Graphite Industries LLP</strong> was established in 2021 by partners <strong class="text-gold-400">Ayush Patel</strong> and <strong class="text-gold-400">Himanshu Bisth</strong>. The company specializes in manufacturing high-quality graphite suspension and foil tape &amp; other industrial materials.
+              <strong class="text-white font-bold">VM Graphite Industries LLP</strong> was established in 2021 by partners <strong class="text-[#f7c355]">Ayush Patel</strong> and <strong class="text-[#f7c355]">Himanshu Bisth</strong>. The company specializes in manufacturing high-quality graphite suspension and foil tape &amp; other industrial materials.
             </p>
             <p>
-              Leveraging extensive research and development along with advanced <strong class="text-white font-semibold">Alubonding technology</strong>, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality.
+              Leveraging extensive research and development along with advanced <strong class="text-white font-bold">Alubonding technology</strong>, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality.
             </p>
             <p>
-              Their foil tape is available in various sizes to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.
+              Our foil tape is available in various custom dimensions to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.
             </p>
           </div>
 
           <!-- Key Leadership & Metrics -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
-            <div class="p-4 bg-[#0d111a] rounded-xl border border-white/5">
-              <div class="text-xs font-bold text-gold-400 font-mono uppercase">Founders &amp; Leadership</div>
+            <div class="p-4 bg-[#0d1017] rounded-xl border border-white/8">
+              <div class="text-xs font-bold text-[#f7c355] font-mono uppercase">Founders &amp; Leadership</div>
               <div class="text-sm font-bold text-white mt-1">Ayush Patel &amp; Himanshu Bisth</div>
               <div class="text-xs text-slate-400 mt-0.5">Partners &amp; Co-Founders</div>
             </div>
-            <div class="p-4 bg-[#0d111a] rounded-xl border border-white/5">
-              <div class="text-xs font-bold text-gold-400 font-mono uppercase">Core Innovation</div>
+            <div class="p-4 bg-[#0d1017] rounded-xl border border-white/8">
+              <div class="text-xs font-bold text-[#f7c355] font-mono uppercase">Core Innovation</div>
               <div class="text-sm font-bold text-white mt-1">Alubonding Technology</div>
               <div class="text-xs text-slate-400 mt-0.5">Proprietary R&amp;D Process</div>
             </div>
@@ -107,11 +109,11 @@ const aboutContent = await getAboutPageContent();
     </div>
   </section>
 
-  <!-- Exceptional Production Capacity & Commitment ("What We Have") -->
-  <section class="py-16 bg-[#040508] text-white border-b border-gold-500/20">
+  <!-- Exceptional Production Capacity Statement -->
+  <section class="py-16 bg-[#07090e] text-white border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="p-8 sm:p-12 rounded-3xl bg-[#0d111a] border border-gold-500/30 text-center space-y-4 max-w-4xl mx-auto shadow-2xl">
-        <span class="inline-block px-3.5 py-1 bg-gold-500/10 border border-gold-500/30 rounded-full text-gold-400 text-xs font-bold uppercase tracking-widest font-mono">
+      <div class="p-8 sm:p-12 rounded-3xl bg-[#0d1017] border border-amber-500/30 text-center space-y-4 max-w-4xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(232,160,32,0.1)] reveal-on-scroll">
+        <span class="amber-pill">
           Production Capacity &amp; Quality Standard
         </span>
         <p class="text-base sm:text-xl font-medium text-slate-200 leading-relaxed font-sans">
@@ -122,45 +124,45 @@ const aboutContent = await getAboutPageContent();
   </section>
 
   <!-- Quality Commitment & Facility Pillars -->
-  <section class="py-20 bg-[#07090e] text-white border-b border-gold-500/20">
+  <section class="py-20 bg-[#07090e] text-white border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-3xl mx-auto space-y-4 mb-16">
-        <h2 class="text-xs font-bold text-gold-400 uppercase tracking-widest font-mono">Quality Assurance</h2>
-        <h3 class="text-3xl font-extrabold text-white">Rigorous Quality &amp; Production Standards</h3>
-        <p class="text-slate-300 text-sm">
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-14 reveal-on-scroll">
+        <span class="amber-pill">Quality Assurance</span>
+        <h3 class="display-lg text-white font-black" style="font-family:'Outfit',sans-serif;">Rigorous Quality &amp; Production Standards</h3>
+        <p class="text-slate-400 text-sm sm:text-base">
           Every production lot undergoes rigorous physical, thermal, and chemical laboratory testing before dispatch.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="glass-card-dark border border-gold-500/20 p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-gold-500/20 text-gold-400 rounded-xl flex items-center justify-center font-bold">
+        <div class="glow-card p-8 rounded-2xl space-y-4 reveal-on-scroll">
+          <div class="w-12 h-12 bg-amber-500/10 text-[#f7c355] border border-amber-500/30 rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
-          <h4 class="text-xl font-bold text-white">Alubonding &amp; Material R&amp;D</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">
+          <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">Alubonding &amp; Material R&amp;D</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
             Proprietary Alubonding thermal bonding and chemical formulation techniques yield superior heat resistance, low ash content, and structural integrity.
           </p>
         </div>
 
-        <div class="glass-card-dark border border-gold-500/20 p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-sky-500/20 text-sky-400 rounded-xl flex items-center justify-center font-bold">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07a2 2 0 00.547-1.022l.477-2.387a6 6 0 00-.517-3.86l-.158-.318a6 6 0 01-.517-3.86l.477-2.387a2 2 0 00-.547-1.022l-1.07-1.07a2 2 0 00-2.828 0l-1.07 1.07a2 2 0 000 2.828l1.07 1.07z"/></svg>
+        <div class="glow-card p-8 rounded-2xl space-y-4 reveal-on-scroll">
+          <div class="w-12 h-12 bg-sky-500/10 text-sky-400 border border-sky-500/30 rounded-xl flex items-center justify-center font-bold">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/></svg>
           </div>
-          <h4 class="text-xl font-bold text-white">Foil Tape Custom Sizing</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">
+          <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">Foil Tape Custom Sizing</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
             Our high-purity graphite foil tape is engineered in various custom widths, thicknesses, and adhesive backings to suit diverse industrial sealing requirements.
           </p>
         </div>
 
-        <div class="glass-card-dark border border-gold-500/20 p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-xl flex items-center justify-center font-bold">
+        <div class="glow-card p-8 rounded-2xl space-y-4 reveal-on-scroll">
+          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
           </div>
-          <h4 class="text-xl font-bold text-white">Timely Delivery Guarantee</h4>
-          <p class="text-xs text-slate-300 leading-relaxed">
+          <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">Timely Delivery Guarantee</h4>
+          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
             Robust production scheduling and export-grade protective packaging ensure every order is fulfilled on schedule without compromising on quality.
           </p>
         </div>

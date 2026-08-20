@@ -19,42 +19,56 @@ const navItems = [
 ---
 
 <header id="site-header" class="fixed top-0 z-50 w-full transition-all duration-300">
-  <!-- Amber ticker strip -->
-  <div class="hidden lg:block bg-[#e8a020] text-[#0a0b0f] text-[11px] font-bold tracking-widest uppercase overflow-hidden">
-    <div class="max-w-7xl mx-auto px-8 flex justify-between items-center h-8">
-      <span class="font-mono flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-[#0a0b0f] animate-pulse inline-block"></span>
-        ISO 9001:2015 Certified Manufacturer
+  <!-- Top amber ticker strip -->
+  <div class="hidden lg:block bg-gradient-to-r from-[#d97706] via-[#f59e0b] to-[#e8a020] text-[#07090e] text-[11px] font-bold tracking-wider uppercase overflow-hidden shadow-sm">
+    <div class="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-8">
+      <span class="font-mono flex items-center gap-2 font-black">
+        <span class="w-2 h-2 rounded-full bg-[#07090e] animate-pulse inline-block"></span>
+        ISO 9001:2015 Certified High-Purity Graphite Manufacturer
       </span>
-      <div class="flex items-center gap-6">
-        <a href={`tel:${siteSettings.primaryPhone}`} class="hover:underline font-mono">{siteSettings.primaryPhone}</a>
-        <span>|</span>
-        <span class="font-mono">{siteSettings.workingHours}</span>
+      <div class="flex items-center gap-6 font-semibold">
+        <a href={`tel:${siteSettings.primaryPhone}`} class="hover:underline font-mono flex items-center gap-1.5">
+          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+          {siteSettings.primaryPhone}
+        </a>
+        <span class="opacity-40">|</span>
+        <span class="font-mono opacity-90">{siteSettings.workingHours}</span>
         <a
           href={`https://wa.me/${siteSettings.whatsappNumber}?text=Hello%20VM%20Graphite,%20I%20have%20a%20product%20inquiry.`}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1.5 hover:underline"
+          class="flex items-center gap-1.5 hover:underline font-bold"
         >
           <svg class="w-3 h-3" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-          WhatsApp
+          Direct WhatsApp
         </a>
       </div>
     </div>
   </div>
 
   <!-- Main navbar -->
-  <div id="navbar-inner" class="glass-frosted transition-all duration-300">
+  <div id="navbar-inner" class="glass-frosted transition-all duration-300 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-[68px]">
+      <div class="flex items-center justify-between h-[72px]">
         
         <!-- Logo -->
         <a href="/" class="flex items-center gap-3 group focus:outline-none shrink-0" aria-label="VM Graphite Industries Home">
-          <img src="/images/logo.svg" alt="VM Graphite Industries" class="h-11 w-auto transition-all duration-300 group-hover:brightness-110" />
+          <div class="relative flex items-center gap-3">
+            <div class="absolute -inset-1 rounded-xl bg-gradient-to-r from-amber-500/20 to-amber-300/10 blur-sm opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            <img src="/images/logo.png" alt="VM Graphite Industries" class="h-11 w-11 sm:h-12 sm:w-12 rounded-xl object-contain relative transition-all duration-300 group-hover:scale-105 shadow-md border border-white/10" />
+            <div class="hidden sm:flex flex-col">
+              <span class="text-base font-black tracking-wider text-white uppercase font-['Outfit'] leading-none">
+                VM GRAPHITE
+              </span>
+              <span class="text-[10px] font-bold tracking-[0.25em] text-[#f7c355] uppercase font-mono mt-1">
+                INDUSTRIES LLP
+              </span>
+            </div>
+          </div>
         </a>
 
-        <!-- Desktop nav -->
-        <nav class="hidden md:flex items-center gap-1">
+        <!-- Desktop Navigation Links -->
+        <nav class="hidden md:flex items-center gap-1.5">
           {navItems.map((item) => {
             const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
             if (item.hasDropdown) {
@@ -62,28 +76,30 @@ const navItems = [
                 <div class="relative group">
                   <a
                     href={item.href}
-                    class={`px-4 py-2 text-sm font-semibold flex items-center gap-1.5 transition-all rounded-md relative ${
-                      isActive ? 'text-[#e8a020]' : 'text-slate-300 hover:text-white'
+                    class={`px-4 py-2 text-sm font-semibold flex items-center gap-1.5 transition-all rounded-lg relative ${
+                      isActive ? 'text-[#f7c355] bg-white/5' : 'text-slate-300 hover:text-white hover:bg-white/5'
                     }`}
                   >
                     {item.name}
-                    <svg class="w-3.5 h-3.5 opacity-60 group-hover:rotate-180 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-                    {isActive && <span class="absolute bottom-0 left-4 right-4 h-px bg-[#e8a020] rounded-full"></span>}
+                    <svg class="w-3.5 h-3.5 opacity-60 group-hover:rotate-180 transition-transform duration-300 text-[#e8a020]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
+                    {isActive && <span class="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-[#f7c355] to-transparent rounded-full"></span>}
                   </a>
 
-                  <div class="absolute left-0 top-full pt-3 w-72 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-250 z-50">
-                    <div class="bg-[#111318] rounded-xl shadow-[0_20px_60px_rgba(0,0,0,0.9)] p-3 border border-white/8 space-y-0.5">
-                      <a href="/products" class="flex items-center gap-2 px-3 py-2.5 rounded-lg text-xs font-bold text-[#e8a020] uppercase tracking-widest hover:bg-white/5 transition-colors font-mono">
-                        All Products →
+                  <!-- Dropdown Menu -->
+                  <div class="absolute left-0 top-full pt-3 w-80 opacity-0 translate-y-2 pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:pointer-events-auto transition-all duration-300 z-50">
+                    <div class="bg-[#0d1017] rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.9),0_0_30px_rgba(232,160,32,0.1)] p-3.5 border border-white/10 space-y-1 backdrop-blur-xl">
+                      <a href="/products" class="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-[#f7c355] uppercase tracking-widest hover:bg-white/5 transition-colors font-mono border border-transparent hover:border-amber-500/20">
+                        <span>All Products &amp; Specs</span>
+                        <span class="text-[10px] font-sans">→</span>
                       </a>
-                      <div class="h-px bg-white/8 my-1"></div>
+                      <div class="h-px bg-white/10 my-1"></div>
                       {categories.map((cat) => (
                         <a
                           href={`/products?category=${cat.slug}`}
-                          class="block px-3 py-2.5 rounded-lg hover:bg-white/5 transition-colors group/item"
+                          class="block px-3.5 py-2.5 rounded-xl hover:bg-white/5 transition-all group/item border border-transparent hover:border-white/5"
                         >
-                          <div class="text-sm font-semibold text-white group-hover/item:text-[#e8a020] transition-colors">{cat.name}</div>
-                          <div class="text-[11px] text-slate-400 line-clamp-1 mt-0.5">{cat.description}</div>
+                          <div class="text-sm font-semibold text-white group-hover/item:text-[#f7c355] transition-colors">{cat.name}</div>
+                          <div class="text-[11px] text-slate-400 line-clamp-1 mt-0.5 font-normal">{cat.description}</div>
                         </a>
                       ))}
                     </div>
@@ -95,12 +111,12 @@ const navItems = [
             return (
               <a
                 href={item.href}
-                class={`px-4 py-2 text-sm font-semibold transition-all rounded-md relative ${
-                  isActive ? 'text-[#e8a020]' : 'text-slate-300 hover:text-white'
+                class={`px-4 py-2 text-sm font-semibold transition-all rounded-lg relative ${
+                  isActive ? 'text-[#f7c355] bg-white/5' : 'text-slate-300 hover:text-white hover:bg-white/5'
                 }`}
               >
                 {item.name}
-                {isActive && <span class="absolute bottom-0 left-4 right-4 h-px bg-[#e8a020] rounded-full"></span>}
+                {isActive && <span class="absolute bottom-1 left-4 right-4 h-0.5 bg-gradient-to-r from-transparent via-[#f7c355] to-transparent rounded-full"></span>}
               </a>
             );
           })}
@@ -111,18 +127,18 @@ const navItems = [
           <button
             type="button"
             data-open-quote-modal
-            class="forge-btn-primary text-xs px-5 py-2.5 rounded-md"
+            class="forge-btn-primary text-xs px-5 py-2.5 rounded-lg"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            Get a Quote
+            Request Quote
           </button>
         </div>
 
-        <!-- Mobile toggle -->
+        <!-- Mobile Toggle Button -->
         <button
           id="mobile-menu-btn"
           type="button"
-          class="flex md:hidden p-2 text-slate-300 hover:text-white transition-colors"
+          class="flex md:hidden p-2.5 rounded-lg text-slate-300 hover:text-white bg-white/5 hover:bg-white/10 transition-colors border border-white/8"
           aria-label="Toggle Navigation"
         >
           <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h10"/></svg>
@@ -132,52 +148,55 @@ const navItems = [
     </div>
   </div>
 
-  <!-- Mobile overlay menu -->
+  <!-- Mobile Overlay Menu -->
   <div
     id="mobile-menu"
-    class="hidden fixed inset-0 top-[calc(68px+32px)] bg-[#0a0b0f]/98 backdrop-blur-xl z-40 flex-col md:hidden overflow-y-auto"
+    class="hidden fixed inset-0 top-[72px] lg:top-[104px] bg-[#07090e]/98 backdrop-blur-2xl z-40 flex-col md:hidden overflow-y-auto border-t border-white/10"
   >
-    <div class="p-6 space-y-1 border-b border-white/8">
+    <div class="p-6 space-y-1 border-b border-white/10">
       {navItems.map((item) => (
         <a
           href={item.href}
-          class="flex items-center justify-between px-4 py-4 rounded-xl text-xl font-bold text-white hover:text-[#e8a020] hover:bg-white/5 transition-all"
+          class="flex items-center justify-between px-4 py-3.5 rounded-xl text-lg font-bold text-white hover:text-[#f7c355] hover:bg-white/5 transition-all"
         >
           {item.name}
-          <svg class="w-5 h-5 opacity-30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <svg class="w-5 h-5 text-[#e8a020] opacity-60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
         </a>
       ))}
     </div>
 
     <div class="p-6 space-y-2">
-      <div class="text-[10px] font-bold text-[#e8a020] uppercase tracking-widest font-mono mb-3">Product Divisions</div>
+      <div class="text-[11px] font-bold text-[#f7c355] uppercase tracking-widest font-mono mb-3">Product Divisions</div>
       {categories.map((cat) => (
         <a
           href={`/products?category=${cat.slug}`}
-          class="block px-4 py-2.5 rounded-lg text-slate-300 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium"
+          class="block px-4 py-2.5 rounded-xl text-slate-300 hover:text-white hover:bg-white/5 transition-colors text-sm font-medium border border-transparent hover:border-white/5"
         >
           {cat.name}
         </a>
       ))}
     </div>
 
-    <div class="p-6 border-t border-white/8 mt-auto">
+    <div class="p-6 border-t border-white/10 mt-auto space-y-3">
       <button
         type="button"
         data-open-quote-modal
-        class="forge-btn-primary w-full justify-center text-sm rounded-xl py-4"
+        class="forge-btn-primary w-full justify-center text-sm rounded-xl py-3.5"
       >
         Request Commercial Quote
       </button>
+      <div class="flex items-center justify-center gap-2 text-xs text-slate-400 font-mono">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        Plant: New Delhi &amp; Gujarat
+      </div>
     </div>
   </div>
 </header>
 
 <!-- Spacer for fixed header -->
-<div class="h-[68px] lg:h-[100px]"></div>
+<div class="h-[72px] lg:h-[104px]"></div>
 
 <script>
-  // Mobile menu toggle
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
   const iconOpen = document.getElementById('menu-icon-open');
@@ -191,15 +210,12 @@ const navItems = [
     iconClose?.classList.toggle('hidden', isOpen);
   });
 
-  // Scroll-compressed header
-  const header = document.getElementById('site-header');
   const navbarInner = document.getElementById('navbar-inner');
-  
   const handleScroll = () => {
-    if (window.scrollY > 60) {
-      navbarInner?.classList.add('shadow-[0_4px_30px_rgba(0,0,0,0.9)]');
+    if (window.scrollY > 40) {
+      navbarInner?.classList.add('shadow-[0_8px_30px_rgba(0,0,0,0.9)]', 'bg-[#07090e]/95');
     } else {
-      navbarInner?.classList.remove('shadow-[0_4px_30px_rgba(0,0,0,0.9)]');
+      navbarInner?.classList.remove('shadow-[0_8px_30px_rgba(0,0,0,0.9)]', 'bg-[#07090e]/95');
     }
   };
 

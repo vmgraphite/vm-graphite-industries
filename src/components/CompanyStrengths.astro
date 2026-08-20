@@ -1,124 +1,114 @@
 ---
 const strengths = [
   {
-    title: 'Advanced Alubonding Tech',
-    description: 'Proprietary R&D and advanced Alubonding bonding technology delivering graphite solutions that stand out for unmatched quality.',
+    title: 'Advanced Alubonding™ Technology',
+    description: 'Proprietary R&D and advanced Alubonding bonding technology delivering synthetic graphite solutions with exceptional laminar adhesion and chemical resistance.',
     metric: 'Proprietary R&D',
     number: '01',
     icon: 'M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z',
   },
   {
     title: 'Exceptional Production Capacity',
-    description: 'High-scale industrial manufacturing and strict scheduling commitment ensuring orders are fulfilled on time with speed and excellence.',
-    metric: 'Timely Delivery Guarantee',
+    description: 'High-scale industrial manufacturing units with scheduled dispatch systems ensuring bulk B2B orders are fulfilled on time with zero compromise.',
+    metric: 'Timely Delivery SLA',
     number: '02',
     icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z',
   },
   {
-    title: 'Custom Foil Tape Sizing',
-    description: 'High-purity flexible graphite foil tapes available in a comprehensive range of widths, thicknesses, and grades for diverse sealing needs.',
-    metric: 'Versatile Dimensions',
+    title: 'Custom Foil Tape Sizing & Slitting',
+    description: 'High-purity flexible graphite foil tapes available in a comprehensive range of custom slit widths, densities, and adhesive backings for severe gasketing.',
+    metric: 'Custom Dimensions',
     number: '03',
     icon: 'M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4',
   },
   {
-    title: 'High-Quality Suspensions',
-    description: 'Specialized liquid colloidal graphite suspensions and lubricants engineered for high-temperature die casting and forging operations.',
-    metric: 'Colloidal Formulations',
+    title: 'Specialized Colloidal Formulations',
+    description: 'Ultra-fine colloidal graphite and boron nitride suspensions engineered for severe die casting, forging operations, and hot-glass handling.',
+    metric: 'Colloidal R&D',
     number: '04',
     icon: 'M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z',
   },
   {
-    title: 'Strict Quality Control',
-    description: 'Extensive laboratory spectrographic purity analysis and dimensional checks to ensure zero-defect B2B shipments.',
-    metric: '100% Quality Inspected',
+    title: '100% Laboratory Quality Control',
+    description: 'Extensive in-house spectrographic purity analysis, ash content verification, and dimensional laser scans to ensure zero-defect B2B shipments.',
+    metric: '100% Inspected',
     number: '05',
     icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
   },
   {
-    title: 'Global Export Readiness',
-    description: 'Streamlined logistics and export-standard seaworthy packaging delivering reliably to industrial clients across 20+ countries.',
-    metric: '20+ Countries Served',
+    title: 'Global Export-Grade Packaging',
+    description: 'Export-standard seaworthy packaging, moisture barriers, and fast freight logistics delivering to industrial clients across 20+ countries.',
+    metric: '20+ Countries',
     number: '06',
     icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V7a2 2 0 00-2-2h-1.5A2.5 2.5 0 0113 2.5V2',
   },
 ];
 ---
 
-<section class="relative bg-[#0a0b0f] overflow-hidden border-t border-white/5">
+<section class="py-24 relative bg-[#07090e] overflow-hidden border-t border-white/8">
 
   <!-- Section header -->
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
     <div class="max-w-3xl space-y-4 reveal-on-scroll">
       <span class="amber-pill">B2B Manufacturing Advantage</span>
-      <h2 class="display-lg text-white font-black tracking-tighter" style="font-family:'Outfit',sans-serif;">
-        Why Industrial Leaders<br/>Choose <span class="text-amber-gradient">VM Graphite</span>
+      <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
+        Why Industrial Leaders Choose <span class="text-gold-gradient">VM Graphite</span>
       </h2>
-      <p class="text-slate-400 text-base sm:text-lg leading-relaxed max-w-lg">
-        Delivering consistent material purity, extended component life, and minimal maintenance downtime across continuous thermal operations.
+      <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
+        Delivering consistent material purity, extended component life, and minimal maintenance downtime across continuous thermal operations worldwide.
       </p>
     </div>
   </div>
 
-  <!-- Alternating rows -->
-  <div class="border-t border-white/5">
-    {strengths.map((item, idx) => {
-      const isEven = idx % 2 === 0;
-      return (
-        <div
-          class="relative group border-b border-white/5 transition-colors duration-300 hover:bg-[rgba(232,160,32,0.02)] bg-[#0a0b0f]"
-        >
-          <!-- Amber left indicator on hover -->
-          <div class="absolute left-0 top-0 bottom-0 w-0.5 bg-[#e8a020] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+  <!-- Alternating Rows -->
+  <div class="border-t border-white/8">
+    {strengths.map((item, idx) => (
+      <div class="relative group border-b border-white/8 transition-colors duration-300 hover:bg-amber-500/[0.03] bg-[#07090e]">
+        
+        <!-- Left Amber Indicator Bar on Hover -->
+        <div class="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 to-amber-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
 
-          <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center py-10 lg:py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center py-8 lg:py-10">
 
-              <!-- Watermark number (desktop) -->
-              <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
-                <span class="font-black font-mono text-7xl text-[#e8a020] opacity-[0.05] select-none">
-                  {item.number}
-                </span>
-              </div>
-
-              <!-- Icon -->
-              <div class={`lg:col-span-1 flex ${isEven ? 'lg:justify-end' : 'lg:justify-start'}`}>
-                <div class="w-14 h-14 rounded-xl bg-[#111318] border border-white/8 group-hover:border-[rgba(232,160,32,0.3)] group-hover:bg-[rgba(232,160,32,0.08)] flex items-center justify-center transition-all duration-300">
-                  <svg class="w-6 h-6 text-[#e8a020]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon} />
-                  </svg>
-                </div>
-              </div>
-
-              <!-- Text content -->
-              <div class="lg:col-span-6 space-y-2">
-                <h3 class="text-xl sm:text-2xl font-black text-white group-hover:text-[#f7c355] transition-colors leading-snug" style="font-family:'Outfit',sans-serif;">
-                  {item.title}
-                </h3>
-                <p class="text-slate-400 leading-relaxed text-sm sm:text-base">
-                  {item.description}
-                </p>
-              </div>
-
-              <!-- Vertical amber rule (desktop) -->
-              <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
-                <div class="w-px h-12 bg-gradient-to-b from-transparent via-[rgba(232,160,32,0.25)] to-transparent group-hover:via-[rgba(232,160,32,0.5)] transition-colors duration-300"></div>
-              </div>
-
-              <!-- Metric pill -->
-              <div class="lg:col-span-3 flex lg:justify-end">
-                <span class="inline-flex items-center gap-2 px-4 py-2.5 bg-[#111318] border border-white/8 group-hover:border-[rgba(232,160,32,0.2)] rounded-lg text-sm font-bold text-slate-300 group-hover:text-[#e8a020] transition-all font-mono">
-                  <span class="w-2 h-2 rounded-full bg-[#e8a020] group-hover:animate-pulse opacity-60"></span>
-                  {item.metric}
-                </span>
-              </div>
-
+            <!-- Watermark Number -->
+            <div class="hidden lg:flex lg:col-span-1 items-center justify-center">
+              <span class="font-black font-mono text-6xl text-[#f7c355] opacity-[0.07] select-none">
+                {item.number}
+              </span>
             </div>
+
+            <!-- Icon -->
+            <div class="lg:col-span-1 flex items-center">
+              <div class="w-12 h-12 rounded-xl bg-[#0d1017] border border-white/10 group-hover:border-amber-500/40 group-hover:bg-amber-500/10 flex items-center justify-center transition-all duration-300 shadow-md">
+                <svg class="w-6 h-6 text-[#f7c355]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d={item.icon} />
+                </svg>
+              </div>
+            </div>
+
+            <!-- Text Content -->
+            <div class="lg:col-span-7 space-y-1.5">
+              <h3 class="text-lg sm:text-xl font-bold text-white group-hover:text-[#f7c355] transition-colors leading-snug" style="font-family:'Outfit',sans-serif;">
+                {item.title}
+              </h3>
+              <p class="text-slate-400 text-xs sm:text-sm leading-relaxed font-normal">
+                {item.description}
+              </p>
+            </div>
+
+            <!-- Metric Pill -->
+            <div class="lg:col-span-3 flex lg:justify-end">
+              <span class="inline-flex items-center gap-2 px-4 py-2 bg-[#0d1017] border border-white/10 group-hover:border-amber-500/30 rounded-lg text-xs font-bold text-slate-300 group-hover:text-[#f7c355] transition-all font-mono shadow-sm">
+                <span class="w-2 h-2 rounded-full bg-[#f7c355] opacity-70 group-hover:animate-pulse"></span>
+                {item.metric}
+              </span>
+            </div>
+
           </div>
         </div>
-      );
-    })}
+      </div>
+    ))}
   </div>
 
-  <div class="h-8"></div>
 </section>

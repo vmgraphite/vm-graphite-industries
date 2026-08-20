@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { X, FileText } from 'lucide-react';
+import { X } from 'lucide-react';
 import QuoteForm from './QuoteForm';
 
 export default function QuoteModal() {
@@ -33,9 +33,11 @@ export default function QuoteModal() {
         {/* Header */}
         <div className="px-6 py-5 bg-[#080a10] border-b border-white/10 flex items-center justify-between">
           <div className="flex items-center gap-3.5">
-            <div className="w-10 h-10 bg-gold-500/20 text-gold-400 border border-gold-500/30 rounded-xl flex items-center justify-center shadow-md">
-              <FileText className="w-5 h-5" />
-            </div>
+            <img
+              src="/images/logo.png"
+              alt="VM Graphite Logo"
+              className="w-10 h-10 rounded-xl object-contain border border-gold-500/30 shadow-md"
+            />
             <div>
               <h3 className="text-lg font-bold text-white leading-tight">Request Commercial Quotation</h3>
               <p className="text-xs text-gold-400 font-mono mt-0.5">

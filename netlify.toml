@@ -6,6 +6,11 @@
   SECRETS_SCAN_ENABLED = "false"
 
 [[redirects]]
+  from = "/admin/studio/*"
+  to = "/admin/studio/index.html"
+  status = 200
+
+[[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
   status = 200
