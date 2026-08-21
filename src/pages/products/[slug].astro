@@ -62,13 +62,13 @@ function renderProductDescription(desc: any) {
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start pt-6">
         
         <!-- Left Product Images Gallery (5 cols) -->
-        <div class="lg:col-span-5 space-y-4 reveal-scale">
+        <div class="lg:col-span-5 space-y-4">
           <div class="rounded-2xl overflow-hidden border border-white/10 bg-[#0d1017] aspect-4/3 shadow-2xl glow-card">
             <img
               id="main-product-img"
               src={product.mainImage}
               alt={product.name}
-              class="w-full h-full object-cover opacity-95 hover:scale-105 transition-transform duration-700"
+              class="w-full h-full object-cover opacity-95"
             />
           </div>
 
@@ -95,7 +95,7 @@ function renderProductDescription(desc: any) {
         </div>
 
         <!-- Right Product Summary & Actions (7 cols) -->
-        <div class="lg:col-span-7 space-y-6 reveal-on-scroll">
+        <div class="lg:col-span-7 space-y-6">
           <div class="space-y-2">
             <span class="theme-pill">
               {product.categoryName}
@@ -168,7 +168,7 @@ function renderProductDescription(desc: any) {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
       <!-- Structured Specifications Table -->
-      <div class="space-y-4 reveal-on-scroll">
+      <div class="space-y-4">
         <div class="flex items-center justify-between">
           <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Technical Specifications Matrix</h2>
           <span class="text-xs font-mono text-theme-bright uppercase bg-theme-tint px-2.5 py-1 rounded border border-theme">ISO / ASTM METALLURGICAL</span>
@@ -178,7 +178,7 @@ function renderProductDescription(desc: any) {
       </div>
 
       <!-- Detailed Description / Application Notes -->
-      <div class="space-y-4 pt-6 border-t border-white/10 reveal-on-scroll">
+      <div class="space-y-4 pt-6 border-t border-white/10">
         <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Detailed Product Overview &amp; Applications</h2>
         <div class="text-slate-300 text-sm leading-relaxed space-y-4 font-normal">
           <p class="whitespace-pre-line">{renderProductDescription(product.fullDescription || product.shortDescription)}</p>
@@ -190,7 +190,7 @@ function renderProductDescription(desc: any) {
 
       <!-- Related Products Section -->
       {product.relatedProducts && product.relatedProducts.length > 0 && (
-        <div class="space-y-6 pt-12 border-t border-white/10 reveal-on-scroll">
+        <div class="space-y-6 pt-12 border-t border-white/10">
           <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Complementary Products &amp; Materials</h2>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {product.relatedProducts.map((rel: any) => (

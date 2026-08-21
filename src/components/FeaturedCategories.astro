@@ -16,7 +16,7 @@ const { categories } = Astro.props;
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
     <!-- Header row -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4 reveal-slide-left">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
       <div class="space-y-3 max-w-2xl">
         <span class="theme-pill">Product Divisions</span>
         <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
@@ -37,14 +37,14 @@ const { categories } = Astro.props;
       {categories.map((cat, idx) => (
         <a
           href={`/products?category=${cat.slug}`}
-          class={`glow-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme transition-all duration-400 bg-[#0f1118] reveal-on-scroll stagger-${idx + 1}`}
+          class="glow-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme transition-colors bg-[#0f1118]"
         >
           <!-- Image Header with gradient overlay -->
           <div class="h-56 overflow-hidden relative bg-[#040508] shrink-0">
             <img
               src={cat.image}
               alt={cat.name}
-              class="w-full h-full object-cover opacity-80 group-hover:opacity-95 group-hover:scale-105 transition-all duration-700"
+              class="w-full h-full object-cover opacity-80 group-hover:opacity-95 transition-opacity"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-[#0f1118] via-transparent to-transparent"></div>
             

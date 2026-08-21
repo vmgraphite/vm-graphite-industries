@@ -32,24 +32,19 @@ const homeContent = await getHomePageContent();
     secondaryCtaText={homeContent?.secondaryCtaText}
   />
 
-  <!-- ② Interactive Metrics Bar with Live Animated Counters -->
+  <!-- ② Metrics Bar -->
   <div class="bg-[#0b0e15] border-t border-b border-white/10 relative z-20 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
         {[
-          { metric: '99.9', suffix: '%', decimals: 1, label: 'Carbon Purity', color: 'text-theme-bright', sub: 'Ultra-pure synthetic grades' },
-          { metric: '3000', suffix: '°C', decimals: 0, label: 'Max Thermal Rating', color: 'text-white', sub: 'Extreme heat resistance' },
-          { metric: '20', suffix: '+', decimals: 0, label: 'Countries Served', color: 'text-theme-light', sub: 'Worldwide export network' },
-          { metric: '100', suffix: '%', decimals: 0, label: 'ISO 9001:2015', color: 'text-emerald-400', sub: 'Zero defect inspection' },
-        ].map((item, idx) => (
-          <div class={`py-6 px-6 text-center hover:bg-white/[0.02] transition-colors reveal-on-scroll stagger-${idx + 1}`}>
-            <div
-              class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${item.color}`}
-              data-counter-target={item.metric}
-              data-counter-decimals={item.decimals}
-              data-counter-suffix={item.suffix}
-            >
-              {item.metric}{item.suffix}
+          { metric: '99.9%', label: 'Carbon Purity', color: 'text-theme-bright', sub: 'Ultra-pure synthetic grades' },
+          { metric: '3000°C', label: 'Max Thermal Rating', color: 'text-white', sub: 'Extreme heat resistance' },
+          { metric: '20+', label: 'Countries Served', color: 'text-theme-light', sub: 'Worldwide export network' },
+          { metric: '100%', label: 'ISO 9001:2015', color: 'text-emerald-400', sub: 'Zero defect inspection' },
+        ].map((item) => (
+          <div class="py-6 px-6 text-center hover:bg-white/[0.02] transition-colors">
+            <div class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${item.color}`}>
+              {item.metric}
             </div>
             <div class="text-xs text-slate-200 mt-1.5 font-bold uppercase tracking-wider font-mono">{item.label}</div>
             <div class="text-[11px] text-slate-400 mt-0.5 font-normal">{item.sub}</div>

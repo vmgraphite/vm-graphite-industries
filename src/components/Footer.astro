@@ -128,19 +128,19 @@ const marqueItems = [
         &copy; {currentYear} {siteSettings.companyName}. All rights reserved.
       </div>
       <div class="flex items-center gap-2 font-mono text-[11px] text-slate-400">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
         <span>A Complete Solution For Coating &amp; Metalizer</span>
       </div>
     </div>
 
   </div>
 
-  <!-- Scrolling marquee ticker at bottom -->
+  <!-- Industrial Capabilities Ribbon -->
   <div class="border-t border-white/[0.04] bg-[#030406] py-3 overflow-hidden">
-    <div class="flex">
-      <div class="animate-marquee flex items-center gap-8 text-[11px] font-semibold text-slate-400 uppercase tracking-[0.2em] font-mono">
-        {[...marqueItems, ...marqueItems].map((item) => (
-          <span class="flex items-center gap-4 shrink-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[11px] font-semibold text-slate-400 uppercase tracking-[0.15em] font-mono">
+        {marqueItems.map((item) => (
+          <span class="flex items-center gap-2 shrink-0">
             <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] opacity-80"></span>
             <span>{item}</span>
           </span>

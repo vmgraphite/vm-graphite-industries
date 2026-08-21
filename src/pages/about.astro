@@ -53,7 +53,7 @@ const defaultIntro = `
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'About Us', href: '/about' }]} />
 
-      <div class="max-w-3xl space-y-4 pt-6 reveal-slide-left">
+      <div class="max-w-3xl space-y-4 pt-6">
         <span class="theme-pill">
           Company Profile &amp; Vision
         </span>
@@ -73,7 +73,7 @@ const defaultIntro = `
 
   <!-- Company Aim & Vision Banner -->
   <section class="py-12 bg-gradient-to-r from-[#07090e] via-[#0f1118] to-[#07090e] border-b border-white/[0.06]">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3 reveal-pop">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
       <span class="text-xs font-bold text-theme-bright uppercase tracking-widest font-mono">Our Corporate Aim</span>
       <h2 class="text-xl sm:text-2xl font-black text-white max-w-4xl mx-auto leading-relaxed" style="font-family:'Outfit',sans-serif;">
         "VM Graphite Industries LLP: Striving to Become India's Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."
@@ -87,12 +87,12 @@ const defaultIntro = `
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         
         <!-- Left Image Card -->
-        <div class="lg:col-span-6 reveal-slide-left">
+        <div class="lg:col-span-6">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0d1117] glow-card">
             <img
               src={aboutContent?.heroImageUrl || "/images/facility-plant.jpg"}
               alt="VM Graphite Industrial Plant Infrastructure"
-              class="w-full h-auto object-cover opacity-90 hover:scale-105 transition-transform duration-700"
+              class="w-full h-auto object-cover opacity-90"
             />
             <div class="p-6 bg-[#07090e] text-white flex justify-between items-center border-t border-white/10">
               <div>
@@ -107,7 +107,7 @@ const defaultIntro = `
         </div>
 
         <!-- Right Overview Content -->
-        <div class="lg:col-span-6 space-y-6 reveal-slide-right">
+        <div class="lg:col-span-6 space-y-6">
           <span class="theme-pill">Who We Are</span>
           <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight" style="font-family:'Outfit',sans-serif;">
             {aboutContent?.manufacturingHeading || "Advanced Alubonding Technology & Technical Manufacturing Excellence"}
@@ -137,7 +137,7 @@ const defaultIntro = `
   <!-- Exceptional Production Capacity Statement -->
   <section class="py-16 bg-[#07090e] text-white border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="p-8 sm:p-12 rounded-3xl bg-[#0d1117] border border-theme text-center space-y-4 max-w-4xl mx-auto shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_var(--primary-glow-subtle)] reveal-scale">
+      <div class="p-8 sm:p-12 rounded-3xl bg-[#0d1117] border border-theme text-center space-y-4 max-w-4xl mx-auto shadow-2xl">
         <span class="theme-pill">
           Production Capacity &amp; Quality Standard
         </span>
@@ -152,7 +152,7 @@ const defaultIntro = `
   <section class="py-20 bg-[#07090e] text-white border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="text-center max-w-3xl mx-auto space-y-3 mb-14 reveal-slide-left">
+      <div class="text-center max-w-3xl mx-auto space-y-3 mb-14">
         <span class="theme-pill">Quality Assurance</span>
         <h3 class="display-lg text-white font-black" style="font-family:'Outfit',sans-serif;">
           {aboutContent?.qualityHeading || "Rigorous Quality & Production Standards"}
@@ -164,7 +164,7 @@ const defaultIntro = `
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         
-        <div class="glow-card p-8 rounded-2xl space-y-4 reveal-on-scroll stagger-1">
+        <div class="glow-card p-8 rounded-2xl space-y-4">
           <div class="w-12 h-12 bg-theme-tint text-theme-bright border border-theme rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           </div>
@@ -174,7 +174,7 @@ const defaultIntro = `
           </p>
         </div>
 
-        <div class="glow-card p-8 rounded-2xl space-y-4 reveal-on-scroll stagger-2">
+        <div class="glow-card p-8 rounded-2xl space-y-4">
           <div class="w-12 h-12 bg-theme-tint text-theme-bright border border-theme rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/></svg>
           </div>
@@ -184,7 +184,7 @@ const defaultIntro = `
           </p>
         </div>
 
-        <div class="glow-card p-8 rounded-2xl space-y-4 reveal-on-scroll stagger-3">
+        <div class="glow-card p-8 rounded-2xl space-y-4">
           <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-xl flex items-center justify-center font-bold">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
           </div>

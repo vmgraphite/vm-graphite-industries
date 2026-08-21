@@ -52,16 +52,14 @@ export default function QuoteModal() {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
-      {/* Backdrop with dark blur */}
+      {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-[#030509]/85 backdrop-blur-md transition-opacity animate-in fade-in duration-300"
+        className="fixed inset-0 bg-[#030509]/85 backdrop-blur-md transition-opacity"
         onClick={handleClose}
       />
 
       {/* Modal Card */}
-      <div className="relative w-full max-w-2xl bg-[#0a0d15] border border-white/15 rounded-3xl shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9),0_0_40px_var(--primary-glow-subtle)] overflow-hidden z-10 my-6 transition-all transform animate-in fade-in zoom-in-95 duration-300 text-white">
-        {/* Top glowing gradient accent strip */}
-        <div className="h-1.5 w-full bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent" />
+      <div className="relative w-full max-w-2xl bg-[#0a0d15] border border-white/15 rounded-3xl shadow-2xl overflow-hidden z-10 my-6 text-white">
 
         {/* Header */}
         <div className="px-6 py-4 sm:py-5 bg-[#07090f] border-b border-white/10 flex items-center justify-between">

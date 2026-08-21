@@ -171,11 +171,10 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
   // SUCCESS VIEW
   if (status === 'success') {
     return (
-      <div className="space-y-6 text-center animate-in fade-in zoom-in-95 duration-400 py-2">
-        {/* Animated Success Badge */}
+      <div className="space-y-6 text-center py-2">
+        {/* Success Badge */}
         <div className="relative mx-auto w-20 h-20">
-          <div className="absolute inset-0 rounded-full bg-emerald-500/20 animate-ping opacity-60"></div>
-          <div className="relative w-20 h-20 bg-gradient-to-tr from-emerald-600 to-teal-400 text-slate-950 rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(16,185,129,0.4)]">
+          <div className="relative w-20 h-20 bg-gradient-to-tr from-emerald-600 to-teal-400 text-slate-950 rounded-full flex items-center justify-center shadow-md">
             <CheckCircle2 className="w-11 h-11 text-slate-950 stroke-[2.5]" />
           </div>
         </div>
@@ -274,7 +273,7 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
     <form onSubmit={handleSubmit} className="space-y-5 text-white">
       {/* Error alert banner */}
       {status === 'error' && (
-        <div className="p-4 bg-red-950/60 border border-red-500/50 rounded-2xl flex items-start gap-3.5 text-red-200 text-xs shadow-lg animate-in fade-in duration-200">
+        <div className="p-4 bg-red-950/60 border border-red-500/50 rounded-2xl flex items-start gap-3.5 text-red-200 text-xs shadow-lg">
           <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <div className="space-y-1">
             <span className="font-bold text-white block">Submission Error</span>

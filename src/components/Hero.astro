@@ -112,19 +112,17 @@ const showcaseItems = [
       <div class="lg:col-span-6 space-y-6">
         
         <!-- Entrance Element 1: ISO Live Badge -->
-        <div class="hero-entry-1">
-          <div class="inline-flex items-center gap-3 bg-gradient-to-r from-white/[0.08] to-white/[0.02] border border-white/[0.12] hover:border-[var(--primary)]/50 text-slate-200 text-xs font-semibold px-4 py-2 rounded-full backdrop-blur-xl transition-all duration-300 shadow-lg shadow-black/40">
-            <span class="relative flex h-2.5 w-2.5">
-              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--primary)] opacity-75"></span>
-              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--primary)]"></span>
-            </span>
+        <!-- Entrance Element 1: ISO Live Badge -->
+        <div>
+          <div class="inline-flex items-center gap-3 bg-white/[0.04] border border-white/10 text-slate-200 text-xs font-semibold px-4 py-2 rounded-full shadow-md">
+            <span class="inline-block w-2.5 h-2.5 rounded-full bg-[var(--primary)]"></span>
             <span class="tracking-wide">ISO 9001:2015 Certified B2B Manufacturer</span>
             <span class="hidden sm:inline-block text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[var(--primary)]/20 text-[var(--primary-bright)] border border-[var(--primary)]/30 ml-1">Live Operations</span>
           </div>
         </div>
 
         <!-- Entrance Element 2: Main Headline with Solid High-Contrast Accent -->
-        <div class="hero-entry-2 space-y-1">
+        <div class="space-y-1">
           <h1 class="text-3xl sm:text-4xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.08]" style="font-family:'Outfit',sans-serif;">
             {headlinePart1}
             {headlinePart2 && (
@@ -136,29 +134,29 @@ const showcaseItems = [
         </div>
 
         <!-- Entrance Element 3: Subheadline -->
-        <div class="hero-entry-3">
+        <div>
           <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed font-normal">
             {subheadline}
           </p>
         </div>
 
         <!-- Entrance Element 4: High-Conversion CTA Buttons -->
-        <div class="hero-entry-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
           <a
             href="/products"
-            class="forge-btn-primary group rounded-full px-7 py-3.5 text-sm font-bold shadow-[0_0_30px_rgba(255,102,54,0.35)] hover:shadow-[0_0_40px_rgba(255,102,54,0.6)] transition-all"
+            class="forge-btn-primary rounded-full px-7 py-3.5 text-sm font-bold shadow-md"
           >
             <span>{primaryCtaText}</span>
-            <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
             </svg>
           </a>
           <button
             type="button"
             data-open-quote-modal
-            class="forge-btn-ghost group rounded-full px-7 py-3.5 text-sm font-semibold hover:border-[var(--primary)]/50 hover:bg-white/[0.06] transition-all"
+            class="forge-btn-ghost rounded-full px-7 py-3.5 text-sm font-semibold hover:bg-white/[0.06]"
           >
-            <svg class="w-4 h-4 text-[var(--primary-text)] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[var(--primary-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <span>{secondaryCtaText}</span>
@@ -166,25 +164,25 @@ const showcaseItems = [
         </div>
 
         <!-- Entrance Element 5: Key Plant Competencies -->
-        <div class="hero-entry-5 pt-3">
+        <div class="pt-3">
           <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2.5 flex items-center gap-2">
             <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)]"></span>
             <span>Core Manufacturing Capabilities</span>
           </div>
           <div class="flex flex-wrap items-center gap-2 text-xs text-slate-300 font-mono">
-            <span class="hero-pill-1 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
               <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
               Isostatic Hot Pressing
             </span>
-            <span class="hero-pill-2 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
               <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary-bright)]"></span>
               Sub-Micron Dispersions
             </span>
-            <span class="hero-pill-3 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
               <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
               CNC Machining ±0.02mm
             </span>
-            <span class="hero-pill-4 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
               <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
               Global Export 20+ Countries
             </span>
@@ -193,28 +191,25 @@ const showcaseItems = [
 
       </div>
 
-      <!-- RIGHT: Cinematic Animated Showcase Card -->
-      <div class="lg:col-span-6 hero-entry-showcase relative">
+      <!-- RIGHT: Standard Clean Showcase Card -->
+      <div class="lg:col-span-6 relative">
 
-        <!-- Glowing Neon Backlight Backdrop -->
-        <div class="hero-backlight-aura absolute -inset-3 bg-gradient-to-r from-[var(--primary)]/30 via-[var(--primary-light)]/20 to-purple-600/20 rounded-3xl blur-2xl opacity-75 pointer-events-none"></div>
-
-        <!-- Clean Zero-Overlap Telemetry Header Bar -->
+        <!-- Telemetry Header Bar -->
         <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3 px-1">
-          <div class="hero-telemetry-pill-1 inline-flex items-center gap-2 bg-[#0e111a]/95 backdrop-blur-xl border border-amber-500/30 px-3.5 py-1.5 rounded-xl shadow-lg">
-            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+          <div class="inline-flex items-center gap-2 bg-[#0e111a] border border-amber-500/30 px-3.5 py-1.5 rounded-xl shadow-md">
+            <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
             <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Thermal Rating:</span>
             <span id="heroTelemetryRating" class="text-xs font-bold text-amber-300 font-mono">{showcaseItems[0].telemetryRating}</span>
           </div>
-          <div class="hero-telemetry-pill-2 inline-flex items-center gap-2 bg-[#0e111a]/95 backdrop-blur-xl border border-emerald-500/30 px-3.5 py-1.5 rounded-xl shadow-lg">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+          <div class="inline-flex items-center gap-2 bg-[#0e111a] border border-emerald-500/30 px-3.5 py-1.5 rounded-xl shadow-md">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
             <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Carbon Grade:</span>
             <span id="heroTelemetryGrade" class="text-xs font-bold text-emerald-400 font-mono">{showcaseItems[0].telemetryGrade}</span>
           </div>
         </div>
 
         <!-- Main Showcase Frame -->
-        <div class="relative bg-[#0d1017]/95 backdrop-blur-2xl border border-white/[0.14] hover:border-[var(--primary)]/50 rounded-3xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.9)] transition-colors duration-500 group">
+        <div class="relative bg-[#0d1017] border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl">
           
           <!-- Category Quick Selection Tabs -->
           <div class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
@@ -222,7 +217,7 @@ const showcaseItems = [
               {showcaseItems.map((item, idx) => (
                 <button
                   type="button"
-                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3 rounded-xl transition-all duration-300 shrink-0 cursor-pointer ${
+                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3 rounded-xl transition-colors shrink-0 cursor-pointer ${
                     idx === 0
                       ? 'bg-[var(--primary)] text-white shadow-md font-bold'
                       : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
@@ -237,30 +232,26 @@ const showcaseItems = [
 
           <!-- Product Image & Highlight Banner -->
           <div class="relative h-60 sm:h-72 overflow-hidden bg-black/60">
-            
-            <!-- High-Tech Animated Laser Scan Line -->
-            <div class="hero-laser-scanner absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--primary-bright)] to-transparent opacity-75 z-20 pointer-events-none"></div>
-
             {showcaseItems.map((item, idx) => (
               <div
-                class={`hero-image-slide absolute inset-0 transition-opacity duration-500 ease-in-out ${
-                  idx === 0 ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'
+                class={`hero-image-slide absolute inset-0 ${
+                  idx === 0 ? 'block' : 'hidden'
                 }`}
                 data-slide-index={idx}
               >
                 <img
                   src={item.image}
                   alt={item.title}
-                  class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700"
+                  class="w-full h-full object-cover opacity-90"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-[#0d1017]/50 to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-[#0d1017]/40 to-transparent"></div>
                 
-                <!-- Floating Info Tag Inside Slide -->
+                <!-- Info Tag Inside Slide -->
                 <div class="absolute bottom-4 left-4 right-4 z-10 space-y-1">
                   <span class={`inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border ${item.badgeColor}`}>
                     {item.badge}
                   </span>
-                  <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight drop-shadow-md" style="font-family:'Outfit',sans-serif;">
+                  <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight" style="font-family:'Outfit',sans-serif;">
                     {item.title}
                   </h3>
                   <p class="text-xs text-slate-300 line-clamp-1 font-normal">
@@ -292,17 +283,17 @@ const showcaseItems = [
             <a
               id="showcaseProductUrl"
               href={showcaseItems[0].url}
-              class="text-xs font-bold text-white hover:text-[var(--primary-bright)] transition-colors flex items-center gap-1.5 group/link"
+              class="text-xs font-bold text-white hover:text-[var(--primary-bright)] transition-colors flex items-center gap-1.5"
             >
               <span>View Technical Specs</span>
-              <span class="transform group-hover/link:translate-x-1 transition-transform">→</span>
+              <span>→</span>
             </a>
             <button
               type="button"
               id="showcaseQuoteBtn"
               data-open-quote-modal
               data-product-name={showcaseItems[0].title}
-              class="text-xs font-semibold px-3.5 py-1.5 rounded-xl bg-[var(--primary)]/20 border border-[var(--primary)]/40 text-[var(--primary-bright)] hover:bg-[var(--primary)] hover:text-white transition-all font-mono cursor-pointer shadow-sm"
+              class="text-xs font-semibold px-3.5 py-1.5 rounded-xl bg-[var(--primary)]/20 border border-[var(--primary)]/40 text-[var(--primary-bright)] hover:bg-[var(--primary)] hover:text-white transition-colors font-mono cursor-pointer shadow-sm"
             >
               Request Quote
             </button>
@@ -317,7 +308,7 @@ const showcaseItems = [
 
 </section>
 
-<!-- Interactive Tab Switcher Script -->
+<!-- Tab Switcher Script -->
 <script is:inline define:vars={{ itemsData: showcaseItems }}>
   (function() {
     const tabs = document.querySelectorAll('.hero-tab');
@@ -332,15 +323,11 @@ const showcaseItems = [
     const telemetryGrade = document.getElementById('heroTelemetryGrade');
     const productUrl = document.getElementById('showcaseProductUrl');
     const quoteBtn = document.getElementById('showcaseQuoteBtn');
-    let currentIndex = 0;
-    let autoRotateInterval = null;
 
     function switchShowcase(index) {
-      currentIndex = index;
       const item = itemsData[index];
       if (!item) return;
 
-      // Update active tab button style
       tabs.forEach((tab, i) => {
         if (i === index) {
           tab.classList.add('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
@@ -351,22 +338,19 @@ const showcaseItems = [
         }
       });
 
-      // Update slide cross-fade
       slides.forEach((sl, i) => {
         if (i === index) {
-          sl.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
-          sl.classList.add('opacity-100', 'z-10');
+          sl.classList.remove('hidden');
+          sl.classList.add('block');
         } else {
-          sl.classList.add('opacity-0', 'pointer-events-none', 'z-0');
-          sl.classList.remove('opacity-100', 'z-10');
+          sl.classList.add('hidden');
+          sl.classList.remove('block');
         }
       });
 
-      // Update telemetry top labels
       if (telemetryRating && item.telemetryRating) telemetryRating.textContent = item.telemetryRating;
       if (telemetryGrade && item.telemetryGrade) telemetryGrade.textContent = item.telemetryGrade;
 
-      // Update specs
       if (stat1Val) stat1Val.textContent = item.stat1Val;
       if (stat1Lbl) stat1Lbl.textContent = item.stat1Lbl;
       if (stat2Val) stat2Val.textContent = item.stat2Val;
@@ -374,7 +358,6 @@ const showcaseItems = [
       if (stat3Val) stat3Val.textContent = item.stat3Val;
       if (stat3Lbl) stat3Lbl.textContent = item.stat3Lbl;
 
-      // Update Links
       if (productUrl) productUrl.setAttribute('href', item.url);
       if (quoteBtn) quoteBtn.setAttribute('data-product-name', item.title);
     }
@@ -383,83 +366,12 @@ const showcaseItems = [
       tab.addEventListener('click', () => {
         const idx = parseInt(tab.getAttribute('data-index') || '0', 10);
         switchShowcase(idx);
-        resetAutoRotate();
       });
     });
-
-    function startAutoRotate() {
-      autoRotateInterval = setInterval(() => {
-        const nextIndex = (currentIndex + 1) % itemsData.length;
-        switchShowcase(nextIndex);
-      }, 5000);
-    }
-
-    function resetAutoRotate() {
-      if (autoRotateInterval) clearInterval(autoRotateInterval);
-      startAutoRotate();
-    }
-
-    startAutoRotate();
-
-    // Smooth 3D card tilt on mouse move (RAF-throttled)
-    const showcaseContainer = document.querySelector('.hero-entry-showcase');
-    if (showcaseContainer) {
-      let ticking = false;
-      let rotateX = 0;
-      let rotateY = 0;
-
-      showcaseContainer.addEventListener('mouseenter', function() {
-        if (autoRotateInterval) clearInterval(autoRotateInterval);
-        showcaseContainer.style.transition = 'transform 0.15s ease-out';
-      });
-
-      showcaseContainer.addEventListener('mousemove', function(e) {
-        const rect = showcaseContainer.getBoundingClientRect();
-        const x = e.clientX - rect.left - rect.width / 2;
-        const y = e.clientY - rect.top - rect.height / 2;
-        rotateX = -(y / (rect.height / 2)) * 3.5;
-        rotateY = (x / (rect.width / 2)) * 3.5;
-
-        if (!ticking) {
-          window.requestAnimationFrame(function() {
-            showcaseContainer.style.transform = 'perspective(1000px) rotateX(' + rotateX.toFixed(2) + 'deg) rotateY(' + rotateY.toFixed(2) + 'deg)';
-            ticking = false;
-          });
-          ticking = true;
-        }
-      }, { passive: true });
-
-      showcaseContainer.addEventListener('mouseleave', function() {
-        showcaseContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-        showcaseContainer.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
-        startAutoRotate();
-      });
-    }
   })();
 </script>
 
 <style>
-  .hero-entry-1,
-  .hero-entry-2,
-  .hero-entry-3,
-  .hero-entry-4,
-  .hero-entry-5,
-  .hero-pill-1,
-  .hero-pill-2,
-  .hero-pill-3,
-  .hero-pill-4,
-  .hero-telemetry-pill-1,
-  .hero-telemetry-pill-2,
-  .hero-entry-showcase {
-    opacity: 1;
-    transform: none;
-  }
-
-  .hero-entry-showcase {
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
   .no-scrollbar::-webkit-scrollbar {
     display: none;
   }

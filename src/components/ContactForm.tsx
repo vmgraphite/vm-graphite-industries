@@ -103,8 +103,8 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-[#0b0e17] border border-emerald-500/40 p-8 rounded-2xl text-center space-y-5 animate-in fade-in zoom-in-95 duration-300">
-        <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-[0_0_25px_rgba(16,185,129,0.35)]">
+      <div className="bg-[#0b0e17] border border-emerald-500/40 p-8 rounded-2xl text-center space-y-5">
+        <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-md">
           <CheckCircle2 className="w-9 h-9 stroke-[2.5]" />
         </div>
         <div>
@@ -123,7 +123,7 @@ export default function ContactForm() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full sm:w-auto py-3 px-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-all uppercase tracking-wider shadow-md"
+            className="w-full sm:w-auto py-3 px-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors uppercase tracking-wider shadow-md"
           >
             <Zap className="w-4 h-4 text-emerald-200 fill-current" />
             <span>WhatsApp Follow-up</span>
@@ -144,7 +144,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-white">
       {status === 'error' && (
-        <div className="p-4 bg-red-950/60 border border-red-500/50 rounded-xl flex items-start gap-3 text-red-200 text-xs shadow-lg animate-in fade-in duration-200">
+        <div className="p-4 bg-red-950/60 border border-red-500/50 rounded-xl flex items-start gap-3 text-red-200 text-xs shadow-lg">
           <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
           <div>
             <span className="font-bold text-white block">Submission Error</span>

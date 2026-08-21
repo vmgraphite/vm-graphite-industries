@@ -17,7 +17,7 @@ const categoryBadges: Record<string, { label: string; bg: string }> = {
 const badge = categoryBadges[resource.category] || { label: 'PDF Document', bg: 'bg-slate-800 text-slate-300 border-slate-700' };
 ---
 
-<div class="glow-card rounded-2xl p-6 sm:p-7 border border-white/[0.08] hover:border-theme shadow-xl transition-all duration-400 flex flex-col justify-between h-full group bg-[#0f1118] reveal-on-scroll">
+<div class="glow-card rounded-2xl p-6 sm:p-7 border border-white/[0.08] hover:border-theme shadow-xl transition-colors flex flex-col justify-between h-full group bg-[#0f1118]">
   <div class="space-y-4">
     <div class="flex items-center justify-between gap-3">
       <span class={`px-3 py-1 rounded-md text-[10px] font-bold border font-mono uppercase tracking-wider ${badge.bg}`}>

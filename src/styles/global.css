@@ -160,98 +160,19 @@
   box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9), 0 0 30px -5px var(--primary-glow-subtle);
 }
 
-/* Spotlight Card Effect */
+/* Clean Standard Industrial Cards */
 .glow-card {
   position: relative;
   background: #0f1118;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 1.25rem;
   overflow: hidden;
-  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glow-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  border-radius: inherit;
-  background: radial-gradient(
-    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
-    var(--primary-glow-subtle),
-    transparent 40%
-  );
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.glow-card:hover::before {
-  opacity: 1;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .glow-card:hover {
   border-color: var(--primary-border-tint);
-  box-shadow: 0 16px 40px -8px rgba(0, 0, 0, 0.9), 0 0 25px -4px var(--primary-glow-subtle);
-  transform: translateY(-2px);
-}
-
-/* ─── Keyframe Animations ───────────────────────────────── */
-@keyframes floatSubtle {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50%       { transform: translateY(-8px) rotate(0.5deg); }
-}
-
-@keyframes floatReverse {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50%       { transform: translateY(8px) rotate(-0.5deg); }
-}
-
-@keyframes pulseGlow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50%       { opacity: 0.85; transform: scale(1.08); }
-}
-
-@keyframes ambientPulse {
-  0%, 100% { opacity: 0.4; filter: brightness(1); }
-  50%       { opacity: 0.9; filter: brightness(1.2); }
-}
-
-@keyframes shimmerSweep {
-  0%   { background-position: -200% center; }
-  100% { background-position: 200% center; }
-}
-
-@keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
-}
-
-/* Animation utility classes */
-.animate-float-subtle  { animation: floatSubtle 6s ease-in-out infinite; }
-.animate-float-reverse { animation: floatReverse 7s ease-in-out infinite; }
-.animate-pulse-glow    { animation: pulseGlow 4s ease-in-out infinite; }
-.animate-ambient-pulse { animation: ambientPulse 3s ease-in-out infinite; }
-
-.animate-marquee {
-  animation: marquee 24s linear infinite;
-  white-space: nowrap;
-  display: inline-flex;
-}
-
-.animate-marquee:hover {
-  animation-play-state: paused;
-}
-
-/* ─── Instant, High-Performance Rendering (Zero Blank Screens, Zero Lag) ─── */
-.reveal-on-scroll,
-.reveal-fade-up,
-.reveal-scale,
-.reveal-pop,
-.reveal-slide-left,
-.reveal-slide-right {
-  opacity: 1;
-  transform: none;
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
 }
 
 /* ─── Typography & Display Utilities ────────────────────── */
@@ -371,7 +292,7 @@
 ::-webkit-scrollbar-thumb { background: #1a2233; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
-/* ─── Accessibility & Reduced Motion Optimization ──────── */
+/* ─── Accessibility & Reduced Motion ────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,
@@ -380,15 +301,5 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-
-  .reveal-on-scroll,
-  .reveal-fade-up,
-  .reveal-scale,
-  .reveal-pop,
-  .reveal-slide-left,
-  .reveal-slide-right {
-    opacity: 1 !important;
-    transform: none !important;
   }
 }
