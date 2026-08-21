@@ -141,17 +141,28 @@ const categories = await getCategories();
           });
         }
 
-        // 4. Mouse Spotlight Glow for .glow-card
+        // 4. Smooth Mouse Spotlight Glow for .glow-card (RAF-throttled)
         function setupSpotlight() {
           var cards = document.querySelectorAll('.glow-card');
           cards.forEach(function(card) {
+            var ticking = false;
+            var mouseX = 0;
+            var mouseY = 0;
+
             card.addEventListener('mousemove', function(e) {
               var rect = card.getBoundingClientRect();
-              var x = e.clientX - rect.left;
-              var y = e.clientY - rect.top;
-              card.style.setProperty('--mouse-x', x + 'px');
-              card.style.setProperty('--mouse-y', y + 'px');
-            });
+              mouseX = e.clientX - rect.left;
+              mouseY = e.clientY - rect.top;
+
+              if (!ticking) {
+                window.requestAnimationFrame(function() {
+                  card.style.setProperty('--mouse-x', mouseX + 'px');
+                  card.style.setProperty('--mouse-y', mouseY + 'px');
+                  ticking = false;
+                });
+                ticking = true;
+              }
+            }, { passive: true });
           });
         }
 

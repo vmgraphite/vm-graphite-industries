@@ -190,20 +190,43 @@ const navItems = [
   const iconOpen = document.getElementById('menu-icon-open');
   const iconClose = document.getElementById('menu-icon-close');
 
-  btn?.addEventListener('click', () => {
+  function closeMenu() {
+    menu?.classList.add('hidden');
+    menu?.classList.remove('flex');
+    iconOpen?.classList.remove('hidden');
+    iconClose?.classList.add('hidden');
+  }
+
+  function toggleMenu() {
     const isOpen = !menu?.classList.contains('hidden');
     menu?.classList.toggle('hidden');
     menu?.classList.toggle('flex');
     iconOpen?.classList.toggle('hidden', !isOpen);
     iconClose?.classList.toggle('hidden', isOpen);
+  }
+
+  btn?.addEventListener('click', toggleMenu);
+
+  // Close mobile menu when clicking any link or action button inside it
+  menu?.querySelectorAll('a, button').forEach((el) => {
+    el.addEventListener('click', () => {
+      closeMenu();
+    });
   });
 
   const navbarInner = document.getElementById('navbar-inner');
+  let ticking = false;
   const handleScroll = () => {
-    if (window.scrollY > 40) {
-      navbarInner?.classList.add('shadow-[0_8px_30px_rgba(0,0,0,0.9)]', 'bg-[#07090e]/95');
-    } else {
-      navbarInner?.classList.remove('shadow-[0_8px_30px_rgba(0,0,0,0.9)]', 'bg-[#07090e]/95');
+    if (!ticking) {
+      window.requestAnimationFrame(() => {
+        if (window.scrollY > 40) {
+          navbarInner?.classList.add('shadow-[0_8px_30px_rgba(0,0,0,0.9)]', 'bg-[#07090e]/95');
+        } else {
+          navbarInner?.classList.remove('shadow-[0_8px_30px_rgba(0,0,0,0.9)]', 'bg-[#07090e]/95');
+        }
+        ticking = false;
+      });
+      ticking = true;
     }
   };
 

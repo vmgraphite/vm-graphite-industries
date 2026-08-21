@@ -243,76 +243,16 @@
   animation-play-state: paused;
 }
 
-/* ─── High-Performance Instant Scroll Reveal (Zero Blur, Zero Lag) ─── */
+/* ─── Instant, High-Performance Rendering (Zero Blank Screens, Zero Lag) ─── */
 .reveal-on-scroll,
-.reveal-fade-up {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.38s ease-out, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-on-scroll.is-visible,
-.reveal-fade-up.is-visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+.reveal-fade-up,
 .reveal-scale,
-.reveal-pop {
-  opacity: 0;
-  transform: scale(0.96);
-  transition: opacity 0.38s ease-out, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-scale.is-visible,
-.reveal-pop.is-visible {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.reveal-slide-left {
-  opacity: 0;
-  transform: translateX(-20px);
-  transition: opacity 0.38s ease-out, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-slide-left.is-visible {
-  opacity: 1;
-  transform: translateX(0);
-}
-
+.reveal-pop,
+.reveal-slide-left,
 .reveal-slide-right {
-  opacity: 0;
-  transform: translateX(20px);
-  transition: opacity 0.38s ease-out, transform 0.38s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
-
-.reveal-slide-right.is-visible {
   opacity: 1;
-  transform: translateX(0);
+  transform: none;
 }
-
-/* Fast Stagger utility classes */
-.stagger-1 { transition-delay: 30ms !important; }
-.stagger-2 { transition-delay: 60ms !important; }
-.stagger-3 { transition-delay: 90ms !important; }
-.stagger-4 { transition-delay: 120ms !important; }
-.stagger-5 { transition-delay: 150ms !important; }
-.stagger-6 { transition-delay: 180ms !important; }
-
-/* Staggered children transitions with snappy 30ms increments */
-.stagger-children > *:nth-child(1) { transition-delay: 0ms; }
-.stagger-children > *:nth-child(2) { transition-delay: 30ms; }
-.stagger-children > *:nth-child(3) { transition-delay: 60ms; }
-.stagger-children > *:nth-child(4) { transition-delay: 90ms; }
-.stagger-children > *:nth-child(5) { transition-delay: 120ms; }
-.stagger-children > *:nth-child(6) { transition-delay: 150ms; }
-.stagger-children > *:nth-child(7) { transition-delay: 180ms; }
-.stagger-children > *:nth-child(8) { transition-delay: 210ms; }
 
 /* ─── Typography & Display Utilities ────────────────────── */
 .display-xl {
@@ -430,3 +370,25 @@
 ::-webkit-scrollbar-track { background: #07090e; }
 ::-webkit-scrollbar-thumb { background: #1a2233; border-radius: 4px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* ─── Accessibility & Reduced Motion Optimization ──────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal-on-scroll,
+  .reveal-fade-up,
+  .reveal-scale,
+  .reveal-pop,
+  .reveal-slide-left,
+  .reveal-slide-right {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

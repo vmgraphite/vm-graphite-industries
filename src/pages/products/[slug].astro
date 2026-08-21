@@ -25,6 +25,18 @@ const breadcrumbItems = [
   { name: product.categoryName, href: `/products?category=${product.categorySlug}` },
   { name: product.name },
 ];
+
+function renderProductDescription(desc: any) {
+  if (!desc) return '';
+  if (typeof desc === 'string') return desc;
+  if (Array.isArray(desc)) {
+    return desc
+      .map((block) => (block.children ? block.children.map((c: any) => c.text).join('') : ''))
+      .filter(Boolean)
+      .join('\n\n');
+  }
+  return String(desc);
+}
 ---
 
 <Layout
@@ -169,7 +181,7 @@ const breadcrumbItems = [
       <div class="space-y-4 pt-6 border-t border-white/10 reveal-on-scroll">
         <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Detailed Product Overview &amp; Applications</h2>
         <div class="text-slate-300 text-sm leading-relaxed space-y-4 font-normal">
-          <p>{product.fullDescription || product.shortDescription}</p>
+          <p class="whitespace-pre-line">{renderProductDescription(product.fullDescription || product.shortDescription)}</p>
           <p>
             Engineered specifically for demanding B2B industrial environments. All batches undergo non-destructive ultrasonic density scanning, spectrographic carbon purity testing, and dimensional laser inspection.
           </p>

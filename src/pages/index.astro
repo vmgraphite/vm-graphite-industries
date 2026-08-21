@@ -66,10 +66,15 @@ const homeContent = await getHomePageContent();
   <WhatWeHaveDiamond />
 
   <!-- ⑤ State-of-the-Art Plant Capabilities & Infrastructure Pipeline -->
-  <Capabilities />
+  <Capabilities
+    headline={homeContent?.capabilitiesHeadline}
+    description={homeContent?.capabilitiesDescription}
+  />
 
   <!-- ⑥ Why Industrial Leaders Choose VM Graphite (Strengths & Alubonding) -->
-  <CompanyStrengths />
+  <CompanyStrengths
+    headline={homeContent?.whyChooseUsHeadline || homeContent?.strengthsHeadline}
+  />
 
   <!-- ⑦ High-Conversion Official Technical Brochure & Custom Orders CTA -->
   <BrochureCTA brochureUrl={siteSettings.companyBrochureUrl} />

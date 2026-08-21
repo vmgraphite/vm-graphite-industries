@@ -1,4 +1,12 @@
 ---
+export interface Props {
+  headline?: string;
+}
+
+const {
+  headline = 'Why Industrial Leaders Choose VM Graphite',
+} = Astro.props;
+
 const strengths = [
   {
     title: 'Advanced Alubonding™ Technology',
@@ -52,7 +60,14 @@ const strengths = [
     <div class="max-w-3xl space-y-4 reveal-slide-left">
       <span class="theme-pill">B2B Manufacturing Advantage</span>
       <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-        Why Industrial Leaders Choose <span class="text-theme-gradient">VM Graphite</span>
+        {headline.includes('VM Graphite') ? (
+          <>
+            {headline.replace('VM Graphite', '').trim()}{' '}
+            <span class="text-theme-gradient">VM Graphite</span>
+          </>
+        ) : (
+          <span class="text-theme-gradient">{headline}</span>
+        )}
       </h2>
       <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
         Delivering consistent material purity, extended component life, and minimal maintenance downtime across continuous thermal operations worldwide.

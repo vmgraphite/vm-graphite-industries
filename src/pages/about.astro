@@ -6,11 +6,42 @@ import { getSiteSettings, getAboutPageContent } from '../lib/data';
 
 const siteSettings = await getSiteSettings();
 const aboutContent = await getAboutPageContent();
+
+function renderBlocksOrText(content: any, fallbackHtml: string) {
+  if (!content) return fallbackHtml;
+  if (typeof content === 'string' && content.trim()) return `<p>${content}</p>`;
+  if (Array.isArray(content) && content.length > 0) {
+    const html = content
+      .map((block) => {
+        if (block._type === 'block' && block.children) {
+          const text = block.children.map((c: any) => c.text).join('');
+          return text ? `<p>${text}</p>` : '';
+        }
+        return '';
+      })
+      .filter(Boolean)
+      .join('');
+    return html || fallbackHtml;
+  }
+  return fallbackHtml;
+}
+
+const defaultIntro = `
+  <p>
+    <strong class="text-white font-bold">VM Graphite Industries LLP</strong> was established in 2021 by partners <strong class="text-theme-bright">Ayush Patel</strong> and <strong class="text-theme-bright">Himanshu Bisth</strong>. The company specializes in manufacturing high-quality graphite suspension and foil tape &amp; other industrial materials.
+  </p>
+  <p>
+    Leveraging extensive research and development along with advanced <strong class="text-white font-bold">Alubonding technology</strong>, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality.
+  </p>
+  <p>
+    Our foil tape is available in various custom dimensions to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.
+  </p>
+`;
 ---
 
 <Layout
-  title="About Us | VM Graphite Industries LLP"
-  description="Learn about VM Graphite Industries LLP - premier manufacturer of synthetic and natural graphite materials, crucibles, suspensions, and doctor blades in India."
+  title={aboutContent?.seo?.metaTitle || "About Us | VM Graphite Industries LLP"}
+  description={aboutContent?.seo?.metaDescription || "Learn about VM Graphite Industries LLP - premier manufacturer of synthetic and natural graphite materials, crucibles, suspensions, and doctor blades in India."}
   breadcrumbs={[
     { name: 'About Us', item: '/about' }
   ]}
@@ -27,7 +58,11 @@ const aboutContent = await getAboutPageContent();
           Company Profile &amp; Vision
         </span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          About <span class="text-theme-gradient">VM Graphite Industries</span>
+          {aboutContent?.title ? (
+            <span>{aboutContent.title}</span>
+          ) : (
+            <>About <span class="text-theme-gradient">VM Graphite Industries</span></>
+          )}
         </h1>
         <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed">
           {aboutContent?.subtitle || "Striving to Become India's Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."}
@@ -55,7 +90,7 @@ const aboutContent = await getAboutPageContent();
         <div class="lg:col-span-6 reveal-slide-left">
           <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10 bg-[#0d1117] glow-card">
             <img
-              src="/images/facility-plant.jpg"
+              src={aboutContent?.heroImageUrl || "/images/facility-plant.jpg"}
               alt="VM Graphite Industrial Plant Infrastructure"
               class="w-full h-auto object-cover opacity-90 hover:scale-105 transition-transform duration-700"
             />
@@ -75,20 +110,10 @@ const aboutContent = await getAboutPageContent();
         <div class="lg:col-span-6 space-y-6 reveal-slide-right">
           <span class="theme-pill">Who We Are</span>
           <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight" style="font-family:'Outfit',sans-serif;">
-            Advanced Alubonding Technology &amp; Technical Manufacturing Excellence
+            {aboutContent?.manufacturingHeading || "Advanced Alubonding Technology & Technical Manufacturing Excellence"}
           </h3>
 
-          <div class="text-slate-300 text-sm sm:text-base leading-relaxed space-y-4 font-normal">
-            <p>
-              <strong class="text-white font-bold">VM Graphite Industries LLP</strong> was established in 2021 by partners <strong class="text-theme-bright">Ayush Patel</strong> and <strong class="text-theme-bright">Himanshu Bisth</strong>. The company specializes in manufacturing high-quality graphite suspension and foil tape &amp; other industrial materials.
-            </p>
-            <p>
-              Leveraging extensive research and development along with advanced <strong class="text-white font-bold">Alubonding technology</strong>, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality.
-            </p>
-            <p>
-              Our foil tape is available in various custom dimensions to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.
-            </p>
-          </div>
+          <div class="text-slate-300 text-sm sm:text-base leading-relaxed space-y-4 font-normal" set:html={renderBlocksOrText(aboutContent?.companyIntroduction, defaultIntro)} />
 
           <!-- Key Leadership & Metrics -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
@@ -129,7 +154,9 @@ const aboutContent = await getAboutPageContent();
       
       <div class="text-center max-w-3xl mx-auto space-y-3 mb-14 reveal-slide-left">
         <span class="theme-pill">Quality Assurance</span>
-        <h3 class="display-lg text-white font-black" style="font-family:'Outfit',sans-serif;">Rigorous Quality &amp; <span class="text-theme-gradient">Production Standards</span></h3>
+        <h3 class="display-lg text-white font-black" style="font-family:'Outfit',sans-serif;">
+          {aboutContent?.qualityHeading || "Rigorous Quality & Production Standards"}
+        </h3>
         <p class="text-slate-400 text-sm sm:text-base">
           Every production lot undergoes rigorous physical, thermal, and chemical laboratory testing before dispatch.
         </p>
