@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 export const GET: APIRoute = async () => {
   return new Response(
     JSON.stringify({
-      message: 'VM Graphite Commercial Quote API Endpoint. Please send inquiries via POST request.',
+      message: 'VM Graphite Commercial Quote API Endpoint. Direct inquiries routed to info@vmgraphiteindustries.com.',
     }),
     { status: 200, headers: { 'Content-Type': 'application/json' } }
   );
@@ -22,6 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
       phone,
       quantity,
       specifications,
+      timeline,
       message,
       honeypot,
     } = data;
@@ -42,9 +43,9 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const destinationEmail = import.meta.env.CONTACT_EMAIL || 'kanikaagrawal1997@gmail.com';
+    const destinationEmail = import.meta.env.CONTACT_EMAIL || 'info@vmgraphiteindustries.com';
 
-    // Log formatted inquiry payload for serverless handler
+    // Log formatted inquiry payload
     console.log('=== NEW INDUSTRIAL QUOTE INQUIRY RECEIVED ===');
     console.log(`Target Email: ${destinationEmail}`);
     console.log(`Product: ${product || 'General Inquiry'}`);
@@ -54,9 +55,40 @@ export const POST: APIRoute = async ({ request }) => {
     console.log(`Email: ${email}`);
     console.log(`Phone: ${phone}`);
     console.log(`Quantity: ${quantity || 'Not Specified'}`);
+    console.log(`Timeline: ${timeline || 'Standard'}`);
     console.log(`Specifications: ${specifications || 'None'}`);
     console.log(`Message: ${message || 'None'}`);
     console.log('============================================');
+
+    // Attempt direct relay to FormSubmit
+    try {
+      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(destinationEmail)}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: `[Quote Request] ${product || 'Commercial Inquiry'} - ${company || name}`,
+          _replyto: email,
+          _template: 'table',
+          _captcha: 'false',
+          'Product / Solution': product || 'General Inquiry',
+          'Category': category || 'Industrial Graphite',
+          'Quantity Required': quantity || 'Standard requirement',
+          'Delivery Timeline': timeline || 'Standard',
+          'Client Name': name,
+          'Company Name': company || 'Not Provided',
+          'Work Email': email,
+          'Phone / WhatsApp': phone,
+          'Technical Specifications': specifications || 'None specified',
+          'Inquiry Details': message || 'No additional message',
+          'Submitted At': new Date().toISOString(),
+        }),
+      });
+    } catch (relayErr) {
+      console.warn('FormSubmit server relay warning (logged locally):', relayErr);
+    }
 
     return new Response(
       JSON.stringify({
@@ -74,3 +106,4 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 };
+

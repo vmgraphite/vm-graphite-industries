@@ -9,34 +9,32 @@ export interface Props {
 const { products } = Astro.props;
 ---
 
-<section class="py-28 lg:py-36 bg-[#07090e] text-slate-100 border-b border-white/5 relative overflow-hidden">
+<section class="py-24 bg-[#07090e] text-slate-100 border-b border-white/[0.06] relative overflow-hidden">
   
   <!-- Subtle Ambient Glow -->
-  <div class="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(212,175,55,0.06),transparent_70%)] pointer-events-none"></div>
+  <div class="absolute top-1/2 left-0 w-[600px] h-[600px] bg-[radial-gradient(circle,var(--primary-glow-subtle),transparent_70%)] pointer-events-none"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
     
-    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-20 gap-8 reveal-on-scroll">
-      <div class="space-y-4 max-w-2xl">
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gold-500/10 text-gold-400 border border-gold-500/25 text-xs font-bold uppercase tracking-widest font-mono">
-          Flagship Industrial Solutions
-        </div>
-        <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-tight">
-          Featured <span class="text-gold-gradient font-black">Industrial Products</span>
+    <div class="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-6 reveal-on-scroll">
+      <div class="space-y-3 max-w-2xl">
+        <span class="theme-pill">Flagship Industrial Solutions</span>
+        <h2 class="display-lg font-black text-white tracking-tight leading-tight" style="font-family:'Outfit',sans-serif;">
+          Featured <span class="text-theme-gradient font-black">Industrial Products</span>
         </h2>
-        <p class="text-slate-300 text-base sm:text-lg leading-relaxed font-normal">
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
           Our primary high-purity graphite components, sealing tapes, and precision doctor blades engineered for high-temperature B2B operations.
         </p>
       </div>
       <a
         href="/products"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[#121724] hover:bg-[#182030] text-gold-400 border border-gold-500/30 text-sm font-bold transition-all shrink-0 hover:border-gold-400 shadow-lg font-mono"
+        class="forge-btn-ghost rounded-full px-5 py-2.5 text-xs font-semibold shrink-0"
       >
         <span>View Complete Catalog ({products.length}+ Items) &rarr;</span>
       </a>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
       {products.map((product) => (
         <ProductCard product={product} />
       ))}

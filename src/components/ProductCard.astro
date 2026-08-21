@@ -9,48 +9,47 @@ const { product } = Astro.props;
 const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [];
 ---
 
-<div class="glow-card group flex flex-col justify-between rounded-2xl bg-[#0d1017] shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+<div class="glow-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme transition-all duration-400 bg-[#0f1118] shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
   
   <!-- Image Banner -->
-  <a href={`/products/${product.slug}`} class="h-52 overflow-hidden relative bg-[#040508] block rounded-t-2xl">
+  <a href={`/products/${product.slug}`} class="h-52 overflow-hidden relative bg-[#040508] block">
     <img
       src={product.mainImage}
       alt={product.name}
-      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out opacity-85 group-hover:opacity-100"
-      style="transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden;"
+      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-85 group-hover:opacity-100"
     />
-    <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-transparent to-transparent pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0f1118] via-transparent to-transparent"></div>
     
     <!-- Category Pill -->
-    <div class="absolute top-3.5 left-3.5 bg-[#07090e]/90 backdrop-blur-md px-3 py-1 rounded-lg text-[10px] font-bold text-[#f7c355] border border-amber-500/30 font-mono shadow-md uppercase tracking-wider">
+    <div class="absolute top-3.5 left-3.5 bg-[#07090e]/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-theme-bright border border-white/10 font-mono shadow-md uppercase tracking-wider">
       {product.categoryName}
     </div>
 
     {product.isFeatured && (
-      <div class="absolute top-3.5 right-3.5 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-lg shadow-md font-mono border border-amber-200/60">
+      <div class="absolute top-3.5 right-3.5 bg-gradient-to-r from-[var(--primary)] to-[var(--primary-hover)] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-md font-mono border border-white/20">
         Featured
       </div>
     )}
   </a>
 
   <!-- Content Body -->
-  <div class="p-6 flex-grow flex flex-col justify-between space-y-4 relative z-10">
+  <div class="p-6 flex-grow flex flex-col justify-between space-y-4">
     <div>
-      <h3 class="text-lg font-bold text-white group-hover:text-[#f7c355] transition-colors mb-2 leading-snug" style="font-family:'Outfit',sans-serif;">
+      <h3 class="text-lg font-bold text-white group-hover:text-theme-bright transition-colors mb-2 leading-snug" style="font-family:'Outfit',sans-serif;">
         <a href={`/products/${product.slug}`}>{product.name}</a>
       </h3>
-      <p class="text-xs sm:text-sm text-slate-400 line-clamp-2 leading-relaxed font-normal">
+      <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">
         {product.shortDescription}
       </p>
     </div>
 
     <!-- Key Spec Chips -->
     {topSpecs.length > 0 && (
-      <div class="bg-[#07090e] border border-white/8 rounded-xl p-3 space-y-1.5">
+      <div class="bg-[#07090e] border border-white/[0.06] rounded-xl p-3 space-y-1.5">
         {topSpecs.map((spec) => (
           <div class="flex justify-between items-baseline gap-2 text-xs">
             <span class="text-slate-400 font-medium shrink-0 font-mono text-[11px]">{spec.name}:</span>
-            <span class="text-[#f7c355] font-bold font-mono text-right min-w-0 break-words text-[11px]">{spec.value}</span>
+            <span class="text-slate-200 font-bold font-mono text-right min-w-0 break-words text-[11px]">{spec.value}</span>
           </div>
         ))}
       </div>
@@ -63,18 +62,18 @@ const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [
         data-open-quote-modal
         data-product-name={product.name}
         data-product-category={product.categoryName}
-        class="w-full py-2.5 px-3 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-300 hover:to-amber-500 text-slate-950 text-xs font-black rounded-lg border border-amber-300/60 shadow-[0_4px_15px_rgba(245,158,11,0.25)] transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1.5 font-sans uppercase tracking-wider"
+        class="forge-btn-primary w-full py-2.5 px-3 rounded-full text-xs font-semibold flex items-center justify-center gap-1.5"
       >
-        <svg class="w-3.5 h-3.5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
         <span>Quote</span>
       </button>
 
       <a
         href={`/products/${product.slug}`}
-        class="w-full py-2.5 px-3 bg-white/5 hover:bg-white/10 hover:border-amber-500/30 text-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-1 border border-white/10 font-mono uppercase tracking-wider"
+        class="forge-btn-ghost w-full py-2.5 px-3 rounded-full text-xs font-semibold flex items-center justify-center gap-1"
       >
         <span>Details</span>
-        <svg class="w-3.5 h-3.5 text-[#f7c355] group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        <svg class="w-3.5 h-3.5 text-theme-bright group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
       </a>
     </div>
   </div>

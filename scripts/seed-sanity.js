@@ -54,7 +54,7 @@ async function seed() {
     primaryPhone: '+91 98765 43210',
     secondaryPhone: '+91 11 2345 6789',
     whatsappNumber: '919876543210',
-    email: 'kanikaagrawal1997@gmail.com',
+    email: 'info@vmgraphiteindustries.com',
     officeAddress: 'Corporate Office: Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
     plantAddress: 'Manufacturing Unit: Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
     googleMapsUrl: 'https://maps.google.com/?q=Industrial+Area+Phase+2+New+Delhi',

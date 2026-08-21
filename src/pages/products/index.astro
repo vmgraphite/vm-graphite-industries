@@ -10,17 +10,6 @@ const allProducts = await getAllProducts();
 
 const selectedCategory = Astro.url.searchParams.get('category') || 'all';
 const searchQuery = Astro.url.searchParams.get('search')?.toLowerCase() || '';
-
-const filteredProducts = allProducts.filter((product) => {
-  const matchesCategory = selectedCategory === 'all' || product.categorySlug === selectedCategory;
-  const matchesSearch =
-    !searchQuery ||
-    product.name.toLowerCase().includes(searchQuery) ||
-    product.shortDescription.toLowerCase().includes(searchQuery) ||
-    product.categoryName.toLowerCase().includes(searchQuery);
-
-  return matchesCategory && matchesSearch;
-});
 ---
 
 <Layout
@@ -32,15 +21,15 @@ const filteredProducts = allProducts.filter((product) => {
 >
   <!-- Page Header -->
   <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/10 relative overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.12),transparent_65%)] pointer-events-none"></div>
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,var(--primary-glow),transparent_65%)] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Products Catalog', href: '/products' }]} />
 
       <div class="max-w-3xl space-y-3 pt-6 reveal-on-scroll">
-        <span class="amber-pill">Industrial Product Catalog</span>
+        <span class="theme-pill">Industrial Product Catalog</span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          Precision-Manufactured <span class="text-gold-gradient">Solutions</span>
+          Precision-Manufactured <span class="text-theme-gradient">Solutions</span>
         </h1>
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
           Explore our complete range of high-purity industrial graphite, thermal coating suspensions, sealing products, and doctor blades.
@@ -51,28 +40,21 @@ const filteredProducts = allProducts.filter((product) => {
       <div class="mt-10 pt-6 border-t border-white/10 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
         
         <!-- Category Filter Tabs -->
-        <div class="flex flex-wrap items-center gap-2">
+        <div id="category-tabs-container" class="flex flex-wrap items-center gap-2">
           <a
             href="/products?category=all"
-            class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-              selectedCategory === 'all'
-                ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-black border border-amber-300/80 shadow-md'
-                : 'bg-[#0d1017] text-slate-300 hover:bg-[#141923] border border-white/10'
-            }`}
+            data-category-filter="all"
+            class="category-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer bg-gradient-to-r from-[var(--primary-light)] via-[var(--primary)] to-[var(--primary-dark)] text-slate-950 font-black border border-white/40 shadow-md"
           >
             All Products ({allProducts.length})
           </a>
           {categories.map((cat) => {
             const count = allProducts.filter((p) => p.categorySlug === cat.slug).length;
-            const isCatActive = selectedCategory === cat.slug;
             return (
               <a
                 href={`/products?category=${cat.slug}`}
-                class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                  isCatActive
-                    ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-black border border-amber-300/80 shadow-md'
-                    : 'bg-[#0d1017] text-slate-300 hover:bg-[#141923] border border-white/10'
-                }`}
+                data-category-filter={cat.slug}
+                class="category-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer bg-[#0d1117] text-slate-300 hover:bg-[#141923] border border-white/10"
               >
                 {cat.name} ({count})
               </a>
@@ -81,16 +63,17 @@ const filteredProducts = allProducts.filter((product) => {
         </div>
 
         <!-- Search Input -->
-        <form method="GET" action="/products" class="relative max-w-xs w-full">
-          {selectedCategory !== 'all' && <input type="hidden" name="category" value={selectedCategory} />}
+        <form id="product-search-form" method="GET" action="/products" class="relative max-w-xs w-full">
           <input
+            id="product-search-input"
             type="text"
             name="search"
             value={searchQuery}
             placeholder="Search products & specs..."
-            class="w-full bg-[#0d1017] border border-white/10 hover:border-amber-500/30 rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 transition-colors"
+            autocomplete="off"
+            class="w-full bg-[#0d1117] border border-white/10 hover:border-theme rounded-xl pl-9 pr-4 py-2.5 text-xs text-white placeholder-slate-400 focus:outline-none focus:border-[var(--primary)] transition-colors"
           />
-          <svg class="w-4 h-4 text-[#f7c355] absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <svg class="w-4 h-4 text-theme-bright absolute left-3 top-3 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
         </form>
 
       </div>
@@ -101,21 +84,184 @@ const filteredProducts = allProducts.filter((product) => {
   <section class="py-16 bg-[#07090e] min-h-[500px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      {filteredProducts.length > 0 ? (
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {filteredProducts.map((product) => (
+      <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {allProducts.map((product) => (
+          <div
+            class="product-card-wrapper transition-all duration-300"
+            data-category={product.categorySlug}
+            data-name={product.name.toLowerCase()}
+            data-desc={product.shortDescription.toLowerCase()}
+            data-catname={product.categoryName.toLowerCase()}
+            data-specs={product.specifications ? product.specifications.map(s => `${s.name} ${s.value}`).join(' ').toLowerCase() : ''}
+          >
             <ProductCard product={product} />
-          ))}
-        </div>
-      ) : (
+          </div>
+        ))}
+      </div>
+
+      <!-- Interactive Empty State -->
+      <div id="products-empty-state" class="hidden">
         <EmptyState
           title="No Matching Industrial Products"
-          message={`No products match your criteria "${searchQuery || selectedCategory}". Reset your search or contact our technical team for custom material formulations.`}
+          message="No products match your selected category and search criteria. Reset your search or contact our technical team for custom formulations."
           actionText="Clear All Filters"
           actionUrl="/products"
+          actionId="clear-filters-btn"
         />
-      )}
+      </div>
 
     </div>
   </section>
 </Layout>
+
+<script>
+  function setupProductFilters() {
+    const searchInput = document.getElementById('product-search-input') as HTMLInputElement | null;
+    const searchForm = document.getElementById('product-search-form') as HTMLFormElement | null;
+    const tabButtons = document.querySelectorAll<HTMLElement>('.category-tab-btn');
+    const productItems = document.querySelectorAll<HTMLElement>('.product-card-wrapper');
+    const emptyState = document.getElementById('products-empty-state');
+    const clearFiltersBtn = document.getElementById('clear-filters-btn');
+    const productsGrid = document.getElementById('products-grid');
+
+    if (!tabButtons.length || !productItems.length) return;
+
+    const activeClasses = ['bg-gradient-to-r', 'from-[var(--primary-light)]', 'via-[var(--primary)]', 'to-[var(--primary-dark)]', 'text-slate-950', 'font-black', 'border-white/40', 'shadow-md'];
+    const inactiveClasses = ['bg-[#0d1117]', 'text-slate-300', 'hover:bg-[#141923]', 'border-white/10'];
+
+    function getParams() {
+      const params = new URLSearchParams(window.location.search);
+      return {
+        category: params.get('category') || 'all',
+        search: params.get('search') || '',
+      };
+    }
+
+    function updateUrl(category: string, search: string) {
+      const url = new URL(window.location.href);
+      if (category && category !== 'all') {
+        url.searchParams.set('category', category);
+      } else {
+        url.searchParams.delete('category');
+      }
+      if (search && search.trim()) {
+        url.searchParams.set('search', search.trim());
+      } else {
+        url.searchParams.delete('search');
+      }
+      window.history.replaceState({}, '', url.toString());
+    }
+
+    function applyFilter(category: string, search: string, updateHistory = true) {
+      const normalizedSearch = search.toLowerCase().trim();
+      let visibleCount = 0;
+
+      // Update Tab Styles
+      tabButtons.forEach((btn) => {
+        const btnCategory = btn.getAttribute('data-category-filter');
+        const isActive = btnCategory === category;
+        if (isActive) {
+          btn.classList.add(...activeClasses);
+          btn.classList.remove(...inactiveClasses);
+        } else {
+          btn.classList.remove(...activeClasses);
+          btn.classList.add(...inactiveClasses);
+        }
+      });
+
+      // Update Search input if needed
+      if (searchInput && searchInput.value !== search) {
+        searchInput.value = search;
+      }
+
+      // Filter products
+      productItems.forEach((item) => {
+        const itemCat = item.getAttribute('data-category');
+        const itemName = item.getAttribute('data-name') || '';
+        const itemDesc = item.getAttribute('data-desc') || '';
+        const itemCatName = item.getAttribute('data-catname') || '';
+        const itemSpecs = item.getAttribute('data-specs') || '';
+
+        const matchesCat = category === 'all' || itemCat === category;
+        const matchesSearch =
+          !normalizedSearch ||
+          itemName.includes(normalizedSearch) ||
+          itemDesc.includes(normalizedSearch) ||
+          itemCatName.includes(normalizedSearch) ||
+          itemSpecs.includes(normalizedSearch);
+
+        if (matchesCat && matchesSearch) {
+          item.style.display = '';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Update Empty State
+      if (emptyState && productsGrid) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+          productsGrid.classList.add('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+          productsGrid.classList.remove('hidden');
+        }
+      }
+
+      // Update URL if requested
+      if (updateHistory) {
+        updateUrl(category, search);
+      }
+    }
+
+    // Initial state from URL
+    const { category, search } = getParams();
+    applyFilter(category, search, false);
+
+    // Tab click handlers
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetCategory = btn.getAttribute('data-category-filter') || 'all';
+        const currentSearch = searchInput ? searchInput.value : '';
+        applyFilter(targetCategory, currentSearch, true);
+      });
+    });
+
+    // Search input handler
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = (e.target as HTMLInputElement).value;
+        const currentCategory = document.querySelector('.category-tab-btn.font-black')?.getAttribute('data-category-filter') || 'all';
+        applyFilter(currentCategory, query, true);
+      });
+    }
+
+    if (searchForm) {
+      searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+      });
+    }
+
+    // Clear filters button
+    if (clearFiltersBtn) {
+      clearFiltersBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (searchInput) searchInput.value = '';
+        applyFilter('all', '', true);
+      });
+    }
+
+    // Listen to popstate (browser back/forward)
+    window.addEventListener('popstate', () => {
+      const state = getParams();
+      applyFilter(state.category, state.search, false);
+    });
+  }
+
+  // Initialize immediately and also on Astro page transitions
+  setupProductFilters();
+  document.addEventListener('astro:page-load', setupProductFilters);
+</script>
+

@@ -37,12 +37,12 @@ const homeContent = await getHomePageContent();
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
         {[
-          { metric: '99.9', suffix: '%', decimals: 1, label: 'Carbon Purity', color: 'text-[#f7c355]', sub: 'Ultra-pure synthetic grades' },
+          { metric: '99.9', suffix: '%', decimals: 1, label: 'Carbon Purity', color: 'text-theme-bright', sub: 'Ultra-pure synthetic grades' },
           { metric: '3000', suffix: '°C', decimals: 0, label: 'Max Thermal Rating', color: 'text-white', sub: 'Extreme heat resistance' },
-          { metric: '20', suffix: '+', decimals: 0, label: 'Countries Served', color: 'text-[#38bdf8]', sub: 'Worldwide export network' },
+          { metric: '20', suffix: '+', decimals: 0, label: 'Countries Served', color: 'text-theme-light', sub: 'Worldwide export network' },
           { metric: '100', suffix: '%', decimals: 0, label: 'ISO 9001:2015', color: 'text-emerald-400', sub: 'Zero defect inspection' },
-        ].map((item) => (
-          <div class="py-6 px-6 text-center hover:bg-white/[0.02] transition-colors reveal-on-scroll">
+        ].map((item, idx) => (
+          <div class={`py-6 px-6 text-center hover:bg-white/[0.02] transition-colors reveal-on-scroll stagger-${idx + 1}`}>
             <div
               class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${item.color}`}
               data-counter-target={item.metric}

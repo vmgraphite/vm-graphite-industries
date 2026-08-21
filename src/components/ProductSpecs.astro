@@ -8,20 +8,20 @@ export interface Props {
 const { specifications } = Astro.props;
 ---
 
-<div class="overflow-x-auto rounded-xl border border-gold-500/25 bg-[#06080e] shadow-2xl">
+<div class="overflow-x-auto rounded-xl border border-white/[0.08] bg-[#0b0d13] shadow-2xl">
   <table class="w-full text-left border-collapse">
     <thead>
-      <tr class="bg-[#040508] text-gold-400 text-xs uppercase tracking-wider font-bold border-b border-gold-500/30 font-mono">
+      <tr class="bg-white/[0.03] text-theme-bright text-xs uppercase tracking-wider font-bold border-b border-white/[0.08] font-mono">
         <th class="py-4 px-6 w-1/2">Technical Parameter / Attribute</th>
         <th class="py-4 px-6 w-1/2">Standard Specification / Value</th>
       </tr>
     </thead>
-    <tbody class="divide-y divide-white/10 text-sm">
+    <tbody class="divide-y divide-white/[0.06] text-sm">
       {specifications && specifications.length > 0 ? (
         specifications.map((spec, idx) => (
-          <tr class={idx % 2 === 0 ? 'bg-[#080a10] hover:bg-[#0e131f]' : 'bg-[#0c101a] hover:bg-[#0e131f]'}>
+          <tr class={idx % 2 === 0 ? 'bg-transparent hover:bg-white/[0.02]' : 'bg-white/[0.01] hover:bg-white/[0.02]'}>
             <td class="py-3.5 px-6 font-semibold text-slate-300">{spec.name}</td>
-            <td class="py-3.5 px-6 font-bold font-mono text-gold-300">{spec.value}</td>
+            <td class="py-3.5 px-6 font-bold font-mono text-slate-200">{spec.value}</td>
           </tr>
         ))
       ) : (

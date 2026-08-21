@@ -114,7 +114,7 @@ To connect your own Sanity cloud project:
    PUBLIC_SANITY_PROJECT_ID=your_actual_project_id
    PUBLIC_SANITY_DATASET=production
    PUBLIC_SANITY_API_VERSION=2024-08-01
-   CONTACT_EMAIL=kanikaagrawal1997@gmail.com
+   CONTACT_EMAIL=info@vmgraphiteindustries.com
    ```
 
 5. **Deploy Schemas / Start Studio**:
@@ -133,7 +133,7 @@ PUBLIC_SANITY_DATASET=production
 PUBLIC_SANITY_API_VERSION=2024-08-01
 
 # Contact / Lead Generation Destination Email
-CONTACT_EMAIL=kanikaagrawal1997@gmail.com
+CONTACT_EMAIL=info@vmgraphiteindustries.com
 
 # Optional: Google Analytics 4 Measurement ID
 # PUBLIC_GA_MEASUREMENT_ID=G-XXXXXXXXXX
@@ -215,7 +215,7 @@ Access `https://vmgraphiteindustries.com/admin` to manage site content without a
    - `PUBLIC_SANITY_PROJECT_ID` = `your_project_id`
    - `PUBLIC_SANITY_DATASET` = `production`
    - `PUBLIC_SANITY_API_VERSION` = `2024-08-01`
-   - `CONTACT_EMAIL` = `kanikaagrawal1997@gmail.com`
+   - `CONTACT_EMAIL` = `info@vmgraphiteindustries.com`
 
 ---
 

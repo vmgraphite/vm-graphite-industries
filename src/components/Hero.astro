@@ -10,179 +10,634 @@ export interface Props {
 const {
   headline = 'Advanced Graphite & Industrial Material Solutions',
   subheadline = 'Precision-manufactured high-density graphite crucibles, colloidal graphite suspensions, synthetic seals, and high-tensile doctor blades engineered for severe thermal and chemical operating environments.',
-  heroImage: propHeroImage,
+  heroImage = '/images/hero-industrial.jpg',
   primaryCtaText = 'Explore Product Range',
-  secondaryCtaText = 'Request Quote',
+  secondaryCtaText = 'Request Custom Quote',
 } = Astro.props;
-
-const heroImage = propHeroImage || '/images/hero-industrial.jpg';
 
 // Headline split
 const parts = headline.split('&');
 const headlinePart1 = parts[0]?.trim() || headline;
 const headlinePart2 = parts[1]?.trim() || '';
+
+// Showcase Items for the Interactive Tab Switcher
+const showcaseItems = [
+  {
+    id: 'crucibles',
+    tabName: 'Graphite Crucibles',
+    title: 'Isostatic Graphite Crucibles',
+    tagline: 'Engineered for extreme thermal metallurgy up to 3000°C with Alubonding™ anti-oxidation protection.',
+    image: '/images/products/graphite-crucibles.jpg',
+    url: '/products/graphite-crucibles',
+    badge: '3000°C Max Heat',
+    badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
+    stat1Val: '3000°C',
+    stat1Lbl: 'Thermal Rating',
+    stat2Val: '99.9%',
+    stat2Lbl: 'Carbon Purity',
+    stat3Val: '±0.02mm',
+    stat3Lbl: 'CNC Precision',
+    telemetryRating: '3000°C Peak',
+    telemetryGrade: '99.9% Ultra-Pure',
+  },
+  {
+    id: 'colloidal',
+    tabName: 'Colloidal Dispersions',
+    title: 'Colloidal Graphite Dispersions',
+    tagline: 'Ultra-fine sub-micron graphite suspensions for die-casting, hot forging, and industrial mold release.',
+    image: '/images/products/graphite-suspension.jpg',
+    url: '/products/graphite-suspension',
+    badge: 'Sub-Micron Grade',
+    badgeColor: 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10',
+    stat1Val: '< 1µm',
+    stat1Lbl: 'Particle Size',
+    stat2Val: 'Water / Oil',
+    stat2Lbl: 'Carrier Base',
+    stat3Val: 'Zero Smoke',
+    stat3Lbl: 'Eco Formulation',
+    telemetryRating: '1200°C Working',
+    telemetryGrade: 'Colloidal Grade A',
+  },
+  {
+    id: 'seals',
+    tabName: 'Graphite Seals & Foil',
+    title: 'Pure Flexible Graphite Foil & Seals',
+    tagline: 'High-pressure expanded natural graphite gaskets and tapes offering impenetrable fluid containment.',
+    image: '/images/products/graphite-foil-tape.jpg',
+    url: '/products/graphite-foil-tape',
+    badge: '99.9% Carbon Foil',
+    badgeColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
+    stat1Val: '-200 to 650°C',
+    stat1Lbl: 'Temp Range',
+    stat2Val: '100%',
+    stat2Lbl: 'Non-Asbestos',
+    stat3Val: 'High PSI',
+    stat3Lbl: 'Pressure Class',
+    telemetryRating: '650°C Max Temp',
+    telemetryGrade: 'Flexible Foil 99.9%',
+  },
+  {
+    id: 'doctor-blades',
+    tabName: 'Doctor Blades',
+    title: 'Precision High-Tensile Doctor Blades',
+    tagline: 'Micro-honed Swedish carbon and stainless steel doctor blades for streak-free rotogravure & flexo printing.',
+    image: '/images/products/ss-doctor-blades.jpg',
+    url: '/products/ss-doctor-blades',
+    badge: 'Micro-Honed Edge',
+    badgeColor: 'text-purple-400 border-purple-500/30 bg-purple-500/10',
+    stat1Val: 'Swedish',
+    stat1Lbl: 'Steel Grade',
+    stat2Val: 'Lamella / Bevel',
+    stat2Lbl: 'Edge Profiles',
+    stat3Val: 'Zero Streak',
+    stat3Lbl: 'Wiping Quality',
+    telemetryRating: '600 HV Hardness',
+    telemetryGrade: 'Swedish Carbon/SS',
+  },
+];
 ---
 
-<section class="relative flex items-center overflow-hidden bg-[#07090e] pt-8 pb-16 lg:pt-14 lg:pb-24 industrial-grid-bg">
+<section class="relative min-h-[92vh] flex items-center overflow-hidden bg-[#07090e] pt-10 pb-16 lg:pt-16 lg:pb-24 industrial-grid-bg">
 
-  <!-- Ambient Light Orbs -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[550px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.16),transparent_65%)] pointer-events-none"></div>
-  <div class="absolute top-1/3 left-10 w-[400px] h-[400px] bg-[radial-gradient(circle,rgba(56,189,248,0.06),transparent_70%)] pointer-events-none"></div>
-  <div class="absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#07090e] to-transparent pointer-events-none"></div>
+  <!-- Ambient Glowing Backdrops -->
+  <div class="hero-ambient-orb-1 absolute top-1/4 -left-32 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,102,54,0.18)_0%,rgba(0,0,0,0)_70%)] blur-3xl pointer-events-none"></div>
+  <div class="hero-ambient-orb-2 absolute -top-24 right-1/4 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(255,160,128,0.12)_0%,rgba(0,0,0,0)_70%)] blur-3xl pointer-events-none"></div>
+  
+  <!-- Subtle Ambient Spark Particles -->
+  <div class="hero-spark spark-1"></div>
+  <div class="hero-spark spark-2"></div>
+  <div class="hero-spark spark-3"></div>
+  <div class="hero-spark spark-4"></div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-10 items-center">
+  <div class="absolute bottom-0 inset-x-0 h-28 bg-gradient-to-t from-[#07090e] via-[#07090e]/80 to-transparent pointer-events-none z-10"></div>
 
-      <!-- LEFT: Headline & Actions -->
-      <div class="lg:col-span-7 space-y-7 reveal-on-scroll">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+      <!-- LEFT: Hero Animated Entrance Content -->
+      <div class="lg:col-span-6 space-y-6">
         
-        <!-- Trust badge with pulse ping -->
-        <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-[#f7c355] font-mono text-[11px] font-bold uppercase tracking-wider shadow-[0_0_20px_rgba(232,160,32,0.15)]">
-          <span class="relative flex h-2 w-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-amber-400"></span>
-          </span>
-          <span>ISO 9001:2015 Certified B2B Manufacturer</span>
+        <!-- Entrance Element 1: ISO Live Badge -->
+        <div class="hero-entry-1">
+          <div class="inline-flex items-center gap-3 bg-gradient-to-r from-white/[0.08] to-white/[0.02] border border-white/[0.12] hover:border-[var(--primary)]/50 text-slate-200 text-xs font-semibold px-4 py-2 rounded-full backdrop-blur-xl transition-all duration-300 shadow-lg shadow-black/40">
+            <span class="relative flex h-2.5 w-2.5">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--primary)] opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-[var(--primary)]"></span>
+            </span>
+            <span class="tracking-wide">ISO 9001:2015 Certified B2B Manufacturer</span>
+            <span class="hidden sm:inline-block text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[var(--primary)]/20 text-[var(--primary-bright)] border border-[var(--primary)]/30 ml-1">Live Operations</span>
+          </div>
         </div>
 
-        <!-- Main headline -->
-        <h1 class="display-lg text-white font-black tracking-tight leading-[1.04]">
-          {headlinePart1}
-          {headlinePart2 && (
-            <span class="block text-gold-gradient font-black mt-1">
-              &amp; {headlinePart2}
-            </span>
-          )}
-        </h1>
+        <!-- Entrance Element 2: Main Headline with Solid High-Contrast Accent -->
+        <div class="hero-entry-2 space-y-1">
+          <h1 class="text-3xl sm:text-4xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.08]" style="font-family:'Outfit',sans-serif;">
+            {headlinePart1}
+            {headlinePart2 && (
+              <span class="block text-theme font-black mt-1.5">
+                &amp; {headlinePart2}
+              </span>
+            )}
+          </h1>
+        </div>
 
-        <!-- Subheadline -->
-        <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed font-normal">
-          {subheadline}
-        </p>
+        <!-- Entrance Element 3: Subheadline -->
+        <div class="hero-entry-3">
+          <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed font-normal">
+            {subheadline}
+          </p>
+        </div>
 
-        <!-- CTA Action Buttons -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
-          <a href="/products" class="forge-btn-primary group rounded-xl">
+        <!-- Entrance Element 4: High-Conversion CTA Buttons -->
+        <div class="hero-entry-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+          <a
+            href="/products"
+            class="forge-btn-primary group rounded-full px-7 py-3.5 text-sm font-bold shadow-[0_0_30px_rgba(255,102,54,0.35)] hover:shadow-[0_0_40px_rgba(255,102,54,0.6)] transition-all"
+          >
             <span>{primaryCtaText}</span>
-            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            <svg class="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
           </a>
-          <button type="button" data-open-quote-modal class="forge-btn-ghost rounded-xl">
-            <svg class="w-4 h-4 text-[#f7c355]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <button
+            type="button"
+            data-open-quote-modal
+            class="forge-btn-ghost group rounded-full px-7 py-3.5 text-sm font-semibold hover:border-[var(--primary)]/50 hover:bg-white/[0.06] transition-all"
+          >
+            <svg class="w-4 h-4 text-[var(--primary-text)] group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
             <span>{secondaryCtaText}</span>
           </button>
         </div>
 
-        <!-- Key Capability Badges -->
-        <div class="flex flex-wrap items-center gap-3 pt-3 text-xs text-slate-400 font-mono">
-          <span class="flex items-center gap-1.5 bg-white/5 border border-white/8 px-3 py-1.5 rounded-lg">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#f7c355]"></span>
-            Isostatic Pressed
-          </span>
-          <span class="flex items-center gap-1.5 bg-white/5 border border-white/8 px-3 py-1.5 rounded-lg">
-            <span class="w-1.5 h-1.5 rounded-full bg-[#38bdf8]"></span>
-            Colloidal Dispersions
-          </span>
-          <span class="flex items-center gap-1.5 bg-white/5 border border-white/8 px-3 py-1.5 rounded-lg">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            Custom CNC Machined
-          </span>
+        <!-- Entrance Element 5: Key Plant Competencies -->
+        <div class="hero-entry-5 pt-3">
+          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2.5 flex items-center gap-2">
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)]"></span>
+            <span>Core Manufacturing Capabilities</span>
+          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-300 font-mono">
+            <span class="hero-pill-1 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              Isostatic Hot Pressing
+            </span>
+            <span class="hero-pill-2 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary-bright)]"></span>
+              Sub-Micron Dispersions
+            </span>
+            <span class="hero-pill-3 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+              CNC Machining ±0.02mm
+            </span>
+            <span class="hero-pill-4 flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] hover:border-[var(--primary)]/40 px-3 py-1.5 rounded-lg transition-colors">
+              <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
+              Global Export 20+ Countries
+            </span>
+          </div>
         </div>
+
       </div>
 
-      <!-- RIGHT: Interactive Spec Card with Live Counters -->
-      <div class="lg:col-span-5 reveal-scale">
-        <div class="glow-card border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_40px_rgba(232,160,32,0.12)]">
+      <!-- RIGHT: Cinematic Animated Showcase Card -->
+      <div class="lg:col-span-6 hero-entry-showcase relative">
 
-          <!-- Card HUD header -->
-          <div class="flex items-center justify-between px-5 py-3.5 border-b border-white/10 bg-[#0d1017]">
-            <div class="flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-[#f7c355] animate-ambient-pulse"></span>
-              <span class="text-[11px] font-black text-[#f7c355] uppercase tracking-widest font-mono">Material Specs &amp; Quality</span>
+        <!-- Glowing Neon Backlight Backdrop -->
+        <div class="hero-backlight-aura absolute -inset-3 bg-gradient-to-r from-[var(--primary)]/30 via-[var(--primary-light)]/20 to-purple-600/20 rounded-3xl blur-2xl opacity-75 pointer-events-none"></div>
+
+        <!-- Clean Zero-Overlap Telemetry Header Bar -->
+        <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3 px-1">
+          <div class="hero-telemetry-pill-1 inline-flex items-center gap-2 bg-[#0e111a]/95 backdrop-blur-xl border border-amber-500/30 px-3.5 py-1.5 rounded-xl shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse shrink-0"></span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Thermal Rating:</span>
+            <span id="heroTelemetryRating" class="text-xs font-bold text-amber-300 font-mono">{showcaseItems[0].telemetryRating}</span>
+          </div>
+          <div class="hero-telemetry-pill-2 inline-flex items-center gap-2 bg-[#0e111a]/95 backdrop-blur-xl border border-emerald-500/30 px-3.5 py-1.5 rounded-xl shadow-lg">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0"></span>
+            <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Carbon Grade:</span>
+            <span id="heroTelemetryGrade" class="text-xs font-bold text-emerald-400 font-mono">{showcaseItems[0].telemetryGrade}</span>
+          </div>
+        </div>
+
+        <!-- Main Showcase Frame -->
+        <div class="relative bg-[#0d1017]/95 backdrop-blur-2xl border border-white/[0.14] hover:border-[var(--primary)]/50 rounded-3xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.9)] transition-colors duration-500 group">
+          
+          <!-- Category Quick Selection Tabs -->
+          <div class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+            <div class="flex items-center gap-1.5 sm:gap-2 w-full">
+              {showcaseItems.map((item, idx) => (
+                <button
+                  type="button"
+                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3 rounded-xl transition-all duration-300 shrink-0 cursor-pointer ${
+                    idx === 0
+                      ? 'bg-[var(--primary)] text-white shadow-md font-bold'
+                      : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
+                  }`}
+                  data-index={idx}
+                >
+                  {item.tabName}
+                </button>
+              ))}
             </div>
-            <span class="text-[10px] text-slate-400 font-mono bg-white/5 px-2 py-0.5 rounded border border-white/8">ISO 9001:2015</span>
           </div>
 
-          <!-- Feature Image Preview with Overlay -->
-          <div class="h-48 overflow-hidden relative bg-[#040508]">
-            <img
-              src={heroImage}
-              alt="VM Graphite High Temperature Testing"
-              class="w-full h-full object-cover opacity-80 hover:scale-105 transition-transform duration-700"
-            />
-            <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-transparent to-transparent"></div>
+          <!-- Product Image & Highlight Banner -->
+          <div class="relative h-60 sm:h-72 overflow-hidden bg-black/60">
             
-            <!-- Floating Floating Badge -->
-            <div class="absolute bottom-3 left-4 bg-[#07090e]/90 backdrop-blur-md px-3.5 py-1.5 rounded-xl border border-amber-500/30 text-xs font-bold text-slate-200 flex items-center gap-2">
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-              <span>Ultra-High Purity Carbon</span>
-            </div>
-          </div>
+            <!-- High-Tech Animated Laser Scan Line -->
+            <div class="hero-laser-scanner absolute inset-x-0 h-[2px] bg-gradient-to-r from-transparent via-[var(--primary-bright)] to-transparent opacity-75 z-20 pointer-events-none"></div>
 
-          <!-- Live Metrics Grid -->
-          <div class="grid grid-cols-3 divide-x divide-white/10 bg-[#0a0d14] border-t border-b border-white/10">
-            <div class="px-3 py-4 text-center">
+            {showcaseItems.map((item, idx) => (
               <div
-                class="text-2xl font-black text-[#f7c355] font-mono leading-none"
-                data-counter-target="99.9"
-                data-counter-decimals="1"
-                data-counter-suffix="%"
+                class={`hero-image-slide absolute inset-0 transition-opacity duration-500 ease-in-out ${
+                  idx === 0 ? 'opacity-100 z-10' : 'opacity-0 pointer-events-none z-0'
+                }`}
+                data-slide-index={idx}
               >
-                99.9%
-              </div>
-              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5 font-mono">Carbon Purity</div>
-            </div>
-            <div class="px-3 py-4 text-center">
-              <div
-                class="text-2xl font-black text-white font-mono leading-none"
-                data-counter-target="3000"
-                data-counter-decimals="0"
-                data-counter-suffix="°C"
-              >
-                3000°C
-              </div>
-              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5 font-mono">Max Thermal</div>
-            </div>
-            <div class="px-3 py-4 text-center">
-              <div
-                class="text-2xl font-black text-[#38bdf8] font-mono leading-none"
-                data-counter-target="20"
-                data-counter-decimals="0"
-                data-counter-suffix="+"
-              >
-                20+
-              </div>
-              <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-1.5 font-mono">Countries</div>
-            </div>
-          </div>
-
-          <!-- Key Feature Checklist -->
-          <div class="p-5 bg-[#0d1017] space-y-2.5">
-            {[
-              'Alubonding™ proprietary bonding technology',
-              'CNC-machined geometries to ±0.02mm tolerance',
-              'Specialized colloidal formulations for die-casting',
-              'Flexible thermal graphite foil & severe-duty seals',
-            ].map((f) => (
-              <div class="flex items-center gap-2.5 text-xs text-slate-300">
-                <svg class="w-3.5 h-3.5 text-[#f7c355] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-                <span>{f}</span>
+                <img
+                  src={item.image}
+                  alt={item.title}
+                  class="w-full h-full object-cover opacity-85 group-hover:scale-105 transition-transform duration-700"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-[#0d1017]/50 to-transparent"></div>
+                
+                <!-- Floating Info Tag Inside Slide -->
+                <div class="absolute bottom-4 left-4 right-4 z-10 space-y-1">
+                  <span class={`inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border ${item.badgeColor}`}>
+                    {item.badge}
+                  </span>
+                  <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight drop-shadow-md" style="font-family:'Outfit',sans-serif;">
+                    {item.title}
+                  </h3>
+                  <p class="text-xs text-slate-300 line-clamp-1 font-normal">
+                    {item.tagline}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
 
-          <!-- Card Footer Action -->
-          <div class="px-5 py-3 bg-[#090c12] border-t border-white/10 flex items-center justify-between">
-            <span class="text-[11px] text-slate-400 font-mono">Immediate Dispatch Available</span>
-            <a href="/products" class="text-xs font-bold text-[#f7c355] hover:text-amber-300 transition-colors font-mono uppercase tracking-wider flex items-center gap-1">
-              <span>View Catalog</span>
-              <span>→</span>
+          <!-- Dynamic Specification Grid -->
+          <div class="grid grid-cols-3 divide-x divide-white/[0.08] bg-white/[0.02] border-t border-b border-white/[0.08]">
+            <div class="py-3 px-3 text-center">
+              <div id="stat1Val" class="text-base sm:text-lg font-black text-white font-mono leading-none">{showcaseItems[0].stat1Val}</div>
+              <div id="stat1Lbl" class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mt-1">{showcaseItems[0].stat1Lbl}</div>
+            </div>
+            <div class="py-3 px-3 text-center">
+              <div id="stat2Val" class="text-base sm:text-lg font-black text-theme-bright font-mono leading-none">{showcaseItems[0].stat2Val}</div>
+              <div id="stat2Lbl" class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mt-1">{showcaseItems[0].stat2Lbl}</div>
+            </div>
+            <div class="py-3 px-3 text-center">
+              <div id="stat3Val" class="text-base sm:text-lg font-black text-slate-200 font-mono leading-none">{showcaseItems[0].stat3Val}</div>
+              <div id="stat3Lbl" class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mt-1">{showcaseItems[0].stat3Lbl}</div>
+            </div>
+          </div>
+
+          <!-- Footer Action Bar -->
+          <div class="px-5 py-3.5 bg-black/40 flex items-center justify-between">
+            <a
+              id="showcaseProductUrl"
+              href={showcaseItems[0].url}
+              class="text-xs font-bold text-white hover:text-[var(--primary-bright)] transition-colors flex items-center gap-1.5 group/link"
+            >
+              <span>View Technical Specs</span>
+              <span class="transform group-hover/link:translate-x-1 transition-transform">→</span>
             </a>
+            <button
+              type="button"
+              id="showcaseQuoteBtn"
+              data-open-quote-modal
+              data-product-name={showcaseItems[0].title}
+              class="text-xs font-semibold px-3.5 py-1.5 rounded-xl bg-[var(--primary)]/20 border border-[var(--primary)]/40 text-[var(--primary-bright)] hover:bg-[var(--primary)] hover:text-white transition-all font-mono cursor-pointer shadow-sm"
+            >
+              Request Quote
+            </button>
           </div>
 
         </div>
+
       </div>
 
     </div>
   </div>
 
 </section>
+
+<!-- Interactive Tab Switcher Script -->
+<script is:inline define:vars={{ itemsData: showcaseItems }}>
+  (function() {
+    const tabs = document.querySelectorAll('.hero-tab');
+    const slides = document.querySelectorAll('.hero-image-slide');
+    const stat1Val = document.getElementById('stat1Val');
+    const stat1Lbl = document.getElementById('stat1Lbl');
+    const stat2Val = document.getElementById('stat2Val');
+    const stat2Lbl = document.getElementById('stat2Lbl');
+    const stat3Val = document.getElementById('stat3Val');
+    const stat3Lbl = document.getElementById('stat3Lbl');
+    const telemetryRating = document.getElementById('heroTelemetryRating');
+    const telemetryGrade = document.getElementById('heroTelemetryGrade');
+    const productUrl = document.getElementById('showcaseProductUrl');
+    const quoteBtn = document.getElementById('showcaseQuoteBtn');
+    let currentIndex = 0;
+    let autoRotateInterval = null;
+
+    function switchShowcase(index) {
+      currentIndex = index;
+      const item = itemsData[index];
+      if (!item) return;
+
+      // Update active tab button style
+      tabs.forEach((tab, i) => {
+        if (i === index) {
+          tab.classList.add('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
+          tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
+        } else {
+          tab.classList.remove('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
+          tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
+        }
+      });
+
+      // Update slide cross-fade
+      slides.forEach((sl, i) => {
+        if (i === index) {
+          sl.classList.remove('opacity-0', 'pointer-events-none', 'z-0');
+          sl.classList.add('opacity-100', 'z-10');
+        } else {
+          sl.classList.add('opacity-0', 'pointer-events-none', 'z-0');
+          sl.classList.remove('opacity-100', 'z-10');
+        }
+      });
+
+      // Update telemetry top labels
+      if (telemetryRating && item.telemetryRating) telemetryRating.textContent = item.telemetryRating;
+      if (telemetryGrade && item.telemetryGrade) telemetryGrade.textContent = item.telemetryGrade;
+
+      // Update specs
+      if (stat1Val) stat1Val.textContent = item.stat1Val;
+      if (stat1Lbl) stat1Lbl.textContent = item.stat1Lbl;
+      if (stat2Val) stat2Val.textContent = item.stat2Val;
+      if (stat2Lbl) stat2Lbl.textContent = item.stat2Lbl;
+      if (stat3Val) stat3Val.textContent = item.stat3Val;
+      if (stat3Lbl) stat3Lbl.textContent = item.stat3Lbl;
+
+      // Update Links
+      if (productUrl) productUrl.setAttribute('href', item.url);
+      if (quoteBtn) quoteBtn.setAttribute('data-product-name', item.title);
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const idx = parseInt(tab.getAttribute('data-index') || '0', 10);
+        switchShowcase(idx);
+        resetAutoRotate();
+      });
+    });
+
+    function startAutoRotate() {
+      autoRotateInterval = setInterval(() => {
+        const nextIndex = (currentIndex + 1) % itemsData.length;
+        switchShowcase(nextIndex);
+      }, 5000);
+    }
+
+    function resetAutoRotate() {
+      if (autoRotateInterval) clearInterval(autoRotateInterval);
+      startAutoRotate();
+    }
+
+    startAutoRotate();
+
+    // 3D card tilt on mouse move
+    const showcaseContainer = document.querySelector('.hero-entry-showcase');
+    if (showcaseContainer) {
+      showcaseContainer.addEventListener('mouseenter', function() {
+        if (autoRotateInterval) clearInterval(autoRotateInterval);
+        showcaseContainer.style.transition = 'transform 0.1s ease-out';
+      });
+
+      showcaseContainer.addEventListener('mousemove', function(e) {
+        const rect = showcaseContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const rotateX = -(y / (rect.height / 2)) * 3.5;
+        const rotateY = (x / (rect.width / 2)) * 3.5;
+        showcaseContainer.style.transform = 'perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+      });
+
+      showcaseContainer.addEventListener('mouseleave', function() {
+        showcaseContainer.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        showcaseContainer.style.transition = 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+        startAutoRotate();
+      });
+    }
+  })();
+</script>
+
+<style>
+  /* ── Ultra-Smooth Multi-Directional Entrance Animations ── */
+  @keyframes heroBadgeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(-22px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes heroHeadlineIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-35px) translateY(8px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+  }
+
+  @keyframes heroSubheadlineIn {
+    0% {
+      opacity: 0;
+      transform: translateX(-25px) translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) translateY(0);
+    }
+  }
+
+  @keyframes heroCtaIn {
+    0% {
+      opacity: 0;
+      transform: translateY(22px) scale(0.95);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes heroCompetenciesIn {
+    0% {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes heroShowcaseIn {
+    0% {
+      opacity: 0;
+      transform: translateX(45px) scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0) scale(1);
+    }
+  }
+
+  @keyframes auraPulse {
+    0%, 100% {
+      opacity: 0.65;
+      transform: scale(0.98);
+    }
+    50% {
+      opacity: 0.95;
+      transform: scale(1.03);
+    }
+  }
+
+  @keyframes laserSweep {
+    0% {
+      top: -5%;
+      opacity: 0;
+    }
+    20% {
+      opacity: 0.85;
+    }
+    80% {
+      opacity: 0.85;
+    }
+    100% {
+      top: 105%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes sparkDrift {
+    0% {
+      transform: translateY(0) translateX(0) scale(0.8);
+      opacity: 0;
+    }
+    30% {
+      opacity: 0.7;
+    }
+    70% {
+      opacity: 0.7;
+    }
+    100% {
+      transform: translateY(-80px) translateX(25px) scale(1.2);
+      opacity: 0;
+    }
+  }
+
+  /* Staggered entrance timing with Apple-grade smooth cubic-bezier */
+  .hero-entry-1 {
+    animation: heroBadgeIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.08s both;
+  }
+  .hero-entry-2 {
+    animation: heroHeadlineIn 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+  }
+  .hero-entry-3 {
+    animation: heroSubheadlineIn 0.95s cubic-bezier(0.16, 1, 0.3, 1) 0.28s both;
+  }
+  .hero-entry-4 {
+    animation: heroCtaIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.38s both;
+  }
+  .hero-entry-5 {
+    animation: heroCompetenciesIn 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.48s both;
+  }
+
+  /* Capability Pills Individual Stagger */
+  .hero-pill-1 {
+    animation: heroCompetenciesIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.56s both;
+  }
+  .hero-pill-2 {
+    animation: heroCompetenciesIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.64s both;
+  }
+  .hero-pill-3 {
+    animation: heroCompetenciesIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.72s both;
+  }
+  .hero-pill-4 {
+    animation: heroCompetenciesIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s both;
+  }
+
+  .hero-entry-showcase {
+    animation: heroShowcaseIn 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.22s both;
+    will-change: transform, opacity;
+    transform-style: preserve-3d;
+  }
+
+  .hero-telemetry-pill-1 {
+    animation: heroBadgeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+  }
+
+  .hero-telemetry-pill-2 {
+    animation: heroBadgeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+  }
+
+  .hero-backlight-aura {
+    animation: auraPulse 6s ease-in-out infinite;
+  }
+
+  .hero-laser-scanner {
+    animation: laserSweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) 1.5s infinite;
+  }
+
+  .hero-spark {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--primary-light);
+    box-shadow: 0 0 10px var(--primary);
+    pointer-events: none;
+  }
+
+  .spark-1 {
+    top: 35%;
+    left: 20%;
+    animation: sparkDrift 7s ease-in-out infinite;
+  }
+
+  .spark-2 {
+    top: 55%;
+    left: 45%;
+    animation: sparkDrift 8s ease-in-out 2s infinite;
+  }
+
+  .spark-3 {
+    top: 25%;
+    right: 25%;
+    animation: sparkDrift 6.5s ease-in-out 3.5s infinite;
+  }
+
+  .spark-4 {
+    top: 65%;
+    right: 15%;
+    animation: sparkDrift 9s ease-in-out 1s infinite;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

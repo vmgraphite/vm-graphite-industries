@@ -22,17 +22,17 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
 
 <section class="py-24 relative overflow-hidden bg-[#07090e] border-t border-white/8 dot-matrix-bg">
 
-  <!-- Ambient Golden Glow -->
-  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(232,160,32,0.08),transparent_70%)] pointer-events-none"></div>
+  <!-- Ambient Glow -->
+  <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--primary-glow-subtle),transparent_70%)] pointer-events-none"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
     <!-- Section header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 reveal-on-scroll">
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6 reveal-slide-left">
       <div class="max-w-2xl space-y-3">
-        <span class="amber-pill">Product Portfolio</span>
+        <span class="theme-pill">Product Portfolio</span>
         <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          What We <span class="text-gold-gradient">Manufacture &amp; Supply</span>
+          What We <span class="text-theme-gradient">Manufacture &amp; Supply</span>
         </h2>
         <p class="text-slate-400 text-sm sm:text-base leading-relaxed">
           Engineered for ultra-high temperature endurance, chemical inertness, and tight mechanical tolerances. Every product is 100% batch inspected.
@@ -40,7 +40,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
       </div>
       <a href="/products" class="forge-btn-ghost rounded-xl text-xs px-5 py-3 shrink-0 self-start md:self-auto">
         <span>Browse All Products</span>
-        <span class="text-gold-400">→</span>
+        <span class="text-theme-bright">→</span>
       </a>
     </div>
 
@@ -48,7 +48,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       <!-- Hero Bento Card (Large - Spans 2 cols on LG) -->
-      <div class="lg:col-span-2 glow-card rounded-2xl overflow-hidden group reveal-on-scroll border border-white/10 flex flex-col justify-between min-h-[440px] relative">
+      <div class="lg:col-span-2 glow-card rounded-2xl overflow-hidden group reveal-slide-left border border-white/10 flex flex-col justify-between min-h-[440px] relative bg-[#0d1117]">
         <div class="absolute inset-0 overflow-hidden">
           <img
             src={heroProduct.image}
@@ -61,7 +61,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
         <!-- Top Badges -->
         <div class="relative z-10 p-6 flex justify-between items-start">
           <div class="space-y-1">
-            <span class="text-[10px] font-bold text-[#f7c355] bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-md font-mono uppercase tracking-widest backdrop-blur-md">
+            <span class="text-[10px] font-bold text-theme-bright bg-theme-tint border border-theme px-3 py-1 rounded-md font-mono uppercase tracking-widest backdrop-blur-md">
               {heroProduct.category}
             </span>
             <div class="text-[11px] text-emerald-400 font-mono flex items-center gap-1.5 pt-1">
@@ -84,7 +84,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
 
         <!-- Bottom Content -->
         <div class="relative z-10 p-6 sm:p-8 space-y-3">
-          <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-gold-300 transition-colors" style="font-family:'Outfit',sans-serif;">
+          <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-theme-bright transition-colors" style="font-family:'Outfit',sans-serif;">
             <a href={`/products/${heroProduct.slug}`}>{heroProduct.name}</a>
           </h3>
           <p class="text-slate-300 text-sm max-w-xl leading-relaxed">
@@ -94,7 +94,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
             <span class="text-xs font-mono text-slate-400 bg-white/5 border border-white/10 px-3 py-1 rounded-md">
               {heroProduct.spec}
             </span>
-            <a href={`/products/${heroProduct.slug}`} class="text-xs font-bold text-[#f7c355] font-mono uppercase tracking-wider flex items-center gap-1 hover:underline">
+            <a href={`/products/${heroProduct.slug}`} class="text-xs font-bold text-theme-bright font-mono uppercase tracking-wider flex items-center gap-1 hover:underline">
               <span>Specifications</span>
               <span>→</span>
             </a>
@@ -103,7 +103,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
       </div>
 
       <!-- Secondary Bento Card 1 -->
-      <div class="glow-card rounded-2xl overflow-hidden group reveal-on-scroll border border-white/10 flex flex-col justify-between min-h-[440px] relative">
+      <div class="glow-card rounded-2xl overflow-hidden group reveal-slide-right border border-white/10 flex flex-col justify-between min-h-[440px] relative bg-[#0d1117]">
         <div class="absolute inset-0 overflow-hidden">
           <img
             src={gridProducts[0].image}
@@ -114,7 +114,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
         </div>
 
         <div class="relative z-10 p-6 flex justify-between items-start">
-          <span class="text-[10px] font-bold text-[#f7c355] bg-amber-500/10 border border-amber-500/30 px-3 py-1 rounded-md font-mono uppercase tracking-widest backdrop-blur-md">
+          <span class="text-[10px] font-bold text-theme-bright bg-theme-tint border border-theme px-3 py-1 rounded-md font-mono uppercase tracking-widest backdrop-blur-md">
             {gridProducts[0].category}
           </span>
           <button
@@ -122,7 +122,7 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
             data-open-quote-modal
             data-product-name={gridProducts[0].name}
             data-product-category={gridProducts[0].category}
-            class="p-2 rounded-lg bg-amber-500 text-slate-950 hover:bg-amber-400 transition-colors cursor-pointer"
+            class="p-2 rounded-lg bg-[var(--primary)] text-slate-950 hover:bg-[var(--primary-hover)] transition-colors cursor-pointer"
             aria-label="Request Quote"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -130,13 +130,13 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
         </div>
 
         <div class="relative z-10 p-6 space-y-2">
-          <div class="text-[11px] text-amber-400 font-mono">{gridProducts[0].badge}</div>
-          <h3 class="text-xl font-black text-white leading-snug group-hover:text-gold-300 transition-colors" style="font-family:'Outfit',sans-serif;">
+          <div class="text-[11px] text-theme-bright font-mono">{gridProducts[0].badge}</div>
+          <h3 class="text-xl font-black text-white leading-snug group-hover:text-theme-bright transition-colors" style="font-family:'Outfit',sans-serif;">
             <a href={`/products/${gridProducts[0].slug}`}>{gridProducts[0].name}</a>
           </h3>
           <p class="text-xs text-slate-400 font-mono pt-1">{gridProducts[0].spec}</p>
           <div class="pt-3">
-            <a href={`/products/${gridProducts[0].slug}`} class="text-xs font-bold text-[#f7c355] font-mono uppercase tracking-wider flex items-center gap-1 hover:underline">
+            <a href={`/products/${gridProducts[0].slug}`} class="text-xs font-bold text-theme-bright font-mono uppercase tracking-wider flex items-center gap-1 hover:underline">
               <span>View Details</span>
               <span>→</span>
             </a>
@@ -148,8 +148,8 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
 
     <!-- Remaining Grid Products -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-      {gridProducts.slice(1).map((item) => (
-        <div class="glow-card rounded-2xl overflow-hidden group reveal-on-scroll border border-white/10 flex flex-col justify-between min-h-[300px] relative">
+      {gridProducts.slice(1).map((item, idx) => (
+        <div class={`glow-card rounded-2xl overflow-hidden group reveal-on-scroll stagger-${idx + 1} border border-white/10 flex flex-col justify-between min-h-[300px] relative bg-[#0d1117]`}>
           <!-- Background Image with Gradient -->
           <div class="absolute inset-0 overflow-hidden">
             <img
@@ -162,21 +162,21 @@ const [heroProduct, ...gridProducts] = showcaseProducts;
 
           <!-- Top Category Tag -->
           <div class="relative z-10 p-4 flex justify-between items-start">
-            <span class="text-[9px] font-bold text-[#f7c355] bg-[#07090e]/80 border border-amber-500/25 px-2.5 py-0.5 rounded font-mono uppercase tracking-wider">
+            <span class="text-[9px] font-bold text-theme-bright bg-[#07090e]/80 border border-theme px-2.5 py-0.5 rounded font-mono uppercase tracking-wider">
               {item.category}
             </span>
           </div>
 
           <!-- Bottom Card Info -->
           <div class="relative z-10 p-5 space-y-2">
-            <span class="text-[10px] text-amber-300 font-mono block">{item.badge}</span>
-            <h3 class="text-base font-bold text-white leading-snug group-hover:text-[#f7c355] transition-colors" style="font-family:'Outfit',sans-serif;">
+            <span class="text-[10px] text-theme-bright font-mono block">{item.badge}</span>
+            <h3 class="text-base font-bold text-white leading-snug group-hover:text-theme-bright transition-colors" style="font-family:'Outfit',sans-serif;">
               <a href={`/products/${item.slug}`}>{item.name}</a>
             </h3>
             <p class="text-[11px] text-slate-400 font-mono line-clamp-1">{item.spec}</p>
 
             <div class="pt-2 flex items-center justify-between border-t border-white/10">
-              <a href={`/products/${item.slug}`} class="text-[11px] font-bold text-[#f7c355] font-mono uppercase tracking-wider flex items-center gap-1">
+              <a href={`/products/${item.slug}`} class="text-[11px] font-bold text-theme-bright font-mono uppercase tracking-wider flex items-center gap-1">
                 <span>Specs</span>
                 <span>→</span>
               </a>

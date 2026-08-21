@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo } from "react";
 import {
   LayoutDashboard,
   Boxes,
@@ -34,16 +34,17 @@ import {
   Info,
   Server,
   KeyRound,
-  Compass
-} from 'lucide-react';
+  Compass,
+} from "lucide-react";
 import {
   MOCK_PRODUCTS,
   MOCK_CATEGORIES,
   MOCK_RESOURCES,
   type Product,
-} from '../../lib/mockData';
+} from "../../lib/mockData";
 
-type TabType = 'overview' | 'studio' | 'products' | 'categories' | 'resources' | 'deploy';
+type TabType =
+  "overview" | "studio" | "products" | "categories" | "resources" | "deploy";
 
 interface AdminDashboardProps {
   projectId?: string;
@@ -52,14 +53,14 @@ interface AdminDashboardProps {
 }
 
 export default function AdminDashboard({
-  projectId = 'twycammz',
-  dataset = 'production',
-  contactEmail = 'kanikaagrawal1997@gmail.com',
+  projectId = "twycammz",
+  dataset = "production",
+  contactEmail = "info@vmgraphiteindustries.com",
 }: AdminDashboardProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('overview');
+  const [activeTab, setActiveTab] = useState<TabType>("overview");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [copiedText, setCopiedText] = useState<string | null>(null);
   const [featuredOnly, setFeaturedOnly] = useState(false);
@@ -75,11 +76,16 @@ export default function AdminDashboard({
     return MOCK_PRODUCTS.filter((product) => {
       const matchesSearch =
         product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        product.shortDescription.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.shortDescription
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase()) ||
         product.slug.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (product.specifications && product.specifications.some(s => s.value.toLowerCase().includes(searchQuery.toLowerCase())));
+        (product.specifications &&
+          product.specifications.some((s) =>
+            s.value.toLowerCase().includes(searchQuery.toLowerCase()),
+          ));
       const matchesCategory =
-        selectedCategory === 'all' || product.categorySlug === selectedCategory;
+        selectedCategory === "all" || product.categorySlug === selectedCategory;
       const matchesFeatured = !featuredOnly || product.isFeatured;
       return matchesSearch && matchesCategory && matchesFeatured;
     });
@@ -87,144 +93,158 @@ export default function AdminDashboard({
 
   const navItems = [
     {
-      id: 'overview',
-      label: 'Dashboard Overview',
+      id: "overview",
+      label: "Dashboard Overview",
       icon: LayoutDashboard,
-      badge: 'Live',
+      badge: "Live",
     },
     {
-      id: 'studio',
-      label: 'Sanity Studio Launchpad',
+      id: "studio",
+      label: "Sanity Studio Launchpad",
       icon: Database,
-      badge: 'New Tab',
+      badge: "New Tab",
     },
     {
-      id: 'products',
-      label: 'Products Catalog',
+      id: "products",
+      label: "Products Catalog",
       icon: Boxes,
       count: MOCK_PRODUCTS.length,
     },
     {
-      id: 'categories',
-      label: 'Product Categories',
+      id: "categories",
+      label: "Product Categories",
       icon: FolderTree,
       count: MOCK_CATEGORIES.length,
     },
     {
-      id: 'resources',
-      label: 'Brochures & TDS',
+      id: "resources",
+      label: "Brochures & TDS",
       icon: FileText,
       count: MOCK_RESOURCES.length,
     },
     {
-      id: 'deploy',
-      label: 'Cloud & Deployment',
+      id: "deploy",
+      label: "Cloud & Deployment",
       icon: Cloud,
-      badge: 'Netlify',
+      badge: "Netlify",
     },
   ];
 
   const schemas = [
     {
-      id: 'siteSettings',
-      title: 'Site Settings & Contact Info',
-      type: 'Singleton',
-      typeBadge: 'bg-amber-500/15 text-[#e8a020] border-amber-500/30',
-      description: 'Phones, contact emails, corporate headquarters, manufacturing plant address, WhatsApp trigger, and global metadata.',
-      studioUrl: '/admin/studio/structure/siteSettings',
-      previewUrl: '/contact',
+      id: "siteSettings",
+      title: "Site Settings & Contact Info",
+      type: "Singleton",
+      typeBadge: "bg-amber-500/15 text-[#f06543] border-amber-500/30",
+      description:
+        "Phones, contact emails, corporate headquarters, manufacturing plant address, WhatsApp trigger, and global metadata.",
+      studioUrl: "/admin/studio/structure/siteSettings",
+      previewUrl: "/contact",
       icon: Settings,
-      iconColor: 'text-[#e8a020] bg-amber-500/10',
+      iconColor: "text-[#f06543] bg-amber-500/10",
     },
     {
-      id: 'homePage',
-      title: 'Home Page Content',
-      type: 'Singleton',
-      typeBadge: 'bg-sky-500/15 text-sky-400 border-sky-500/30',
-      description: 'Hero banner headline, trust badges, animated stats, industry application highlights, and quality pillars.',
-      studioUrl: '/admin/studio/structure/homePage',
-      previewUrl: '/',
+      id: "homePage",
+      title: "Home Page Content",
+      type: "Singleton",
+      typeBadge: "bg-sky-500/15 text-sky-400 border-sky-500/30",
+      description:
+        "Hero banner headline, trust badges, animated stats, industry application highlights, and quality pillars.",
+      studioUrl: "/admin/studio/structure/homePage",
+      previewUrl: "/",
       icon: Globe,
-      iconColor: 'text-sky-400 bg-sky-500/10',
+      iconColor: "text-sky-400 bg-sky-500/10",
     },
     {
-      id: 'aboutPage',
-      title: 'About Us & Capabilities',
-      type: 'Singleton',
-      typeBadge: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30',
-      description: 'Manufacturing history, high-temperature testing equipment, quality control certifications, and infrastructure milestones.',
-      studioUrl: '/admin/studio/structure/aboutPage',
-      previewUrl: '/about',
+      id: "aboutPage",
+      title: "About Us & Capabilities",
+      type: "Singleton",
+      typeBadge: "bg-emerald-500/15 text-emerald-400 border-emerald-500/30",
+      description:
+        "Manufacturing history, high-temperature testing equipment, quality control certifications, and infrastructure milestones.",
+      studioUrl: "/admin/studio/structure/aboutPage",
+      previewUrl: "/about",
       icon: BookOpen,
-      iconColor: 'text-emerald-400 bg-emerald-500/10',
+      iconColor: "text-emerald-400 bg-emerald-500/10",
     },
     {
-      id: 'product',
-      title: 'Products Catalog',
+      id: "product",
+      title: "Products Catalog",
       type: `${MOCK_PRODUCTS.length} Documents`,
-      typeBadge: 'bg-purple-500/15 text-purple-400 border-purple-500/30',
-      description: 'Full product specs, temperature ratings, purity levels, application tags, dimensional charts, and image galleries.',
-      studioUrl: '/admin/studio/structure/product',
-      previewUrl: '/products',
+      typeBadge: "bg-purple-500/15 text-purple-400 border-purple-500/30",
+      description:
+        "Full product specs, temperature ratings, purity levels, application tags, dimensional charts, and image galleries.",
+      studioUrl: "/admin/studio/structure/product",
+      previewUrl: "/products",
       icon: Boxes,
-      iconColor: 'text-purple-400 bg-purple-500/10',
+      iconColor: "text-purple-400 bg-purple-500/10",
     },
     {
-      id: 'category',
-      title: 'Product Categories',
+      id: "category",
+      title: "Product Categories",
       type: `${MOCK_CATEGORIES.length} Categories`,
-      typeBadge: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
-      description: 'Graphite Crucibles, Colloidal Suspensions, Gaskets & Tapes, Doctor Blades, and Specialized Carbon Components.',
-      studioUrl: '/admin/studio/structure/category',
-      previewUrl: '/products',
+      typeBadge: "bg-blue-500/15 text-blue-400 border-blue-500/30",
+      description:
+        "Graphite Crucibles, Colloidal Suspensions, Gaskets & Tapes, Doctor Blades, and Specialized Carbon Components.",
+      studioUrl: "/admin/studio/structure/category",
+      previewUrl: "/products",
       icon: FolderTree,
-      iconColor: 'text-blue-400 bg-blue-500/10',
+      iconColor: "text-blue-400 bg-blue-500/10",
     },
     {
-      id: 'resource',
-      title: 'Downloads & TDS',
+      id: "resource",
+      title: "Downloads & TDS",
       type: `${MOCK_RESOURCES.length} Files`,
-      typeBadge: 'bg-red-500/15 text-red-400 border-red-500/30',
-      description: 'Technical Data Sheets (TDS), Material Safety Data Sheets (MSDS), and comprehensive PDF product brochures.',
-      studioUrl: '/admin/studio/structure/resource',
-      previewUrl: '/downloads',
+      typeBadge: "bg-red-500/15 text-red-400 border-red-500/30",
+      description:
+        "Technical Data Sheets (TDS), Material Safety Data Sheets (MSDS), and comprehensive PDF product brochures.",
+      studioUrl: "/admin/studio/structure/resource",
+      previewUrl: "/downloads",
       icon: FileText,
-      iconColor: 'text-red-400 bg-red-500/10',
+      iconColor: "text-red-400 bg-red-500/10",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-[#07090e] text-slate-200 flex flex-col font-sans selection:bg-[#e8a020] selection:text-[#07090e]">
+    <div className="min-h-screen bg-[#07090e] text-slate-200 flex flex-col font-sans selection:bg-[#f06543] selection:text-[#07090e]">
       {/* Top Navigation Bar */}
       <header className="sticky top-0 z-40 bg-[#0d1117]/95 backdrop-blur-md border-b border-slate-800/80 px-4 lg:px-6 py-3 flex items-center justify-between shadow-lg shadow-black/20">
         <div className="flex items-center gap-3">
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 -ml-1 text-slate-400 hover:text-white lg:hidden rounded-lg hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-[#e8a020]"
+            className="p-2 -ml-1 text-slate-400 hover:text-white lg:hidden rounded-lg hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-[#f06543]"
             aria-label="Toggle navigation menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileMenuOpen ? (
+              <X className="w-5 h-5" />
+            ) : (
+              <Menu className="w-5 h-5" />
+            )}
           </button>
 
           {/* Logo & Portal Title */}
           <div className="flex items-center gap-2.5">
             <a href="/admin" className="flex items-center gap-2.5 group">
-              <img
-                src="/images/logo.png"
-                alt="VM Graphite Logo"
-                className="w-9 h-9 rounded-xl object-contain border border-white/10 shadow-md shadow-[#e8a020]/10 group-hover:scale-105 transition-transform"
-              />
+              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-[#f06543] to-[#c78210] p-0.5 shadow-md shadow-[#f06543]/20 flex items-center justify-center group-hover:scale-105 transition-transform">
+                <div className="w-full h-full bg-[#07090e] rounded-[10px] flex items-center justify-center">
+                  <span className="font-extrabold text-sm text-[#f06543] tracking-tighter">
+                    VM
+                  </span>
+                </div>
+              </div>
               <div>
                 <div className="flex items-center gap-2">
                   <span className="font-black text-sm text-white tracking-wide uppercase font-['Outfit']">
                     VM Graphite
                   </span>
-                  <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold bg-[#e8a020]/15 text-[#e8a020] border border-[#e8a020]/30 rounded-full">
+                  <span className="hidden sm:inline-block px-2 py-0.5 text-[10px] font-semibold bg-[#f06543]/15 text-[#f06543] border border-[#f06543]/30 rounded-full">
                     Admin Portal
                   </span>
                 </div>
-                <p className="text-[11px] text-slate-400 font-mono hidden sm:block">Industrial CMS Control Center</p>
+                <p className="text-[11px] text-slate-400 font-mono hidden sm:block">
+                  Industrial CMS Control Center
+                </p>
               </div>
             </a>
           </div>
@@ -236,7 +256,9 @@ export default function AdminDashboard({
           <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-slate-900/90 border border-slate-800 rounded-full text-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
             <span className="text-slate-400">Sanity:</span>
-            <span className="text-white font-mono text-[11px] font-semibold">{projectId} ({dataset})</span>
+            <span className="text-white font-mono text-[11px] font-semibold">
+              {projectId} ({dataset})
+            </span>
           </div>
 
           {/* Studio Root New Tab Button */}
@@ -244,7 +266,7 @@ export default function AdminDashboard({
             href="/admin/studio"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#07090e] bg-[#e8a020] hover:bg-[#d4911c] rounded-lg transition-all shadow-md shadow-[#e8a020]/15 group"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-[#07090e] bg-[#f06543] hover:bg-[#d4911c] rounded-lg transition-all shadow-md shadow-[#f06543]/15 group"
           >
             <Database className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Open Studio</span>
@@ -282,20 +304,22 @@ export default function AdminDashboard({
                     onClick={() => setActiveTab(item.id as TabType)}
                     className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                       isActive
-                        ? 'bg-[#e8a020]/15 text-[#e8a020] border border-[#e8a020]/30 font-semibold shadow-sm'
-                        : 'text-slate-400 hover:text-slate-200 hover:bg-slate-900/60'
+                        ? "bg-[#f06543]/15 text-[#f06543] border border-[#f06543]/30 font-semibold shadow-sm"
+                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-900/60"
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Icon className={`w-4 h-4 ${isActive ? 'text-[#e8a020]' : 'text-slate-500'}`} />
+                      <Icon
+                        className={`w-4 h-4 ${isActive ? "text-[#f06543]" : "text-slate-500"}`}
+                      />
                       <span>{item.label}</span>
                     </div>
                     {item.badge && (
                       <span
                         className={`text-[10px] px-1.5 py-0.5 rounded font-mono ${
                           isActive
-                            ? 'bg-[#e8a020] text-[#07090e] font-bold'
-                            : 'bg-slate-800 text-slate-400'
+                            ? "bg-[#f06543] text-[#07090e] font-bold"
+                            : "bg-slate-800 text-slate-400"
                         }`}
                       >
                         {item.badge}
@@ -325,10 +349,10 @@ export default function AdminDashboard({
                 className="w-full flex items-center justify-between px-3 py-1.5 text-xs text-slate-400 hover:text-white hover:bg-slate-900 rounded-lg transition-colors group"
               >
                 <span className="flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#e8a020]"></span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#f06543]"></span>
                   <span>Site Settings</span>
                 </span>
-                <ExternalLink className="w-3 h-3 text-slate-600 group-hover:text-[#e8a020]" />
+                <ExternalLink className="w-3 h-3 text-slate-600 group-hover:text-[#f06543]" />
               </a>
               <a
                 href="/admin/studio/structure/homePage"
@@ -365,9 +389,14 @@ export default function AdminDashboard({
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
                   <span>Lead Inbox</span>
                 </span>
-                <span className="text-[10px] text-emerald-400 font-mono font-semibold">Active</span>
+                <span className="text-[10px] text-emerald-400 font-mono font-semibold">
+                  Active
+                </span>
               </div>
-              <p className="text-[11px] text-slate-300 font-mono truncate" title={contactEmail}>
+              <p
+                className="text-[11px] text-slate-300 font-mono truncate"
+                title={contactEmail}
+              >
                 {contactEmail}
               </p>
             </div>
@@ -378,7 +407,7 @@ export default function AdminDashboard({
                 href={`https://www.sanity.io/manage/project/${projectId}`}
                 target="_blank"
                 rel="noreferrer"
-                className="text-[#e8a020] hover:underline flex items-center gap-1 font-semibold"
+                className="text-[#f06543] hover:underline flex items-center gap-1 font-semibold"
               >
                 Sanity Manage <ArrowUpRight className="w-3 h-3" />
               </a>
@@ -400,11 +429,9 @@ export default function AdminDashboard({
               <div className="space-y-6">
                 <div className="flex items-center justify-between border-b border-slate-800 pb-4">
                   <div className="flex items-center gap-2">
-                    <img
-                      src="/images/logo.png"
-                      alt="VM Graphite Logo"
-                      className="w-7 h-7 rounded-lg object-contain border border-white/10"
-                    />
+                    <div className="w-7 h-7 bg-[#f06543] rounded-lg flex items-center justify-center text-[#07090e] font-black text-xs">
+                      VM
+                    </div>
                     <span className="font-bold text-white text-sm uppercase font-['Outfit']">
                       Admin Navigation
                     </span>
@@ -430,12 +457,14 @@ export default function AdminDashboard({
                         }}
                         className={`w-full flex items-center justify-between px-3.5 py-3 rounded-xl text-sm font-medium transition-all ${
                           isActive
-                            ? 'bg-[#e8a020]/20 text-[#e8a020] border border-[#e8a020]/40 font-semibold'
-                            : 'text-slate-300 hover:bg-slate-900'
+                            ? "bg-[#f06543]/20 text-[#f06543] border border-[#f06543]/40 font-semibold"
+                            : "text-slate-300 hover:bg-slate-900"
                         }`}
                       >
                         <div className="flex items-center gap-3">
-                          <Icon className={`w-4 h-4 ${isActive ? 'text-[#e8a020]' : 'text-slate-400'}`} />
+                          <Icon
+                            className={`w-4 h-4 ${isActive ? "text-[#f06543]" : "text-slate-400"}`}
+                          />
                           <span>{item.label}</span>
                         </div>
                         {item.count !== undefined && (
@@ -454,7 +483,7 @@ export default function AdminDashboard({
                   href="/admin/studio"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#e8a020] hover:bg-[#d4911c] text-[#07090e] font-bold text-xs rounded-xl shadow-md transition-all"
+                  className="w-full flex items-center justify-center gap-2 px-4 py-2.5 bg-[#f06543] hover:bg-[#d4911c] text-[#07090e] font-bold text-xs rounded-xl shadow-md transition-all"
                 >
                   <Database className="w-4 h-4" />
                   <span>Launch Sanity Studio</span>
@@ -478,13 +507,13 @@ export default function AdminDashboard({
         {/* Center Workspace Content Area */}
         <main className="flex-1 overflow-y-auto bg-[#07090e] p-4 sm:p-6 lg:p-8 pb-24 lg:pb-8">
           {/* TAB 1: OVERVIEW */}
-          {activeTab === 'overview' && (
+          {activeTab === "overview" && (
             <div className="max-w-7xl mx-auto space-y-8">
               {/* Welcome Header Hero */}
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-[#101726] to-[#0d131f] border border-slate-800/90 p-6 sm:p-8 shadow-xl">
                 <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <div className="space-y-2.5">
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#e8a020]/15 border border-[#e8a020]/30 text-[#e8a020] text-xs font-semibold">
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#f06543]/15 border border-[#f06543]/30 text-[#f06543] text-xs font-semibold">
                       <Sparkles className="w-3.5 h-3.5" />
                       <span>Enterprise Industrial CMS Dashboard</span>
                     </div>
@@ -492,7 +521,9 @@ export default function AdminDashboard({
                       VM Graphite Control Center
                     </h1>
                     <p className="text-slate-400 text-xs sm:text-sm max-w-2xl leading-relaxed">
-                      Manage high-temperature crucibles, colloidal graphite suspensions, sealing materials, and doctor blade catalogs with real-time Sanity Cloud synchronization.
+                      Manage high-temperature crucibles, colloidal graphite
+                      suspensions, sealing materials, and doctor blade catalogs
+                      with real-time Sanity Cloud synchronization.
                     </p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3">
@@ -500,34 +531,36 @@ export default function AdminDashboard({
                       href="/admin/studio"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-5 py-3 bg-[#e8a020] hover:bg-[#d4911c] text-[#07090e] font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-lg shadow-[#e8a020]/20 flex items-center gap-2 group"
+                      className="px-5 py-3 bg-[#f06543] hover:bg-[#d4911c] text-[#07090e] font-extrabold text-xs sm:text-sm rounded-xl transition-all shadow-lg shadow-[#f06543]/20 flex items-center gap-2 group"
                     >
                       <Database className="w-4 h-4" />
                       <span>Open Sanity Studio</span>
                       <ExternalLink className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                     </a>
                     <button
-                      onClick={() => setActiveTab('products')}
+                      onClick={() => setActiveTab("products")}
                       className="px-4 py-3 bg-slate-800/90 hover:bg-slate-700 text-white font-medium text-xs sm:text-sm rounded-xl border border-slate-700 transition-all flex items-center gap-2"
                     >
-                      <Boxes className="w-4 h-4 text-[#e8a020]" />
+                      <Boxes className="w-4 h-4 text-[#f06543]" />
                       <span>Browse Products ({MOCK_PRODUCTS.length})</span>
                     </button>
                   </div>
                 </div>
                 {/* Background glow */}
-                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#e8a020]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#f06543]/10 rounded-full blur-3xl pointer-events-none" />
               </div>
 
               {/* KPI Metrics Cards */}
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
                 <button
-                  onClick={() => setActiveTab('products')}
-                  className="text-left bg-[#0d1117] border border-slate-800/80 rounded-2xl p-4 sm:p-5 hover:border-[#e8a020]/50 hover:bg-slate-900/60 transition-all shadow-md group"
+                  onClick={() => setActiveTab("products")}
+                  className="text-left bg-[#0d1117] border border-slate-800/80 rounded-2xl p-4 sm:p-5 hover:border-[#f06543]/50 hover:bg-slate-900/60 transition-all shadow-md group"
                 >
                   <div className="flex items-center justify-between text-slate-400 mb-3">
-                    <span className="text-xs font-medium uppercase tracking-wider font-mono">Catalog Items</span>
-                    <div className="p-2 rounded-lg bg-[#e8a020]/10 text-[#e8a020] group-hover:scale-110 transition-transform">
+                    <span className="text-xs font-medium uppercase tracking-wider font-mono">
+                      Catalog Items
+                    </span>
+                    <div className="p-2 rounded-lg bg-[#f06543]/10 text-[#f06543] group-hover:scale-110 transition-transform">
                       <Boxes className="w-4 h-4" />
                     </div>
                   </div>
@@ -536,16 +569,18 @@ export default function AdminDashboard({
                   </div>
                   <p className="text-[11px] text-slate-400 mt-1 flex items-center gap-1">
                     <span>Active industrial items</span>
-                    <ChevronRight className="w-3 h-3 text-[#e8a020]" />
+                    <ChevronRight className="w-3 h-3 text-[#f06543]" />
                   </p>
                 </button>
 
                 <button
-                  onClick={() => setActiveTab('categories')}
+                  onClick={() => setActiveTab("categories")}
                   className="text-left bg-[#0d1117] border border-slate-800/80 rounded-2xl p-4 sm:p-5 hover:border-sky-500/50 hover:bg-slate-900/60 transition-all shadow-md group"
                 >
                   <div className="flex items-center justify-between text-slate-400 mb-3">
-                    <span className="text-xs font-medium uppercase tracking-wider font-mono">Categories</span>
+                    <span className="text-xs font-medium uppercase tracking-wider font-mono">
+                      Categories
+                    </span>
                     <div className="p-2 rounded-lg bg-sky-500/10 text-sky-400 group-hover:scale-110 transition-transform">
                       <FolderTree className="w-4 h-4" />
                     </div>
@@ -560,11 +595,13 @@ export default function AdminDashboard({
                 </button>
 
                 <button
-                  onClick={() => setActiveTab('resources')}
+                  onClick={() => setActiveTab("resources")}
                   className="text-left bg-[#0d1117] border border-slate-800/80 rounded-2xl p-4 sm:p-5 hover:border-purple-500/50 hover:bg-slate-900/60 transition-all shadow-md group"
                 >
                   <div className="flex items-center justify-between text-slate-400 mb-3">
-                    <span className="text-xs font-medium uppercase tracking-wider font-mono">Brochures & TDS</span>
+                    <span className="text-xs font-medium uppercase tracking-wider font-mono">
+                      Brochures & TDS
+                    </span>
                     <div className="p-2 rounded-lg bg-purple-500/10 text-purple-400 group-hover:scale-110 transition-transform">
                       <FileText className="w-4 h-4" />
                     </div>
@@ -585,12 +622,17 @@ export default function AdminDashboard({
                   className="bg-[#0d1117] border border-slate-800/80 rounded-2xl p-4 sm:p-5 hover:border-emerald-500/50 hover:bg-slate-900/60 transition-all shadow-md group block"
                 >
                   <div className="flex items-center justify-between text-slate-400 mb-3">
-                    <span className="text-xs font-medium uppercase tracking-wider font-mono">Sanity CMS</span>
+                    <span className="text-xs font-medium uppercase tracking-wider font-mono">
+                      Sanity CMS
+                    </span>
                     <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-400 group-hover:scale-110 transition-transform">
                       <CheckCircle2 className="w-4 h-4" />
                     </div>
                   </div>
-                  <div className="text-xl sm:text-2xl font-bold text-white font-mono truncate" title={projectId}>
+                  <div
+                    className="text-xl sm:text-2xl font-bold text-white font-mono truncate"
+                    title={projectId}
+                  >
                     {projectId}
                   </div>
                   <p className="text-[11px] text-emerald-400 mt-1 flex items-center gap-1">
@@ -605,16 +647,19 @@ export default function AdminDashboard({
                 <div className="flex items-center justify-between">
                   <div>
                     <h2 className="text-lg font-bold text-white font-['Outfit'] flex items-center gap-2">
-                      <Layers className="w-5 h-5 text-[#e8a020]" />
+                      <Layers className="w-5 h-5 text-[#f06543]" />
                       <span>Configured Content Schemas</span>
                     </h2>
-                    <p className="text-xs text-slate-400">Directly edit structured singletons and catalogs in Sanity Studio</p>
+                    <p className="text-xs text-slate-400">
+                      Directly edit structured singletons and catalogs in Sanity
+                      Studio
+                    </p>
                   </div>
                   <a
                     href="/admin/studio"
                     target="_blank"
                     rel="noreferrer"
-                    className="text-xs text-[#e8a020] hover:underline font-semibold flex items-center gap-1 font-mono"
+                    className="text-xs text-[#f06543] hover:underline font-semibold flex items-center gap-1 font-mono"
                   >
                     <span>Open All in Studio</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -631,15 +676,19 @@ export default function AdminDashboard({
                       >
                         <div className="space-y-3">
                           <div className="flex items-center justify-between">
-                            <div className={`p-2.5 rounded-xl ${schema.iconColor}`}>
+                            <div
+                              className={`p-2.5 rounded-xl ${schema.iconColor}`}
+                            >
                               <Icon className="w-5 h-5" />
                             </div>
-                            <span className={`px-2 py-0.5 text-[10px] font-mono font-semibold rounded-full border ${schema.typeBadge}`}>
+                            <span
+                              className={`px-2 py-0.5 text-[10px] font-mono font-semibold rounded-full border ${schema.typeBadge}`}
+                            >
                               {schema.type}
                             </span>
                           </div>
                           <div>
-                            <h3 className="font-bold text-white text-base font-['Outfit'] group-hover:text-[#e8a020] transition-colors">
+                            <h3 className="font-bold text-white text-base font-['Outfit'] group-hover:text-[#f06543] transition-colors">
                               {schema.title}
                             </h3>
                             <p className="text-xs text-slate-400 mt-1 leading-relaxed">
@@ -663,7 +712,7 @@ export default function AdminDashboard({
                             href={schema.studioUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#e8a020] hover:underline font-bold flex items-center gap-1.5 bg-[#e8a020]/10 hover:bg-[#e8a020]/20 px-2.5 py-1 rounded-lg transition-colors"
+                            className="text-[#f06543] hover:underline font-bold flex items-center gap-1.5 bg-[#f06543]/10 hover:bg-[#f06543]/20 px-2.5 py-1 rounded-lg transition-colors"
                           >
                             <span>Edit in Studio</span>
                             <ExternalLink className="w-3 h-3" />
@@ -679,7 +728,7 @@ export default function AdminDashboard({
               <div className="bg-[#0d1117] border border-slate-800 rounded-2xl p-5 sm:p-6 space-y-4 shadow-md">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
-                    <Boxes className="w-5 h-5 text-[#e8a020]" />
+                    <Boxes className="w-5 h-5 text-[#f06543]" />
                     <h2 className="text-base font-bold text-white font-['Outfit']">
                       Featured Products Quick Access
                     </h2>
@@ -687,9 +736,9 @@ export default function AdminDashboard({
                   <button
                     onClick={() => {
                       setFeaturedOnly(true);
-                      setActiveTab('products');
+                      setActiveTab("products");
                     }}
-                    className="text-xs text-[#e8a020] hover:underline font-semibold font-mono flex items-center gap-1"
+                    className="text-xs text-[#f06543] hover:underline font-semibold font-mono flex items-center gap-1"
                   >
                     <span>View All Catalog Items</span>
                     <ChevronRight className="w-3.5 h-3.5" />
@@ -697,45 +746,57 @@ export default function AdminDashboard({
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
-                  {MOCK_PRODUCTS.filter(p => p.isFeatured).slice(0, 4).map((product) => (
-                    <div
-                      key={product.slug}
-                      className="bg-slate-900/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between space-y-3 hover:border-slate-700 transition-all group"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center">
-                          {product.mainImage ? (
-                            <img src={product.mainImage} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform" />
-                          ) : (
-                            <Boxes className="w-5 h-5 text-slate-600" />
-                          )}
+                  {MOCK_PRODUCTS.filter((p) => p.isFeatured)
+                    .slice(0, 4)
+                    .map((product) => (
+                      <div
+                        key={product.slug}
+                        className="bg-slate-900/70 border border-slate-800/80 rounded-xl p-3.5 flex flex-col justify-between space-y-3 hover:border-slate-700 transition-all group"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="w-12 h-12 rounded-lg bg-slate-950 border border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center">
+                            {product.mainImage ? (
+                              <img
+                                src={product.mainImage}
+                                alt={product.name}
+                                className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                              />
+                            ) : (
+                              <Boxes className="w-5 h-5 text-slate-600" />
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1">
+                            <span className="text-[9px] font-mono uppercase text-[#f06543] font-semibold">
+                              {product.categoryName}
+                            </span>
+                            <h4 className="text-xs font-bold text-white truncate mt-0.5">
+                              {product.name}
+                            </h4>
+                            <p className="text-[10px] text-slate-500 font-mono truncate">
+                              /{product.slug}
+                            </p>
+                          </div>
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <span className="text-[9px] font-mono uppercase text-[#e8a020] font-semibold">{product.categoryName}</span>
-                          <h4 className="text-xs font-bold text-white truncate mt-0.5">{product.name}</h4>
-                          <p className="text-[10px] text-slate-500 font-mono truncate">/{product.slug}</p>
-                        </div>
-                      </div>
 
-                      <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-                        <button
-                          onClick={() => setSelectedProduct(product)}
-                          className="text-slate-400 hover:text-white font-medium flex items-center gap-1"
-                        >
-                          <Eye className="w-3 h-3 text-[#e8a020]" />
-                          <span>Specs</span>
-                        </button>
-                        <a
-                          href={`/products/${product.slug}`}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-[#e8a020] hover:underline font-semibold flex items-center gap-1"
-                        >
-                          <span>Live ↗</span>
-                        </a>
+                        <div className="pt-2 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
+                          <button
+                            onClick={() => setSelectedProduct(product)}
+                            className="text-slate-400 hover:text-white font-medium flex items-center gap-1"
+                          >
+                            <Eye className="w-3 h-3 text-[#f06543]" />
+                            <span>Specs</span>
+                          </button>
+                          <a
+                            href={`/products/${product.slug}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="text-[#f06543] hover:underline font-semibold flex items-center gap-1"
+                          >
+                            <span>Live ↗</span>
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
                 </div>
               </div>
 
@@ -743,33 +804,53 @@ export default function AdminDashboard({
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <div className="bg-[#0d1117] border border-slate-800/90 rounded-2xl p-6 space-y-4">
                   <div className="flex items-center gap-2.5 text-white font-bold font-['Outfit']">
-                    <div className="p-2 rounded-lg bg-[#e8a020]/15 text-[#e8a020]">
+                    <div className="p-2 rounded-lg bg-[#f06543]/15 text-[#f06543]">
                       <Terminal className="w-4 h-4" />
                     </div>
                     <span>Sanity Cloud & CLI Commands</span>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    Query documents or deploy schema definitions directly from your terminal:
+                    Query documents or deploy schema definitions directly from
+                    your terminal:
                   </p>
                   <div className="space-y-2 font-mono text-xs">
                     <div className="bg-black/60 p-2.5 rounded-lg border border-slate-800 flex items-center justify-between text-slate-300">
-                      <span className="truncate mr-2">npx sanity@latest documents query '*[_type=="product"]'</span>
+                      <span className="truncate mr-2">
+                        npx sanity@latest documents query '*[_type=="product"]'
+                      </span>
                       <button
-                        onClick={() => copyToClipboard(`npx sanity@latest documents query '*[_type=="product"]'`, 'query')}
+                        onClick={() =>
+                          copyToClipboard(
+                            `npx sanity@latest documents query '*[_type=="product"]'`,
+                            "query",
+                          )
+                        }
                         className="text-slate-400 hover:text-white flex-shrink-0"
                         title="Copy command"
                       >
-                        {copiedText === 'query' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedText === "query" ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
                       </button>
                     </div>
                     <div className="bg-black/60 p-2.5 rounded-lg border border-slate-800 flex items-center justify-between text-slate-300">
-                      <span className="truncate mr-2">npx sanity@latest deploy</span>
+                      <span className="truncate mr-2">
+                        npx sanity@latest deploy
+                      </span>
                       <button
-                        onClick={() => copyToClipboard('npx sanity@latest deploy', 'deploy')}
+                        onClick={() =>
+                          copyToClipboard("npx sanity@latest deploy", "deploy")
+                        }
                         className="text-slate-400 hover:text-white flex-shrink-0"
                         title="Copy command"
                       >
-                        {copiedText === 'deploy' ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                        {copiedText === "deploy" ? (
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                        ) : (
+                          <Copy className="w-3.5 h-3.5" />
+                        )}
                       </button>
                     </div>
                   </div>
@@ -783,12 +864,17 @@ export default function AdminDashboard({
                     <span>Inquiry Routing & Leads Inbox</span>
                   </div>
                   <p className="text-xs text-slate-400 leading-relaxed">
-                    Customer quote requests, product technical inquiries, and brochure download leads are delivered to:
+                    Customer quote requests, product technical inquiries, and
+                    brochure download leads are delivered to:
                   </p>
                   <div className="p-3 bg-slate-900 rounded-xl border border-slate-800 flex items-center justify-between text-xs">
                     <div>
-                      <div className="text-slate-400 text-[11px]">Primary Contact Recipient</div>
-                      <div className="text-white font-bold font-mono mt-0.5">{contactEmail}</div>
+                      <div className="text-slate-400 text-[11px]">
+                        Primary Contact Recipient
+                      </div>
+                      <div className="text-white font-bold font-mono mt-0.5">
+                        {contactEmail}
+                      </div>
                     </div>
                     <span className="px-2.5 py-1 rounded-full bg-emerald-500/20 text-emerald-400 font-semibold text-[10px]">
                       Configured in .env
@@ -800,7 +886,7 @@ export default function AdminDashboard({
           )}
 
           {/* TAB 2: SANITY CONTENT STUDIO (LAUNCHPAD) */}
-          {activeTab === 'studio' && (
+          {activeTab === "studio" && (
             <div className="max-w-5xl mx-auto space-y-6">
               {/* Studio Banner */}
               <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-slate-900 via-[#101726] to-slate-900 border border-slate-800 p-6 sm:p-8 shadow-xl">
@@ -814,7 +900,10 @@ export default function AdminDashboard({
                       Sanity Content Studio Workspace
                     </h2>
                     <p className="text-slate-400 text-xs sm:text-sm max-w-xl leading-relaxed">
-                      Edit structured content, upload high-resolution product photography, configure global contact details, and publish updates with real-time preview in an isolated dedicated tab.
+                      Edit structured content, upload high-resolution product
+                      photography, configure global contact details, and publish
+                      updates with real-time preview in an isolated dedicated
+                      tab.
                     </p>
                   </div>
 
@@ -823,7 +912,7 @@ export default function AdminDashboard({
                       href="/admin/studio"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-6 py-3.5 bg-[#e8a020] hover:bg-[#d4911c] text-[#07090e] font-extrabold text-sm rounded-xl transition-all shadow-lg shadow-[#e8a020]/20 flex items-center justify-center gap-2 group"
+                      className="px-6 py-3.5 bg-[#f06543] hover:bg-[#d4911c] text-[#07090e] font-extrabold text-sm rounded-xl transition-all shadow-lg shadow-[#f06543]/20 flex items-center justify-center gap-2 group"
                     >
                       <Database className="w-4 h-4" />
                       <span>Launch Studio in New Tab</span>
@@ -831,13 +920,13 @@ export default function AdminDashboard({
                     </a>
                   </div>
                 </div>
-                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#e8a020]/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="absolute top-0 right-0 -mr-20 -mt-20 w-80 h-80 bg-[#f06543]/10 rounded-full blur-3xl pointer-events-none" />
               </div>
 
               {/* Direct Deep-Links to Schemas */}
               <div className="space-y-4">
                 <h3 className="text-base font-bold text-white font-['Outfit'] flex items-center gap-2">
-                  <FileEdit className="w-4 h-4 text-[#e8a020]" />
+                  <FileEdit className="w-4 h-4 text-[#f06543]" />
                   <span>Direct Content Document Shortcuts</span>
                 </h3>
 
@@ -846,20 +935,22 @@ export default function AdminDashboard({
                     href="/admin/studio/structure/siteSettings"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-4 bg-[#0d1117] border border-slate-800 hover:border-[#e8a020]/50 rounded-xl flex items-center justify-between group transition-all"
+                    className="p-4 bg-[#0d1117] border border-slate-800 hover:border-[#f06543]/50 rounded-xl flex items-center justify-between group transition-all"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-lg bg-amber-500/10 text-[#e8a020]">
+                      <div className="p-2 rounded-lg bg-amber-500/10 text-[#f06543]">
                         <Settings className="w-4 h-4" />
                       </div>
                       <div>
-                        <div className="font-bold text-white text-sm group-hover:text-[#e8a020] transition-colors">
+                        <div className="font-bold text-white text-sm group-hover:text-[#f06543] transition-colors">
                           Site Settings
                         </div>
-                        <div className="text-[11px] text-slate-400">Phones, emails & addresses</div>
+                        <div className="text-[11px] text-slate-400">
+                          Phones, emails & addresses
+                        </div>
                       </div>
                     </div>
-                    <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-[#e8a020] transition-colors" />
+                    <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-[#f06543] transition-colors" />
                   </a>
 
                   <a
@@ -876,7 +967,9 @@ export default function AdminDashboard({
                         <div className="font-bold text-white text-sm group-hover:text-sky-400 transition-colors">
                           Home Page
                         </div>
-                        <div className="text-[11px] text-slate-400">Hero banners & statistics</div>
+                        <div className="text-[11px] text-slate-400">
+                          Hero banners & statistics
+                        </div>
                       </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-sky-400 transition-colors" />
@@ -896,7 +989,9 @@ export default function AdminDashboard({
                         <div className="font-bold text-white text-sm group-hover:text-emerald-400 transition-colors">
                           About Us
                         </div>
-                        <div className="text-[11px] text-slate-400">Plant & quality certifications</div>
+                        <div className="text-[11px] text-slate-400">
+                          Plant & quality certifications
+                        </div>
                       </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-emerald-400 transition-colors" />
@@ -916,7 +1011,9 @@ export default function AdminDashboard({
                         <div className="font-bold text-white text-sm group-hover:text-purple-400 transition-colors">
                           Products Catalog
                         </div>
-                        <div className="text-[11px] text-slate-400">Specifications & galleries</div>
+                        <div className="text-[11px] text-slate-400">
+                          Specifications & galleries
+                        </div>
                       </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-purple-400 transition-colors" />
@@ -936,7 +1033,9 @@ export default function AdminDashboard({
                         <div className="font-bold text-white text-sm group-hover:text-blue-400 transition-colors">
                           Product Categories
                         </div>
-                        <div className="text-[11px] text-slate-400">5 industrial groupings</div>
+                        <div className="text-[11px] text-slate-400">
+                          5 industrial groupings
+                        </div>
                       </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-blue-400 transition-colors" />
@@ -956,7 +1055,9 @@ export default function AdminDashboard({
                         <div className="font-bold text-white text-sm group-hover:text-red-400 transition-colors">
                           Brochures & TDS
                         </div>
-                        <div className="text-[11px] text-slate-400">PDF downloads & datasheets</div>
+                        <div className="text-[11px] text-slate-400">
+                          PDF downloads & datasheets
+                        </div>
                       </div>
                     </div>
                     <ExternalLink className="w-4 h-4 text-slate-500 group-hover:text-red-400 transition-colors" />
@@ -968,14 +1069,16 @@ export default function AdminDashboard({
               <div className="bg-[#0d1117] border border-slate-800 rounded-2xl p-6 space-y-4">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
-                    <Database className="w-4 h-4 text-[#e8a020]" />
-                    <span className="font-bold text-white font-['Outfit']">Sanity Cloud Configuration</span>
+                    <Database className="w-4 h-4 text-[#f06543]" />
+                    <span className="font-bold text-white font-['Outfit']">
+                      Sanity Cloud Configuration
+                    </span>
                   </div>
                   <a
                     href={`https://www.sanity.io/manage/project/${projectId}`}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-xs text-[#e8a020] hover:underline flex items-center gap-1 font-semibold"
+                    className="text-xs text-[#f06543] hover:underline flex items-center gap-1 font-semibold"
                   >
                     <span>Manage Cloud Project</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -985,15 +1088,23 @@ export default function AdminDashboard({
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs font-mono">
                   <div className="p-3 bg-slate-900 rounded-xl border border-slate-800">
                     <div className="text-slate-500 text-[10px]">PROJECT ID</div>
-                    <div className="text-[#e8a020] font-bold mt-0.5">{projectId}</div>
+                    <div className="text-[#f06543] font-bold mt-0.5">
+                      {projectId}
+                    </div>
                   </div>
                   <div className="p-3 bg-slate-900 rounded-xl border border-slate-800">
                     <div className="text-slate-500 text-[10px]">DATASET</div>
-                    <div className="text-emerald-400 font-bold mt-0.5">{dataset}</div>
+                    <div className="text-emerald-400 font-bold mt-0.5">
+                      {dataset}
+                    </div>
                   </div>
                   <div className="p-3 bg-slate-900 rounded-xl border border-slate-800">
-                    <div className="text-slate-500 text-[10px]">STUDIO ROUTE</div>
-                    <div className="text-white font-bold mt-0.5">/admin/studio</div>
+                    <div className="text-slate-500 text-[10px]">
+                      STUDIO ROUTE
+                    </div>
+                    <div className="text-white font-bold mt-0.5">
+                      /admin/studio
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1001,14 +1112,17 @@ export default function AdminDashboard({
           )}
 
           {/* TAB 3: PRODUCTS CATALOG EXPLORER */}
-          {activeTab === 'products' && (
+          {activeTab === "products" && (
             <div className="max-w-7xl mx-auto space-y-6">
               {/* Header & Controls */}
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
                 <div>
-                  <h2 className="text-2xl font-black text-white font-['Outfit']">Products Catalog Explorer</h2>
+                  <h2 className="text-2xl font-black text-white font-['Outfit']">
+                    Products Catalog Explorer
+                  </h2>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Search and inspect active product specifications, materials, and categories.
+                    Search and inspect active product specifications, materials,
+                    and categories.
                   </p>
                 </div>
 
@@ -1021,11 +1135,11 @@ export default function AdminDashboard({
                       placeholder="Search products, specs..."
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
-                      className="w-full pl-9 pr-8 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#e8a020]"
+                      className="w-full pl-9 pr-8 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#f06543]"
                     />
                     {searchQuery && (
                       <button
-                        onClick={() => setSearchQuery('')}
+                        onClick={() => setSearchQuery("")}
                         className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white"
                       >
                         <X className="w-3.5 h-3.5" />
@@ -1037,9 +1151,11 @@ export default function AdminDashboard({
                     value={selectedCategory}
                     onChange={(e) => setSelectedCategory(e.target.value)}
                     aria-label="Filter by product category"
-                    className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-[#e8a020]"
+                    className="px-3 py-2 bg-slate-900 border border-slate-800 rounded-xl text-xs text-white focus:outline-none focus:border-[#f06543]"
                   >
-                    <option value="all">All Categories ({MOCK_PRODUCTS.length})</option>
+                    <option value="all">
+                      All Categories ({MOCK_PRODUCTS.length})
+                    </option>
                     {MOCK_CATEGORIES.map((cat) => (
                       <option key={cat.slug} value={cat.slug}>
                         {cat.name}
@@ -1051,8 +1167,8 @@ export default function AdminDashboard({
                     onClick={() => setFeaturedOnly(!featuredOnly)}
                     className={`px-3 py-2 rounded-xl text-xs font-semibold border transition-all ${
                       featuredOnly
-                        ? 'bg-amber-500/20 text-[#e8a020] border-[#e8a020]/40'
-                        : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-white'
+                        ? "bg-amber-500/20 text-[#f06543] border-[#f06543]/40"
+                        : "bg-slate-900 text-slate-400 border-slate-800 hover:text-white"
                     }`}
                   >
                     ★ Featured
@@ -1062,7 +1178,7 @@ export default function AdminDashboard({
                     href="/admin/studio/structure/product"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-3.5 py-2 bg-[#e8a020] hover:bg-[#d4911c] text-[#07090e] font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all shadow-sm"
+                    className="px-3.5 py-2 bg-[#f06543] hover:bg-[#d4911c] text-[#07090e] font-bold text-xs rounded-xl flex items-center gap-1.5 transition-all shadow-sm"
                   >
                     <Database className="w-3.5 h-3.5" />
                     <span>Edit in Studio</span>
@@ -1093,7 +1209,7 @@ export default function AdminDashboard({
                         </div>
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-semibold text-[#e8a020] uppercase tracking-wider font-mono">
+                            <span className="text-[10px] font-semibold text-[#f06543] uppercase tracking-wider font-mono">
                               {product.categoryName}
                             </span>
                             {product.isFeatured && (
@@ -1102,8 +1218,12 @@ export default function AdminDashboard({
                               </span>
                             )}
                           </div>
-                          <h3 className="font-bold text-white text-sm truncate mt-0.5">{product.name}</h3>
-                          <p className="text-[11px] text-slate-500 font-mono truncate">/{product.slug}</p>
+                          <h3 className="font-bold text-white text-sm truncate mt-0.5">
+                            {product.name}
+                          </h3>
+                          <p className="text-[11px] text-slate-500 font-mono truncate">
+                            /{product.slug}
+                          </p>
                         </div>
                       </div>
 
@@ -1118,7 +1238,8 @@ export default function AdminDashboard({
                             key={i}
                             className="px-2 py-0.5 rounded-md bg-slate-900 border border-slate-800 text-[10px] text-slate-300 font-mono"
                           >
-                            {spec.name}: <span className="text-[#e8a020]">{spec.value}</span>
+                            {spec.name}:{" "}
+                            <span className="text-[#f06543]">{spec.value}</span>
                           </span>
                         ))}
                         {product.specifications?.length > 2 && (
@@ -1134,7 +1255,7 @@ export default function AdminDashboard({
                         onClick={() => setSelectedProduct(product)}
                         className="text-slate-300 hover:text-white font-medium flex items-center gap-1 bg-slate-900 hover:bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-800 transition-colors"
                       >
-                        <Eye className="w-3.5 h-3.5 text-[#e8a020]" />
+                        <Eye className="w-3.5 h-3.5 text-[#f06543]" />
                         <span>View Specs</span>
                       </button>
 
@@ -1157,12 +1278,17 @@ export default function AdminDashboard({
               {filteredProducts.length === 0 && (
                 <div className="p-12 text-center bg-[#0d1117] border border-slate-800 rounded-2xl space-y-3">
                   <Boxes className="w-10 h-10 text-slate-600 mx-auto" />
-                  <h3 className="text-base font-bold text-white">No products found</h3>
-                  <p className="text-xs text-slate-400">Try adjusting your search query, featured filter, or category selection.</p>
+                  <h3 className="text-base font-bold text-white">
+                    No products found
+                  </h3>
+                  <p className="text-xs text-slate-400">
+                    Try adjusting your search query, featured filter, or
+                    category selection.
+                  </p>
                   <button
                     onClick={() => {
-                      setSearchQuery('');
-                      setSelectedCategory('all');
+                      setSearchQuery("");
+                      setSelectedCategory("all");
                       setFeaturedOnly(false);
                     }}
                     className="px-4 py-2 bg-slate-800 text-white text-xs font-semibold rounded-xl hover:bg-slate-700"
@@ -1180,13 +1306,17 @@ export default function AdminDashboard({
                       <div className="flex items-center gap-3">
                         <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 overflow-hidden flex-shrink-0 flex items-center justify-center">
                           {selectedProduct.mainImage ? (
-                            <img src={selectedProduct.mainImage} alt={selectedProduct.name} className="w-full h-full object-cover" />
+                            <img
+                              src={selectedProduct.mainImage}
+                              alt={selectedProduct.name}
+                              className="w-full h-full object-cover"
+                            />
                           ) : (
-                            <Boxes className="w-6 h-6 text-[#e8a020]" />
+                            <Boxes className="w-6 h-6 text-[#f06543]" />
                           )}
                         </div>
                         <div>
-                          <span className="text-[10px] font-mono text-[#e8a020] uppercase tracking-wider font-semibold">
+                          <span className="text-[10px] font-mono text-[#f06543] uppercase tracking-wider font-semibold">
                             {selectedProduct.categoryName}
                           </span>
                           <h3 className="text-base font-bold text-white font-['Outfit'] mt-0.5">
@@ -1204,21 +1334,32 @@ export default function AdminDashboard({
 
                     <div className="p-5 space-y-4 overflow-y-auto">
                       <div>
-                        <h4 className="text-xs font-bold text-slate-400 uppercase font-mono mb-2">Description</h4>
+                        <h4 className="text-xs font-bold text-slate-400 uppercase font-mono mb-2">
+                          Description
+                        </h4>
                         <p className="text-xs text-slate-300 leading-relaxed bg-slate-900/60 p-3.5 rounded-xl border border-slate-800">
-                          {selectedProduct.fullDescription || selectedProduct.shortDescription}
+                          {selectedProduct.fullDescription ||
+                            selectedProduct.shortDescription}
                         </p>
                       </div>
 
                       <div>
                         <h4 className="text-xs font-bold text-slate-400 uppercase font-mono mb-2">
-                          Technical Specifications ({selectedProduct.specifications?.length || 0})
+                          Technical Specifications (
+                          {selectedProduct.specifications?.length || 0})
                         </h4>
                         <div className="border border-slate-800 rounded-xl overflow-hidden divide-y divide-slate-800">
                           {selectedProduct.specifications?.map((spec, i) => (
-                            <div key={i} className="flex items-center justify-between p-2.5 text-xs bg-slate-900/40">
-                              <span className="text-slate-400">{spec.name}</span>
-                              <span className="text-white font-semibold font-mono">{spec.value}</span>
+                            <div
+                              key={i}
+                              className="flex items-center justify-between p-2.5 text-xs bg-slate-900/40"
+                            >
+                              <span className="text-slate-400">
+                                {spec.name}
+                              </span>
+                              <span className="text-white font-semibold font-mono">
+                                {spec.value}
+                              </span>
                             </div>
                           ))}
                         </div>
@@ -1231,7 +1372,7 @@ export default function AdminDashboard({
                           href={`/products/${selectedProduct.slug}`}
                           target="_blank"
                           rel="noreferrer"
-                          className="text-xs text-[#e8a020] hover:underline flex items-center gap-1 font-semibold"
+                          className="text-xs text-[#f06543] hover:underline flex items-center gap-1 font-semibold"
                         >
                           <span>Open Public Page</span>
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -1260,13 +1401,16 @@ export default function AdminDashboard({
           )}
 
           {/* TAB 4: CATEGORIES */}
-          {activeTab === 'categories' && (
+          {activeTab === "categories" && (
             <div className="max-w-7xl mx-auto space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-black text-white font-['Outfit']">Product Categories</h2>
+                  <h2 className="text-2xl font-black text-white font-['Outfit']">
+                    Product Categories
+                  </h2>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Explore the 5 core industrial verticals manufactured by VM Graphite Industries.
+                    Explore the 5 core industrial verticals manufactured by VM
+                    Graphite Industries.
                   </p>
                 </div>
                 <a
@@ -1313,7 +1457,9 @@ export default function AdminDashboard({
                           <h3 className="font-bold text-white text-base font-['Outfit'] group-hover:text-[#e8a020] transition-colors">
                             {category.name}
                           </h3>
-                          <p className="text-xs text-slate-400 mt-1 leading-relaxed">{category.description}</p>
+                          <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                            {category.description}
+                          </p>
                         </div>
                       </div>
 
@@ -1321,7 +1467,7 @@ export default function AdminDashboard({
                         <button
                           onClick={() => {
                             setSelectedCategory(category.slug);
-                            setActiveTab('products');
+                            setActiveTab("products");
                           }}
                           className="text-slate-400 hover:text-white font-medium flex items-center gap-1"
                         >
@@ -1346,13 +1492,16 @@ export default function AdminDashboard({
           )}
 
           {/* TAB 5: RESOURCES & TDS */}
-          {activeTab === 'resources' && (
+          {activeTab === "resources" && (
             <div className="max-w-7xl mx-auto space-y-6">
               <div className="flex items-center justify-between">
                 <div>
-                  <h2 className="text-2xl font-black text-white font-['Outfit']">Brochures & Technical Documents</h2>
+                  <h2 className="text-2xl font-black text-white font-['Outfit']">
+                    Brochures & Technical Documents
+                  </h2>
                   <p className="text-xs text-slate-400 mt-0.5">
-                    Downloadable brochures, material safety data sheets, and company certifications.
+                    Downloadable brochures, material safety data sheets, and
+                    company certifications.
                   </p>
                 </div>
                 <a
@@ -1388,8 +1537,12 @@ export default function AdminDashboard({
                             </span>
                           )}
                         </div>
-                        <h3 className="font-bold text-white text-sm">{res.title}</h3>
-                        <p className="text-xs text-slate-400 leading-relaxed">{res.description}</p>
+                        <h3 className="font-bold text-white text-sm">
+                          {res.title}
+                        </h3>
+                        <p className="text-xs text-slate-400 leading-relaxed">
+                          {res.description}
+                        </p>
                       </div>
                     </div>
 
@@ -1409,12 +1562,15 @@ export default function AdminDashboard({
           )}
 
           {/* TAB 6: CLOUD & DEPLOY */}
-          {activeTab === 'deploy' && (
+          {activeTab === "deploy" && (
             <div className="max-w-7xl mx-auto space-y-6">
               <div>
-                <h2 className="text-2xl font-black text-white font-['Outfit']">Cloud & Deployment Operations</h2>
+                <h2 className="text-2xl font-black text-white font-['Outfit']">
+                  Cloud & Deployment Operations
+                </h2>
                 <p className="text-xs text-slate-400 mt-0.5">
-                  Static site generator build triggers, Sanity webhooks, and environment status.
+                  Static site generator build triggers, Sanity webhooks, and
+                  environment status.
                 </p>
               </div>
 
@@ -1426,19 +1582,34 @@ export default function AdminDashboard({
                       <Cloud className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-white text-base">Netlify Edge CDN Deployment</h3>
-                      <p className="text-xs text-slate-400">Automated builds upon Sanity document publishing</p>
+                      <h3 className="font-bold text-white text-base">
+                        Netlify Edge CDN Deployment
+                      </h3>
+                      <p className="text-xs text-slate-400">
+                        Automated builds upon Sanity document publishing
+                      </p>
                     </div>
                   </div>
 
                   <p className="text-xs text-slate-300 leading-relaxed">
-                    Whenever products or technical specs are modified in Sanity, your Sanity Webhook triggers a Netlify build hook to generate instant static pages globally.
+                    Whenever products or technical specs are modified in Sanity,
+                    your Sanity Webhook triggers a Netlify build hook to
+                    generate instant static pages globally.
                   </p>
 
                   <div className="p-3 bg-slate-900/90 rounded-xl border border-slate-800 text-xs font-mono space-y-1.5 text-slate-300">
-                    <div className="flex items-center justify-between"><strong className="text-white">Build Command:</strong> <span>npm run build</span></div>
-                    <div className="flex items-center justify-between"><strong className="text-white">Publish Directory:</strong> <span>dist</span></div>
-                    <div className="flex items-center justify-between"><strong className="text-white">Hosting Engine:</strong> <span>Netlify Edge CDN</span></div>
+                    <div className="flex items-center justify-between">
+                      <strong className="text-white">Build Command:</strong>{" "}
+                      <span>npm run build</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <strong className="text-white">Publish Directory:</strong>{" "}
+                      <span>dist</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <strong className="text-white">Hosting Engine:</strong>{" "}
+                      <span>Netlify Edge CDN</span>
+                    </div>
                   </div>
 
                   <div className="pt-2">
@@ -1461,19 +1632,27 @@ export default function AdminDashboard({
                       <Database className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="font-bold text-white text-base">Sanity Cloud Project</h3>
-                      <p className="text-xs text-slate-400">Connected production dataset & API</p>
+                      <h3 className="font-bold text-white text-base">
+                        Sanity Cloud Project
+                      </h3>
+                      <p className="text-xs text-slate-400">
+                        Connected production dataset & API
+                      </p>
                     </div>
                   </div>
 
                   <div className="space-y-2 text-xs font-mono">
                     <div className="flex items-center justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
                       <span className="text-slate-400">Project ID</span>
-                      <span className="text-[#e8a020] font-bold">{projectId}</span>
+                      <span className="text-[#e8a020] font-bold">
+                        {projectId}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
                       <span className="text-slate-400">Dataset</span>
-                      <span className="text-emerald-400 font-bold">{dataset}</span>
+                      <span className="text-emerald-400 font-bold">
+                        {dataset}
+                      </span>
                     </div>
                     <div className="flex items-center justify-between p-2.5 bg-slate-900 rounded-lg border border-slate-800">
                       <span className="text-slate-400">API Version</span>
@@ -1502,9 +1681,11 @@ export default function AdminDashboard({
       {/* Mobile Bottom Quick-Action Bar for Small Screens */}
       <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#0d1117]/95 backdrop-blur-md border-t border-slate-800 px-3 py-2 flex items-center justify-around">
         <button
-          onClick={() => setActiveTab('overview')}
+          onClick={() => setActiveTab("overview")}
           className={`flex flex-col items-center gap-1 p-1.5 rounded-lg text-[10px] font-medium transition-all ${
-            activeTab === 'overview' ? 'text-[#e8a020]' : 'text-slate-400 hover:text-slate-200'
+            activeTab === "overview"
+              ? "text-[#e8a020]"
+              : "text-slate-400 hover:text-slate-200"
           }`}
         >
           <LayoutDashboard className="w-4 h-4" />
@@ -1522,9 +1703,11 @@ export default function AdminDashboard({
         </a>
 
         <button
-          onClick={() => setActiveTab('products')}
+          onClick={() => setActiveTab("products")}
           className={`flex flex-col items-center gap-1 p-1.5 rounded-lg text-[10px] font-medium transition-all ${
-            activeTab === 'products' ? 'text-[#e8a020]' : 'text-slate-400 hover:text-slate-200'
+            activeTab === "products"
+              ? "text-[#e8a020]"
+              : "text-slate-400 hover:text-slate-200"
           }`}
         >
           <Boxes className="w-4 h-4" />
@@ -1532,9 +1715,11 @@ export default function AdminDashboard({
         </button>
 
         <button
-          onClick={() => setActiveTab('deploy')}
+          onClick={() => setActiveTab("deploy")}
           className={`flex flex-col items-center gap-1 p-1.5 rounded-lg text-[10px] font-medium transition-all ${
-            activeTab === 'deploy' ? 'text-[#e8a020]' : 'text-slate-400 hover:text-slate-200'
+            activeTab === "deploy"
+              ? "text-[#e8a020]"
+              : "text-slate-400 hover:text-slate-200"
           }`}
         >
           <Cloud className="w-4 h-4" />

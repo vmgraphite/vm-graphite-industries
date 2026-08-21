@@ -67,7 +67,7 @@ export const MOCK_SITE_SETTINGS: SiteSettings = {
   primaryPhone: "+91 98765 43210",
   secondaryPhone: "+91 11 2345 6789",
   whatsappNumber: "919876543210",
-  email: "kanikaagrawal1997@gmail.com", // As specified in requirement #8 and #31
+  email: "info@vmgraphiteindustries.com",
   officeAddress:
     "Corporate Office: Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India",
   plantAddress:

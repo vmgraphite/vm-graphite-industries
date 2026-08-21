@@ -6,11 +6,6 @@ import { getResources } from '../lib/data';
 
 const resources = await getResources();
 const selectedCategory = Astro.url.searchParams.get('category') || 'all';
-
-const filteredResources = resources.filter((res) => {
-  if (selectedCategory === 'all') return true;
-  return res.category === selectedCategory;
-});
 ---
 
 <Layout
@@ -19,45 +14,39 @@ const filteredResources = resources.filter((res) => {
   breadcrumbs={[{ name: 'Downloads', item: '/downloads' }]}
 >
   <!-- Page Header -->
-  <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/10 relative overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,rgba(232,160,32,0.12),transparent_65%)] pointer-events-none"></div>
+  <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/[0.06] relative overflow-hidden">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,var(--primary-glow-subtle),transparent_65%)] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Downloads', href: '/downloads' }]} />
 
       <div class="max-w-3xl space-y-3 pt-6 reveal-on-scroll">
-        <span class="amber-pill">Technical Documentation</span>
+        <span class="theme-pill">Technical Documentation</span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          Downloads &amp; <span class="text-gold-gradient">Resource Hub</span>
+          Downloads &amp; <span class="text-theme-gradient">Resource Hub</span>
         </h1>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
           Access official PDF datasheets, product catalogs, engineering guidelines, and ISO 9001 quality certificates.
         </p>
       </div>
 
       <!-- Category Filter Tabs -->
-      <div class="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center gap-2">
+      <div id="downloads-tabs" class="mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
         {[
           { id: 'all', label: `All Resources (${resources.length})` },
           { id: 'catalog', label: 'Catalogs' },
           { id: 'brochure', label: 'Brochures' },
           { id: 'datasheet', label: 'Technical Datasheets' },
           { id: 'certification', label: 'Certifications' },
-        ].map((tab) => {
-          const isActive = selectedCategory === tab.id;
-          return (
-            <a
-              href={`/downloads?category=${tab.id}`}
-              class={`px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                isActive
-                  ? 'bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 text-slate-950 font-black border border-amber-300/80 shadow-md'
-                  : 'bg-[#0d1017] text-slate-300 hover:bg-[#141923] border border-white/10'
-              }`}
-            >
-              {tab.label}
-            </a>
-          );
-        })}
+        ].map((tab) => (
+          <a
+            href={`/downloads?category=${tab.id}`}
+            data-download-category={tab.id}
+            class="download-tab-btn px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer bg-white/[0.03] text-slate-300 hover:bg-white/[0.08] border border-white/[0.08]"
+          >
+            {tab.label}
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -65,11 +54,81 @@ const filteredResources = resources.filter((res) => {
   <!-- Download Grid Content -->
   <section class="py-16 bg-[#07090e] min-h-[500px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-        {filteredResources.map((res) => (
-          <DownloadCard resource={res} />
+      <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {resources.map((res) => (
+          <div class="download-card-wrapper transition-all duration-300" data-category={res.category}>
+            <DownloadCard resource={res} />
+          </div>
         ))}
       </div>
     </div>
   </section>
 </Layout>
+
+<script>
+  function setupDownloadFilters() {
+    const tabButtons = document.querySelectorAll<HTMLElement>('.download-tab-btn');
+    const downloadItems = document.querySelectorAll<HTMLElement>('.download-card-wrapper');
+
+    if (!tabButtons.length || !downloadItems.length) return;
+
+    const activeClasses = ['bg-gradient-to-r', 'from-[var(--primary)]', 'to-[var(--primary-hover)]', 'text-white', 'font-bold', 'border-white/20', 'shadow-md'];
+    const inactiveClasses = ['bg-white/[0.03]', 'text-slate-300', 'hover:bg-white/[0.08]', 'border-white/[0.08]'];
+
+    function getCategory() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('category') || 'all';
+    }
+
+    function applyFilter(category: string, updateHistory = true) {
+      tabButtons.forEach((btn) => {
+        const btnCat = btn.getAttribute('data-download-category');
+        const isActive = btnCat === category;
+        if (isActive) {
+          btn.classList.add(...activeClasses);
+          btn.classList.remove(...inactiveClasses);
+        } else {
+          btn.classList.remove(...activeClasses);
+          btn.classList.add(...inactiveClasses);
+        }
+      });
+
+      downloadItems.forEach((item) => {
+        const itemCat = item.getAttribute('data-category');
+        if (category === 'all' || itemCat === category) {
+          item.style.display = '';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      if (updateHistory) {
+        const url = new URL(window.location.href);
+        if (category && category !== 'all') {
+          url.searchParams.set('category', category);
+        } else {
+          url.searchParams.delete('category');
+        }
+        window.history.replaceState({}, '', url.toString());
+      }
+    }
+
+    applyFilter(getCategory(), false);
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const cat = btn.getAttribute('data-download-category') || 'all';
+        applyFilter(cat, true);
+      });
+    });
+
+    window.addEventListener('popstate', () => {
+      applyFilter(getCategory(), false);
+    });
+  }
+
+  setupDownloadFilters();
+  document.addEventListener('astro:page-load', setupDownloadFilters);
+</script>
+
