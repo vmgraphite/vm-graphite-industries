@@ -16,62 +16,109 @@ import {
 const siteSettings = await getSiteSettings();
 const categories = await getCategories();
 const homeContent = await getHomePageContent();
+
+const defaultMetrics = [
+  { metric: '99.9%', label: 'Carbon Purity', subtext: 'Ultra-pure synthetic grades' },
+  { metric: '3000°C', label: 'Max Thermal Rating', subtext: 'Extreme heat resistance' },
+  { metric: '20+', label: 'Countries Served', subtext: 'Worldwide export network' },
+  { metric: '100%', label: 'ISO 9001:2015', subtext: 'Zero defect inspection' },
+];
+
+const metricsList = homeContent?.metrics && homeContent.metrics.length > 0
+  ? homeContent.metrics
+  : defaultMetrics;
 ---
 
 <Layout
-  title="VM Graphite Industries LLP | Advanced Industrial Graphite Solutions"
-  description="Premier manufacturer of high-purity industrial graphite crucibles, colloidal graphite suspensions, sealing foil tapes, and doctor blades in India."
+  title={homeContent?.seo?.metaTitle || "VM Graphite Industries LLP | Advanced Industrial Graphite Solutions"}
+  description={homeContent?.seo?.metaDescription || "Premier manufacturer of high-purity industrial graphite crucibles, colloidal graphite suspensions, sealing foil tapes, and doctor blades in India."}
 >
 
   <!-- ① Hero Section -->
   <Hero
     headline={homeContent?.heroHeadline}
     subheadline={homeContent?.heroSubheadline}
-    heroImage={homeContent?.heroImageUrl || '/images/hero-industrial.jpg'}
     primaryCtaText={homeContent?.primaryCtaText}
     secondaryCtaText={homeContent?.secondaryCtaText}
+    coreCapabilities={homeContent?.coreCapabilities}
+    products={homeContent?.heroProducts}
   />
 
   <!-- ② Metrics Bar -->
   <div class="bg-[#0b0e15] border-t border-b border-white/10 relative z-20 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/10">
-        {[
-          { metric: '99.9%', label: 'Carbon Purity', color: 'text-theme-bright', sub: 'Ultra-pure synthetic grades' },
-          { metric: '3000°C', label: 'Max Thermal Rating', color: 'text-white', sub: 'Extreme heat resistance' },
-          { metric: '20+', label: 'Countries Served', color: 'text-theme-light', sub: 'Worldwide export network' },
-          { metric: '100%', label: 'ISO 9001:2015', color: 'text-emerald-400', sub: 'Zero defect inspection' },
-        ].map((item) => (
-          <div class="py-6 px-6 text-center hover:bg-white/[0.02] transition-colors">
-            <div class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${item.color}`}>
-              {item.metric}
+      <div class="flex flex-col sm:flex-row items-center justify-around divide-y sm:divide-y-0 sm:divide-x divide-white/10 w-full">
+        {metricsList.map((item: any, idx: number) => {
+          const color = idx === 0 ? 'text-[#f06543]' : idx === 1 ? 'text-white' : idx === 2 ? 'text-amber-400' : 'text-emerald-400';
+          return (
+            <div class="flex-1 w-full py-7 px-4 sm:px-6 text-center flex flex-col justify-center items-center hover:bg-white/[0.02] transition-colors">
+              <div class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${color}`}>
+                {item.metric}
+              </div>
+              <div class="text-xs text-slate-200 mt-2 font-bold uppercase tracking-wider font-mono">{item.label}</div>
+              {item.subtext && (
+                <div class="text-[11px] text-slate-400 mt-1 font-normal max-w-[240px] mx-auto">{item.subtext}</div>
+              )}
             </div>
-            <div class="text-xs text-slate-200 mt-1.5 font-bold uppercase tracking-wider font-mono">{item.label}</div>
-            <div class="text-[11px] text-slate-400 mt-0.5 font-normal">{item.sub}</div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   </div>
 
   <!-- ③ Product Divisions (Featured Categories) -->
-  <FeaturedCategories categories={categories} />
+  <FeaturedCategories
+    categories={homeContent?.featuredCategories && homeContent.featuredCategories.length > 0 ? homeContent.featuredCategories : categories}
+    badge={homeContent?.categoriesSectionBadge}
+    title={homeContent?.categoriesSectionTitle}
+    description={homeContent?.categoriesSectionDescription}
+    buttonText={homeContent?.categoriesButtonText}
+    cardLinkText={homeContent?.categoriesCardLinkText}
+  />
 
-  <!-- ④ Flagship Products Bento Showcase (What We Have) -->
-  <WhatWeHaveDiamond />
+  <!-- ④ Flagship Products Bento Showcase (What We Manufacture & Supply) -->
+  <WhatWeHaveDiamond
+    badge={homeContent?.manufactureSectionBadge}
+    title={homeContent?.manufactureSectionTitle}
+    description={homeContent?.manufactureSectionDescription}
+    buttonText={homeContent?.manufactureButtonText}
+    cardLinkText={homeContent?.manufactureCardLinkText}
+    products={homeContent?.manufactureShowcaseProducts}
+  />
 
   <!-- ⑤ State-of-the-Art Plant Capabilities & Infrastructure Pipeline -->
   <Capabilities
+    badge={homeContent?.capabilitiesBadge}
     headline={homeContent?.capabilitiesHeadline}
     description={homeContent?.capabilitiesDescription}
+    stat1Number={homeContent?.facilityStat1Number}
+    stat1Label={homeContent?.facilityStat1Label}
+    stat2Number={homeContent?.facilityStat2Number}
+    stat2Label={homeContent?.facilityStat2Label}
+    steps={homeContent?.capabilitiesSteps}
   />
 
   <!-- ⑥ Why Industrial Leaders Choose VM Graphite (Strengths & Alubonding) -->
   <CompanyStrengths
-    headline={homeContent?.whyChooseUsHeadline || homeContent?.strengthsHeadline}
+    badge={homeContent?.whyChooseUsBadge}
+    headline={homeContent?.whyChooseUsHeadline}
+    subtitle={homeContent?.whyChooseUsSubtitle}
+    strengthsList={homeContent?.strengthsList}
   />
 
   <!-- ⑦ High-Conversion Official Technical Brochure & Custom Orders CTA -->
-  <BrochureCTA brochureUrl={siteSettings.companyBrochureUrl} />
+  <BrochureCTA
+    brochureUrl={siteSettings.companyBrochureUrl}
+    badge={homeContent?.brochureBadge}
+    title={homeContent?.brochureTitle}
+    description={homeContent?.brochureDescription}
+    features={homeContent?.brochureFeatures}
+    cardTag={homeContent?.brochureCardTag}
+    cardTitle={homeContent?.brochureCardTitle}
+    cardSubtitle={homeContent?.brochureCardSubtitle}
+    buttonText={homeContent?.brochureButtonText}
+    secondaryButtonText={homeContent?.brochureSecondaryButtonText}
+    cardCertText={homeContent?.brochureCardCertText}
+  />
 
 </Layout>

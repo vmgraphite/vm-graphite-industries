@@ -2,14 +2,37 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import ContactForm from '../components/ContactForm';
-import { getSiteSettings } from '../lib/data';
+import { getSiteSettings, getContactPageContent } from '../lib/data';
 
-const siteSettings = await getSiteSettings();
+const [siteSettings, contactContent] = await Promise.all([
+  getSiteSettings(),
+  getContactPageContent(),
+]);
+
+const pageBadge = contactContent?.badge || 'Direct Channels';
+const pageTitle = contactContent?.title || 'Contact & Factory Locations';
+const pageSubtitle = contactContent?.subtitle || 'Reach out to our technical sales team, request custom sample trials, or schedule a facility visit.';
+
+const corporateOfficeHeading = contactContent?.corporateOfficeHeading || 'Corporate & Sales Office';
+const officeAddress = contactContent?.officeAddress || siteSettings.officeAddress;
+
+const manufacturingPlantHeading = contactContent?.manufacturingPlantHeading || 'Manufacturing Plant Unit';
+const plantAddress = contactContent?.plantAddress || siteSettings.plantAddress;
+
+const directCommHeading = contactContent?.directCommHeading || 'Direct Communication';
+const primaryPhone = contactContent?.primaryPhone || siteSettings.primaryPhone;
+const email = contactContent?.email || siteSettings.email;
+const whatsappNumber = contactContent?.whatsappNumber || siteSettings.whatsappNumber;
+const whatsappButtonText = contactContent?.whatsappButtonText || 'Instant WhatsApp Sales Desk';
+
+const formHeading = contactContent?.formHeading || 'Send an Official Commercial Inquiry';
+const formSubtitle = contactContent?.formSubtitle || 'Fill out the details below. Our technical sales engineers respond within 2-4 business hours.';
 ---
 
 <Layout
-  title="Contact Us & Factory Units | VM Graphite Industries LLP"
-  description="Contact VM Graphite Industries LLP. Corporate office in New Delhi, manufacturing plant in Gujarat. Call, WhatsApp or send inquiry."
+  title={contactContent?.seo?.metaTitle || "Contact Us & Factory Units | VM Graphite Industries LLP"}
+  description={contactContent?.seo?.metaDescription || "Contact VM Graphite Industries LLP. Corporate office in New Delhi, manufacturing plant in Gujarat. Call, WhatsApp or send inquiry."}
+  seo={contactContent?.seo}
   breadcrumbs={[{ name: 'Contact Us', item: '/contact' }]}
 >
   <!-- Page Header -->
@@ -20,12 +43,12 @@ const siteSettings = await getSiteSettings();
       <Breadcrumbs items={[{ name: 'Contact Us', href: '/contact' }]} />
 
       <div class="max-w-3xl space-y-3 pt-6">
-        <span class="theme-pill">Direct Channels</span>
+        <span class="theme-pill">{pageBadge}</span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          Contact &amp; <span class="text-theme-gradient">Factory Locations</span>
+          {pageTitle}
         </h1>
         <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
-          Reach out to our technical sales team, request custom sample trials, or schedule a facility visit.
+          {pageSubtitle}
         </p>
       </div>
     </div>
@@ -44,10 +67,10 @@ const siteSettings = await getSiteSettings();
           <div class="glow-card rounded-2xl p-6 border border-white/[0.08] shadow-xl space-y-3 bg-[#0f1118]">
             <div class="flex items-center gap-3 text-theme">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-              <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">Corporate &amp; Sales Office</h3>
+              <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">{corporateOfficeHeading}</h3>
             </div>
             <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-              {siteSettings.officeAddress}
+              {officeAddress}
             </p>
           </div>
 
@@ -55,16 +78,16 @@ const siteSettings = await getSiteSettings();
           <div class="glow-card rounded-2xl p-6 border border-white/[0.08] shadow-xl space-y-3 bg-[#0f1118]">
             <div class="flex items-center gap-3 text-theme-bright">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/></svg>
-              <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">Manufacturing Plant Unit</h3>
+              <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">{manufacturingPlantHeading}</h3>
             </div>
             <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-              {siteSettings.plantAddress}
+              {plantAddress}
             </p>
           </div>
 
           <!-- Direct Communication Channels -->
           <div class="glow-card rounded-2xl p-6 border border-white/10 shadow-xl space-y-5 bg-[#0d1117]">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-theme-bright font-mono">Direct Communication</h4>
+            <h4 class="text-xs font-bold uppercase tracking-wider text-theme-bright font-mono">{directCommHeading}</h4>
             
             <div class="space-y-4 text-xs">
               <div class="flex items-center gap-3">
@@ -73,7 +96,7 @@ const siteSettings = await getSiteSettings();
                 </div>
                 <div>
                   <div class="text-slate-400 font-mono text-[11px]">Primary Phone</div>
-                  <a href={`tel:${siteSettings.primaryPhone}`} class="font-bold text-white hover:text-theme-bright font-mono text-sm">{siteSettings.primaryPhone}</a>
+                  <a href={`tel:${primaryPhone}`} class="font-bold text-white hover:text-theme-bright font-mono text-sm">{primaryPhone}</a>
                 </div>
               </div>
 
@@ -83,19 +106,19 @@ const siteSettings = await getSiteSettings();
                 </div>
                 <div>
                   <div class="text-slate-400 font-mono text-[11px]">Official Email</div>
-                  <a href={`mailto:${siteSettings.email}`} class="font-bold text-white hover:text-theme-bright font-mono text-sm">{siteSettings.email}</a>
+                  <a href={`mailto:${email}`} class="font-bold text-white hover:text-theme-bright font-mono text-sm">{email}</a>
                 </div>
               </div>
             </div>
 
             <!-- WhatsApp Direct Button -->
             <a
-              href={`https://wa.me/${siteSettings.whatsappNumber.replace(/[^0-9]/g, '')}?text=Hello%20VM%20Graphite,%20I%20have%20an%20urgent%20inquiry.`}
+              href={`https://wa.me/${whatsappNumber.replace(/[^0-9]/g, '')}?text=Hello%20VM%20Graphite,%20I%20have%20an%20urgent%20inquiry.`}
               target="_blank"
               rel="noopener noreferrer"
               class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors font-sans uppercase tracking-wider shadow-md"
             >
-              <span>Instant WhatsApp Sales Desk</span>
+              <span>{whatsappButtonText}</span>
             </a>
           </div>
 
@@ -106,9 +129,9 @@ const siteSettings = await getSiteSettings();
           <div class="glow-card rounded-2xl p-7 sm:p-9 border border-white/10 shadow-2xl space-y-6 bg-[#0d1117]">
             <div>
               <span class="theme-pill">Inquiry Desk</span>
-              <h3 class="display-lg text-white font-black mt-2" style="font-family:'Outfit',sans-serif;">Send a Direct Message</h3>
+              <h3 class="display-lg text-white font-black mt-2" style="font-family:'Outfit',sans-serif;">{formHeading}</h3>
               <p class="text-xs sm:text-sm text-slate-400 mt-1 font-normal">
-                Fill out the form below to connect directly with our engineering or technical sales team.
+                {formSubtitle}
               </p>
             </div>
 

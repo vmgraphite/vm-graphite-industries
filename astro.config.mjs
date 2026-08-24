@@ -6,8 +6,8 @@ const sanityStudioSpaFallback = () => ({
   name: 'sanity-studio-spa-fallback',
   configureServer(server) {
     server.middlewares.use((req, res, next) => {
-      if (req.url && req.url.startsWith('/admin/studio/') && !req.url.includes('.')) {
-        req.url = '/admin/studio';
+      if (req.url && req.url.startsWith('/admin/') && !req.url.includes('.')) {
+        req.url = '/admin';
       }
       next();
     });
@@ -24,7 +24,15 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss(), sanityStudioSpaFallback()],
     optimizeDeps: {
-      include: ['sanity', 'styled-components'],
+      include: [
+        'sanity',
+        'sanity/structure',
+        'styled-components',
+        'refractor',
+        '@sanity/icons',
+        'rxjs',
+        'rxjs/operators',
+      ],
     },
   },
 });

@@ -9,16 +9,12 @@ export interface Props {
 const { siteSettings, categories } = Astro.props;
 const currentYear = new Date().getFullYear();
 
-const marqueItems = [
-  'ISO 9001:2015 Certified',
-  '20+ Countries Served',
-  'Zero Defect Quality Policy',
-  '100% Batch Spectro Inspection',
-  'Custom CNC Machining ±0.02mm',
-  'Export-Standard Seaworthy Packaging',
-  'Isostatic Pressed Synthetic Graphite',
-  '99.9% Ultra-High Carbon Purity',
-];
+const rawCopyright = siteSettings.footerCopyrightText || '© {year} VM Graphite Industries LLP. All rights reserved.';
+const safeCopyright = rawCopyright.replace('{year}', String(currentYear));
+
+const safeFooterDesc = siteSettings.footerTagline || `${siteSettings.tagline}. Premier manufacturer and exporter of high-density graphite solutions for metallurgical, coating, and severe-duty manufacturing processes.`;
+const safeDownloadBtn = siteSettings.footerDownloadButtonText || 'Download Brochure';
+const safeFooterBadge = siteSettings.footerBadgeText || 'A Complete Solution For Coating & Metalizer';
 ---
 
 <footer class="bg-[#05070a] text-slate-400 border-t border-white/[0.08] relative overflow-hidden">
@@ -32,89 +28,63 @@ const marqueItems = [
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
     <!-- Main footer grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 py-16 border-b border-white/[0.06]">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 py-16 border-b border-white/[0.06] items-start">
 
       <!-- Company column -->
-      <div class="lg:col-span-1 space-y-5">
+      <div class="lg:col-span-5 space-y-5">
         <a href="/" class="inline-block group focus:outline-none" aria-label="VM Graphite Home">
-          <img src="/images/logo.png" alt="VM Graphite Industries Logo" class="h-11 w-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-[1.02]" />
+          <img src={siteSettings.logoUrl || '/images/logo.png'} alt={siteSettings.companyName || 'VM Graphite Industries'} class="h-11 w-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-[1.02]" />
         </a>
-        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-          {siteSettings.tagline}. Premier manufacturer and exporter of high-density graphite solutions for metallurgical, coating, and severe-duty manufacturing processes.
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal max-w-md">
+          {safeFooterDesc}
         </p>
         <a
           href={siteSettings.companyBrochureUrl || '/docs/VM_Graphite_Corporate_Brochure.pdf'}
           target="_blank"
           download
-          class="forge-btn-ghost rounded-full text-xs px-4 py-2 font-semibold"
+          class="forge-btn-ghost rounded-full text-xs px-5 py-2.5 font-semibold inline-flex items-center gap-2"
         >
           <svg class="w-4 h-4 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-          <span>Download Brochure</span>
+          <span>{safeDownloadBtn}</span>
         </a>
       </div>
 
-      <!-- Product divisions -->
-      <div class="space-y-5">
-        <h3 class="text-[11px] font-bold text-theme-bright uppercase tracking-[0.2em] font-mono">Product Divisions</h3>
-        <ul class="space-y-2.5">
-          {categories.map((cat) => (
-            <li>
-              <a href={`/products?category=${cat.slug}`} class="text-xs sm:text-sm text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
-                <span class="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-[var(--primary)] transition-colors"></span>
-                <span>{cat.name}</span>
-              </a>
-            </li>
-          ))}
-          <li class="pt-2">
-            <a href="/products" class="text-xs font-bold text-theme-bright hover:text-white transition-colors font-mono uppercase tracking-wider flex items-center gap-1">
-              <span>Full Product Catalog</span>
-              <span>→</span>
-            </a>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Quick navigation -->
-      <div class="space-y-5">
-        <h3 class="text-[11px] font-bold text-theme-bright uppercase tracking-[0.2em] font-mono">Quick Navigation</h3>
-        <ul class="space-y-2.5 text-xs sm:text-sm">
-          {[
-            { name: 'Home Page', href: '/' },
-            { name: 'About VM Graphite', href: '/about' },
-            { name: 'Technical Product Range', href: '/products' },
-            { name: 'Downloads & Datasheets', href: '/downloads' },
-            { name: 'Contact & Plant Location', href: '/contact' },
-          ].map((link) => (
-            <li>
-              <a href={link.href} class="text-slate-400 hover:text-white transition-colors flex items-center gap-2 group">
-                <span class="w-1.5 h-1.5 rounded-full bg-white/20 group-hover:bg-[var(--primary)] transition-colors"></span>
-                <span>{link.name}</span>
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-
-      <!-- Contact info -->
-      <div class="space-y-5">
-        <h3 class="text-[11px] font-bold text-theme-bright uppercase tracking-[0.2em] font-mono">Factory &amp; Offices</h3>
-        <div class="space-y-3.5 text-xs">
-          <div>
-            <span class="block font-bold text-slate-200 mb-0.5 text-[11px] uppercase tracking-wider font-mono">Corporate Office</span>
-            <span class="text-slate-400 leading-relaxed">{siteSettings.officeAddress}</span>
-          </div>
-          <div>
-            <span class="block font-bold text-slate-200 mb-0.5 text-[11px] uppercase tracking-wider font-mono">Manufacturing Plant</span>
-            <span class="text-slate-400 leading-relaxed">{siteSettings.plantAddress}</span>
-          </div>
-          <div class="space-y-2 pt-1 font-mono">
-            <div class="flex items-center gap-2">
-              <svg class="w-3.5 h-3.5 text-[var(--primary)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-              <a href={`tel:${siteSettings.primaryPhone}`} class="hover:text-white transition-colors">{siteSettings.primaryPhone}</a>
+      <!-- Factory & Offices in responsive row cards -->
+      <div class="lg:col-span-7 space-y-4">
+        <h3 class="text-[11px] font-bold text-theme-bright uppercase tracking-[0.2em] font-mono">{siteSettings.footerLocationHeading || 'Factory & Corporate Locations'}</h3>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <!-- Corporate Office Card -->
+          <div class="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 space-y-3 flex flex-col justify-between hover:border-white/15 transition-colors">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)]"></span>
+                <span class="font-bold text-slate-200 text-xs uppercase tracking-wider font-mono">{siteSettings.corporateOfficeTitle || 'Corporate Office'}</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed font-normal">{siteSettings.officeAddress}</p>
             </div>
-            <div class="flex items-center gap-2">
-              <svg class="w-3.5 h-3.5 text-[var(--primary)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-              <a href={`mailto:${siteSettings.email}`} class="hover:text-white transition-colors break-all">{siteSettings.email}</a>
+            <div class="pt-2 border-t border-white/[0.06]">
+              <a href={`tel:${siteSettings.footerPhone || siteSettings.primaryPhone}`} class="text-xs text-slate-300 hover:text-white transition-colors font-mono flex items-center gap-2">
+                <svg class="w-3.5 h-3.5 text-[var(--primary)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                <span>{siteSettings.footerPhone || siteSettings.primaryPhone}</span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Manufacturing Plant Card -->
+          <div class="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 space-y-3 flex flex-col justify-between hover:border-white/15 transition-colors">
+            <div>
+              <div class="flex items-center gap-2 mb-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span class="font-bold text-slate-200 text-xs uppercase tracking-wider font-mono">{siteSettings.plantTitle || 'Manufacturing Plant'}</span>
+              </div>
+              <p class="text-xs text-slate-400 leading-relaxed font-normal">{siteSettings.plantAddress}</p>
+            </div>
+            <div class="pt-2 border-t border-white/[0.06]">
+              <a href={`mailto:${siteSettings.email}`} class="text-xs text-slate-300 hover:text-white transition-colors font-mono flex items-center gap-2 break-all">
+                <svg class="w-3.5 h-3.5 text-[var(--primary)] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                <span>{siteSettings.email}</span>
+              </a>
             </div>
           </div>
         </div>
@@ -125,28 +95,14 @@ const marqueItems = [
     <!-- Copyright bar -->
     <div class="py-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
       <div class="font-mono">
-        &copy; {currentYear} {siteSettings.companyName}. All rights reserved.
+        {safeCopyright}
       </div>
       <div class="flex items-center gap-2 font-mono text-[11px] text-slate-400">
         <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>A Complete Solution For Coating &amp; Metalizer</span>
+        <span>{safeFooterBadge}</span>
       </div>
     </div>
 
-  </div>
-
-  <!-- Industrial Capabilities Ribbon -->
-  <div class="border-t border-white/[0.04] bg-[#030406] py-3 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-2 text-[11px] font-semibold text-slate-400 uppercase tracking-[0.15em] font-mono">
-        {marqueItems.map((item) => (
-          <span class="flex items-center gap-2 shrink-0">
-            <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] opacity-80"></span>
-            <span>{item}</span>
-          </span>
-        ))}
-      </div>
-    </div>
   </div>
 
 </footer>

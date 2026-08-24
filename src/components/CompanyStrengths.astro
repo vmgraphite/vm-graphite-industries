@@ -1,13 +1,26 @@
 ---
 export interface Props {
+  badge?: string;
   headline?: string;
+  subtitle?: string;
+  strengthsList?: Array<{
+    number?: string;
+    title: string;
+    description: string;
+    metric?: string;
+  }>;
 }
 
 const {
+  badge,
   headline = 'Why Industrial Leaders Choose VM Graphite',
+  subtitle = 'Decades of combined engineering leadership, specialized material science formulations, and certified export-grade reliability.',
+  strengthsList = [],
 } = Astro.props;
 
-const strengths = [
+const safeBadge = badge || 'B2B Manufacturing Advantage';
+
+const defaultStrengths = [
   {
     title: 'Advanced Alubonding™ Technology',
     description: 'Proprietary R&D and advanced Alubonding bonding technology delivering synthetic graphite solutions with exceptional laminar adhesion and chemical resistance.',
@@ -51,6 +64,19 @@ const strengths = [
     icon: 'M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 002 2h1.5a2.5 2.5 0 002.5-2.5V7a2 2 0 00-2-2h-1.5A2.5 2.5 0 0113 2.5V2',
   },
 ];
+
+const safeHeadline = headline || 'Why Industrial Leaders Choose VM Graphite';
+const safeSubtitle = subtitle || 'Decades of combined engineering leadership, specialized material science formulations, and certified export-grade reliability.';
+
+const strengths = Array.isArray(strengthsList) && strengthsList.length > 0
+  ? strengthsList.map((s, idx) => ({
+      title: s.title,
+      description: s.description,
+      metric: s.metric || `Feature 0${idx + 1}`,
+      number: s.number || `0${idx + 1}`,
+      icon: defaultStrengths[idx % defaultStrengths.length].icon,
+    }))
+  : defaultStrengths;
 ---
 
 <section class="py-24 relative bg-[#07090e] overflow-hidden border-t border-white/[0.06]">
@@ -58,19 +84,19 @@ const strengths = [
   <!-- Section header -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-14">
     <div class="max-w-3xl space-y-4">
-      <span class="theme-pill">B2B Manufacturing Advantage</span>
+      <span class="theme-pill">{safeBadge}</span>
       <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-        {headline.includes('VM Graphite') ? (
+        {safeHeadline.includes('VM Graphite') ? (
           <>
-            {headline.replace('VM Graphite', '').trim()}{' '}
+            {safeHeadline.replace('VM Graphite', '').trim()}{' '}
             <span class="text-theme-gradient">VM Graphite</span>
           </>
         ) : (
-          <span class="text-theme-gradient">{headline}</span>
+          <span class="text-theme-gradient">{safeHeadline}</span>
         )}
       </h2>
       <p class="text-slate-400 text-sm sm:text-base leading-relaxed max-w-2xl font-normal">
-        Delivering consistent material purity, extended component life, and minimal maintenance downtime across continuous thermal operations worldwide.
+        {safeSubtitle}
       </p>
     </div>
   </div>

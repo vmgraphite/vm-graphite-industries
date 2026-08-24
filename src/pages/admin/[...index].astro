@@ -1,5 +1,6 @@
 ---
-import SanityStudioEmbed from '../../../components/admin/SanityStudioEmbed';
+import '../../styles/global.css';
+import SanityStudioEmbed from '../../components/admin/SanityStudioEmbed';
 
 export function getStaticPaths() {
   const paths = [
@@ -18,24 +19,26 @@ export function getStaticPaths() {
 ---
 
 <!DOCTYPE html>
-<html lang="en" style="height: 100%; margin: 0; padding: 0;">
+<html lang="en" class="h-full bg-[#07090e]">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Sanity Studio | VM Graphite Industries</title>
     <link rel="icon" type="image/svg+xml" href="/images/logo.svg" />
     <meta name="robots" content="noindex, nofollow" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
     <style>
       html, body {
         height: 100%;
         margin: 0;
         padding: 0;
         background-color: #07090e;
-        overflow: hidden;
       }
     </style>
   </head>
-  <body>
+  <body class="h-full bg-[#07090e] text-slate-100 font-sans antialiased selection:bg-[#f06543] selection:text-white">
     <SanityStudioEmbed client:only="react" />
   </body>
 </html>

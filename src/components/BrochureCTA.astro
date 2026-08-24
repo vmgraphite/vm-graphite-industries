@@ -1,9 +1,50 @@
 ---
 export interface Props {
   brochureUrl?: string;
+  badge?: string;
+  title?: string;
+  description?: string;
+  features?: string[];
+  cardTag?: string;
+  cardTitle?: string;
+  cardSubtitle?: string;
+  buttonText?: string;
+  secondaryButtonText?: string;
+  cardCertText?: string;
 }
 
-const { brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf' } = Astro.props;
+const {
+  brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf',
+  badge,
+  title,
+  description,
+  features,
+  cardTag,
+  cardTitle,
+  cardSubtitle,
+  buttonText,
+  secondaryButtonText,
+  cardCertText,
+} = Astro.props;
+
+const safeBadge = badge || 'Official Technical Documentation';
+const safeTitle = title || 'Download VM Graphite Corporate Catalog & Technical Brochure';
+const safeDesc = description || 'Access complete product dimensions, thermal performance charts, chemical resistance matrices, and ISO manufacturing certifications in a single convenient PDF brochure.';
+const safeBtnText = buttonText || 'Download PDF Brochure';
+const safeSecBtnText = secondaryButtonText || 'View All Technical Datasheets';
+const safeCardTag = cardTag || 'PDF Specification';
+const safeCardTitle = cardTitle || 'Corporate Brochure & Product Catalog';
+const safeCardSubtitle = cardSubtitle || 'Comprehensive technical reference for engineers & buyers';
+const safeCardCert = cardCertText || 'ISO 9001:2015 Certified Documentation';
+
+const defaultFeatures = [
+  'Product dimensions & tolerances',
+  'Thermal performance charts',
+  'ISO 9001:2015 certifications',
+  'Spectrographic analysis data',
+];
+
+const featureList = Array.isArray(features) && features.length > 0 ? features.filter(Boolean) : defaultFeatures;
 ---
 
 <section class="relative overflow-hidden border-t border-white/[0.06] bg-[#07090e]">
@@ -20,26 +61,26 @@ const { brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf' } = Astro.props
 
       <!-- Left: Copy & Bullet Features -->
       <div class="lg:col-span-7 space-y-6">
-        <span class="theme-pill">Official Technical Documentation</span>
+        <span class="theme-pill">{safeBadge}</span>
         
         <h2 class="display-lg text-white font-black tracking-tight leading-tight" style="font-family:'Outfit',sans-serif;">
-          Download VM Graphite<br/>
-          <span class="text-theme-gradient">Corporate Catalog</span><br/>
-          &amp; Technical Brochure
+          {safeTitle.includes('&') ? (
+            <>
+              {safeTitle.split('&')[0]}<br/>
+              <span class="text-theme-gradient">{safeTitle.split('&')[1]}</span>
+            </>
+          ) : (
+            <span>{safeTitle}</span>
+          )}
         </h2>
 
         <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-xl font-normal">
-          Access complete product dimensions, thermal performance charts, chemical resistance matrices, and ISO manufacturing certifications in a single convenient PDF brochure.
+          {safeDesc}
         </p>
 
         <!-- Feature list -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
-          {[
-            'Product dimensions & tolerances',
-            'Thermal performance charts',
-            'ISO 9001:2015 certifications',
-            'Spectrographic analysis data',
-          ].map((f) => (
+          {featureList.map((f) => (
             <div class="flex items-center gap-2.5 text-xs sm:text-sm text-slate-200">
               <span class="w-5 h-5 rounded-md bg-theme-tint border border-theme flex items-center justify-center shrink-0">
                 <svg class="w-3 h-3 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/></svg>
@@ -65,15 +106,15 @@ const { brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf' } = Astro.props
                 </svg>
               </div>
               <span class="text-[10px] font-mono font-bold text-theme-bright bg-theme-tint border border-theme px-2.5 py-1 rounded uppercase tracking-wider">
-                PDF Specification
+                {safeCardTag}
               </span>
             </div>
 
             <div>
               <h3 class="text-xl font-black text-white leading-snug" style="font-family:'Outfit',sans-serif;">
-                Corporate Brochure<br/>&amp; Product Catalog
+                {safeCardTitle}
               </h3>
-              <p class="text-slate-400 text-xs mt-1.5 font-normal">Comprehensive technical reference for engineers &amp; buyers</p>
+              <p class="text-slate-400 text-xs mt-1.5 font-normal">{safeCardSubtitle}</p>
             </div>
 
             <!-- Action Buttons -->
@@ -86,21 +127,21 @@ const { brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf' } = Astro.props
                 aria-label="Download VM Graphite Corporate PDF Brochure"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span>Download PDF Brochure</span>
+                <span>{safeBtnText}</span>
               </a>
 
               <a
                 href="/downloads"
                 class="forge-btn-ghost w-full justify-center rounded-full py-2.5 text-xs font-semibold"
               >
-                <span>View All Technical Datasheets</span>
+                <span>{safeSecBtnText}</span>
               </a>
             </div>
 
             <!-- Certified documentation badge -->
             <div class="flex items-center gap-2 pt-2 border-t border-white/[0.06]">
               <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-              <span class="text-[11px] text-slate-400 font-mono">ISO 9001:2015 Certified Documentation</span>
+              <span class="text-[11px] text-slate-400 font-mono">{safeCardCert}</span>
             </div>
 
           </div>

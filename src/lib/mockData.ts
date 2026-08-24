@@ -47,6 +47,8 @@ export interface ResourceItem {
 }
 
 export interface SiteSettings {
+  contactTitle?: string;
+  contactSubtitle?: string;
   companyName: string;
   tagline: string;
   primaryPhone: string;
@@ -56,25 +58,62 @@ export interface SiteSettings {
   officeAddress: string;
   plantAddress: string;
   googleMapsUrl?: string;
-  workingHours: string;
+  workingHours?: string;
+  logoUrl?: string;
   companyBrochureUrl?: string;
+  headerTickerText?: string;
+  headerWhatsappText?: string;
+  headerQuoteButtonText?: string;
+  headerNavItems?: Array<{
+    name: string;
+    href: string;
+    hasDropdown?: boolean;
+    hide?: boolean;
+  }>;
+  footerTagline?: string;
+  footerDownloadButtonText?: string;
+  footerLocationHeading?: string;
+  corporateOfficeTitle?: string;
+  footerPhone?: string;
+  plantTitle?: string;
+  footerCopyrightText?: string;
+  footerBadgeText?: string;
 }
 
 export const MOCK_SITE_SETTINGS: SiteSettings = {
   companyName: "VM Graphite Industries LLP",
   tagline:
     "Delivering Premium Graphite Solutions with Unmatched Quality and Speed",
-  primaryPhone: "+91 98765 43210",
+  primaryPhone: "+91 94221 02425",
   secondaryPhone: "+91 11 2345 6789",
-  whatsappNumber: "919876543210",
+  whatsappNumber: "919422102425",
   email: "info@vmgraphiteindustries.com",
   officeAddress:
-    "Corporate Office: Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India",
+    "Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India",
   plantAddress:
-    "Manufacturing Unit: Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India",
+    "Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India",
   googleMapsUrl: "https://maps.google.com/?q=Industrial+Area+Phase+2+New+Delhi",
-  workingHours: "Monday - Saturday: 9:00 AM - 6:30 PM (IST)",
+  workingHours: "Mon - Sat: 9:00 AM - 6:30 PM IST",
+  logoUrl: "/images/logo.png",
   companyBrochureUrl: "/docs/VM_Graphite_Corporate_Brochure.pdf",
+  headerTickerText: "ISO 9001:2015 Certified High-Purity Graphite Manufacturer",
+  headerWhatsappText: "WhatsApp",
+  headerQuoteButtonText: "Request Quote",
+  headerNavItems: [
+    { name: 'Home', href: '/', hasDropdown: false, hide: false },
+    { name: 'About', href: '/about', hasDropdown: false, hide: false },
+    { name: 'Products', href: '/products', hasDropdown: true, hide: false },
+    { name: 'Downloads', href: '/downloads', hasDropdown: false, hide: false },
+    { name: 'Contact', href: '/contact', hasDropdown: false, hide: false },
+  ],
+  footerTagline: "Premier manufacturer and exporter of high-density graphite solutions for metallurgical, coating, and severe-duty manufacturing processes.",
+  footerDownloadButtonText: "Download Brochure",
+  footerLocationHeading: "Factory & Corporate Locations",
+  corporateOfficeTitle: "Corporate Office",
+  footerPhone: "+91 94221 02425",
+  plantTitle: "Manufacturing Plant",
+  footerCopyrightText: "© {year} VM Graphite Industries LLP. All rights reserved.",
+  footerBadgeText: "A Complete Solution For Coating & Metalizer",
 };
 
 export const MOCK_CATEGORIES: Category[] = [

@@ -1,15 +1,40 @@
 ---
 export interface Props {
+  badge?: string;
   headline?: string;
   description?: string;
+  stat1Number?: string;
+  stat1Label?: string;
+  stat2Number?: string;
+  stat2Label?: string;
+  steps?: Array<{
+    step: string;
+    title: string;
+    desc: string;
+    metric: string;
+  }>;
 }
 
 const {
-  headline = 'State-of-the-Art Plant Capabilities',
-  description = 'Our specialized manufacturing units house high-tech machinery engineered for extreme material processing. From high-purity synthetic graphite machining to automated colloidal dispersions, we enforce zero-defect quality control.',
+  badge,
+  headline,
+  description,
+  stat1Number,
+  stat1Label,
+  stat2Number,
+  stat2Label,
+  steps = [],
 } = Astro.props;
 
-const capabilities = [
+const safeBadge = badge || 'Manufacturing Infrastructure';
+const safeHeadline = headline || 'State-of-the-Art Precision Manufacturing Capabilities';
+const safeDescription = description || 'Our specialized manufacturing units house high-tech machinery engineered for extreme material processing. From high-purity synthetic graphite machining to automated colloidal dispersions, we enforce zero-defect quality control.';
+const safeStat1Num = stat1Number || '50,000+';
+const safeStat1Lbl = stat1Label || 'Sq. Ft. Production Floor';
+const safeStat2Num = stat2Number || '100%';
+const safeStat2Lbl = stat2Label || 'Batch Spectro Inspection';
+
+const defaultCapabilities = [
   {
     step: '01',
     title: 'Isostatic & Hydrostatic Pressing',
@@ -35,6 +60,8 @@ const capabilities = [
     metric: '99.9% Carbon Assurance',
   },
 ];
+
+const capabilities = Array.isArray(steps) && steps.length > 0 ? steps.filter(Boolean) : defaultCapabilities;
 ---
 
 <section class="py-24 relative overflow-hidden bg-[#07090e] border-t border-white/[0.06] scanline-bg">
@@ -48,34 +75,34 @@ const capabilities = [
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start mb-16">
       
       <div class="lg:col-span-5 space-y-6">
-        <span class="theme-pill">Manufacturing Infrastructure</span>
+        <span class="theme-pill">{safeBadge}</span>
         <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          {headline.includes('Capabilities') ? (
+          {safeHeadline.includes('Capabilities') ? (
             <>
-              {headline.replace('Capabilities', '').trim()}<br/>
+              {safeHeadline.replace('Capabilities', '').trim()}<br/>
               <span class="text-theme-gradient">Capabilities</span>
             </>
           ) : (
-            <span class="text-theme-gradient">{headline}</span>
+            <span class="text-theme-gradient">{safeHeadline}</span>
           )}
         </h2>
-        <p class="text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
-          {description}
+        <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
+          {safeDescription}
         </p>
 
         <!-- Facility Stats -->
         <div class="grid grid-cols-2 gap-4 pt-2">
           <div class="glow-card p-5 rounded-xl border border-white/[0.08] bg-[#0f1118]">
             <div class="text-3xl font-black text-white font-mono mb-1">
-              50,000+
+              {safeStat1Num}
             </div>
-            <div class="text-xs text-slate-400 font-medium">Sq. Ft. Production Floor</div>
+            <div class="text-xs text-slate-400 font-medium">{safeStat1Lbl}</div>
           </div>
           <div class="glow-card p-5 rounded-xl border border-white/[0.08] bg-[#0f1118]">
             <div class="text-3xl font-black text-theme-bright font-mono mb-1">
-              100%
+              {safeStat2Num}
             </div>
-            <div class="text-xs text-slate-400 font-medium">Batch Spectro Inspection</div>
+            <div class="text-xs text-slate-400 font-medium">{safeStat2Lbl}</div>
           </div>
         </div>
       </div>

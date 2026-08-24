@@ -164,29 +164,24 @@ npm run preview
 
 ---
 
-## 6. How to Manage Content in Sanity (`/admin`)
+## 6. How to Manage Content in Admin Portal (`/admin`)
 
 Access `https://vmgraphiteindustries.com/admin` to manage site content without a developer:
 
-### Managing Site Settings & Contact Details
-- Go to **Site Settings & Contact Info**.
-- Update official phone numbers, email (`CONTACT_EMAIL`), WhatsApp business number, corporate office address, and manufacturing plant address.
-- Upload a new **Company Brochure PDF** (automatically updates brochure download buttons site-wide).
+### 🔐 Admin Authentication
+- **Default Username**: `admin` (or `info@vmgraphiteindustries.com`)
+- **Default Passcode**: `vmgraphite2025`
+- *The administrator can update their password directly anytime from the "Settings & Password" tab.*
 
-### Managing Product Categories
-- Go to **Product Categories**.
-- Add or edit categories (e.g. *Graphite & Carbon Products*, *Tapes & Sealing Solutions*, *Industrial Blades & Materials*).
-
-### Managing Products & Technical Specifications
-- Go to **Products Catalog**.
-- Create a product and fill in name, slug, category, short description, rich text full description, main image, and gallery images.
-- **Structured Specifications**: Under *Technical Specifications*, click *Add item* to add key-value pairs (e.g., `Material` | `High Purity Synthetic Graphite`, `Max Operating Temp` | `3000°C`, `Density` | `1.85 g/cm³`).
-- Check **Mark as Featured Product** to feature the product on the homepage.
-- Upload product PDF datasheet.
-
-### Managing Downloadable Resources
-- Go to **Downloads & Brochures**.
-- Upload PDF files (catalogs, engineering spec sheets, ISO certificates) and tag them appropriately.
+### 🛠️ Quick Action Hub & Non-Technical Workflows
+The Admin Portal is designed for non-technical users with 1-click action buttons and step-by-step guidance:
+- **➕ Add New Product**: Direct link to the new product form in Sanity Studio.
+- **✏️ Products Catalog**: Visual cards for all products with instant search, category filters, 1-click live preview, and direct Sanity editing links.
+- **📞 Phone, Email & Addresses**: 1-click shortcut to update contact phone numbers, WhatsApp, plant address, and headquarters info across all website pages.
+- **📄 Upload & Replace PDF Brochures**: Manage and update downloadable Technical Data Sheets (TDS) and product catalogs.
+- **🖼️ Homepage Banners & About Us**: Update hero banners, statistics, and plant equipment information.
+- **📬 Inquiries & Leads**: View lead destination settings and test contact inquiry email alerts.
+- **📖 Step-by-Step How-To Guide**: Built-in visual tutorial for non-technical staff explaining how to make updates and publish changes live.
 
 ---
 

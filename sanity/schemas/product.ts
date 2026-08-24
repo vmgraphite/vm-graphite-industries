@@ -4,17 +4,108 @@ export const productSchema = defineType({
   name: 'product',
   title: 'Product',
   type: 'document',
+  groups: [
+    {
+      name: 'content',
+      title: 'Product Info',
+      default: true,
+    },
+    {
+      name: 'seo',
+      title: 'SEO & Search Engine',
+    },
+  ],
   fields: [
+    // ① PRODUCT HEADER (Top of Product Page)
     defineField({
       name: 'name',
-      title: 'Product Name',
+      title: '1. Product Title',
+      description: 'Full commercial name of the product (e.g. "Silicon Carbide Graphite Crucible").',
       type: 'string',
+      group: 'content',
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'category',
+      title: '2. Product Category',
+      description: 'Select the industrial division / category this product belongs to.',
+      type: 'reference',
+      group: 'content',
+      to: [{ type: 'category' }],
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'shortDescription',
+      title: '3. Short Summary / Overview',
+      description: 'Summary paragraph displayed under product title and on catalog cards.',
+      type: 'text',
+      group: 'content',
+      rows: 3,
+      validation: (Rule) => Rule.required(),
+    }),
+
+    // ② PRODUCT PHOTOGRAPHY & DATASHEET (Left Column & Action Buttons)
+    defineField({
+      name: 'mainImage',
+      title: '4. Primary Product Photo',
+      description: 'Main product image displayed on the product page and catalog cards.',
+      type: 'image',
+      group: 'content',
+      options: { hotspot: true },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
+      name: 'gallery',
+      title: '5. Additional Photos Gallery (Optional)',
+      description: 'Extra product images shown as clickable thumbnails below the main photo.',
+      type: 'array',
+      group: 'content',
+      of: [{ type: 'image', options: { hotspot: true } }],
+    }),
+    defineField({
+      name: 'productPdf',
+      title: '6. Technical Specification Datasheet (PDF)',
+      description: 'Upload PDF datasheet. Adds a "Download Tech Datasheet (PDF)" button next to the quote button.',
+      type: 'file',
+      group: 'content',
+      options: { accept: '.pdf' },
+    }),
+
+    // ③ TECHNICAL SPECIFICATIONS MATRIX (Middle of Product Page)
+    defineField({
+      name: 'specifications',
+      title: '7. Technical Specifications Matrix',
+      description: 'Add rows for attributes shown in the table (e.g. Material: Synthetic Graphite, Max Temp: 3000°C, Density: 1.85 g/cm³, Carbon: 99.9%).',
+      type: 'array',
+      group: 'content',
+      of: [{ type: 'specRow' }],
+    }),
+
+    // ④ DETAILED DESCRIPTION & APPLICATIONS (Lower Section)
+    defineField({
+      name: 'fullDescription',
+      title: '8. Detailed Description & Applications Overview',
+      description: 'Detailed explanation shown under "Detailed Product Overview & Applications".',
+      type: 'array',
+      group: 'content',
+      of: [{ type: 'block' }],
+    }),
+
+    // ⑤ DISPLAY & SEO SETTINGS
+    defineField({
+      name: 'isFeatured',
+      title: '9. Feature on Home Page?',
+      description: 'Check to highlight this product on the home page showcase.',
+      type: 'boolean',
+      group: 'content',
+      initialValue: false,
+    }),
+    defineField({
       name: 'slug',
-      title: 'SEO Slug / URL Path',
+      title: '10. Website URL Slug',
+      description: 'Click "Generate" to automatically create the web URL path for this product.',
       type: 'slug',
+      group: 'content',
       options: {
         source: 'name',
         maxLength: 96,
@@ -22,77 +113,11 @@ export const productSchema = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: 'category',
-      title: 'Product Category',
-      type: 'reference',
-      to: [{ type: 'category' }],
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'shortDescription',
-      title: 'Short Summary / Teaser',
-      type: 'text',
-      rows: 3,
-      description: 'Concise summary for catalog cards and search previews.',
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'fullDescription',
-      title: 'Detailed Product Description & Features',
-      type: 'array',
-      of: [{ type: 'block' }],
-      description: 'Comprehensive overview of applications, material grade, features, and operating conditions.',
-    }),
-    defineField({
-      name: 'mainImage',
-      title: 'Primary Product Image',
-      type: 'image',
-      options: { hotspot: true },
-      validation: (Rule) => Rule.required(),
-    }),
-    defineField({
-      name: 'gallery',
-      title: 'Additional Images Gallery',
-      type: 'array',
-      of: [{ type: 'image', options: { hotspot: true } }],
-    }),
-    defineField({
-      name: 'specifications',
-      title: 'Structured Technical Specifications (Key - Value Pairs)',
-      type: 'array',
-      of: [{ type: 'specRow' }],
-      description: 'Add rows for technical attributes like Material, Density, Temp Resistance, Purity, Dimensions, Tensile Strength.',
-    }),
-    defineField({
-      name: 'productPdf',
-      title: 'Product Technical Specification PDF / Datasheet',
-      type: 'file',
-      description: 'Upload PDF datasheet downloadable on product page.',
-      options: { accept: '.pdf' },
-    }),
-    defineField({
-      name: 'isFeatured',
-      title: 'Mark as Featured Product',
-      type: 'boolean',
-      initialValue: false,
-      description: 'Featured products appear on home page and top catalog sections.',
-    }),
-    defineField({
-      name: 'displayOrder',
-      title: 'Display Priority / Order',
-      type: 'number',
-      initialValue: 0,
-    }),
-    defineField({
-      name: 'relatedProducts',
-      title: 'Related / Recommended Products',
-      type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'product' }] }],
-    }),
-    defineField({
       name: 'seo',
-      title: 'Product SEO & Social Metadata',
+      title: 'Product Search Engine (SEO) Settings',
+      description: 'Google search title, description, and social media sharing image.',
       type: 'seo',
+      group: 'seo',
     }),
   ],
   preview: {

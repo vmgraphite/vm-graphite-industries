@@ -3,6 +3,7 @@ import {
   SITE_SETTINGS_QUERY,
   HOME_PAGE_QUERY,
   ABOUT_PAGE_QUERY,
+  CONTACT_PAGE_QUERY,
   ALL_CATEGORIES_QUERY,
   ALL_PRODUCTS_QUERY,
   FEATURED_PRODUCTS_QUERY,
@@ -50,6 +51,17 @@ export async function getAboutPageContent() {
   }
   try {
     return await sanityClient.fetch(ABOUT_PAGE_QUERY);
+  } catch (error) {
+    return null;
+  }
+}
+
+export async function getContactPageContent() {
+  if (!isSanityConfigured || !sanityClient) {
+    return null;
+  }
+  try {
+    return await sanityClient.fetch(CONTACT_PAGE_QUERY);
   } catch (error) {
     return null;
   }

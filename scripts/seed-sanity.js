@@ -51,19 +51,11 @@ async function seed() {
     _type: 'siteSettings',
     companyName: 'VM Graphite Industries LLP',
     tagline: 'Delivering Premium Graphite Solutions with Unmatched Quality and Speed',
-    primaryPhone: '+91 98765 43210',
-    secondaryPhone: '+91 11 2345 6789',
-    whatsappNumber: '919876543210',
+    primaryPhone: '+91 94221 02425',
+    whatsappNumber: '919422102425',
     email: 'info@vmgraphiteindustries.com',
     officeAddress: 'Corporate Office: Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
     plantAddress: 'Manufacturing Unit: Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
-    googleMapsUrl: 'https://maps.google.com/?q=Industrial+Area+Phase+2+New+Delhi',
-    workingHours: 'Monday - Saturday: 9:00 AM - 6:30 PM (IST)',
-    seo: {
-      _type: 'seo',
-      metaTitle: 'VM Graphite Industries LLP | Industrial Graphite & Sealing Materials',
-      metaDescription: 'Striving to become India\'s leading supplier of unmatched quality graphite suspension, foil tape, and industrial materials.',
-    },
   };
   await client.createOrReplace(siteSettingsDoc);
 
@@ -78,7 +70,6 @@ async function seed() {
     heroImage: heroImageAsset,
     primaryCtaText: 'Explore Products',
     secondaryCtaText: 'Get a Quote',
-    strengthsHeadline: 'Pioneering Excellence in Industrial Graphite Manufacturing',
     capabilitiesHeadline: 'State-of-the-Art Precision Manufacturing Capabilities',
     capabilitiesDescription: 'We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality. Discover how our solutions can meet your industrial needs with speed and excellence.',
     whyChooseUsHeadline: 'Why Industry Leaders Trust VM Graphite',
@@ -97,6 +88,8 @@ async function seed() {
     _type: 'aboutPage',
     title: 'About VM Graphite Industries LLP',
     subtitle: 'Striving to Become India\'s Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape.',
+    heroImage: await uploadImage('public/images/facility-plant.jpg'),
+    manufacturingHeading: 'Advanced Alubonding Technology & Technical Manufacturing Excellence',
     companyIntroduction: [
       {
         _type: 'block',
@@ -111,40 +104,11 @@ async function seed() {
         ],
       },
     ],
-    manufacturingHeading: 'Advanced Precision Infrastructure',
-    manufacturingContent: [
-      {
-        _type: 'block',
-        _key: 'mfg1',
-        style: 'normal',
-        children: [
-          {
-            _type: 'span',
-            _key: 's2',
-            text: 'Our modern manufacturing plant in Gujarat features state-of-the-art CNC turning centers, high-temperature sintering furnaces, automated foil slitting lines, and micro-particle dispersion units. Every product undergoes strict quality control to guarantee tight mechanical tolerances and thermal stability.',
-          },
-        ],
-      },
-    ],
-    qualityHeading: 'Rigorous Quality Assurance Standards',
-    qualityContent: [
-      {
-        _type: 'block',
-        _key: 'qual1',
-        style: 'normal',
-        children: [
-          {
-            _type: 'span',
-            _key: 's3',
-            text: 'Certified under ISO 9001:2015 quality management protocols, our testing facility verifies carbon purity, density, tensile strength, and thermal resistance before dispatch. We ensure 100% material traceability and compliance with international standards.',
-          },
-        ],
-      },
-    ],
+    qualityHeading: 'Rigorous Quality & Production Standards',
     seo: {
       _type: 'seo',
       metaTitle: 'About Us | VM Graphite Industries LLP',
-      metaDescription: 'Learn about VM Graphite Industries LLP - our manufacturing facilities, ISO certified quality control, and industrial product leadership.',
+      metaDescription: 'Learn about VM Graphite Industries LLP - premier manufacturer of synthetic and natural graphite materials, crucibles, suspensions, and doctor blades in India.',
     },
   };
   await client.createOrReplace(aboutPageDoc);

@@ -2,26 +2,35 @@
 export interface Props {
   headline?: string;
   subheadline?: string;
-  heroImage?: string;
   primaryCtaText?: string;
   secondaryCtaText?: string;
+  coreCapabilities?: string[];
+  products?: Array<{
+    name: string;
+    slug: string;
+    categoryName?: string;
+    shortDescription?: string;
+    mainImage?: string;
+    specifications?: Array<{ name: string; value: string }>;
+  }>;
 }
 
 const {
   headline = 'Advanced Graphite & Industrial Material Solutions',
   subheadline = 'Precision-manufactured high-density graphite crucibles, colloidal graphite suspensions, synthetic seals, and high-tensile doctor blades engineered for severe thermal and chemical operating environments.',
-  heroImage = '/images/hero-industrial.jpg',
   primaryCtaText = 'Explore Product Range',
   secondaryCtaText = 'Request Custom Quote',
+  coreCapabilities = [],
+  products = [],
 } = Astro.props;
 
-// Headline split
+// Headline split for stylish gradient accent
 const parts = headline.split('&');
 const headlinePart1 = parts[0]?.trim() || headline;
 const headlinePart2 = parts[1]?.trim() || '';
 
-// Showcase Items for the Interactive Tab Switcher
-const showcaseItems = [
+// Fallback showcase items if no products are explicitly selected in Sanity yet
+const defaultShowcase = [
   {
     id: 'crucibles',
     tabName: 'Graphite Crucibles',
@@ -37,8 +46,6 @@ const showcaseItems = [
     stat2Lbl: 'Carbon Purity',
     stat3Val: '±0.02mm',
     stat3Lbl: 'CNC Precision',
-    telemetryRating: '3000°C Peak',
-    telemetryGrade: '99.9% Ultra-Pure',
   },
   {
     id: 'colloidal',
@@ -55,8 +62,6 @@ const showcaseItems = [
     stat2Lbl: 'Carrier Base',
     stat3Val: 'Zero Smoke',
     stat3Lbl: 'Eco Formulation',
-    telemetryRating: '1200°C Working',
-    telemetryGrade: 'Colloidal Grade A',
   },
   {
     id: 'seals',
@@ -73,16 +78,14 @@ const showcaseItems = [
     stat2Lbl: 'Non-Asbestos',
     stat3Val: 'High PSI',
     stat3Lbl: 'Pressure Class',
-    telemetryRating: '650°C Max Temp',
-    telemetryGrade: 'Flexible Foil 99.9%',
   },
   {
     id: 'doctor-blades',
     tabName: 'Doctor Blades',
     title: 'Precision High-Tensile Doctor Blades',
     tagline: 'Micro-honed Swedish carbon and stainless steel doctor blades for streak-free rotogravure & flexo printing.',
-    image: '/images/products/ss-doctor-blades.jpg',
-    url: '/products/ss-doctor-blades',
+    image: '/images/products/carbon-steel-doctor-blades.jpg',
+    url: '/products/carbon-steel-doctor-blades',
     badge: 'Micro-Honed Edge',
     badgeColor: 'text-purple-400 border-purple-500/30 bg-purple-500/10',
     stat1Val: 'Swedish',
@@ -91,42 +94,54 @@ const showcaseItems = [
     stat2Lbl: 'Edge Profiles',
     stat3Val: 'Zero Streak',
     stat3Lbl: 'Wiping Quality',
-    telemetryRating: '600 HV Hardness',
-    telemetryGrade: 'Swedish Carbon/SS',
   },
 ];
+
+// Map Sanity products or fallback
+const productList = Array.isArray(products) && products.length > 0 ? products.filter(Boolean) : [];
+const showcaseItems = productList.length > 0
+  ? productList.map((p, idx) => {
+      const s1 = p.specifications?.[0] || { name: 'Thermal Rating', value: '3000°C' };
+      const s2 = p.specifications?.[1] || { name: 'Carbon Purity', value: '99.9%' };
+      const s3 = p.specifications?.[2] || { name: 'Precision', value: '±0.02mm' };
+      return {
+        id: p.slug || `prod-${idx}`,
+        tabName: p.name && p.name.length > 22 ? p.name.substring(0, 20) + '...' : (p.name || 'Product'),
+        title: p.name || 'Industrial Product',
+        tagline: p.shortDescription || 'Engineered industrial graphite product with tight tolerances and extreme heat durability.',
+        image: p.mainImage || '/images/products/graphite-crucibles.jpg',
+        url: `/products/${p.slug}`,
+        badge: p.categoryName || 'Industrial Grade',
+        badgeColor: idx % 2 === 0 ? 'text-amber-400 border-amber-500/30 bg-amber-500/10' : 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10',
+        stat1Val: s1.value,
+        stat1Lbl: s1.name,
+        stat2Val: s2.value,
+        stat2Lbl: s2.name,
+        stat3Val: s3.value,
+        stat3Lbl: s3.name,
+      };
+    })
+  : defaultShowcase;
 ---
 
 <section class="relative min-h-[85vh] lg:min-h-[90vh] flex items-center overflow-hidden bg-[#07090e] pt-8 pb-16 lg:pt-14 lg:pb-20 industrial-grid-bg">
 
-  <!-- Ambient Glowing Backdrops (Lightweight GPU-optimized) -->
-  <div class="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,102,54,0.12)_0%,transparent_70%)] pointer-events-none"></div>
-  <div class="absolute -top-24 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,160,128,0.08)_0%,transparent_70%)] pointer-events-none"></div>
-
-  <div class="absolute bottom-0 inset-x-0 h-24 bg-gradient-to-t from-[#07090e] via-[#07090e]/80 to-transparent pointer-events-none z-10"></div>
+  <!-- Ambient Glowing Backdrops -->
+  <div class="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(240,101,67,0.14)_0%,transparent_70%)] pointer-events-none z-10"></div>
+  <div class="absolute -top-24 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(199,130,16,0.10)_0%,transparent_70%)] pointer-events-none z-10"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
       <!-- LEFT: Hero Animated Entrance Content -->
       <div class="lg:col-span-6 space-y-6">
-        
-        <!-- Entrance Element 1: ISO Live Badge -->
-        <!-- Entrance Element 1: ISO Live Badge -->
-        <div>
-          <div class="inline-flex items-center gap-3 bg-white/[0.04] border border-white/10 text-slate-200 text-xs font-semibold px-4 py-2 rounded-full shadow-md">
-            <span class="inline-block w-2.5 h-2.5 rounded-full bg-[var(--primary)]"></span>
-            <span class="tracking-wide">ISO 9001:2015 Certified B2B Manufacturer</span>
-            <span class="hidden sm:inline-block text-[10px] uppercase font-mono px-2 py-0.5 rounded bg-[var(--primary)]/20 text-[var(--primary-bright)] border border-[var(--primary)]/30 ml-1">Live Operations</span>
-          </div>
-        </div>
 
-        <!-- Entrance Element 2: Main Headline with Solid High-Contrast Accent -->
+        <!-- Entrance Element 1: Main Headline with Solid High-Contrast Accent -->
         <div class="space-y-1">
           <h1 class="text-3xl sm:text-4xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.08]" style="font-family:'Outfit',sans-serif;">
             {headlinePart1}
             {headlinePart2 && (
-              <span class="block text-theme font-black mt-1.5">
+              <span class="block text-[#f06543] font-black mt-1.5">
                 &amp; {headlinePart2}
               </span>
             )}
@@ -144,7 +159,7 @@ const showcaseItems = [
         <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
           <a
             href="/products"
-            class="forge-btn-primary rounded-full px-7 py-3.5 text-sm font-bold shadow-md"
+            class="forge-btn-primary rounded-full px-7 py-3.5 text-sm font-bold shadow-lg shadow-[#f06543]/20"
           >
             <span>{primaryCtaText}</span>
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -154,72 +169,62 @@ const showcaseItems = [
           <button
             type="button"
             data-open-quote-modal
-            class="forge-btn-ghost rounded-full px-7 py-3.5 text-sm font-semibold hover:bg-white/[0.06]"
+            class="forge-btn-ghost rounded-full px-7 py-3.5 text-sm font-semibold hover:bg-white/[0.08] backdrop-blur-sm cursor-pointer"
           >
-            <svg class="w-4 h-4 text-[var(--primary-text)]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-[#f06543]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <span>{secondaryCtaText}</span>
           </button>
         </div>
 
-        <!-- Entrance Element 5: Key Plant Competencies -->
-        <div class="pt-3">
-          <div class="text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-2.5 flex items-center gap-2">
-            <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)]"></span>
-            <span>Core Manufacturing Capabilities</span>
-          </div>
-          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-300 font-mono">
-            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-              Isostatic Hot Pressing
-            </span>
-            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
-              <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary-bright)]"></span>
-              Sub-Micron Dispersions
-            </span>
-            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              CNC Machining ±0.02mm
-            </span>
-            <span class="flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.09] px-3 py-1.5 rounded-lg">
-              <span class="w-1.5 h-1.5 rounded-full bg-blue-400"></span>
-              Global Export 20+ Countries
-            </span>
-          </div>
-        </div>
+        <!-- Entrance Element 5: Operational Highlights Pills -->
+        {(() => {
+          const defaultCaps = [
+            'Isostatic Hot Pressing',
+            'Sub-Micron Dispersions',
+            'CNC Machining ±0.02mm',
+            'Global Export 20+ Countries',
+          ];
+          const list = Array.isArray(coreCapabilities) && coreCapabilities.length > 0
+            ? coreCapabilities.filter(Boolean)
+            : defaultCaps;
+          const colors = ['bg-amber-400', 'bg-[#f06543]', 'bg-emerald-400', 'bg-sky-400', 'bg-purple-400'];
+
+          return (
+            <div class="pt-4 border-t border-white/10 space-y-2">
+              <div class="text-[11px] uppercase tracking-wider text-slate-400 font-mono font-semibold">
+                <span>Core Manufacturing Capabilities</span>
+              </div>
+              <div class="flex flex-wrap items-center gap-2 text-xs text-slate-300 font-mono">
+                {list.map((cap, idx) => (
+                  <span class="flex items-center gap-1.5 bg-white/[0.05] border border-white/[0.1] px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                    <span class={`w-1.5 h-1.5 rounded-full ${colors[idx % colors.length]}`}></span>
+                    {cap}
+                  </span>
+                ))}
+              </div>
+            </div>
+          );
+        })()}
 
       </div>
 
-      <!-- RIGHT: Standard Clean Showcase Card -->
+      <!-- RIGHT: Interactive Product Showcase Card -->
       <div class="lg:col-span-6 relative">
 
-        <!-- Telemetry Header Bar -->
-        <div class="flex flex-wrap items-center justify-between gap-2.5 mb-3 px-1">
-          <div class="inline-flex items-center gap-2 bg-[#0e111a] border border-amber-500/30 px-3.5 py-1.5 rounded-xl shadow-md">
-            <span class="w-2 h-2 rounded-full bg-amber-400 shrink-0"></span>
-            <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Thermal Rating:</span>
-            <span id="heroTelemetryRating" class="text-xs font-bold text-amber-300 font-mono">{showcaseItems[0].telemetryRating}</span>
-          </div>
-          <div class="inline-flex items-center gap-2 bg-[#0e111a] border border-emerald-500/30 px-3.5 py-1.5 rounded-xl shadow-md">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 shrink-0"></span>
-            <span class="text-[10px] uppercase font-mono text-slate-400 tracking-wider">Carbon Grade:</span>
-            <span id="heroTelemetryGrade" class="text-xs font-bold text-emerald-400 font-mono">{showcaseItems[0].telemetryGrade}</span>
-          </div>
-        </div>
-
         <!-- Main Showcase Frame -->
-        <div class="relative bg-[#0d1017] border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl">
+        <div class="relative bg-[#0d1017]/95 backdrop-blur-xl border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl">
           
           <!-- Category Quick Selection Tabs -->
-          <div class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.02] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+          <div class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.03] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
             <div class="flex items-center gap-1.5 sm:gap-2 w-full">
               {showcaseItems.map((item, idx) => (
                 <button
                   type="button"
-                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3 rounded-xl transition-colors shrink-0 cursor-pointer ${
+                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-colors shrink-0 cursor-pointer ${
                     idx === 0
-                      ? 'bg-[var(--primary)] text-white shadow-md font-bold'
+                      ? 'bg-[#f06543] text-[#07090e] shadow-md font-bold'
                       : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
                   }`}
                   data-index={idx}
@@ -231,7 +236,7 @@ const showcaseItems = [
           </div>
 
           <!-- Product Image & Highlight Banner -->
-          <div class="relative h-60 sm:h-72 overflow-hidden bg-black/60">
+          <div class="relative h-64 sm:h-76 overflow-hidden bg-black/60">
             {showcaseItems.map((item, idx) => (
               <div
                 class={`hero-image-slide absolute inset-0 ${
@@ -247,14 +252,14 @@ const showcaseItems = [
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-[#0d1017]/40 to-transparent"></div>
                 
                 <!-- Info Tag Inside Slide -->
-                <div class="absolute bottom-4 left-4 right-4 z-10 space-y-1">
+                <div class="absolute bottom-4 left-4 right-4 z-10 space-y-1.5">
                   <span class={`inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border ${item.badgeColor}`}>
                     {item.badge}
                   </span>
-                  <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight" style="font-family:'Outfit',sans-serif;">
+                  <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight" style="font-family:'Outfit',sans-serif;">
                     {item.title}
                   </h3>
-                  <p class="text-xs text-slate-300 line-clamp-1 font-normal">
+                  <p class="text-xs text-slate-300 line-clamp-2 font-normal leading-relaxed">
                     {item.tagline}
                   </p>
                 </div>
@@ -262,41 +267,46 @@ const showcaseItems = [
             ))}
           </div>
 
-          <!-- Dynamic Specification Grid -->
-          <div class="grid grid-cols-3 divide-x divide-white/[0.08] bg-white/[0.02] border-t border-b border-white/[0.08]">
-            <div class="py-3 px-3 text-center">
-              <div id="stat1Val" class="text-base sm:text-lg font-black text-white font-mono leading-none">{showcaseItems[0].stat1Val}</div>
-              <div id="stat1Lbl" class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mt-1">{showcaseItems[0].stat1Lbl}</div>
+          <!-- Clean Specification Attributes & Action Bar -->
+          <div class="p-4 sm:p-5 space-y-4">
+            
+            <!-- Sleek Responsive Spec Chips -->
+            <div class="flex flex-wrap items-center gap-2">
+              <div class="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] px-3 py-1.5 rounded-lg text-xs font-mono">
+                <span id="heroStat1Lbl" class="text-slate-400 font-semibold">{showcaseItems[0]?.stat1Lbl || 'Spec 1'}:</span>
+                <span id="heroStat1Val" class="font-bold text-white">{showcaseItems[0]?.stat1Val || 'Standard'}</span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] px-3 py-1.5 rounded-lg text-xs font-mono">
+                <span id="heroStat2Lbl" class="text-slate-400 font-semibold">{showcaseItems[0]?.stat2Lbl || 'Spec 2'}:</span>
+                <span id="heroStat2Val" class="font-bold text-[#f06543]">{showcaseItems[0]?.stat2Val || 'Standard'}</span>
+              </div>
+              <div class="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] px-3 py-1.5 rounded-lg text-xs font-mono">
+                <span id="heroStat3Lbl" class="text-slate-400 font-semibold">{showcaseItems[0]?.stat3Lbl || 'Spec 3'}:</span>
+                <span id="heroStat3Val" class="font-bold text-cyan-400">{showcaseItems[0]?.stat3Val || 'Standard'}</span>
+              </div>
             </div>
-            <div class="py-3 px-3 text-center">
-              <div id="stat2Val" class="text-base sm:text-lg font-black text-theme-bright font-mono leading-none">{showcaseItems[0].stat2Val}</div>
-              <div id="stat2Lbl" class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mt-1">{showcaseItems[0].stat2Lbl}</div>
-            </div>
-            <div class="py-3 px-3 text-center">
-              <div id="stat3Val" class="text-base sm:text-lg font-black text-slate-200 font-mono leading-none">{showcaseItems[0].stat3Val}</div>
-              <div id="stat3Lbl" class="text-[10px] text-slate-400 font-mono uppercase tracking-wider mt-1">{showcaseItems[0].stat3Lbl}</div>
-            </div>
-          </div>
 
-          <!-- Footer Action Bar -->
-          <div class="px-5 py-3.5 bg-black/40 flex items-center justify-between">
-            <a
-              id="showcaseProductUrl"
-              href={showcaseItems[0].url}
-              class="text-xs font-bold text-white hover:text-[var(--primary-bright)] transition-colors flex items-center gap-1.5"
-            >
-              <span>View Technical Specs</span>
-              <span>→</span>
-            </a>
-            <button
-              type="button"
-              id="showcaseQuoteBtn"
-              data-open-quote-modal
-              data-product-name={showcaseItems[0].title}
-              class="text-xs font-semibold px-3.5 py-1.5 rounded-xl bg-[var(--primary)]/20 border border-[var(--primary)]/40 text-[var(--primary-bright)] hover:bg-[var(--primary)] hover:text-white transition-colors font-mono cursor-pointer shadow-sm"
-            >
-              Request Quote
-            </button>
+            <!-- Action Bar Inside Showcase -->
+            <div class="flex items-center justify-between pt-2 border-t border-white/[0.06] gap-2">
+              <a
+                id="heroProductLink"
+                href={showcaseItems[0]?.url || '/products'}
+                class="text-xs text-[#f06543] font-bold font-mono hover:underline flex items-center gap-1 uppercase tracking-wider"
+              >
+                <span>View Full Specifications</span>
+                <span>→</span>
+              </a>
+              <button
+                type="button"
+                data-open-quote-modal
+                id="heroQuoteBtn"
+                data-product-name={showcaseItems[0]?.title}
+                data-product-category={showcaseItems[0]?.badge}
+                class="px-5 py-2.5 bg-[#f06543] hover:bg-[#d4911c] text-[#07090e] font-extrabold text-xs rounded-xl transition-all shadow-md cursor-pointer"
+              >
+                <span>Quick Quote</span>
+              </button>
+            </div>
           </div>
 
         </div>
@@ -305,78 +315,66 @@ const showcaseItems = [
 
     </div>
   </div>
-
 </section>
 
-<!-- Tab Switcher Script -->
-<script is:inline define:vars={{ itemsData: showcaseItems }}>
-  (function() {
-    const tabs = document.querySelectorAll('.hero-tab');
-    const slides = document.querySelectorAll('.hero-image-slide');
-    const stat1Val = document.getElementById('stat1Val');
-    const stat1Lbl = document.getElementById('stat1Lbl');
-    const stat2Val = document.getElementById('stat2Val');
-    const stat2Lbl = document.getElementById('stat2Lbl');
-    const stat3Val = document.getElementById('stat3Val');
-    const stat3Lbl = document.getElementById('stat3Lbl');
-    const telemetryRating = document.getElementById('heroTelemetryRating');
-    const telemetryGrade = document.getElementById('heroTelemetryGrade');
-    const productUrl = document.getElementById('showcaseProductUrl');
-    const quoteBtn = document.getElementById('showcaseQuoteBtn');
+<script is:inline define:vars={{ showcaseItems }}>
+  let currentIndex = 0;
+  const tabs = document.querySelectorAll('.hero-tab');
+  const slides = document.querySelectorAll('.hero-image-slide');
+  const stat1Val = document.getElementById('heroStat1Val');
+  const stat1Lbl = document.getElementById('heroStat1Lbl');
+  const stat2Val = document.getElementById('heroStat2Val');
+  const stat2Lbl = document.getElementById('heroStat2Lbl');
+  const stat3Val = document.getElementById('heroStat3Val');
+  const stat3Lbl = document.getElementById('heroStat3Lbl');
+  const productLink = document.getElementById('heroProductLink');
+  const quoteBtn = document.getElementById('heroQuoteBtn');
 
-    function switchShowcase(index) {
-      const item = itemsData[index];
-      if (!item) return;
+  function switchTab(index) {
+    if (!showcaseItems[index]) return;
+    currentIndex = index;
+    const item = showcaseItems[index];
 
-      tabs.forEach((tab, i) => {
-        if (i === index) {
-          tab.classList.add('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
-          tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
-        } else {
-          tab.classList.remove('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
-          tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
-        }
-      });
-
-      slides.forEach((sl, i) => {
-        if (i === index) {
-          sl.classList.remove('hidden');
-          sl.classList.add('block');
-        } else {
-          sl.classList.add('hidden');
-          sl.classList.remove('block');
-        }
-      });
-
-      if (telemetryRating && item.telemetryRating) telemetryRating.textContent = item.telemetryRating;
-      if (telemetryGrade && item.telemetryGrade) telemetryGrade.textContent = item.telemetryGrade;
-
-      if (stat1Val) stat1Val.textContent = item.stat1Val;
-      if (stat1Lbl) stat1Lbl.textContent = item.stat1Lbl;
-      if (stat2Val) stat2Val.textContent = item.stat2Val;
-      if (stat2Lbl) stat2Lbl.textContent = item.stat2Lbl;
-      if (stat3Val) stat3Val.textContent = item.stat3Val;
-      if (stat3Lbl) stat3Lbl.textContent = item.stat3Lbl;
-
-      if (productUrl) productUrl.setAttribute('href', item.url);
-      if (quoteBtn) quoteBtn.setAttribute('data-product-name', item.title);
-    }
-
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const idx = parseInt(tab.getAttribute('data-index') || '0', 10);
-        switchShowcase(idx);
-      });
+    // Update tab button styles
+    tabs.forEach((tab, i) => {
+      if (i === index) {
+        tab.classList.add('bg-[#f06543]', 'text-[#07090e]', 'shadow-md', 'font-bold');
+        tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
+      } else {
+        tab.classList.remove('bg-[#f06543]', 'text-[#07090e]', 'shadow-md', 'font-bold');
+        tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
+      }
     });
-  })();
-</script>
 
-<style>
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+    // Update slides
+    slides.forEach((slide, i) => {
+      if (i === index) {
+        slide.classList.remove('hidden');
+        slide.classList.add('block');
+      } else {
+        slide.classList.remove('block');
+        slide.classList.add('hidden');
+      }
+    });
+
+    // Update metrics and link
+    if (stat1Val) stat1Val.textContent = item.stat1Val;
+    if (stat1Lbl) stat1Lbl.textContent = item.stat1Lbl + ':';
+    if (stat2Val) stat2Val.textContent = item.stat2Val;
+    if (stat2Lbl) stat2Lbl.textContent = item.stat2Lbl + ':';
+    if (stat3Val) stat3Val.textContent = item.stat3Val;
+    if (stat3Lbl) stat3Lbl.textContent = item.stat3Lbl + ':';
+    if (productLink) productLink.href = item.url;
+    if (quoteBtn) {
+      quoteBtn.setAttribute('data-product-name', item.title);
+      quoteBtn.setAttribute('data-product-category', item.badge);
+    }
   }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-</style>
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', (e) => {
+      const idx = parseInt(e.currentTarget.getAttribute('data-index') || '0', 10);
+      switchTab(idx);
+    });
+  });
+</script>
