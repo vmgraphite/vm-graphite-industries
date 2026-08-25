@@ -44,15 +44,24 @@ const metricsList = homeContent?.metrics && homeContent.metrics.length > 0
     products={homeContent?.heroProducts}
   />
 
-  <!-- ② Metrics Bar -->
+  <!-- ② Metrics Bar with Live Animated Counters -->
   <div class="bg-[#0b0e15] border-t border-b border-white/10 relative z-20 shadow-md">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex flex-col sm:flex-row items-center justify-around divide-y sm:divide-y-0 sm:divide-x divide-white/10 w-full">
+      <div class="flex flex-col sm:flex-row items-center justify-around divide-y sm:divide-y-0 sm:divide-x divide-white/10 w-full" data-reveal="stagger">
         {metricsList.map((item: any, idx: number) => {
-          const color = idx === 0 ? 'text-[#f06543]' : idx === 1 ? 'text-white' : idx === 2 ? 'text-amber-400' : 'text-emerald-400';
+          const color = idx === 0 ? 'text-theme-bright' : idx === 1 ? 'text-white' : idx === 2 ? 'text-amber-400' : 'text-emerald-400';
           return (
-            <div class="flex-1 w-full py-7 px-4 sm:px-6 text-center flex flex-col justify-center items-center hover:bg-white/[0.02] transition-colors">
-              <div class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${color}`}>
+            <div
+              data-tilt
+              data-tilt-max="5"
+              data-spotlight
+              class="flex-1 w-full py-7 px-4 sm:px-6 text-center flex flex-col justify-center items-center hover:bg-white/[0.03] transition-all glow-card"
+            >
+              <div
+                data-counter={item.metric}
+                data-counter-duration="1800"
+                class={`text-3xl lg:text-4xl font-black font-mono tracking-tight ${color}`}
+              >
                 {item.metric}
               </div>
               <div class="text-xs text-slate-200 mt-2 font-bold uppercase tracking-wider font-mono">{item.label}</div>
