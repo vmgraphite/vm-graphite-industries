@@ -85,10 +85,10 @@ export const productSchema = defineType({
     defineField({
       name: 'fullDescription',
       title: '8. Detailed Description & Applications Overview',
-      description: 'Detailed explanation shown under "Detailed Product Overview & Applications".',
-      type: 'array',
+      description: 'Detailed industrial explanation shown under "Detailed Product Overview & Applications".',
+      type: 'text',
       group: 'content',
-      of: [{ type: 'block' }],
+      rows: 6,
     }),
 
     // ⑤ DISPLAY & SEO SETTINGS

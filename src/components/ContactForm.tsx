@@ -1,10 +1,68 @@
 import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Building2, MessageSquare, Sparkles, Zap, ExternalLink } from 'lucide-react';
+import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Building2, MessageSquare, Sparkles, Zap, ExternalLink, ChevronDown } from 'lucide-react';
 
 // Reads the Web3Forms access key injected by Astro via import.meta.env
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string;
 
-export default function ContactForm() {
+export interface ContactFormProps {
+  nameLabel?: string;
+  namePlaceholder?: string;
+  companyLabel?: string;
+  companyPlaceholder?: string;
+  emailLabel?: string;
+  emailPlaceholder?: string;
+  phoneLabel?: string;
+  phonePlaceholder?: string;
+  subjectLabel?: string;
+  subjectPlaceholder?: string;
+  subjectOptions?: string[];
+  messageLabel?: string;
+  messagePlaceholder?: string;
+  submitButtonText?: string;
+  submittingButtonText?: string;
+  formDisclaimerText?: string;
+  successHeading?: string;
+  successMessage?: string;
+  whatsappFollowupButtonText?: string;
+  resetButtonText?: string;
+  whatsappNumber?: string;
+  recipientEmail?: string;
+}
+
+const DEFAULT_SUBJECT_OPTIONS = [
+  'Graphite & Carbon Products',
+  'Tapes & Sealing Solutions',
+  'Industrial Blades & Materials',
+  'Custom Material Synthesis / R&D Trial',
+  'Bulk Commercial Export Inquiry',
+  'Technical Datasheet / Sample Request',
+  'Other Commercial Inquiry',
+];
+
+export default function ContactForm({
+  nameLabel = 'Full Name',
+  namePlaceholder = 'John Doe',
+  companyLabel = 'Company / Business Name',
+  companyPlaceholder = 'Acme Manufacturing Ltd',
+  emailLabel = 'Official Email',
+  emailPlaceholder = 'john@acme.com',
+  phoneLabel = 'Phone / Mobile Number',
+  phonePlaceholder = '+91 98765 43210',
+  subjectLabel = 'Subject / Product Category',
+  subjectPlaceholder = '-- Select Product Category / Inquiry Type --',
+  subjectOptions,
+  messageLabel = 'Detailed Message',
+  messagePlaceholder = 'Please detail your industrial requirements, material grades, or annual volume estimates...',
+  submitButtonText = 'Send Direct Message',
+  submittingButtonText = 'Transmitting inquiry...',
+  formDisclaimerText,
+  successHeading = 'Message Delivered!',
+  successMessage = 'Thank you for contacting VM Graphite Industries LLP. Your message has been routed to our corporate sales team.',
+  whatsappFollowupButtonText = 'WhatsApp Follow-up',
+  resetButtonText = 'Send Another Message',
+  whatsappNumber = '919422102425',
+  recipientEmail = 'info@vmgraphiteindustries.com',
+}: ContactFormProps) {
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -19,7 +77,11 @@ export default function ContactForm() {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const optionsList = Array.isArray(subjectOptions) && subjectOptions.length > 0
+    ? subjectOptions
+    : DEFAULT_SUBJECT_OPTIONS;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -30,7 +92,7 @@ export default function ContactForm() {
     if (formData.botcheck) return;
 
     if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
-      setErrorMessage('Please complete all required fields (Name, Email, Phone, and Message).');
+      setErrorMessage(`Please complete all required fields (${nameLabel}, ${emailLabel}, ${phoneLabel}, and ${messageLabel}).`);
       setStatus('error');
       return;
     }
@@ -78,7 +140,7 @@ export default function ContactForm() {
       console.error('Contact Form Submission Error:', err);
       setStatus('error');
       setErrorMessage(
-        err.message || 'Error submitting message. Please try again or reach out to info@vmgraphiteindustries.com.'
+        err.message || `Error submitting message. Please try again or reach out to ${recipientEmail}.`
       );
     }
   };
@@ -99,7 +161,10 @@ export default function ContactForm() {
   const whatsappText = encodeURIComponent(
     `Hello VM Graphite Team, I have sent an inquiry (Ref #${ticketId || 'Direct'}) regarding "${formData.subject || 'Commercial Products'}". Please connect with me.`
   );
-  const whatsappUrl = `https://wa.me/919876543210?text=${whatsappText}`;
+  const cleanPhone = String(whatsappNumber).replace(/[^0-9]/g, '');
+  const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappText}`;
+
+  const disclaimer = formDisclaimerText || `All messages are dispatched to ${recipientEmail}.`;
 
   if (status === 'success') {
     return (
@@ -110,11 +175,11 @@ export default function ContactForm() {
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono mb-2">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>DISPATCHED TO INFO@VMGRAPHITEINDUSTRIES.COM</span>
+            <span>DISPATCHED TO {recipientEmail.toUpperCase()}</span>
           </div>
-          <h3 className="text-2xl font-black text-white">Message Delivered!</h3>
+          <h3 className="text-2xl font-black text-white">{successHeading}</h3>
           <p className="text-slate-300 max-w-md mx-auto text-sm mt-1 leading-relaxed font-normal">
-            Thank you for contacting VM Graphite Industries LLP. Your message (Ref: <span className="font-mono text-theme-bright font-bold">{ticketId}</span>) has been routed to our corporate sales team.
+            {successMessage} (Ref: <span className="font-mono text-theme-bright font-bold">{ticketId}</span>)
           </p>
         </div>
 
@@ -126,7 +191,7 @@ export default function ContactForm() {
             className="w-full sm:w-auto py-3 px-5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 transition-colors uppercase tracking-wider shadow-md"
           >
             <Zap className="w-4 h-4 text-emerald-200 fill-current" />
-            <span>WhatsApp Follow-up</span>
+            <span>{whatsappFollowupButtonText}</span>
             <ExternalLink className="w-3.5 h-3.5 opacity-70" />
           </a>
           <button
@@ -134,7 +199,7 @@ export default function ContactForm() {
             onClick={handleReset}
             className="w-full sm:w-auto py-3 px-5 bg-white/5 hover:bg-white/10 text-slate-200 hover:text-white font-medium rounded-xl text-xs border border-white/10 transition-colors cursor-pointer"
           >
-            Send Another Message
+            {resetButtonText}
           </button>
         </div>
       </div>
@@ -168,7 +233,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
-            Full Name <span className="text-theme-bright">*</span>
+            {nameLabel} <span className="text-theme-bright">*</span>
           </label>
           <div className="relative">
             <input
@@ -177,7 +242,7 @@ export default function ContactForm() {
               required
               value={formData.name}
               onChange={handleChange}
-              placeholder="John Doe"
+              placeholder={namePlaceholder}
               className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition-all outline-none"
             />
             <User className="w-4 h-4 text-slate-500 absolute left-3 top-3 pointer-events-none" />
@@ -185,7 +250,7 @@ export default function ContactForm() {
         </div>
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
-            Company / Business Name
+            {companyLabel}
           </label>
           <div className="relative">
             <input
@@ -193,7 +258,7 @@ export default function ContactForm() {
               name="company"
               value={formData.company}
               onChange={handleChange}
-              placeholder="Acme Manufacturing Ltd"
+              placeholder={companyPlaceholder}
               className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition-all outline-none"
             />
             <Building2 className="w-4 h-4 text-slate-500 absolute left-3 top-3 pointer-events-none" />
@@ -204,7 +269,7 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
-            Official Email <span className="text-theme-bright">*</span>
+            {emailLabel} <span className="text-theme-bright">*</span>
           </label>
           <div className="relative">
             <input
@@ -213,7 +278,7 @@ export default function ContactForm() {
               required
               value={formData.email}
               onChange={handleChange}
-              placeholder="john@acme.com"
+              placeholder={emailPlaceholder}
               className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition-all outline-none"
             />
             <Mail className="w-4 h-4 text-slate-500 absolute left-3 top-3 pointer-events-none" />
@@ -221,7 +286,7 @@ export default function ContactForm() {
         </div>
         <div>
           <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
-            Phone / Mobile Number <span className="text-theme-bright">*</span>
+            {phoneLabel} <span className="text-theme-bright">*</span>
           </label>
           <div className="relative">
             <input
@@ -230,7 +295,7 @@ export default function ContactForm() {
               required
               value={formData.phone}
               onChange={handleChange}
-              placeholder="+91 98765 43210"
+              placeholder={phonePlaceholder}
               className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition-all outline-none"
             />
             <Phone className="w-4 h-4 text-slate-500 absolute left-3 top-3 pointer-events-none" />
@@ -240,21 +305,33 @@ export default function ContactForm() {
 
       <div>
         <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
-          Subject / Area of Inquiry
+          {subjectLabel}
         </label>
-        <input
-          type="text"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          placeholder="Bulk Pricing / Technical Specification / Export Partnership"
-          className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl px-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition-all outline-none"
-        />
+        <div className="relative">
+          <select
+            name="subject"
+            value={formData.subject}
+            onChange={handleChange}
+            className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl px-3.5 py-2.5 text-sm text-white transition-all outline-none appearance-none cursor-pointer pr-10 font-sans"
+          >
+            <option value="" className="bg-[#0d1117] text-slate-400">
+              {subjectPlaceholder}
+            </option>
+            {optionsList.map((opt) => (
+              <option key={opt} value={opt} className="bg-[#0d1117] text-white">
+                {opt}
+              </option>
+            ))}
+          </select>
+          <div className="absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none text-slate-400">
+            <ChevronDown className="w-4 h-4" />
+          </div>
+        </div>
       </div>
 
       <div>
         <label className="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1">
-          Detailed Message <span className="text-theme-bright">*</span>
+          {messageLabel} <span className="text-theme-bright">*</span>
         </label>
         <div className="relative">
           <textarea
@@ -263,7 +340,7 @@ export default function ContactForm() {
             required
             value={formData.message}
             onChange={handleChange}
-            placeholder="Please detail your industrial requirements, material grades, or annual volume estimates..."
+            placeholder={messagePlaceholder}
             className="w-full bg-[#07090f] border border-white/15 focus:border-[var(--primary)] focus:ring-2 focus:ring-[var(--primary-glow)] rounded-xl pl-9 pr-3.5 py-2.5 text-sm text-white placeholder-slate-500 transition-all outline-none resize-none"
           ></textarea>
           <MessageSquare className="w-4 h-4 text-slate-500 absolute left-3 top-3 pointer-events-none" />
@@ -278,18 +355,18 @@ export default function ContactForm() {
         {status === 'submitting' ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin text-slate-950" />
-            <span>Transmitting to info@vmgraphiteindustries.com...</span>
+            <span>{submittingButtonText}</span>
           </>
         ) : (
           <>
             <Send className="w-5 h-5 text-slate-950" />
-            <span>Send Direct Message</span>
+            <span>{submitButtonText}</span>
           </>
         )}
       </button>
 
       <p className="text-center text-[11px] text-slate-400">
-        All messages are dispatched to <span className="text-theme-bright font-mono font-medium">info@vmgraphiteindustries.com</span>.
+        {disclaimer}
       </p>
     </form>
   );

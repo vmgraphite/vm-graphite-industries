@@ -2,8 +2,8 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './sanity/schemas';
 
-const projectId = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) || process.env.PUBLIC_SANITY_PROJECT_ID || 'twycammz';
-const dataset = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_DATASET) || process.env.PUBLIC_SANITY_DATASET || 'production';
+const projectId = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_PROJECT_ID) || 'twycammz';
+const dataset = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_DATASET) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_DATASET) || 'production';
 
 export default defineConfig({
   name: 'vm-graphite-studio',
@@ -35,18 +35,24 @@ export default defineConfig({
               .id('contactPage')
               .child(S.document().schemaType('contactPage').documentId('contactPage')),
 
-            // 4. Header & Footer Settings
+            // 4. Downloads Page
             S.listItem()
-              .title('4. Header & Footer Settings')
+              .title('4. Downloads & Resource Hub Content')
+              .id('downloadsPage')
+              .child(S.document().schemaType('downloadsPage').documentId('downloadsPage')),
+
+            // 5. Header & Footer Settings
+            S.listItem()
+              .title('5. Header & Footer Settings')
               .id('siteSettings')
               .child(S.document().schemaType('siteSettings').documentId('siteSettings')),
 
             S.divider(),
 
             // Collections
-            S.documentTypeListItem('product').title('5. Products Catalog'),
-            S.documentTypeListItem('category').title('6. Product Categories'),
-            S.documentTypeListItem('resource').title('7. Downloads & Brochures'),
+            S.documentTypeListItem('product').title('6. Products Catalog'),
+            S.documentTypeListItem('category').title('7. Product Categories'),
+            S.documentTypeListItem('resource').title('8. Downloadable Resources & PDFs'),
           ]),
     }),
   ],

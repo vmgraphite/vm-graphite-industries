@@ -54,8 +54,27 @@ async function seed() {
     primaryPhone: '+91 94221 02425',
     whatsappNumber: '919422102425',
     email: 'info@vmgraphiteindustries.com',
-    officeAddress: 'Corporate Office: Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
-    plantAddress: 'Manufacturing Unit: Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+    workingHours: 'Mon - Sat: 9:00 AM - 6:30 PM IST',
+    officeAddress: 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
+    plantAddress: 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+    footerLocations: [
+      {
+        _key: 'loc-1',
+        title: 'Corporate Office',
+        badge: 'Corporate HQ',
+        address: 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
+        phone: '+91 94221 02425',
+        email: 'info@vmgraphiteindustries.com',
+      },
+      {
+        _key: 'loc-2',
+        title: 'Manufacturing Plant',
+        badge: 'Manufacturing Unit',
+        address: 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+        phone: '+91 94221 02425',
+        email: 'info@vmgraphiteindustries.com',
+      },
+    ],
   };
   await client.createOrReplace(siteSettingsDoc);
 
@@ -86,10 +105,17 @@ async function seed() {
   const aboutPageDoc = {
     _id: 'aboutPage',
     _type: 'aboutPage',
+    headerBadge: 'Company Profile & Vision',
     title: 'About VM Graphite Industries LLP',
     subtitle: 'Striving to Become India\'s Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape.',
-    heroImage: await uploadImage('public/images/facility-plant.jpg'),
+    aimHeading: 'Our Corporate Aim',
+    aimQuote: '"VM Graphite Industries LLP: Striving to Become India\'s Leading Supplier of Unmatched Quality Graphite Suspension and Foil Tape."',
+    whoWeAreBadge: 'Who We Are',
     manufacturingHeading: 'Advanced Alubonding Technology & Technical Manufacturing Excellence',
+    heroImage: await uploadImage('public/images/facility-plant.jpg'),
+    plantHubTag: 'Manufacturing Hub & R&D Center',
+    plantLocation: 'New Delhi & Gujarat Units',
+    plantEstTag: 'EST. 2021',
     companyIntroduction: [
       {
         _type: 'block',
@@ -99,12 +125,57 @@ async function seed() {
           {
             _type: 'span',
             _key: 's1',
-            text: 'VM Graphite Industries LLP was established in 2021 by partners Ayush Patel and Himanshu Bisth. The company specializes in manufacturing high-quality graphite suspension and foil tape & other industrial materials. Leveraging extensive research and development along with advanced Alubonding technology, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality. Their foil tape is available in various sizes to meet diverse needs.',
+            text: 'VM Graphite Industries LLP was established in 2021 by partners Ayush Patel and Himanshu Bisth. The company specializes in manufacturing high-quality graphite suspension and foil tape & other industrial materials. Leveraging extensive research and development along with advanced Alubonding technology, VM Graphite Industries LLP delivers graphite solutions that stand out for their unmatched quality. Our foil tape is available in various custom dimensions to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.',
           },
         ],
       },
     ],
+    leadershipLabel: 'Founders & Leadership',
+    leadershipTitle: 'Ayush Patel & Himanshu Bisth',
+    leadershipSubtitle: 'Partners & Co-Founders',
+    innovationLabel: 'Core Innovation',
+    innovationTitle: 'Alubonding Technology',
+    innovationSubtitle: 'Proprietary R&D Process',
+    capacityBadge: 'Production Capacity & Quality Standard',
+    capacityStatement: '"We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality. Discover how our solutions can meet your industrial needs with speed and excellence."',
+    qualityBadge: 'Quality Assurance',
     qualityHeading: 'Rigorous Quality & Production Standards',
+    qualitySubtitle: 'Every production lot undergoes rigorous physical, thermal, and chemical laboratory testing before dispatch.',
+    qualityPillars: [
+      {
+        _key: 'q1',
+        title: 'Alubonding & Material R&D',
+        description: 'Proprietary Alubonding thermal bonding and chemical formulation techniques yield superior heat resistance, low ash content, and structural integrity.',
+        iconType: 'shield',
+      },
+      {
+        _key: 'q2',
+        title: 'Foil Tape Custom Sizing',
+        description: 'Our high-purity graphite foil tape is engineered in various custom widths, thicknesses, and adhesive backings to suit diverse industrial sealing requirements.',
+        iconType: 'layers',
+      },
+      {
+        _key: 'q3',
+        title: 'Timely Delivery Guarantee',
+        description: 'Robust production scheduling and export-grade protective packaging ensure every order is fulfilled on schedule without compromising on quality.',
+        iconType: 'delivery',
+      },
+    ],
+    brochureBadge: 'Official Technical Documentation',
+    brochureTitle: 'Download VM Graphite Corporate Catalog & Technical Brochure',
+    brochureDescription: 'Access complete product dimensions, thermal performance charts, chemical resistance matrices, and ISO manufacturing certifications in a single convenient PDF brochure.',
+    brochureFeatures: [
+      'Product dimensions & tolerances',
+      'Thermal performance charts',
+      'ISO 9001:2015 certifications',
+      'Spectrographic analysis data',
+    ],
+    brochureCardTag: 'PDF Specification',
+    brochureCardTitle: 'Corporate Brochure & Product Catalog',
+    brochureCardSubtitle: 'Comprehensive technical reference for engineers & buyers',
+    brochureButtonText: 'Download PDF Brochure',
+    brochureSecondaryButtonText: 'View All Technical Datasheets',
+    brochureCardCertText: 'ISO 9001:2015 Certified Documentation',
     seo: {
       _type: 'seo',
       metaTitle: 'About Us | VM Graphite Industries LLP',
@@ -113,7 +184,123 @@ async function seed() {
   };
   await client.createOrReplace(aboutPageDoc);
 
-  // 4. Categories
+  // 4. Contact Page Singleton
+  console.log('Seeding contactPage...');
+  const contactPageDoc = {
+    _id: 'contactPage',
+    _type: 'contactPage',
+    badge: 'Direct Channels',
+    title: 'Contact & Factory Locations',
+    subtitle: 'Reach out to our technical sales team, request custom sample trials, or schedule a facility visit.',
+    locations: [
+      {
+        _key: 'loc-1',
+        title: 'Corporate & Sales Office',
+        badge: 'Corporate HQ',
+        address: 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
+        phone: '+91 94221 02425',
+        email: 'info@vmgraphiteindustries.com',
+      },
+      {
+        _key: 'loc-2',
+        title: 'Manufacturing Plant Unit',
+        badge: 'Manufacturing Unit',
+        address: 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+        phone: '+91 94221 02425',
+        email: 'info@vmgraphiteindustries.com',
+      },
+    ],
+    directCommHeading: 'Direct Communication',
+    contactChannels: [
+      {
+        _key: 'ch-1',
+        title: 'Primary Phone',
+        type: 'phone',
+        value: '+91 94221 02425',
+        subtext: 'Mon - Sat: 9:00 AM - 6:30 PM IST',
+      },
+      {
+        _key: 'ch-2',
+        title: 'Official Email',
+        type: 'email',
+        value: 'info@vmgraphiteindustries.com',
+        subtext: 'Commercial Inquiry Desk',
+      },
+      {
+        _key: 'ch-3',
+        title: 'Instant WhatsApp Sales Desk',
+        type: 'whatsapp',
+        value: '919422102425',
+        subtext: 'Direct technical response in 2-4 hours',
+      },
+    ],
+    formBadge: 'Inquiry Desk',
+    formHeading: 'Send an Official Commercial Inquiry',
+    formSubtitle: 'Fill out the details below. Our technical sales engineers respond within 2-4 business hours.',
+    nameLabel: 'Full Name',
+    namePlaceholder: 'John Doe',
+    companyLabel: 'Company / Business Name',
+    companyPlaceholder: 'Acme Manufacturing Ltd',
+    emailLabel: 'Official Email',
+    emailPlaceholder: 'john@acme.com',
+    phoneLabel: 'Phone / Mobile Number',
+    phonePlaceholder: '+91 98765 43210',
+    subjectLabel: 'Subject / Area of Inquiry',
+    subjectPlaceholder: '-- Select Product Category / Inquiry Type --',
+    subjectOptions: [
+      'Graphite & Carbon Products',
+      'Tapes & Sealing Solutions',
+      'Industrial Blades & Materials',
+      'Custom Material Synthesis / R&D Trial',
+      'Bulk Commercial Export Inquiry',
+      'Technical Datasheet / Sample Request',
+      'Other Commercial Inquiry',
+    ],
+    messageLabel: 'Detailed Message',
+    messagePlaceholder: 'Please detail your industrial requirements, material grades, or annual volume estimates...',
+    submitButtonText: 'Send Direct Message',
+    submittingButtonText: 'Transmitting to info@vmgraphiteindustries.com...',
+    formDisclaimerText: 'All messages are dispatched to info@vmgraphiteindustries.com.',
+    successHeading: 'Message Delivered!',
+    successMessage: 'Thank you for contacting VM Graphite Industries LLP. Your message has been routed to our corporate sales team.',
+    whatsappFollowupButtonText: 'WhatsApp Follow-up',
+    resetButtonText: 'Send Another Message',
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Contact Us & Factory Units | VM Graphite Industries LLP',
+      metaDescription: 'Contact VM Graphite Industries LLP. Corporate office in New Delhi, manufacturing plant in Gujarat. Call, WhatsApp or send inquiry.',
+    },
+  };
+  await client.createOrReplace(contactPageDoc);
+
+  // 5. Downloads Page Singleton
+  console.log('Seeding downloadsPage...');
+  const downloadsPageDoc = {
+    _id: 'downloadsPage',
+    _type: 'downloadsPage',
+    badge: 'Technical Documentation',
+    title: 'Downloads & Resource Hub',
+    subtitle: 'Access official PDF datasheets, product catalogs, engineering guidelines, and ISO 9001 quality certificates.',
+    allTabLabel: 'All Resources',
+    catalogTabLabel: 'Catalogs',
+    brochureTabLabel: 'Brochures',
+    datasheetTabLabel: 'Technical Datasheets',
+    certificationTabLabel: 'Certifications',
+    emptyStateHeading: 'No Documents Found',
+    emptyStateText: 'No downloadable resources found matching the selected filter category.',
+    ctaBadge: 'Custom Engineering Requirements',
+    ctaTitle: 'Need Custom Material Formulations or Specific Test Reports?',
+    ctaDescription: 'Contact our laboratory and metallurgy engineering team directly to request proprietary spectroscopic reports, chemical lot certifications, or customized dimensions.',
+    ctaButtonText: 'Contact Technical Engineering Desk',
+    seo: {
+      _type: 'seo',
+      metaTitle: 'Downloads & Technical Resources | VM Graphite Industries LLP',
+      metaDescription: 'Download official VM Graphite corporate brochures, product catalogs, engineering technical datasheets, and ISO 9001 quality certificates.',
+    },
+  };
+  await client.createOrReplace(downloadsPageDoc);
+
+  // 6. Categories
   console.log('Seeding Categories...');
   const categoryDefs = [
     {
@@ -477,14 +664,7 @@ async function seed() {
       slug: { _type: 'slug', current: prodDef.slug },
       category: { _type: 'reference', _ref: categoryId },
       shortDescription: prodDef.shortDescription,
-      fullDescription: [
-        {
-          _type: 'block',
-          _key: 'b1',
-          style: 'normal',
-          children: [{ _type: 'span', _key: 's1', text: prodDef.fullDescription }],
-        },
-      ],
+      fullDescription: prodDef.fullDescription,
       ...(imageObject ? { mainImage: imageObject } : {}),
       specifications: prodDef.specifications.map((spec, idx) => ({
         _type: 'specRow',

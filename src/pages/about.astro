@@ -37,6 +37,28 @@ const defaultIntro = `
     Our foil tape is available in various custom dimensions to meet diverse needs, alongside specialized liquid colloidal suspensions, crucibles, and severe-duty sealing components for global industrial applications.
   </p>
 `;
+
+const defaultQualityPillars = [
+  {
+    title: 'Alubonding & Material R&D',
+    description: 'Proprietary Alubonding thermal bonding and chemical formulation techniques yield superior heat resistance, low ash content, and structural integrity.',
+    iconType: 'shield',
+  },
+  {
+    title: 'Foil Tape Custom Sizing',
+    description: 'Our high-purity graphite foil tape is engineered in various custom widths, thicknesses, and adhesive backings to suit diverse industrial sealing requirements.',
+    iconType: 'layers',
+  },
+  {
+    title: 'Timely Delivery Guarantee',
+    description: 'Robust production scheduling and export-grade protective packaging ensure every order is fulfilled on schedule without compromising on quality.',
+    iconType: 'delivery',
+  },
+];
+
+const qualityPillarsList = Array.isArray(aboutContent?.qualityPillars) && aboutContent.qualityPillars.length > 0
+  ? aboutContent.qualityPillars
+  : defaultQualityPillars;
 ---
 
 <Layout
@@ -46,7 +68,7 @@ const defaultIntro = `
     { name: 'About Us', item: '/about' }
   ]}
 >
-  <!-- Page Header Banner -->
+  <!-- ① Top Banner (Header of About Us Page) -->
   <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/[0.06] relative overflow-hidden">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,var(--primary-glow-subtle),transparent_65%)] pointer-events-none"></div>
 
@@ -55,7 +77,7 @@ const defaultIntro = `
 
       <div class="max-w-3xl space-y-4 pt-6">
         <span class="theme-pill">
-          Company Profile &amp; Vision
+          {aboutContent?.headerBadge || "Company Profile & Vision"}
         </span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
           {aboutContent?.title ? (
@@ -71,7 +93,7 @@ const defaultIntro = `
     </div>
   </section>
 
-  <!-- Company Aim & Vision Banner -->
+  <!-- ② Corporate Aim & Vision Banner -->
   <section class="py-12 bg-gradient-to-r from-[#07090e] via-[#0f1118] to-[#07090e] border-b border-white/[0.06]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-3">
       <span class="text-xs font-bold text-theme-bright uppercase tracking-widest font-mono">
@@ -83,7 +105,7 @@ const defaultIntro = `
     </div>
   </section>
 
-  <!-- Company Overview Section -->
+  <!-- ③ Who We Are / Company Overview & Plant Spotlight -->
   <section class="py-20 bg-[#07090e] text-slate-100 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -98,11 +120,15 @@ const defaultIntro = `
             />
             <div class="p-6 bg-[#07090e] text-white flex justify-between items-center border-t border-white/10">
               <div>
-                <div class="text-xs font-bold text-theme-bright uppercase tracking-wider font-mono">Manufacturing Hub &amp; R&amp;D Center</div>
-                <div class="text-sm font-semibold text-white">New Delhi &amp; Gujarat Units</div>
+                <div class="text-xs font-bold text-theme-bright uppercase tracking-wider font-mono">
+                  {aboutContent?.plantHubTag || "Manufacturing Hub & R&D Center"}
+                </div>
+                <div class="text-sm font-semibold text-white">
+                  {aboutContent?.plantLocation || "New Delhi & Gujarat Units"}
+                </div>
               </div>
               <div class="text-right font-mono text-xs text-slate-400 bg-white/5 px-2.5 py-1 rounded border border-white/8">
-                EST. 2021
+                {aboutContent?.plantEstTag || "EST. 2021"}
               </div>
             </div>
           </div>
@@ -110,17 +136,21 @@ const defaultIntro = `
 
         <!-- Right Overview Content -->
         <div class="lg:col-span-6 space-y-6">
-          <span class="theme-pill">Who We Are</span>
+          <span class="theme-pill">
+            {aboutContent?.whoWeAreBadge || "Who We Are"}
+          </span>
           <h3 class="text-2xl sm:text-3xl font-extrabold text-white leading-tight" style="font-family:'Outfit',sans-serif;">
             {aboutContent?.manufacturingHeading || "Advanced Alubonding Technology & Technical Manufacturing Excellence"}
           </h3>
 
           <div class="text-slate-300 text-sm sm:text-base leading-relaxed space-y-4 font-normal" set:html={renderBlocksOrText(aboutContent?.companyIntroduction, defaultIntro)} />
 
-          <!-- Key Leadership & Metrics -->
+          <!-- Key Leadership & Innovation Highlights -->
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4 border-t border-white/10">
             <div class="p-4 bg-[#0d1117] rounded-xl border border-white/8">
-              <div class="text-xs font-bold text-theme-bright font-mono uppercase">Founders &amp; Leadership</div>
+              <div class="text-xs font-bold text-theme-bright font-mono uppercase">
+                {aboutContent?.leadershipLabel || "Founders & Leadership"}
+              </div>
               <div class="text-sm font-bold text-white mt-1">
                 {aboutContent?.leadershipTitle || "Ayush Patel & Himanshu Bisth"}
               </div>
@@ -129,7 +159,9 @@ const defaultIntro = `
               </div>
             </div>
             <div class="p-4 bg-[#0d1117] rounded-xl border border-white/8">
-              <div class="text-xs font-bold text-theme-bright font-mono uppercase">Core Innovation</div>
+              <div class="text-xs font-bold text-theme-bright font-mono uppercase">
+                {aboutContent?.innovationLabel || "Core Innovation"}
+              </div>
               <div class="text-sm font-bold text-white mt-1">
                 {aboutContent?.innovationTitle || "Alubonding Technology"}
               </div>
@@ -144,12 +176,12 @@ const defaultIntro = `
     </div>
   </section>
 
-  <!-- Exceptional Production Capacity Statement -->
+  <!-- ④ Production Capacity & Quality Standard Banner -->
   <section class="py-16 bg-[#07090e] text-white border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="p-8 sm:p-12 rounded-3xl bg-[#0d1117] border border-theme text-center space-y-4 max-w-4xl mx-auto shadow-2xl">
         <span class="theme-pill">
-          Production Capacity &amp; Quality Standard
+          {aboutContent?.capacityBadge || "Production Capacity & Quality Standard"}
         </span>
         <p class="text-base sm:text-xl font-medium text-slate-200 leading-relaxed font-sans">
           {aboutContent?.capacityStatement || '"We pride ourselves on our exceptional production capacity and commitment to timely delivery, ensuring that your orders are fulfilled on schedule with the highest standards of quality. Discover how our solutions can meet your industrial needs with speed and excellence."'}
@@ -158,12 +190,14 @@ const defaultIntro = `
     </div>
   </section>
 
-  <!-- Quality Commitment & Facility Pillars -->
+  <!-- ⑤ Quality Assurance & Production Standards -->
   <section class="py-20 bg-[#07090e] text-white border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
       <div class="text-center max-w-3xl mx-auto space-y-3 mb-14">
-        <span class="theme-pill">Quality Assurance</span>
+        <span class="theme-pill">
+          {aboutContent?.qualityBadge || "Quality Assurance"}
+        </span>
         <h3 class="display-lg text-white font-black" style="font-family:'Outfit',sans-serif;">
           {aboutContent?.qualityHeading || "Rigorous Quality & Production Standards"}
         </h3>
@@ -173,41 +207,55 @@ const defaultIntro = `
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        <div class="glow-card p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-theme-tint text-theme-bright border border-theme rounded-xl flex items-center justify-center font-bold">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-          </div>
-          <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">Alubonding &amp; Material R&amp;D</h4>
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-            Proprietary Alubonding thermal bonding and chemical formulation techniques yield superior heat resistance, low ash content, and structural integrity.
-          </p>
-        </div>
+        {qualityPillarsList.map((pillar: any) => {
+          const isDelivery = pillar.iconType === 'delivery';
+          const isLayers = pillar.iconType === 'layers';
+          const iconBg = isDelivery
+            ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+            : 'bg-theme-tint text-theme-bright border-theme';
 
-        <div class="glow-card p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-theme-tint text-theme-bright border border-theme rounded-xl flex items-center justify-center font-bold">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/></svg>
-          </div>
-          <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">Foil Tape Custom Sizing</h4>
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-            Our high-purity graphite foil tape is engineered in various custom widths, thicknesses, and adhesive backings to suit diverse industrial sealing requirements.
-          </p>
-        </div>
-
-        <div class="glow-card p-8 rounded-2xl space-y-4">
-          <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 rounded-xl flex items-center justify-center font-bold">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-          </div>
-          <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">Timely Delivery Guarantee</h4>
-          <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
-            Robust production scheduling and export-grade protective packaging ensure every order is fulfilled on schedule without compromising on quality.
-          </p>
-        </div>
-
+          return (
+            <div class="glow-card p-8 rounded-2xl space-y-4">
+              <div class={`w-12 h-12 rounded-xl flex items-center justify-center font-bold border ${iconBg}`}>
+                {isDelivery ? (
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+                  </svg>
+                ) : isLayers ? (
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/>
+                  </svg>
+                ) : (
+                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                  </svg>
+                )}
+              </div>
+              <h4 class="text-xl font-bold text-white" style="font-family:'Outfit',sans-serif;">
+                {pillar.title}
+              </h4>
+              <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
+                {pillar.description}
+              </p>
+            </div>
+          );
+        })}
       </div>
     </div>
   </section>
 
-  <!-- Brochure CTA -->
-  <BrochureCTA brochureUrl={siteSettings.companyBrochureUrl} />
+  <!-- ⑥ Download Technical Brochure CTA Banner (Bottom of Page) -->
+  <BrochureCTA
+    brochureUrl={siteSettings.companyBrochureUrl}
+    badge={aboutContent?.brochureBadge}
+    title={aboutContent?.brochureTitle}
+    description={aboutContent?.brochureDescription}
+    features={aboutContent?.brochureFeatures}
+    cardTag={aboutContent?.brochureCardTag}
+    cardTitle={aboutContent?.brochureCardTitle}
+    cardSubtitle={aboutContent?.brochureCardSubtitle}
+    buttonText={aboutContent?.brochureButtonText}
+    secondaryButtonText={aboutContent?.brochureSecondaryButtonText}
+    cardCertText={aboutContent?.brochureCardCertText}
+  />
 </Layout>

@@ -2,18 +2,41 @@
 import Layout from '../layouts/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import DownloadCard from '../components/DownloadCard.astro';
-import { getResources } from '../lib/data';
+import { getResources, getDownloadsPageContent } from '../lib/data';
 
-const resources = await getResources();
-const selectedCategory = Astro.url.searchParams.get('category') || 'all';
+const [resources, downloadsContent] = await Promise.all([
+  getResources(),
+  getDownloadsPageContent(),
+]);
+
+const pageBadge = downloadsContent?.badge || 'Technical Documentation';
+const pageTitle = downloadsContent?.title || 'Downloads & Resource Hub';
+const pageSubtitle = downloadsContent?.subtitle || 'Access official PDF datasheets, product catalogs, engineering guidelines, and ISO 9001 quality certificates.';
+
+const tabLabels = {
+  all: downloadsContent?.allTabLabel || 'All Resources',
+  catalog: downloadsContent?.catalogTabLabel || 'Catalogs',
+  brochure: downloadsContent?.brochureTabLabel || 'Brochures',
+  datasheet: downloadsContent?.datasheetTabLabel || 'Technical Datasheets',
+  certification: downloadsContent?.certificationTabLabel || 'Certifications',
+};
+
+const emptyHeading = downloadsContent?.emptyStateHeading || 'No Documents Found';
+const emptyText = downloadsContent?.emptyStateText || 'No downloadable resources found matching the selected filter category.';
+
+const ctaBadge = downloadsContent?.ctaBadge || 'Custom Engineering Requirements';
+const ctaTitle = downloadsContent?.ctaTitle || 'Need Custom Material Formulations or Specific Test Reports?';
+const ctaDescription = downloadsContent?.ctaDescription || 'Contact our laboratory and metallurgy engineering team directly to request proprietary spectroscopic reports, chemical lot certifications, or customized dimensions.';
+const ctaButtonText = downloadsContent?.ctaButtonText || 'Contact Technical Engineering Desk';
 ---
 
 <Layout
-  title="Downloads & Technical Resources | VM Graphite Industries LLP"
-  description="Download official VM Graphite corporate brochures, product catalogs, engineering technical datasheets, and ISO 9001 quality certificates."
+  title={downloadsContent?.seo?.metaTitle || "Downloads & Technical Resources | VM Graphite Industries LLP"}
+  description={downloadsContent?.seo?.metaDescription || "Download official VM Graphite corporate brochures, product catalogs, engineering technical datasheets, and ISO 9001 quality certificates."}
+  seo={downloadsContent?.seo}
   breadcrumbs={[{ name: 'Downloads', item: '/downloads' }]}
 >
-  <!-- Page Header -->
+  <!-- ① Page Header Banner -->
   <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/[0.06] relative overflow-hidden">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,var(--primary-glow-subtle),transparent_65%)] pointer-events-none"></div>
 
@@ -21,23 +44,29 @@ const selectedCategory = Astro.url.searchParams.get('category') || 'all';
       <Breadcrumbs items={[{ name: 'Downloads', href: '/downloads' }]} />
 
       <div class="max-w-3xl space-y-3 pt-6">
-        <span class="theme-pill">Technical Documentation</span>
+        <span class="theme-pill">{pageBadge}</span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
-          Downloads &amp; <span class="text-theme-gradient">Resource Hub</span>
+          {pageTitle.includes('&') ? (
+            <>
+              {pageTitle.split('&')[0]} &amp; <span class="text-theme-gradient">{pageTitle.split('&')[1]}</span>
+            </>
+          ) : (
+            <span>{pageTitle}</span>
+          )}
         </h1>
         <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
-          Access official PDF datasheets, product catalogs, engineering guidelines, and ISO 9001 quality certificates.
+          {pageSubtitle}
         </p>
       </div>
 
       <!-- Category Filter Tabs -->
       <div id="downloads-tabs" class="mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
         {[
-          { id: 'all', label: `All Resources (${resources.length})` },
-          { id: 'catalog', label: 'Catalogs' },
-          { id: 'brochure', label: 'Brochures' },
-          { id: 'datasheet', label: 'Technical Datasheets' },
-          { id: 'certification', label: 'Certifications' },
+          { id: 'all', label: `${tabLabels.all} (${resources.length})` },
+          { id: 'catalog', label: tabLabels.catalog },
+          { id: 'brochure', label: tabLabels.brochure },
+          { id: 'datasheet', label: tabLabels.datasheet },
+          { id: 'certification', label: tabLabels.certification },
         ].map((tab) => (
           <a
             href={`/downloads?category=${tab.id}`}
@@ -51,8 +80,8 @@ const selectedCategory = Astro.url.searchParams.get('category') || 'all';
     </div>
   </section>
 
-  <!-- Download Grid Content -->
-  <section class="py-16 bg-[#07090e] min-h-[500px]">
+  <!-- ② Download Cards Grid Content -->
+  <section class="py-16 bg-[#07090e] min-h-[450px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {resources.map((res) => (
@@ -60,6 +89,41 @@ const selectedCategory = Astro.url.searchParams.get('category') || 'all';
             <DownloadCard resource={res} />
           </div>
         ))}
+      </div>
+
+      <!-- Empty state when filter matches 0 items -->
+      <div id="empty-state" class="hidden text-center py-20 bg-[#0d1117] rounded-3xl border border-white/10 max-w-lg mx-auto p-8 space-y-3">
+        <div class="w-12 h-12 rounded-xl bg-white/5 border border-white/10 text-slate-400 flex items-center justify-center mx-auto">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        </div>
+        <h3 class="text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">{emptyHeading}</h3>
+        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">{emptyText}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ Custom Engineering Requirements CTA Banner -->
+  <section class="py-16 bg-[#05070a] text-white border-t border-b border-white/[0.08] relative overflow-hidden">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--primary-glow-subtle),transparent_70%)] pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-4xl mx-auto text-center space-y-5">
+        <span class="theme-pill">{ctaBadge}</span>
+        <h2 class="display-lg text-white font-black leading-tight" style="font-family:'Outfit',sans-serif;">
+          {ctaTitle}
+        </h2>
+        <p class="text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto font-normal">
+          {ctaDescription}
+        </p>
+        <div class="pt-2">
+          <a
+            href="/contact"
+            class="forge-btn-primary rounded-full px-8 py-3.5 text-xs font-bold inline-flex items-center gap-2 shadow-lg"
+          >
+            <span>{ctaButtonText}</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   </section>
@@ -69,6 +133,7 @@ const selectedCategory = Astro.url.searchParams.get('category') || 'all';
   function setupDownloadFilters() {
     const tabButtons = document.querySelectorAll<HTMLElement>('.download-tab-btn');
     const downloadItems = document.querySelectorAll<HTMLElement>('.download-card-wrapper');
+    const emptyState = document.getElementById('empty-state');
 
     if (!tabButtons.length || !downloadItems.length) return;
 
@@ -93,14 +158,24 @@ const selectedCategory = Astro.url.searchParams.get('category') || 'all';
         }
       });
 
+      let visibleCount = 0;
       downloadItems.forEach((item) => {
         const itemCat = item.getAttribute('data-category');
         if (category === 'all' || itemCat === category) {
           item.style.display = '';
+          visibleCount++;
         } else {
           item.style.display = 'none';
         }
       });
+
+      if (emptyState) {
+        if (visibleCount === 0) {
+          emptyState.classList.remove('hidden');
+        } else {
+          emptyState.classList.add('hidden');
+        }
+      }
 
       if (updateHistory) {
         const url = new URL(window.location.href);
@@ -131,4 +206,3 @@ const selectedCategory = Astro.url.searchParams.get('category') || 'all';
   setupDownloadFilters();
   document.addEventListener('astro:page-load', setupDownloadFilters);
 </script>
-

@@ -37,7 +37,7 @@ export const siteSettingsSchema = defineType({
     }),
     defineField({
       name: 'primaryPhone',
-      title: '3. Header Phone Number',
+      title: '3. Header Primary Phone Number',
       description: 'Official phone number displayed in header top strip, contact page, and footer (e.g. "+91 94221 02425").',
       type: 'string',
       group: 'header',
@@ -174,52 +174,131 @@ export const siteSettingsSchema = defineType({
       group: 'footer',
       initialValue: 'Factory & Corporate Locations',
     }),
+
+    // Dynamic Multiple Locations in Footer
+    defineField({
+      name: 'footerLocations',
+      title: '13. Footer Locations / Addresses (Add As Many As You Want)',
+      description: 'Add and manage all company addresses displayed in the website footer.',
+      type: 'array',
+      group: 'footer',
+      of: [
+        {
+          type: 'object',
+          title: 'Footer Location Card',
+          fields: [
+            defineField({
+              name: 'title',
+              title: 'Location Title',
+              type: 'string',
+              description: 'e.g. "Corporate Office", "Manufacturing Plant", "Regional Unit"',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'badge',
+              title: 'Tag / Badge (Optional)',
+              type: 'string',
+              description: 'e.g. "Corporate HQ", "Manufacturing Unit"',
+            }),
+            defineField({
+              name: 'address',
+              title: 'Full Address',
+              type: 'text',
+              rows: 3,
+              description: 'Street, Industrial Area, City, State, Country',
+              validation: (Rule) => Rule.required(),
+            }),
+            defineField({
+              name: 'phone',
+              title: 'Direct Phone (Optional)',
+              type: 'string',
+              description: 'e.g. "+91 94221 02425"',
+            }),
+            defineField({
+              name: 'email',
+              title: 'Direct Email (Optional)',
+              type: 'string',
+              description: 'e.g. "info@vmgraphiteindustries.com"',
+            }),
+          ],
+          preview: {
+            select: {
+              title: 'title',
+              subtitle: 'address',
+              badge: 'badge',
+            },
+            prepare({ title, subtitle, badge }) {
+              return {
+                title: `${badge ? `[${badge}] ` : ''}${title || 'Untitled Address'}`,
+                subtitle: subtitle || '',
+              };
+            },
+          },
+        },
+      ],
+      initialValue: [
+        {
+          title: 'Corporate Office',
+          badge: 'Corporate HQ',
+          address: 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
+          phone: '+91 94221 02425',
+          email: 'info@vmgraphiteindustries.com',
+        },
+        {
+          title: 'Manufacturing Plant',
+          badge: 'Manufacturing Unit',
+          address: 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+          phone: '+91 94221 02425',
+          email: 'info@vmgraphiteindustries.com',
+        },
+      ],
+    }),
+
+    // Legacy Fallback Single Fields for Footer
     defineField({
       name: 'corporateOfficeTitle',
-      title: '13. Corporate Office Card Title',
-      description: 'Title for the left address card in the footer (Default: "Corporate Office").',
+      title: 'Legacy: Corporate Office Card Title',
       type: 'string',
       group: 'footer',
+      hidden: true,
       initialValue: 'Corporate Office',
     }),
     defineField({
       name: 'officeAddress',
-      title: '14. Corporate Office Address',
-      description: 'Full address displayed inside the Corporate Office box in the footer.',
+      title: 'Legacy: Corporate Office Address',
       type: 'text',
       group: 'footer',
-      rows: 3,
+      hidden: true,
       initialValue: 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
-      validation: (Rule) => Rule.required(),
     }),
     defineField({
       name: 'footerPhone',
-      title: '15. Corporate Office Phone Number',
-      description: 'Phone number displayed with click-to-call link inside the Corporate Office box in the footer (e.g. "+91 94221 02425").',
+      title: 'Legacy: Corporate Office Phone',
       type: 'string',
       group: 'footer',
+      hidden: true,
       initialValue: '+91 94221 02425',
     }),
     defineField({
       name: 'plantTitle',
-      title: '16. Manufacturing Plant Card Title',
-      description: 'Title for the right address card in the footer (Default: "Manufacturing Plant").',
+      title: 'Legacy: Plant Card Title',
       type: 'string',
       group: 'footer',
+      hidden: true,
       initialValue: 'Manufacturing Plant',
     }),
     defineField({
       name: 'plantAddress',
-      title: '17. Manufacturing Plant Address',
-      description: 'Manufacturing factory address displayed inside the Manufacturing Plant box in the footer.',
+      title: 'Legacy: Plant Address',
       type: 'text',
       group: 'footer',
-      rows: 3,
+      hidden: true,
       initialValue: 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
     }),
+
     defineField({
       name: 'email',
-      title: '18. Official Inquiry Email Address',
+      title: '14. Official Inquiry Email Address',
       description: 'Destination email displayed with click-to-email link in the footer and header (e.g. "info@vmgraphiteindustries.com").',
       type: 'string',
       group: 'footer',
@@ -228,7 +307,7 @@ export const siteSettingsSchema = defineType({
     }),
     defineField({
       name: 'footerCopyrightText',
-      title: '19. Footer Copyright Text',
+      title: '15. Footer Copyright Text',
       description: 'Copyright statement shown at the bottom left of the footer (Use {year} to insert current year dynamically, e.g. "© {year} VM Graphite Industries LLP. All rights reserved.").',
       type: 'string',
       group: 'footer',
@@ -236,7 +315,7 @@ export const siteSettingsSchema = defineType({
     }),
     defineField({
       name: 'footerBadgeText',
-      title: '20. Footer Bottom Right Badge Text',
+      title: '16. Footer Bottom Right Badge Text',
       description: 'Text in the bottom copyright bar (Default: "A Complete Solution For Coating & Metalizer").',
       type: 'string',
       group: 'footer',

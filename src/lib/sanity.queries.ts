@@ -12,6 +12,7 @@ export const SITE_SETTINGS_QUERY = `
     footerTagline,
     footerDownloadButtonText,
     footerLocationHeading,
+    footerLocations,
     corporateOfficeTitle,
     officeAddress,
     footerPhone,
@@ -97,25 +98,40 @@ export const HOME_PAGE_QUERY = `
 
 export const ABOUT_PAGE_QUERY = `
   *[_type == "aboutPage"][0] {
+    headerBadge,
     title,
     subtitle,
     aimHeading,
     aimQuote,
-    "plantImageUrl": plantImage.asset->url,
-    storyHeading,
-    storyParagraph1,
-    storyParagraph2,
-    leader1Name,
-    leader1Role,
-    leader2Name,
-    leader2Role,
+    whoWeAreBadge,
+    manufacturingHeading,
+    "heroImageUrl": coalesce(heroImage.asset->url, plantImage.asset->url),
+    plantHubTag,
+    plantLocation,
+    plantEstTag,
+    companyIntroduction,
+    leadershipLabel,
     leadershipTitle,
     leadershipSubtitle,
+    innovationLabel,
     innovationTitle,
     innovationSubtitle,
+    capacityBadge,
     capacityStatement,
-    qualityTitle,
+    qualityBadge,
+    qualityHeading,
     qualitySubtitle,
+    qualityPillars,
+    brochureBadge,
+    brochureTitle,
+    brochureDescription,
+    brochureFeatures,
+    brochureCardTag,
+    brochureCardTitle,
+    brochureCardSubtitle,
+    brochureButtonText,
+    brochureSecondaryButtonText,
+    brochureCardCertText,
     seo
   }
 `;
@@ -125,17 +141,40 @@ export const CONTACT_PAGE_QUERY = `
     badge,
     title,
     subtitle,
+    locations,
+    directCommHeading,
+    contactChannels,
     corporateOfficeHeading,
     officeAddress,
     manufacturingPlantHeading,
     plantAddress,
-    directCommHeading,
     primaryPhone,
     email,
     whatsappNumber,
     whatsappButtonText,
+    formBadge,
     formHeading,
     formSubtitle,
+    nameLabel,
+    namePlaceholder,
+    companyLabel,
+    companyPlaceholder,
+    emailLabel,
+    emailPlaceholder,
+    phoneLabel,
+    phonePlaceholder,
+    subjectLabel,
+    subjectPlaceholder,
+    subjectOptions,
+    messageLabel,
+    messagePlaceholder,
+    submitButtonText,
+    submittingButtonText,
+    formDisclaimerText,
+    successHeading,
+    successMessage,
+    whatsappFollowupButtonText,
+    resetButtonText,
     seo
   }
 `;
@@ -208,6 +247,26 @@ export const PRODUCT_BY_SLUG_QUERY = `
   }
 `;
 
+export const DOWNLOADS_PAGE_QUERY = `
+  *[_type == "downloadsPage"][0] {
+    badge,
+    title,
+    subtitle,
+    allTabLabel,
+    catalogTabLabel,
+    brochureTabLabel,
+    datasheetTabLabel,
+    certificationTabLabel,
+    emptyStateHeading,
+    emptyStateText,
+    ctaBadge,
+    ctaTitle,
+    ctaDescription,
+    ctaButtonText,
+    seo
+  }
+`;
+
 export const ALL_RESOURCES_QUERY = `
   *[_type == "resource"] | order(displayOrder asc) {
     _id,
@@ -215,6 +274,8 @@ export const ALL_RESOURCES_QUERY = `
     description,
     "fileUrl": file.asset->url,
     category,
+    fileSize,
+    buttonText,
     isFeatured,
     displayOrder
   }

@@ -8,7 +8,7 @@ export const resourceSchema = defineType({
     defineField({
       name: 'title',
       title: '1. Document / Brochure Title',
-      description: 'Title shown on the download card (e.g. "VM Graphite Complete Product Catalog 2025").',
+      description: 'Title shown on the download card (e.g. "VM Graphite Complete Product Catalog 2026").',
       type: 'string',
       validation: (Rule) => Rule.required(),
     }),
@@ -44,8 +44,28 @@ export const resourceSchema = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'fileSize',
+      title: '5. File Size Tag (Optional)',
+      description: 'e.g. "2.4 MB", "1.8 MB", "32 Pages"',
+      type: 'string',
+    }),
+    defineField({
+      name: 'buttonText',
+      title: '6. Download Button Text',
+      description: 'Button text on the card (Default: "Download PDF").',
+      type: 'string',
+      initialValue: 'Download PDF',
+    }),
+    defineField({
+      name: 'isFeatured',
+      title: '7. Highlight / Featured Document',
+      description: 'Highlight this document with a featured accent card border.',
+      type: 'boolean',
+      initialValue: false,
+    }),
+    defineField({
       name: 'displayOrder',
-      title: '5. Display Order Priority',
+      title: '8. Display Order Priority',
       description: 'Sort order (e.g. 1 for top card, 2, 3...).',
       type: 'number',
       initialValue: 0,

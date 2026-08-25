@@ -46,6 +46,23 @@ export interface ResourceItem {
   displayOrder: number;
 }
 
+export interface LocationItem {
+  title: string;
+  badge?: string;
+  address: string;
+  phone?: string;
+  email?: string;
+  googleMapsUrl?: string;
+}
+
+export interface ContactChannelItem {
+  title: string;
+  type: 'phone' | 'email' | 'whatsapp' | 'custom' | string;
+  value: string;
+  subtext?: string;
+  customUrl?: string;
+}
+
 export interface SiteSettings {
   contactTitle?: string;
   contactSubtitle?: string;
@@ -73,6 +90,7 @@ export interface SiteSettings {
   footerTagline?: string;
   footerDownloadButtonText?: string;
   footerLocationHeading?: string;
+  footerLocations?: LocationItem[];
   corporateOfficeTitle?: string;
   footerPhone?: string;
   plantTitle?: string;
@@ -109,6 +127,22 @@ export const MOCK_SITE_SETTINGS: SiteSettings = {
   footerTagline: "Premier manufacturer and exporter of high-density graphite solutions for metallurgical, coating, and severe-duty manufacturing processes.",
   footerDownloadButtonText: "Download Brochure",
   footerLocationHeading: "Factory & Corporate Locations",
+  footerLocations: [
+    {
+      title: "Corporate Office",
+      badge: "Corporate HQ",
+      address: "Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India",
+      phone: "+91 94221 02425",
+      email: "info@vmgraphiteindustries.com",
+    },
+    {
+      title: "Manufacturing Plant",
+      badge: "Manufacturing Unit",
+      address: "Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India",
+      phone: "+91 94221 02425",
+      email: "info@vmgraphiteindustries.com",
+    },
+  ],
   corporateOfficeTitle: "Corporate Office",
   footerPhone: "+91 94221 02425",
   plantTitle: "Manufacturing Plant",
