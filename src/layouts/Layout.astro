@@ -14,9 +14,10 @@ export interface Props {
   type?: 'website' | 'product' | 'article';
   productData?: any;
   breadcrumbs?: { name: string; item: string }[];
+  seo?: any;
 }
 
-const { title, description, image, type, productData, breadcrumbs } = Astro.props;
+const { title, description, image, type, productData, breadcrumbs, seo } = Astro.props;
 const siteSettings = await getSiteSettings();
 const categories = await getCategories();
 ---
@@ -36,6 +37,7 @@ const categories = await getCategories();
       type={type}
       productData={productData}
       breadcrumbs={breadcrumbs}
+      seo={seo}
     />
   </head>
   <body class="bg-[#07090e] text-slate-100 font-sans antialiased min-h-screen flex flex-col selection:bg-[var(--primary)] selection:text-white">
@@ -68,5 +70,8 @@ const categories = await getCategories();
         }
       });
     </script>
+
+    <!-- Master Animation Engine -->
+    <script src="../scripts/animations.ts"></script>
   </body>
 </html>

@@ -9,7 +9,12 @@ const { product } = Astro.props;
 const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [];
 ---
 
-<div class="glow-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme transition-all duration-400 bg-[#0f1118] shadow-[0_10px_30px_rgba(0,0,0,0.6)]">
+<div
+  data-tilt
+  data-tilt-max="5"
+  data-spotlight
+  class="glow-card group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme transition-all duration-400 bg-[#0f1118] shadow-[0_10px_30px_rgba(0,0,0,0.6)]"
+>
   
   <!-- Image Banner -->
   <a href={`/products/${product.slug}`} class="h-52 overflow-hidden relative bg-[#040508] block">

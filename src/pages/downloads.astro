@@ -43,7 +43,7 @@ const ctaButtonText = downloadsContent?.ctaButtonText || 'Contact Technical Engi
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Downloads', href: '/downloads' }]} />
 
-      <div class="max-w-3xl space-y-3 pt-6">
+      <div class="max-w-3xl space-y-3 pt-6" data-reveal="fade-up">
         <span class="theme-pill">{pageBadge}</span>
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
           {pageTitle.includes('&') ? (
@@ -60,7 +60,7 @@ const ctaButtonText = downloadsContent?.ctaButtonText || 'Contact Technical Engi
       </div>
 
       <!-- Category Filter Tabs -->
-      <div id="downloads-tabs" class="mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center gap-2">
+      <div id="downloads-tabs" class="mt-10 pt-6 border-t border-white/[0.06] flex flex-wrap items-center gap-2" data-reveal="fade-up" data-reveal-delay="200">
         {[
           { id: 'all', label: `${tabLabels.all} (${resources.length})` },
           { id: 'catalog', label: tabLabels.catalog },
@@ -83,7 +83,7 @@ const ctaButtonText = downloadsContent?.ctaButtonText || 'Contact Technical Engi
   <!-- ② Download Cards Grid Content -->
   <section class="py-16 bg-[#07090e] min-h-[450px]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div id="downloads-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8" data-reveal="stagger">
         {resources.map((res) => (
           <div class="download-card-wrapper transition-all duration-300" data-category={res.category}>
             <DownloadCard resource={res} />
@@ -107,7 +107,7 @@ const ctaButtonText = downloadsContent?.ctaButtonText || 'Contact Technical Engi
     <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,var(--primary-glow-subtle),transparent_70%)] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-      <div class="max-w-4xl mx-auto text-center space-y-5">
+      <div class="max-w-4xl mx-auto text-center space-y-5" data-reveal="zoom-in">
         <span class="theme-pill">{ctaBadge}</span>
         <h2 class="display-lg text-white font-black leading-tight" style="font-family:'Outfit',sans-serif;">
           {ctaTitle}
@@ -118,6 +118,7 @@ const ctaButtonText = downloadsContent?.ctaButtonText || 'Contact Technical Engi
         <div class="pt-2">
           <a
             href="/contact"
+            data-magnetic
             class="forge-btn-primary rounded-full px-8 py-3.5 text-xs font-bold inline-flex items-center gap-2 shadow-lg"
           >
             <span>{ctaButtonText}</span>

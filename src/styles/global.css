@@ -34,32 +34,28 @@
   }
 }
 
-/* ─── Centralized Theme Architecture ─────────────────────────
-   To change the entire website color theme, simply change the 
-   --primary variables below. All components, gradients, cards,
-   buttons, pills, scrollbars and glow effects will update instantly!
-────────────────────────────────────────────────────────────── */
+/* ─── Centralized Theme Architecture ───────────────────────── */
 :root {
-  /* Master Theme: High-Contrast Luminous Orange / Coral */
-  --primary: #ff6636;              /* Bright, vibrant coral-orange */
-  --primary-text: #ff8a65;         /* High-contrast, luminous coral-orange for crisp readable text */
-  --primary-hover: #ff521f;        /* Deep vibrant coral */
-  --primary-light: #ffa080;        /* Luminous Coral Glow Stop */
-  --primary-bright: #ffbeaa;       /* Soft Light Coral for small badges, mono labels and highlights */
-  --primary-dark: #cc3f1b;         /* Deep Terracotta for button gradients */
+  /* Master Theme: High-Contrast Luminous Coral / Forge Orange */
+  --primary: #ff6636;
+  --primary-text: #ff8a65;
+  --primary-hover: #ff521f;
+  --primary-light: #ffa080;
+  --primary-bright: #ffbeaa;
+  --primary-dark: #cc3f1b;
   --primary-glow: rgba(255, 102, 54, 0.35);
   --primary-glow-subtle: rgba(255, 102, 54, 0.14);
   --primary-bg-tint: rgba(255, 102, 54, 0.12);
   --primary-border-tint: rgba(255, 102, 54, 0.35);
   --primary-border-glow: rgba(255, 102, 54, 0.65);
 
-  /* Centralized Base Neutrals (Sleek Dark Matte) */
+  /* Centralized Base Neutrals */
   --panel: #14161d;
   --panel-light: #1c1f2a;
   --base: #0b0d13;
   --border: rgba(255, 255, 255, 0.08);
 
-  /* Dynamic Aliases - Maps legacy & component tokens to central theme */
+  /* Dynamic Aliases */
   --amber: var(--primary);
   --amber-bright: var(--primary-bright);
   --amber-dim: var(--primary-dark);
@@ -71,9 +67,13 @@
   --border-amber: var(--primary-border-tint);
   --border-cyan: var(--primary-border-tint);
   --border-glow: var(--primary-border-glow);
+
+  /* Cursor Spotlight Position Defaults */
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
-/* ─── Unified Theme Accent Text (Solid & Clean) ─────────── */
+/* ─── Unified Theme Accent Text ─────────────────────────── */
 .text-gold-gradient,
 .text-amber-gradient,
 .text-cyan-gradient,
@@ -138,7 +138,7 @@
   background-size: 100% 100%, 40px 40px, 40px 40px;
 }
 
-/* ─── Glassmorphism & Interactive Cards ────────────────── */
+/* ─── Glassmorphism & Interactive Spotlight Cards ───────── */
 .glass-frosted {
   background: rgba(7, 9, 14, 0.85);
   backdrop-filter: blur(20px) saturate(180%);
@@ -148,49 +148,54 @@
 
 .glass-card-dark {
   background: rgba(13, 17, 23, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
-  transition: border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glass-card-dark:hover {
-  border-color: var(--primary-border-tint);
-  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.9), 0 0 30px -5px var(--primary-glow-subtle);
-}
-
-/* Clean Standard Industrial Cards */
+/* Dynamic Cursor Spotlight Border & Specular Illumination */
 .glow-card {
   position: relative;
-  background: #0f1118;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 1.25rem;
-  overflow: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  background: #0d1117;
+  transition: border-color 0.4s ease, box-shadow 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.glow-card:hover {
-  border-color: var(--primary-border-tint);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.7);
+.glow-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: radial-gradient(350px circle at var(--mouse-x) var(--mouse-y), rgba(255, 102, 54, 0.5), transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
 }
 
-/* ─── Typography & Display Utilities ────────────────────── */
-.display-xl {
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.03em;
+.glow-card:hover::before {
+  opacity: 1;
 }
 
-.display-lg {
-  font-size: clamp(2rem, 4.5vw, 3.8rem);
-  font-weight: 900;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+.glow-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(300px circle at var(--mouse-x) var(--mouse-y), rgba(255, 102, 54, 0.05), transparent 75%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 
-/* ─── Badges & Component Utilities ──────────────────────── */
+.glow-card:hover::after {
+  opacity: 1;
+}
+
+/* ─── Pills & Badges ───────────────────────────────────── */
 .theme-pill,
 .amber-pill,
 .cyan-pill {
@@ -208,6 +213,8 @@
   text-transform: uppercase;
   font-family: 'JetBrains Mono', monospace;
   backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
 }
 
 .theme-pill::before,
@@ -222,6 +229,7 @@
   box-shadow: 0 0 8px var(--primary);
 }
 
+/* ─── Buttons ─────────────────────────────────────────── */
 .forge-btn-primary {
   position: relative;
   display: inline-flex;
@@ -245,11 +253,7 @@
 .forge-btn-primary:hover {
   box-shadow: 0 6px 24px var(--primary-glow), inset 0 1px 0 rgba(255, 255, 255, 0.4);
   transform: translateY(-1.5px);
-  filter: brightness(1.05);
-}
-
-.forge-btn-primary:active {
-  transform: translateY(0);
+  filter: brightness(1.06);
 }
 
 .forge-btn-ghost {
@@ -275,6 +279,90 @@
   border-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
   transform: translateY(-1.5px);
+}
+
+/* ─── SCROLL REVEAL ENGINE ─────────────────────────────── */
+[data-reveal] {
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal="fade-up"] {
+  transform: translate3d(0, 36px, 0);
+}
+
+[data-reveal="fade-down"] {
+  transform: translate3d(0, -36px, 0);
+}
+
+[data-reveal="zoom-in"] {
+  transform: scale3d(0.92, 0.92, 0.92) translate3d(0, 20px, 0);
+}
+
+[data-reveal="slide-left"] {
+  transform: translate3d(40px, 0, 0);
+}
+
+[data-reveal="slide-right"] {
+  transform: translate3d(-40px, 0, 0);
+}
+
+/* Revealed State */
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+}
+
+/* Stagger Children */
+[data-reveal="stagger"] > * {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-reveal="stagger"].is-revealed > * {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+[data-reveal="stagger"].is-revealed > *:nth-child(1) { transition-delay: 0.05s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(2) { transition-delay: 0.12s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(3) { transition-delay: 0.19s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(4) { transition-delay: 0.26s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(5) { transition-delay: 0.33s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(6) { transition-delay: 0.40s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(7) { transition-delay: 0.47s; }
+[data-reveal="stagger"].is-revealed > *:nth-child(8) { transition-delay: 0.54s; }
+
+/* ─── Micro-Animations & Glow FX ───────────────────────── */
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.4; filter: blur(30px); }
+  50% { opacity: 0.8; filter: blur(40px); }
+}
+
+@keyframes laser-sweep {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(200%); }
+}
+
+.animate-float {
+  animation: float-gentle 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 4s ease-in-out infinite;
+}
+
+/* 3D Perspective Card Tilt Container */
+[data-tilt] {
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 /* ─── Global Theme Utilities ────────────────────────────── */

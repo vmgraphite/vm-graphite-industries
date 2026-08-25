@@ -126,9 +126,12 @@ const showcaseItems = productList.length > 0
 
 <section class="relative min-h-[85vh] lg:min-h-[90vh] flex items-center overflow-hidden bg-[#07090e] pt-8 pb-16 lg:pt-14 lg:pb-20 industrial-grid-bg">
 
+  <!-- Interactive Graphite Ember Particle Canvas (Reacts to cursor!) -->
+  <canvas id="hero-ember-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-75"></canvas>
+
   <!-- Ambient Glowing Backdrops -->
-  <div class="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(240,101,67,0.14)_0%,transparent_70%)] pointer-events-none z-10"></div>
-  <div class="absolute -top-24 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(199,130,16,0.10)_0%,transparent_70%)] pointer-events-none z-10"></div>
+  <div class="absolute top-1/4 -left-32 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,102,54,0.15)_0%,transparent_70%)] pointer-events-none z-10 animate-pulse-glow"></div>
+  <div class="absolute -top-24 right-1/4 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(255,102,54,0.10)_0%,transparent_70%)] pointer-events-none z-10"></div>
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 w-full">
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
@@ -136,49 +139,56 @@ const showcaseItems = productList.length > 0
       <!-- LEFT: Hero Animated Entrance Content -->
       <div class="lg:col-span-6 space-y-6">
 
-        <!-- Entrance Element 1: Main Headline with Solid High-Contrast Accent -->
-        <div class="space-y-1">
+        <!-- Headline with Stagger Reveal -->
+        <div data-reveal="fade-up" data-reveal-delay="100">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md mb-3">
+            <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-ping"></span>
+            <span class="text-[10px] font-mono font-bold text-theme-bright uppercase tracking-wider">ISO 9001:2015 High-Purity Graphite</span>
+          </div>
+
           <h1 class="text-3xl sm:text-4xl lg:text-[3.25rem] font-black text-white tracking-tight leading-[1.08]" style="font-family:'Outfit',sans-serif;">
             {headlinePart1}
             {headlinePart2 && (
-              <span class="block text-[#f06543] font-black mt-1.5">
+              <span class="block text-theme font-black mt-1.5">
                 &amp; {headlinePart2}
               </span>
             )}
           </h1>
         </div>
 
-        <!-- Entrance Element 3: Subheadline -->
-        <div>
+        <!-- Subheadline -->
+        <div data-reveal="fade-up" data-reveal-delay="200">
           <p class="text-slate-300 text-sm sm:text-base max-w-xl leading-relaxed font-normal">
             {subheadline}
           </p>
         </div>
 
-        <!-- Entrance Element 4: High-Conversion CTA Buttons -->
-        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+        <!-- High-Conversion CTA Buttons with Magnetic Hover -->
+        <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2" data-reveal="fade-up" data-reveal-delay="300">
           <a
             href="/products"
-            class="forge-btn-primary rounded-full px-7 py-3.5 text-sm font-bold shadow-lg shadow-[#f06543]/20"
+            data-magnetic
+            class="forge-btn-primary rounded-full px-7 py-3.5 text-sm font-bold shadow-lg shadow-[var(--primary)]/20 group"
           >
             <span>{primaryCtaText}</span>
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
             </svg>
           </a>
           <button
             type="button"
             data-open-quote-modal
+            data-magnetic
             class="forge-btn-ghost rounded-full px-7 py-3.5 text-sm font-semibold hover:bg-white/[0.08] backdrop-blur-sm cursor-pointer"
           >
-            <svg class="w-4 h-4 text-[#f06543]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-4 h-4 text-theme" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <span>{secondaryCtaText}</span>
           </button>
         </div>
 
-        <!-- Entrance Element 5: Operational Highlights Pills -->
+        <!-- Operational Highlights Pills -->
         {(() => {
           const defaultCaps = [
             'Isostatic Hot Pressing',
@@ -189,16 +199,16 @@ const showcaseItems = productList.length > 0
           const list = Array.isArray(coreCapabilities) && coreCapabilities.length > 0
             ? coreCapabilities.filter(Boolean)
             : defaultCaps;
-          const colors = ['bg-amber-400', 'bg-[#f06543]', 'bg-emerald-400', 'bg-sky-400', 'bg-purple-400'];
+          const colors = ['bg-amber-400', 'bg-[var(--primary)]', 'bg-emerald-400', 'bg-sky-400', 'bg-purple-400'];
 
           return (
-            <div class="pt-4 border-t border-white/10 space-y-2">
+            <div class="pt-4 border-t border-white/10 space-y-2" data-reveal="fade-up" data-reveal-delay="400">
               <div class="text-[11px] uppercase tracking-wider text-slate-400 font-mono font-semibold">
                 <span>Core Manufacturing Capabilities</span>
               </div>
               <div class="flex flex-wrap items-center gap-2 text-xs text-slate-300 font-mono">
                 {list.map((cap, idx) => (
-                  <span class="flex items-center gap-1.5 bg-white/[0.05] border border-white/[0.1] px-3 py-1.5 rounded-lg backdrop-blur-sm">
+                  <span class="flex items-center gap-1.5 bg-white/[0.05] border border-white/[0.1] px-3 py-1.5 rounded-lg backdrop-blur-sm hover:border-white/25 transition-all">
                     <span class={`w-1.5 h-1.5 rounded-full ${colors[idx % colors.length]}`}></span>
                     {cap}
                   </span>
@@ -210,11 +220,11 @@ const showcaseItems = productList.length > 0
 
       </div>
 
-      <!-- RIGHT: Interactive Product Showcase Card -->
-      <div class="lg:col-span-6 relative">
+      <!-- RIGHT: Interactive 3D Perspective Showcase Card -->
+      <div class="lg:col-span-6 relative" data-reveal="zoom-in" data-reveal-delay="250">
 
-        <!-- Main Showcase Frame -->
-        <div class="relative bg-[#0d1017]/95 backdrop-blur-xl border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl">
+        <!-- Main Showcase Frame with 3D Tilt -->
+        <div data-tilt data-tilt-max="5" class="relative bg-[#0d1017]/95 backdrop-blur-xl border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl glow-card">
           
           <!-- Category Quick Selection Tabs -->
           <div class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.03] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
@@ -222,9 +232,9 @@ const showcaseItems = productList.length > 0
               {showcaseItems.map((item, idx) => (
                 <button
                   type="button"
-                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-colors shrink-0 cursor-pointer ${
+                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all shrink-0 cursor-pointer ${
                     idx === 0
-                      ? 'bg-[#f06543] text-[#07090e] shadow-md font-bold'
+                      ? 'bg-[var(--primary)] text-white shadow-md font-bold'
                       : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
                   }`}
                   data-index={idx}
@@ -239,7 +249,7 @@ const showcaseItems = productList.length > 0
           <div class="relative h-64 sm:h-76 overflow-hidden bg-black/60">
             {showcaseItems.map((item, idx) => (
               <div
-                class={`hero-image-slide absolute inset-0 ${
+                class={`hero-image-slide absolute inset-0 transition-opacity duration-500 ${
                   idx === 0 ? 'block' : 'hidden'
                 }`}
                 data-slide-index={idx}
@@ -247,7 +257,7 @@ const showcaseItems = productList.length > 0
                 <img
                   src={item.image}
                   alt={item.title}
-                  class="w-full h-full object-cover opacity-90"
+                  class="w-full h-full object-cover opacity-90 transition-transform duration-700 hover:scale-105"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-[#0d1017]/40 to-transparent"></div>
                 
@@ -278,7 +288,7 @@ const showcaseItems = productList.length > 0
               </div>
               <div class="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] px-3 py-1.5 rounded-lg text-xs font-mono">
                 <span id="heroStat2Lbl" class="text-slate-400 font-semibold">{showcaseItems[0]?.stat2Lbl || 'Spec 2'}:</span>
-                <span id="heroStat2Val" class="font-bold text-[#f06543]">{showcaseItems[0]?.stat2Val || 'Standard'}</span>
+                <span id="heroStat2Val" class="font-bold text-theme">{showcaseItems[0]?.stat2Val || 'Standard'}</span>
               </div>
               <div class="inline-flex items-center gap-1.5 bg-white/[0.04] border border-white/[0.08] px-3 py-1.5 rounded-lg text-xs font-mono">
                 <span id="heroStat3Lbl" class="text-slate-400 font-semibold">{showcaseItems[0]?.stat3Lbl || 'Spec 3'}:</span>
@@ -291,7 +301,7 @@ const showcaseItems = productList.length > 0
               <a
                 id="heroProductLink"
                 href={showcaseItems[0]?.url || '/products'}
-                class="text-xs text-[#f06543] font-bold font-mono hover:underline flex items-center gap-1 uppercase tracking-wider"
+                class="text-xs text-theme-bright font-bold font-mono hover:underline flex items-center gap-1 uppercase tracking-wider"
               >
                 <span>View Full Specifications</span>
                 <span>→</span>
@@ -302,7 +312,7 @@ const showcaseItems = productList.length > 0
                 id="heroQuoteBtn"
                 data-product-name={showcaseItems[0]?.title}
                 data-product-category={showcaseItems[0]?.badge}
-                class="px-5 py-2.5 bg-[#f06543] hover:bg-[#d4911c] text-[#07090e] font-extrabold text-xs rounded-xl transition-all shadow-md cursor-pointer"
+                class="px-5 py-2.5 bg-[var(--primary)] hover:bg-[var(--primary-hover)] text-white font-extrabold text-xs rounded-xl transition-all shadow-md cursor-pointer forge-btn-primary"
               >
                 <span>Quick Quote</span>
               </button>
@@ -338,10 +348,10 @@ const showcaseItems = productList.length > 0
     // Update tab button styles
     tabs.forEach((tab, i) => {
       if (i === index) {
-        tab.classList.add('bg-[#f06543]', 'text-[#07090e]', 'shadow-md', 'font-bold');
+        tab.classList.add('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
         tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
       } else {
-        tab.classList.remove('bg-[#f06543]', 'text-[#07090e]', 'shadow-md', 'font-bold');
+        tab.classList.remove('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
         tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
       }
     });

@@ -170,7 +170,7 @@ function getDirectionsUrl(loc: any) {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Contact Us', href: '/contact' }]} />
 
-      <div class="max-w-3xl space-y-3 pt-4">
+      <div class="max-w-3xl space-y-3 pt-4" data-reveal="fade-up">
         <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
           <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse"></span>
           <span class="text-[11px] font-mono font-bold text-theme-bright uppercase tracking-wider">{pageBadge}</span>
@@ -209,10 +209,10 @@ function getDirectionsUrl(loc: any) {
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
         
         <!-- Left Column: Direct Communication Channels & Process Guarantee (5 cols) -->
-        <div class="lg:col-span-5 space-y-4">
+        <div class="lg:col-span-5 space-y-4" data-reveal="slide-right">
           
-          <!-- Direct Channels Box (Clean without colorful top bar) -->
-          <div class="rounded-2xl p-4 sm:p-5 border border-white/10 shadow-xl space-y-4 bg-[#0c0f17]">
+          <!-- Direct Channels Box -->
+          <div data-tilt data-tilt-max="4" data-spotlight class="rounded-2xl p-4 sm:p-5 border border-white/10 shadow-xl space-y-4 bg-[#0c0f17] glow-card">
             <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
               <div>
                 <span class="text-[10px] font-mono font-bold text-theme-bright uppercase tracking-wider block">Real-Time Assistance</span>
@@ -303,9 +303,9 @@ function getDirectionsUrl(loc: any) {
 
         </div>
 
-        <!-- Right Column: Contact Form (Clean without colorful top bar) -->
-        <div class="lg:col-span-7">
-          <div class="rounded-2xl p-5 sm:p-7 border border-white/10 shadow-xl space-y-4 bg-[#0c0f17]">
+        <!-- Right Column: Contact Form -->
+        <div class="lg:col-span-7" data-reveal="slide-left">
+          <div data-tilt data-tilt-max="3" data-spotlight class="rounded-2xl p-5 sm:p-7 border border-white/10 shadow-xl space-y-4 bg-[#0c0f17] glow-card">
             <div>
               <span class="theme-pill">{formBadge}</span>
               <h2 class="text-xl sm:text-2xl text-white font-black mt-2 tracking-tight" style="font-family:'Outfit',sans-serif;">
@@ -355,7 +355,7 @@ function getDirectionsUrl(loc: any) {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
       
       <!-- Section Header -->
-      <div class="text-center max-w-3xl mx-auto space-y-2">
+      <div class="text-center max-w-3xl mx-auto space-y-2" data-reveal="fade-up">
         <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
           <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
           <span class="text-[10px] font-mono font-bold text-theme-bright uppercase tracking-wider">{locationsSectionBadge}</span>
@@ -370,7 +370,7 @@ function getDirectionsUrl(loc: any) {
       </div>
 
       <!-- Ultra-Compact Full-Width Horizontal Cards -->
-      <div class="space-y-5">
+      <div class="space-y-5" data-reveal="stagger">
         {locationsList.map((loc: any, idx: number) => {
           const isPlant = loc.badge?.toLowerCase().includes('plant') || loc.badge?.toLowerCase().includes('unit') || loc.title?.toLowerCase().includes('plant');
           const mapEmbed = getMapEmbedUrl(loc);
@@ -379,7 +379,12 @@ function getDirectionsUrl(loc: any) {
           const unitNumber = String(idx + 1).padStart(2, '0');
 
           return (
-            <div class="rounded-2xl border border-white/10 bg-[#0a0d14] p-4 sm:p-5 lg:p-6 shadow-xl hover:border-white/20 transition-all duration-300 relative overflow-hidden group">
+            <div
+              data-tilt
+              data-tilt-max="3"
+              data-spotlight
+              class="rounded-2xl border border-white/10 bg-[#0a0d14] p-4 sm:p-5 lg:p-6 shadow-xl hover:border-white/20 transition-all duration-300 relative overflow-hidden group glow-card"
+            >
               
               <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-center relative z-10">
                 
@@ -459,6 +464,7 @@ function getDirectionsUrl(loc: any) {
                       href={directionsUrl}
                       target="_blank"
                       rel="noopener noreferrer"
+                      data-magnetic
                       class="forge-btn-primary w-full sm:w-auto justify-center rounded-lg py-2 px-4 text-xs flex items-center gap-1.5 group/btn"
                     >
                       <svg class="w-3.5 h-3.5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>

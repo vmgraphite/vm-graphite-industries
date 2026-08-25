@@ -51,8 +51,8 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
 
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-    <!-- Section header -->
-    <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6">
+    <!-- Section header with entrance reveal -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 gap-6" data-reveal="fade-up">
       <div class="max-w-2xl space-y-3">
         <span class="theme-pill">{safeBadge}</span>
         <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
@@ -68,7 +68,7 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
           {safeDesc}
         </p>
       </div>
-      <a href="/products" class="forge-btn-ghost rounded-xl text-xs px-5 py-3 shrink-0 self-start md:self-auto">
+      <a href="/products" data-magnetic class="forge-btn-ghost rounded-xl text-xs px-5 py-3 shrink-0 self-start md:self-auto">
         <span>{safeBtnText}</span>
         <span class="text-theme-bright">→</span>
       </a>
@@ -76,15 +76,20 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
 
     <!-- Bento Grid Showcase -->
     {heroProduct && (
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" data-reveal="stagger">
 
         <!-- Hero Bento Card (Large - Spans 2 cols on LG) -->
-        <div class="lg:col-span-2 glow-card rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-between min-h-[440px] relative bg-[#0d1117]">
+        <div
+          data-tilt
+          data-tilt-max="4"
+          data-spotlight
+          class="lg:col-span-2 glow-card rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-between min-h-[440px] relative bg-[#0d1117]"
+        >
           <div class="absolute inset-0 overflow-hidden">
             <img
               src={heroProduct.mainImage || '/images/products/graphite-suspension.jpg'}
               alt={heroProduct.name}
-              class="w-full h-full object-cover opacity-60 group-hover:opacity-75 transition-opacity duration-500"
+              class="w-full h-full object-cover opacity-60 group-hover:opacity-75 group-hover:scale-105 transition-all duration-700"
             />
             <div class="absolute inset-0 bg-gradient-to-t from-[#07090e] via-[#07090e]/60 to-transparent"></div>
           </div>
@@ -92,11 +97,11 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
           <!-- Top Badges -->
           <div class="relative z-10 p-6 flex justify-between items-start">
             <div class="space-y-1">
-              <span class="text-[10px] font-bold text-[#f06543] bg-[#f06543]/15 border border-[#f06543]/30 px-3 py-1 rounded-md font-mono uppercase tracking-widest backdrop-blur-md">
+              <span class="text-[10px] font-bold text-theme-bright bg-[var(--primary)]/15 border border-[var(--primary)]/30 px-3 py-1 rounded-md font-mono uppercase tracking-widest backdrop-blur-md">
                 {heroProduct.categoryName || 'Flagship Item'}
               </span>
               <div class="text-[11px] text-emerald-400 font-mono flex items-center gap-1.5 pt-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
                 <span>Flagship Product</span>
               </div>
             </div>
@@ -115,7 +120,7 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
 
           <!-- Bottom Content -->
           <div class="relative z-10 p-6 sm:p-8 space-y-3">
-            <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-[#f06543] transition-colors" style="font-family:'Outfit',sans-serif;">
+            <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-theme-bright transition-colors" style="font-family:'Outfit',sans-serif;">
               <a href={`/products/${heroProduct.slug}`}>{heroProduct.name}</a>
             </h3>
             <p class="text-slate-300 text-sm max-w-xl leading-relaxed">
@@ -125,7 +130,7 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
               <span class="text-xs font-mono text-slate-400 bg-white/5 border border-white/10 px-3 py-1 rounded-md">
                 {heroProduct.specifications?.[0]?.value || 'Certified Industrial Grade'}
               </span>
-              <a href={`/products/${heroProduct.slug}`} class="text-xs font-bold text-[#f06543] font-mono uppercase tracking-wider flex items-center gap-1 hover:underline">
+              <a href={`/products/${heroProduct.slug}`} class="text-xs font-bold text-theme-bright font-mono uppercase tracking-wider flex items-center gap-1 hover:underline">
                 <span>{safeLinkText}</span>
                 <span>→</span>
               </a>
@@ -135,12 +140,17 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
 
         <!-- Grid Cards for Remaining Showcase Products -->
         {gridProducts.map((product) => (
-          <div class="glow-card rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-between min-h-[300px] relative bg-[#0d1117]">
+          <div
+            data-tilt
+            data-tilt-max="5"
+            data-spotlight
+            class="glow-card rounded-2xl overflow-hidden group border border-white/10 flex flex-col justify-between min-h-[300px] relative bg-[#0d1117]"
+          >
             <div class="absolute inset-0 overflow-hidden">
               <img
                 src={product.mainImage || '/images/products/graphite-crucibles.jpg'}
                 alt={product.name}
-                class="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity duration-500"
+                class="w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700"
               />
               <div class="absolute inset-0 bg-gradient-to-t from-[#07090e] via-[#07090e]/70 to-transparent"></div>
             </div>
@@ -156,7 +166,7 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
                 data-open-quote-modal
                 data-product-name={product.name}
                 data-product-category={product.categoryName}
-                class="p-2 rounded-lg bg-white/10 hover:bg-[#f06543] text-white hover:text-[#07090e] transition-colors cursor-pointer"
+                class="p-2 rounded-lg bg-white/10 hover:bg-[var(--primary)] text-white transition-colors cursor-pointer"
                 title="Get Quote"
               >
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
@@ -165,7 +175,7 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
 
             <!-- Bottom Content -->
             <div class="relative z-10 p-5 space-y-2">
-              <h4 class="text-lg font-bold text-white leading-snug group-hover:text-[#f06543] transition-colors" style="font-family:'Outfit',sans-serif;">
+              <h4 class="text-lg font-bold text-white leading-snug group-hover:text-theme-bright transition-colors" style="font-family:'Outfit',sans-serif;">
                 <a href={`/products/${product.slug}`}>{product.name}</a>
               </h4>
               <p class="text-xs text-slate-300 line-clamp-2 leading-relaxed">
@@ -175,7 +185,7 @@ const [heroProduct, ...gridProducts] = rawList.length > 0 ? rawList : defaultPro
                 <span class="text-[11px] font-mono text-slate-400">
                   {product.specifications?.[0]?.value || 'Tight Tolerances'}
                 </span>
-                <a href={`/products/${product.slug}`} class="text-xs font-bold text-[#f06543] hover:underline flex items-center gap-1 font-mono">
+                <a href={`/products/${product.slug}`} class="text-xs font-bold text-theme-bright hover:underline flex items-center gap-1 font-mono">
                   <span>{safeLinkText} →</span>
                 </a>
               </div>
