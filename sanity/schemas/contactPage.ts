@@ -53,9 +53,30 @@ export const contactPageSchema = defineType({
     // ② MULTIPLE LOCATIONS & ADDRESSES (Add as many as needed)
     // ==========================================
     defineField({
+      name: 'locationsSectionBadge',
+      title: '4a. Map Section Tag / Badge',
+      type: 'string',
+      group: 'content',
+      initialValue: 'Global Infrastructure & Facilities',
+    }),
+    defineField({
+      name: 'locationsSectionHeading',
+      title: '4b. Map Section Main Heading',
+      type: 'string',
+      group: 'content',
+      initialValue: 'Our Manufacturing & Corporate Presence',
+    }),
+    defineField({
+      name: 'locationsSectionSubtitle',
+      title: '4c. Map Section Subtitle',
+      type: 'string',
+      group: 'content',
+      initialValue: 'Locate our corporate headquarters in New Delhi and state-of-the-art metallurgical manufacturing plant in Gujarat.',
+    }),
+    defineField({
       name: 'locations',
-      title: '4. Office & Factory Locations (Add As Many As You Want)',
-      description: 'Add, edit, or reorder company physical addresses (e.g. Corporate Office, Manufacturing Plants, Branch Units, Warehouses, R&D Labs).',
+      title: '4d. Office & Factory Locations (With Live Interactive Google Maps)',
+      description: 'Add, edit, or reorder company physical addresses (e.g. Corporate Office, Manufacturing Plants, Branch Units, Warehouses, R&D Labs). Each location automatically displays an interactive Google Map.',
       type: 'array',
       group: 'content',
       of: [
@@ -75,6 +96,12 @@ export const contactPageSchema = defineType({
               title: 'Location Tag / Badge',
               type: 'string',
               description: 'e.g. "Corporate HQ", "Manufacturing Unit", "Branch Office", "R&D Lab"',
+            }),
+            defineField({
+              name: 'city',
+              title: 'City / Region Name',
+              type: 'string',
+              description: 'e.g. "New Delhi", "Gujarat", "Mumbai"',
             }),
             defineField({
               name: 'address',
@@ -98,9 +125,15 @@ export const contactPageSchema = defineType({
             }),
             defineField({
               name: 'googleMapsUrl',
-              title: 'Google Maps Link (Optional)',
+              title: 'Google Maps Directions Link (Optional)',
               type: 'url',
-              description: 'URL to Google Maps location',
+              description: 'Link for "Get Directions" button. If empty, automatically links to Google Maps search.',
+            }),
+            defineField({
+              name: 'mapEmbedUrl',
+              title: 'Custom Google Maps Embed Iframe URL (Optional)',
+              type: 'url',
+              description: 'Custom iframe embed URL from Google Maps. If left blank, an interactive map is generated automatically from the address.',
             }),
           ],
           preview: {

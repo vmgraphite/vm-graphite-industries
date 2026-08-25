@@ -9,55 +9,81 @@ const [siteSettings, contactContent] = await Promise.all([
   getContactPageContent(),
 ]);
 
-const pageBadge = contactContent?.badge || 'Direct Channels';
+const pageBadge = contactContent?.badge || 'Direct Industrial Channels';
 const pageTitle = contactContent?.title || 'Contact & Factory Locations';
-const pageSubtitle = contactContent?.subtitle || 'Reach out to our technical sales team, request custom sample trials, or schedule a facility visit.';
+const pageSubtitle = contactContent?.subtitle || 'Connect directly with our metallurgical engineering team, request custom sample trials, or plan a plant visit.';
 
-// Fallback Default Locations
-const defaultLocations = siteSettings.footerLocations && siteSettings.footerLocations.length > 0
-  ? siteSettings.footerLocations
-  : [
-      {
-        title: contactContent?.corporateOfficeHeading || siteSettings.corporateOfficeTitle || 'Corporate & Sales Office',
-        badge: 'Corporate HQ',
-        address: contactContent?.officeAddress || siteSettings.officeAddress || 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
-        phone: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
-        email: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
-      },
-      {
-        title: contactContent?.manufacturingPlantHeading || siteSettings.plantTitle || 'Manufacturing Plant Unit',
-        badge: 'Manufacturing Unit',
-        address: contactContent?.plantAddress || siteSettings.plantAddress || 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
-        phone: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
-        email: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
-      },
-    ];
+// Robust resolution for ALL locations added across Sanity Schemas (contactPage or siteSettings)
+let locationsList: any[] = [];
 
-const locationsList = Array.isArray(contactContent?.locations) && contactContent.locations.length > 0
-  ? contactContent.locations
-  : defaultLocations;
+if (Array.isArray(contactContent?.locations) && contactContent.locations.length > 0) {
+  // 1. Primary: Multiple locations array configured on Contact Us Page Content
+  locationsList = contactContent.locations;
+} else if (Array.isArray(siteSettings.footerLocations) && siteSettings.footerLocations.length >= 2) {
+  // 2. SiteSettings multiple locations array (if user added 2+ in site settings)
+  locationsList = siteSettings.footerLocations;
+} else {
+  // 3. Fallback: Build comprehensive list from all available address & plant fields
+  const corporateAddress =
+    contactContent?.officeAddress ||
+    siteSettings.officeAddress ||
+    siteSettings.footerLocations?.[0]?.address ||
+    'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India';
+
+  const plantAddress =
+    contactContent?.plantAddress ||
+    siteSettings.plantAddress ||
+    siteSettings.footerLocations?.[1]?.address ||
+    'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India';
+
+  locationsList = [
+    {
+      title: contactContent?.corporateOfficeHeading || siteSettings.corporateOfficeTitle || siteSettings.footerLocations?.[0]?.title || 'Corporate & Sales Office',
+      city: 'New Delhi',
+      badge: 'Corporate HQ',
+      address: corporateAddress,
+      phone: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
+      email: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
+      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(corporateAddress)}`,
+    },
+    {
+      title: contactContent?.manufacturingPlantHeading || siteSettings.plantTitle || siteSettings.footerLocations?.[1]?.title || 'Manufacturing Plant Unit',
+      city: 'Gujarat',
+      badge: 'Manufacturing Unit',
+      address: plantAddress,
+      phone: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
+      email: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
+      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plantAddress)}`,
+    },
+  ];
+}
+
+// Presence & Maps Section Headers
+const locationsSectionBadge = contactContent?.locationsSectionBadge || 'Manufacturing & Corporate Infrastructure';
+const locationsSectionHeading = contactContent?.locationsSectionHeading || 'Our Manufacturing & Corporate Presence';
+const locationsSectionSubtitle = contactContent?.locationsSectionSubtitle || 'Visit our corporate headquarters in New Delhi or our high-temperature graphite manufacturing plant in Gujarat.';
 
 // Direct Communication Channels (Dynamic List)
-const directCommHeading = contactContent?.directCommHeading || 'Direct Communication';
+const directCommHeading = contactContent?.directCommHeading || 'Direct Communication Helpdesks';
 
 const defaultChannels = [
   {
-    title: 'Primary Phone',
+    title: 'Primary Phone Support',
     type: 'phone',
     value: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
     subtext: siteSettings.workingHours || 'Mon - Sat: 9:00 AM - 6:30 PM IST',
   },
   {
-    title: 'Official Email',
+    title: 'Official Commercial Email',
     type: 'email',
     value: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
-    subtext: 'Commercial Inquiry Desk',
+    subtext: 'Direct technical RFQ & quotation desk',
   },
   {
-    title: 'WhatsApp Sales Desk',
+    title: 'Instant WhatsApp Sales Desk',
     type: 'whatsapp',
     value: contactContent?.whatsappNumber || siteSettings.whatsappNumber || '919422102425',
-    subtext: 'Instant technical sales response',
+    subtext: 'Fast track engineering response in 2-4 hrs',
   },
 ];
 
@@ -66,9 +92,68 @@ const contactChannelsList = Array.isArray(contactContent?.contactChannels) && co
   : defaultChannels;
 
 // Contact Form Dynamic Settings
-const formBadge = contactContent?.formBadge || 'Inquiry Desk';
+const formBadge = contactContent?.formBadge || 'Direct RFQ Desk';
 const formHeading = contactContent?.formHeading || 'Send an Official Commercial Inquiry';
-const formSubtitle = contactContent?.formSubtitle || 'Fill out the details below. Our technical sales engineers respond within 2-4 business hours.';
+const formSubtitle = contactContent?.formSubtitle || 'Submit your technical specifications or material requirements. Our sales engineers respond within 2-4 business hours.';
+
+// Helper functions for dynamic Google Maps embeds and directions
+function getMapEmbedUrl(loc: any) {
+  if (!loc) return '';
+  
+  const rawUrl = String(loc.mapEmbedUrl || loc.googleMapsUrl || '').trim();
+  
+  if (rawUrl) {
+    // 1. If user pasted a full <iframe ... src="..." ...> HTML snippet
+    const iframeMatch = rawUrl.match(/src=["']([^"']+)["']/i);
+    if (iframeMatch && iframeMatch[1]) {
+      return iframeMatch[1];
+    }
+    
+    // 2. If it's already an embed URL
+    if (rawUrl.includes('/embed') || rawUrl.includes('output=embed')) {
+      return rawUrl;
+    }
+    
+    // 3. If it's a place URL like https://www.google.com/maps/place/Something/@lat,long
+    if (rawUrl.includes('/place/')) {
+      const placeMatch = rawUrl.match(/\/place\/([^/@?]+)/i);
+      if (placeMatch && placeMatch[1]) {
+        const placeName = decodeURIComponent(placeMatch[1].replace(/\+/g, ' '));
+        return `https://maps.google.com/maps?q=${encodeURIComponent(placeName)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+      }
+    }
+    
+    // 4. If it has ?q= or query= in URL
+    if (rawUrl.includes('q=') || rawUrl.includes('query=')) {
+      try {
+        const parsed = new URL(rawUrl);
+        const queryParam = parsed.searchParams.get('q') || parsed.searchParams.get('query');
+        if (queryParam) {
+          return `https://maps.google.com/maps?q=${encodeURIComponent(queryParam)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+        }
+      } catch (e) {
+        // ignore url parse error
+      }
+    }
+  }
+
+  // 5. Default reliable Google Maps embed query generated from physical address
+  const searchQuery = loc.address || loc.title || 'VM Graphite Industries';
+  return `https://maps.google.com/maps?q=${encodeURIComponent(searchQuery)}&t=&z=14&ie=UTF8&iwloc=&output=embed`;
+}
+
+function getDirectionsUrl(loc: any) {
+  if (!loc) return '#';
+  const rawUrl = String(loc.googleMapsUrl || loc.mapEmbedUrl || '').trim();
+  if (rawUrl) {
+    const iframeMatch = rawUrl.match(/src=["']([^"']+)["']/i);
+    if (!iframeMatch && !rawUrl.includes('/embed') && (rawUrl.startsWith('http://') || rawUrl.startsWith('https://'))) {
+      return rawUrl;
+    }
+  }
+  const searchQuery = loc.address || loc.title || 'VM Graphite Industries';
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(searchQuery)}`;
+}
 ---
 
 <Layout
@@ -78,93 +163,68 @@ const formSubtitle = contactContent?.formSubtitle || 'Fill out the details below
   breadcrumbs={[{ name: 'Contact Us', item: '/contact' }]}
 >
   <!-- Page Header -->
-  <section class="bg-[#07090e] text-white py-16 industrial-grid-bg border-b border-white/[0.06] relative overflow-hidden">
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,var(--primary-glow-subtle),transparent_65%)] pointer-events-none"></div>
+  <section class="bg-[#05070a] text-white py-12 sm:py-16 industrial-grid-bg border-b border-white/[0.08] relative overflow-hidden">
+    <!-- Ambient Radial Glows -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[radial-gradient(ellipse_at_top,var(--primary-glow-subtle),transparent_70%)] pointer-events-none"></div>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
       <Breadcrumbs items={[{ name: 'Contact Us', href: '/contact' }]} />
 
-      <div class="max-w-3xl space-y-3 pt-6">
-        <span class="theme-pill">{pageBadge}</span>
+      <div class="max-w-3xl space-y-3 pt-4">
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+          <span class="w-1.5 h-1.5 rounded-full bg-[var(--primary)] animate-pulse"></span>
+          <span class="text-[11px] font-mono font-bold text-theme-bright uppercase tracking-wider">{pageBadge}</span>
+        </div>
+
         <h1 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
           {pageTitle}
         </h1>
-        <p class="text-slate-400 text-sm sm:text-base leading-relaxed font-normal">
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
           {pageSubtitle}
         </p>
+
+        <!-- Quick Info Highlights -->
+        <div class="pt-2 flex flex-wrap gap-3 text-xs font-mono text-slate-400">
+          <div class="flex items-center gap-1.5 bg-white/[0.02] border border-white/[0.06] px-2.5 py-1 rounded-lg">
+            <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            <span>2-4 Hr RFQ Turnaround</span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/[0.02] border border-white/[0.06] px-2.5 py-1 rounded-lg">
+            <svg class="w-3.5 h-3.5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <span>2 Strategic Units in India</span>
+          </div>
+          <div class="flex items-center gap-1.5 bg-white/[0.02] border border-white/[0.06] px-2.5 py-1 rounded-lg">
+            <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"/></svg>
+            <span>Global Export Documentation</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Content & Locations -->
-  <section class="py-16 bg-[#07090e] text-slate-100">
+  <!-- Top Contact Form & Direct Channels Section -->
+  <section class="py-10 sm:py-12 bg-[#07090e] text-slate-100 border-b border-white/[0.06] relative">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-start">
         
-        <!-- Left Contact Cards Column (5 cols) -->
-        <div class="lg:col-span-5 space-y-6">
+        <!-- Left Column: Direct Communication Channels & Process Guarantee (5 cols) -->
+        <div class="lg:col-span-5 space-y-4">
           
-          <!-- Locations & Address Cards (User can add as many as they want) -->
-          {locationsList.map((loc: any) => {
-            const isPlant = loc.badge?.toLowerCase().includes('plant') || loc.badge?.toLowerCase().includes('unit') || loc.title?.toLowerCase().includes('plant');
-            const iconColor = isPlant ? 'text-theme-bright' : 'text-theme';
-
-            return (
-              <div class="glow-card rounded-2xl p-6 border border-white/[0.08] shadow-xl space-y-3 bg-[#0f1118]">
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class={`shrink-0 ${iconColor}`}>
-                      {isPlant ? (
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.13a2 2 0 00-1.022.547l-1.07 1.07a2 2 0 000 2.828l1.07 1.07a2 2 0 002.828 0l1.07-1.07z"/></svg>
-                      ) : (
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
-                      )}
-                    </div>
-                    <h3 class="text-base sm:text-lg font-bold text-white" style="font-family:'Outfit',sans-serif;">{loc.title}</h3>
-                  </div>
-                  {loc.badge && (
-                    <span class="text-[10px] font-mono font-bold text-theme-bright bg-theme-tint border border-theme px-2 py-0.5 rounded uppercase tracking-wider">
-                      {loc.badge}
-                    </span>
-                  )}
-                </div>
-
-                <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal whitespace-pre-line">
-                  {loc.address}
-                </p>
-
-                {(loc.phone || loc.email || loc.googleMapsUrl) && (
-                  <div class="pt-2 border-t border-white/[0.06] flex flex-wrap items-center gap-4 text-xs">
-                    {loc.phone && (
-                      <a href={`tel:${loc.phone}`} class="text-slate-300 hover:text-white font-mono flex items-center gap-1.5 transition-colors">
-                        <svg class="w-3.5 h-3.5 text-[var(--primary)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                        <span>{loc.phone}</span>
-                      </a>
-                    )}
-                    {loc.email && (
-                      <a href={`mailto:${loc.email}`} class="text-slate-300 hover:text-white font-mono flex items-center gap-1.5 transition-colors">
-                        <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                        <span>{loc.email}</span>
-                      </a>
-                    )}
-                    {loc.googleMapsUrl && (
-                      <a href={loc.googleMapsUrl} target="_blank" rel="noopener noreferrer" class="text-theme-bright hover:underline text-[11px] font-mono flex items-center gap-1">
-                        <span>View Map</span>
-                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                      </a>
-                    )}
-                  </div>
-                )}
+          <!-- Direct Channels Box (Clean without colorful top bar) -->
+          <div class="rounded-2xl p-4 sm:p-5 border border-white/10 shadow-xl space-y-4 bg-[#0c0f17]">
+            <div class="flex items-center justify-between border-b border-white/[0.08] pb-3">
+              <div>
+                <span class="text-[10px] font-mono font-bold text-theme-bright uppercase tracking-wider block">Real-Time Assistance</span>
+                <h3 class="text-base sm:text-lg font-bold text-white mt-0.5" style="font-family:'Outfit',sans-serif;">{directCommHeading}</h3>
               </div>
-            );
-          })}
-
-          <!-- Direct Communication Channels (All contacts styled with unified UI) -->
-          <div class="glow-card rounded-2xl p-6 border border-white/10 shadow-xl space-y-5 bg-[#0d1117]">
-            <h4 class="text-xs font-bold uppercase tracking-wider text-theme-bright font-mono">{directCommHeading}</h4>
+              <span class="flex items-center gap-1.5 text-[10px] font-mono text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>Active</span>
+              </span>
+            </div>
             
-            <div class="space-y-4 text-xs">
+            <div class="space-y-2.5">
               {contactChannelsList.map((ch: any) => {
                 const isPhone = ch.type === 'phone';
                 const isEmail = ch.type === 'email';
@@ -180,53 +240,78 @@ const formSubtitle = contactContent?.formSubtitle || 'Fill out the details below
                   : '#';
 
                 const iconBg = isWhatsapp
-                  ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/30'
+                  ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30 group-hover:bg-emerald-500/25'
                   : isEmail
-                  ? 'bg-cyan-500/10 text-cyan-400 border-cyan-500/30'
-                  : 'bg-theme-tint text-theme-bright border-theme';
+                  ? 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30 group-hover:bg-cyan-500/25'
+                  : 'bg-[var(--primary)]/15 text-[var(--primary-bright)] border-[var(--primary)]/30 group-hover:bg-[var(--primary)]/25';
 
                 return (
-                  <div class="flex items-center gap-3">
-                    <div class={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border ${iconBg}`}>
+                  <a
+                    href={targetUrl}
+                    target={isWhatsapp || ch.customUrl ? '_blank' : undefined}
+                    rel={isWhatsapp || ch.customUrl ? 'noopener noreferrer' : undefined}
+                    class="group flex items-center gap-3 p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.05] hover:border-white/20 hover:bg-white/[0.04] transition-all duration-200"
+                  >
+                    <div class={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border transition-colors ${iconBg}`}>
                       {isPhone ? (
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
                       ) : isEmail ? (
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                       ) : isWhatsapp ? (
-                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                       ) : (
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
                       )}
                     </div>
-                    <div>
-                      <div class="text-slate-400 font-mono text-[11px]">{ch.title}</div>
-                      <a
-                        href={targetUrl}
-                        target={isWhatsapp || ch.customUrl ? '_blank' : undefined}
-                        rel={isWhatsapp || ch.customUrl ? 'noopener noreferrer' : undefined}
-                        class="font-bold text-white hover:text-theme-bright font-mono text-sm transition-colors"
-                      >
+                    <div class="min-w-0 flex-grow">
+                      <div class="text-slate-400 font-mono text-[10px] uppercase tracking-wider">{ch.title}</div>
+                      <div class="font-bold text-white group-hover:text-theme-bright font-mono text-xs sm:text-sm transition-colors truncate">
                         {ch.value}
-                      </a>
+                      </div>
                       {ch.subtext && (
-                        <div class="text-[10px] text-slate-500 font-sans mt-0.5">{ch.subtext}</div>
+                        <div class="text-[10px] text-slate-400 font-sans">{ch.subtext}</div>
                       )}
                     </div>
-                  </div>
+                    <svg class="w-3.5 h-3.5 text-slate-500 group-hover:text-white group-hover:translate-x-0.5 transition-all shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                  </a>
                 );
               })}
             </div>
           </div>
 
+          <!-- Commercial Promise & Process Card -->
+          <div class="p-4 sm:p-5 rounded-2xl bg-[#0a0d14] border border-white/[0.08] space-y-2.5 shadow-lg">
+            <div class="flex items-center gap-2 text-xs font-mono font-bold text-theme-bright uppercase tracking-wider">
+              <svg class="w-3.5 h-3.5 text-theme shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              <span>COMMERCIAL INTEGRITY GUARANTEE</span>
+            </div>
+            
+            <p class="text-xs text-slate-300 leading-relaxed font-normal">
+              Direct factory pricing, ISO batch-certified quality compliance certificates, and fast export freight quotations for global industrial buyers.
+            </p>
+
+            <div class="pt-1.5 border-t border-white/[0.06] flex items-center justify-between">
+              <a
+                href="#contact-locations"
+                class="text-[10px] font-mono font-bold text-theme-bright hover:underline flex items-center gap-1 transition-all"
+              >
+                <span>View Factory &amp; Office Locations Below</span>
+                <span>&darr;</span>
+              </a>
+            </div>
+          </div>
+
         </div>
 
-        <!-- Right Form Column (7 cols) -->
+        <!-- Right Column: Contact Form (Clean without colorful top bar) -->
         <div class="lg:col-span-7">
-          <div class="glow-card rounded-2xl p-7 sm:p-9 border border-white/10 shadow-2xl space-y-6 bg-[#0d1117]">
+          <div class="rounded-2xl p-5 sm:p-7 border border-white/10 shadow-xl space-y-4 bg-[#0c0f17]">
             <div>
               <span class="theme-pill">{formBadge}</span>
-              <h3 class="display-lg text-white font-black mt-2" style="font-family:'Outfit',sans-serif;">{formHeading}</h3>
-              <p class="text-xs sm:text-sm text-slate-400 mt-1 font-normal">
+              <h2 class="text-xl sm:text-2xl text-white font-black mt-2 tracking-tight" style="font-family:'Outfit',sans-serif;">
+                {formHeading}
+              </h2>
+              <p class="text-xs text-slate-400 mt-1 font-normal leading-relaxed">
                 {formSubtitle}
               </p>
             </div>
@@ -259,6 +344,154 @@ const formSubtitle = contactContent?.formSubtitle || 'Fill out the details below
           </div>
         </div>
 
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Full-Width Ultra-Compact Horizontal Location Rows -->
+  <section id="contact-locations" class="py-12 sm:py-16 bg-[#040608] relative overflow-hidden scroll-mt-16 border-t border-white/[0.08]">
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 space-y-8">
+      
+      <!-- Section Header -->
+      <div class="text-center max-w-3xl mx-auto space-y-2">
+        <div class="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white/[0.04] border border-white/10 backdrop-blur-md">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-[10px] font-mono font-bold text-theme-bright uppercase tracking-wider">{locationsSectionBadge}</span>
+        </div>
+
+        <h2 class="display-lg text-white font-black tracking-tight" style="font-family:'Outfit',sans-serif;">
+          {locationsSectionHeading}
+        </h2>
+        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed font-normal">
+          {locationsSectionSubtitle}
+        </p>
+      </div>
+
+      <!-- Ultra-Compact Full-Width Horizontal Cards -->
+      <div class="space-y-5">
+        {locationsList.map((loc: any, idx: number) => {
+          const isPlant = loc.badge?.toLowerCase().includes('plant') || loc.badge?.toLowerCase().includes('unit') || loc.title?.toLowerCase().includes('plant');
+          const mapEmbed = getMapEmbedUrl(loc);
+          const directionsUrl = getDirectionsUrl(loc);
+          const cityName = loc.city || (loc.title?.includes('Delhi') ? 'New Delhi' : loc.title?.includes('Gujarat') ? 'Gujarat' : loc.title || `Unit ${idx + 1}`);
+          const unitNumber = String(idx + 1).padStart(2, '0');
+
+          return (
+            <div class="rounded-2xl border border-white/10 bg-[#0a0d14] p-4 sm:p-5 lg:p-6 shadow-xl hover:border-white/20 transition-all duration-300 relative overflow-hidden group">
+              
+              <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 lg:gap-6 items-center relative z-10">
+                
+                <!-- Left Side: Facility Info & Compact Details (5 cols) -->
+                <div class="lg:col-span-5 space-y-3.5 flex flex-col justify-between">
+                  
+                  <div class="space-y-2">
+                    
+                    <!-- Header Meta Bar -->
+                    <div class="flex items-center gap-2">
+                      <span class="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider">
+                        FACILITY {unitNumber}
+                      </span>
+                      <span class="text-slate-600">/</span>
+                      <div class="flex items-center gap-1.5">
+                        <span class={`w-1.5 h-1.5 rounded-full ${isPlant ? 'bg-emerald-400' : 'bg-[var(--primary)]'}`}></span>
+                        <span class="text-[10px] font-mono font-bold text-slate-200 uppercase tracking-wider">{cityName}</span>
+                      </div>
+
+                      {loc.badge && (
+                        <span class={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border ml-auto ${
+                          isPlant
+                            ? 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30'
+                            : 'bg-theme-tint text-theme-bright border-theme'
+                        }`}>
+                          {loc.badge}
+                        </span>
+                      )}
+                    </div>
+
+                    <!-- Facility Title -->
+                    <h3 class="text-lg sm:text-xl font-bold text-white tracking-tight" style="font-family:'Outfit',sans-serif;">
+                      {loc.title}
+                    </h3>
+
+                    <!-- Physical Street Address -->
+                    <div class="p-2.5 rounded-xl bg-white/[0.02] border border-white/[0.05]">
+                      <div class="flex items-start gap-2">
+                        <div class="w-5 h-5 rounded bg-theme-tint border border-theme flex items-center justify-center shrink-0 mt-0.5 text-theme-bright">
+                          <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed font-normal whitespace-pre-line">
+                          {loc.address}
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Direct Unit Contact Links (Compact) -->
+                  {(loc.phone || loc.email) && (
+                    <div class="flex flex-wrap gap-2 text-xs font-mono">
+                      {loc.phone && (
+                        <a
+                          href={`tel:${loc.phone}`}
+                          class="px-2.5 py-1 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:border-white/20 text-slate-300 hover:text-white flex items-center gap-1.5 transition-colors text-[11px]"
+                        >
+                          <svg class="w-3 h-3 text-theme shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+                          <span class="truncate">{loc.phone}</span>
+                        </a>
+                      )}
+                      {loc.email && (
+                        <a
+                          href={`mailto:${loc.email}`}
+                          class="px-2.5 py-1 rounded-lg bg-white/[0.02] border border-white/[0.05] hover:border-white/20 text-slate-300 hover:text-white flex items-center gap-1.5 transition-colors text-[11px]"
+                        >
+                          <svg class="w-3 h-3 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                          <span class="truncate">{loc.email}</span>
+                        </a>
+                      )}
+                    </div>
+                  )}
+
+                  <!-- Action Button -->
+                  <div>
+                    <a
+                      href={directionsUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="forge-btn-primary w-full sm:w-auto justify-center rounded-lg py-2 px-4 text-xs flex items-center gap-1.5 group/btn"
+                    >
+                      <svg class="w-3.5 h-3.5 text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                      <span>Get Directions</span>
+                      <svg class="w-3.5 h-3.5 transform group-hover/btn:translate-x-0.5 transition-transform text-slate-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                      </svg>
+                    </a>
+                  </div>
+
+                </div>
+
+                <!-- Right Side: Ultra-Compact Live Crisp Google Map (7 cols) -->
+                <div class="lg:col-span-7">
+                  <div class="rounded-xl overflow-hidden border border-white/15 h-52 sm:h-56 lg:h-60 w-full relative bg-[#07090e] shadow-lg group-hover:border-white/30 transition-all duration-300">
+                    <iframe
+                      src={mapEmbed}
+                      width="100%"
+                      height="100%"
+                      style="border:0;"
+                      allowfullscreen=""
+                      loading="lazy"
+                      referrerpolicy="no-referrer-when-downgrade"
+                      title={`${loc.title} Location Map`}
+                      class="w-full h-full"
+                    ></iframe>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          );
+        })}
       </div>
 
     </div>

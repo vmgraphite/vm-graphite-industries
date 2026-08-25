@@ -1,33 +1,27 @@
 ---
-import type { SiteSettings, Category } from '../lib/mockData';
+import { getSiteSettings } from '../lib/data';
 
-export interface Props {
-  siteSettings: SiteSettings;
-  categories: Category[];
-}
+const siteSettings = await getSiteSettings();
 
-const { siteSettings, categories } = Astro.props;
-const currentYear = new Date().getFullYear();
-
-const rawCopyright = siteSettings.footerCopyrightText || '© {year} VM Graphite Industries LLP. All rights reserved.';
-const safeCopyright = rawCopyright.replace('{year}', String(currentYear));
-
-const safeFooterDesc = siteSettings.footerTagline || `${siteSettings.tagline}. Premier manufacturer and exporter of high-density graphite solutions for metallurgical, coating, and severe-duty manufacturing processes.`;
+const safeTagline = siteSettings.footerTagline || 'Advanced Industrial Graphite & Sealing Material Solutions. Premier manufacturer and exporter of high-density graphite solutions for metallurgical, coating, and severe-duty manufacturing processes.';
+const safeFooterDesc = siteSettings.footerBadgeText || 'A Complete Solution For Coating & Metalizer';
 const safeDownloadBtn = siteSettings.footerDownloadButtonText || 'Download Brochure';
-const safeFooterBadge = siteSettings.footerBadgeText || 'A Complete Solution For Coating & Metalizer';
+const safeCopyright = siteSettings.footerCopyrightText || '© 2006 VM Graphite Industries LLP. All rights reserved.';
 
-// Dynamic Footer Locations (supports any number of address cards)
+// Determine Footer Locations (Dynamic unlimited array support with fallbacks)
 const defaultFooterLocations = [
   {
     title: siteSettings.corporateOfficeTitle || 'Corporate Office',
     badge: 'Corporate HQ',
     address: siteSettings.officeAddress || 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
     phone: siteSettings.footerPhone || siteSettings.primaryPhone || '+91 94221 02425',
+    email: siteSettings.email || 'info@vmgraphiteindustries.com',
   },
   {
     title: siteSettings.plantTitle || 'Manufacturing Plant',
     badge: 'Manufacturing Unit',
     address: siteSettings.plantAddress || 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
+    phone: siteSettings.footerPhone || siteSettings.primaryPhone || '+91 94221 02425',
     email: siteSettings.email || 'info@vmgraphiteindustries.com',
   },
 ];
@@ -38,35 +32,61 @@ const footerLocationsList = Array.isArray(siteSettings.footerLocations) && siteS
 
 const numLocations = footerLocationsList.length;
 
-// Dynamic grid class based on number of locations
-const locationsGridClass =
-  numLocations === 3
-    ? 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4'
-    : 'grid grid-cols-1 sm:grid-cols-2 gap-4';
+// Layout classes based on number of addresses
+// 1 location: left brand (7 cols) + compact right location (5 cols)
+// 2 locations: left brand (5 cols) + 2-col location grid (7 cols)
+// 3+ locations: left brand (4 cols) + multi-col location grid (8 cols)
+const brandColSpan =
+  numLocations === 1
+    ? 'lg:col-span-7 space-y-6 max-w-xl'
+    : numLocations === 2
+    ? 'lg:col-span-5 space-y-6'
+    : 'lg:col-span-4 space-y-6';
 
-const companyColSpan = numLocations === 3 ? 'lg:col-span-4' : 'lg:col-span-6';
-const locationsColSpan = numLocations === 3 ? 'lg:col-span-8' : 'lg:col-span-6';
+const locationsColSpan =
+  numLocations === 1
+    ? 'lg:col-span-5'
+    : numLocations === 2
+    ? 'lg:col-span-7'
+    : 'lg:col-span-8';
+
+const locationsGridClass =
+  numLocations === 1
+    ? ''
+    : numLocations === 2
+    ? 'grid grid-cols-1 md:grid-cols-2 gap-5'
+    : 'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5';
 ---
 
 <footer class="bg-[#05070a] text-slate-400 border-t border-white/[0.08] relative overflow-hidden">
+  <!-- Subtle top illumination -->
+  <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[2px] bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent pointer-events-none"></div>
 
-  <!-- Top radiant rule -->
-  <div class="h-0.5 w-full bg-gradient-to-r from-transparent via-[var(--primary)] to-transparent opacity-80 shadow-[0_0_15px_var(--primary-glow)]"></div>
+  <!-- Main Footer Content -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+      
+      <!-- Brand & Capabilities (Left Column) -->
+      <div class={brandColSpan}>
+        <div class="flex items-center gap-3">
+          {siteSettings.logo?.asset?.url ? (
+            <img src={siteSettings.logo.asset.url} alt={siteSettings.companyName || 'VM Graphite'} class="h-10 w-auto object-contain" />
+          ) : (
+            <div class="w-10 h-10 rounded-xl bg-theme-tint border border-theme flex items-center justify-center font-black text-theme-bright font-mono text-base">
+              VM
+            </div>
+          )}
+          <div>
+            <span class="font-extrabold text-white text-lg tracking-tight block font-['Outfit']">{siteSettings.companyName || 'VM GRAPHITE'}</span>
+            <span class="text-[10px] font-mono text-slate-400 tracking-wider uppercase block">INDUSTRIES LLP</span>
+          </div>
+        </div>
+        
+        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
+          {safeTagline}
+        </p>
 
-  <!-- Ambient Light -->
-  <div class="absolute top-0 right-0 w-[500px] h-[400px] bg-[radial-gradient(circle,var(--primary-glow-subtle),transparent_70%)] pointer-events-none"></div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-
-    <!-- Main footer grid -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 py-16 border-b border-white/[0.06] items-start">
-
-      <!-- Company column -->
-      <div class={`${companyColSpan} space-y-5`}>
-        <a href="/" class="inline-block group focus:outline-none" aria-label="VM Graphite Home">
-          <img src={siteSettings.logoUrl || '/images/logo.png'} alt={siteSettings.companyName || 'VM Graphite Industries'} class="h-11 w-auto object-contain rounded-lg transition-transform duration-300 group-hover:scale-[1.02]" />
-        </a>
-        <p class="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal max-w-md">
+        <p class="text-xs text-slate-400 font-mono">
           {safeFooterDesc}
         </p>
         <a
@@ -83,15 +103,17 @@ const locationsColSpan = numLocations === 3 ? 'lg:col-span-8' : 'lg:col-span-6';
       <!-- Factory & Offices (Adaptive layout based on number of addresses) -->
       <div class={locationsColSpan}>
         {numLocations === 1 ? (
-          /* Single Location: Compact Box Aligned Right */
-          <div class="flex flex-col items-start lg:items-end space-y-4">
-            <h3 class="text-[11px] font-bold text-theme-bright uppercase tracking-[0.2em] font-mono">{siteSettings.footerLocationHeading || 'Factory & Corporate Location'}</h3>
+          /* Single Location: Box aligned right, Title left-aligned to the box */
+          <div class="max-w-sm w-full lg:ml-auto space-y-3">
+            <h3 class="text-[11px] font-bold text-theme-bright uppercase tracking-[0.2em] font-mono text-left">
+              {siteSettings.footerLocationHeading || 'Factory & Corporate Locations'}
+            </h3>
             {footerLocationsList.map((loc: any) => {
               const isPlant = loc.badge?.toLowerCase().includes('plant') || loc.badge?.toLowerCase().includes('unit') || loc.title?.toLowerCase().includes('plant');
               const dotColor = isPlant ? 'bg-emerald-400' : 'bg-[var(--primary)]';
 
               return (
-                <div class="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 space-y-3 max-w-sm w-full hover:border-white/15 transition-colors">
+                <div class="bg-white/[0.03] border border-white/[0.07] rounded-2xl p-5 space-y-3 w-full hover:border-white/15 transition-colors text-left">
                   <div>
                     <div class="flex items-center justify-between gap-2 mb-1.5">
                       <div class="flex items-center gap-2">
@@ -179,17 +201,19 @@ const locationsColSpan = numLocations === 3 ? 'lg:col-span-8' : 'lg:col-span-6';
 
     </div>
 
-    <!-- Copyright bar -->
-    <div class="py-6 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-      <div class="font-mono">
+    <!-- Bottom Bar -->
+    <div class="mt-12 pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+      <p class="text-slate-400 font-mono text-[11px]">
         {safeCopyright}
-      </div>
-      <div class="flex items-center gap-2 font-mono text-[11px] text-slate-400">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>{safeFooterBadge}</span>
+      </p>
+
+      <div class="flex items-center gap-6 text-slate-400 text-xs">
+        <a href="/products" class="hover:text-white transition-colors">Products</a>
+        <a href="/about" class="hover:text-white transition-colors">About Us</a>
+        <a href="/downloads" class="hover:text-white transition-colors">Downloads</a>
+        <a href="/contact" class="hover:text-white transition-colors">Contact</a>
+        <a href="/admin" class="text-slate-500 hover:text-slate-300 transition-colors font-mono text-[11px]">Admin</a>
       </div>
     </div>
-
   </div>
-
 </footer>
