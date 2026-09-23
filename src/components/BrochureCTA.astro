@@ -14,7 +14,7 @@ export interface Props {
 }
 
 const {
-  brochureUrl = '/docs/VM_Graphite_Corporate_Brochure.pdf',
+  brochureUrl,
   badge,
   title,
   description,
@@ -124,17 +124,19 @@ const featureList = Array.isArray(features) && features.length > 0 ? features.fi
 
             <!-- Action Buttons -->
             <div class="space-y-3">
-              <a
-                href={brochureUrl}
-                target="_blank"
-                download="VM_Graphite_Industries_Brochure.pdf"
-                data-magnetic
-                class="forge-btn-primary w-full justify-center rounded-full py-3 text-xs font-semibold"
-                aria-label="Download VM Graphite Corporate PDF Brochure"
-              >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                <span>{safeBtnText}</span>
-              </a>
+              {brochureUrl ? (
+                <a
+                  href={brochureUrl}
+                  target="_blank"
+                  download
+                  data-magnetic
+                  class="forge-btn-primary w-full justify-center rounded-full py-3 text-xs font-semibold"
+                  aria-label="Download VM Graphite Corporate PDF Brochure"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                  <span>{safeBtnText}</span>
+                </a>
+              ) : null}
 
               <a
                 href="/downloads"

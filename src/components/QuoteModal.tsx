@@ -62,24 +62,17 @@ export default function QuoteModal() {
       <div className="relative w-full max-w-2xl bg-[#0a0d15] border border-white/15 rounded-3xl shadow-2xl overflow-hidden z-10 my-6 text-white">
 
         {/* Header */}
-        <div className="px-6 py-4 sm:py-5 bg-[#07090f] border-b border-white/10 flex items-center justify-between">
+        <div className="px-6 py-5 bg-[#080b12] border-b border-white/[0.08] flex items-center justify-between">
           <div className="flex items-center gap-3.5 min-w-0">
-            <div className="w-10 h-10 bg-theme-tint text-theme-bright border border-theme rounded-2xl flex items-center justify-center shadow-md shrink-0">
+            <div className="w-10 h-10 bg-theme-tint text-theme-bright border border-theme rounded-xl flex items-center justify-center shadow-md shrink-0">
               <FileSpreadsheet className="w-5 h-5" />
             </div>
             <div className="min-w-0">
-              <div className="flex items-center gap-2">
-                <h3 className="text-base sm:text-lg font-black text-white leading-tight tracking-tight truncate" style={{ fontFamily: "'Outfit', sans-serif" }}>
-                  Request Commercial Quotation
-                </h3>
-                <span className="hidden sm:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-mono">
-                  <Sparkles className="w-3 h-3" /> Live Sales Desk
-                </span>
-              </div>
-              <p className="text-xs text-theme-bright font-mono mt-0.5 truncate">
-                {productName
-                  ? `RFQ Target: ${productName}`
-                  : "Direct Factory RFQ | VM Graphite Industries"}
+              <h3 className="text-lg font-bold text-white leading-tight tracking-tight truncate" style={{ fontFamily: "'Outfit', sans-serif" }}>
+                Request Quotation
+              </h3>
+              <p className="text-xs text-slate-400 font-mono mt-0.5 truncate">
+                {productName ? `Inquiry for: ${productName}` : "VM Graphite Technical Sales Desk"}
               </p>
             </div>
           </div>

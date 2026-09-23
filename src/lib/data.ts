@@ -28,7 +28,7 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   }
   try {
     const data = await sanityClient.fetch(SITE_SETTINGS_QUERY);
-    return data ? { ...MOCK_SITE_SETTINGS, ...data } : MOCK_SITE_SETTINGS;
+    return data || MOCK_SITE_SETTINGS;
   } catch (error) {
     console.warn('Error fetching site settings from Sanity, using fallback data:', error);
     return MOCK_SITE_SETTINGS;
@@ -98,14 +98,10 @@ export async function getAllProducts(): Promise<Product[]> {
   }
   try {
     const data: Product[] = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
-    if (!data || data.length === 0) return MOCK_PRODUCTS;
-    // Merge any products from MOCK_PRODUCTS that aren't yet in Sanity (e.g. newly added products)
-    const existingSlugs = new Set(data.map((p) => p.slug));
-    const extraMockProducts = MOCK_PRODUCTS.filter((p) => !existingSlugs.has(p.slug));
-    return [...data, ...extraMockProducts];
+    return data || [];
   } catch (error) {
     console.warn('Error fetching products from Sanity, using fallback data:', error);
-    return MOCK_PRODUCTS;
+    return [];
   }
 }
 
@@ -116,26 +112,13 @@ export async function getFeaturedProducts(): Promise<Product[]> {
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {
   if (!isSanityConfigured || !sanityClient) {
-    const found = MOCK_PRODUCTS.find((p) => p.slug === slug);
-    if (!found) return undefined;
-    const related = MOCK_PRODUCTS.filter((p) => p.categorySlug === found.categorySlug && p.slug !== found.slug).slice(0, 3);
-    return {
-      ...found,
-      relatedProducts: related.map((r) => ({
-        name: r.name,
-        slug: r.slug,
-        mainImage: r.mainImage,
-        categoryName: r.categoryName,
-      })),
-    };
+    return MOCK_PRODUCTS.find((p) => p.slug === slug);
   }
   try {
     const data = await sanityClient.fetch(PRODUCT_BY_SLUG_QUERY, { slug });
-    if (data) return data;
-    // fallback if not found in Sanity
-    return MOCK_PRODUCTS.find((p) => p.slug === slug);
+    return data || undefined;
   } catch (error) {
-    return MOCK_PRODUCTS.find((p) => p.slug === slug);
+    return undefined;
   }
 }
 
@@ -145,8 +128,8 @@ export async function getResources(): Promise<ResourceItem[]> {
   }
   try {
     const data = await sanityClient.fetch(ALL_RESOURCES_QUERY);
-    return data && data.length > 0 ? data : MOCK_RESOURCES;
+    return data || [];
   } catch (error) {
-    return MOCK_RESOURCES;
+    return [];
   }
 }
