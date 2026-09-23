@@ -278,49 +278,57 @@ const showcaseItems = filteredSanityProducts.length === ALLOWED_HERO_SLUGS.lengt
         <div id="heroShowcaseCard" data-tilt data-tilt-max="5" class="relative bg-[#0d1017]/95 backdrop-blur-xl border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl glow-card">
           
           <!-- Category Quick Selection Tabs -->
-          <div id="heroTabsContainer" class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.03] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar scroll-smooth">
+          <div id="heroTabsContainer" class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.03] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar scroll-smooth relative">
             <div class="flex items-center gap-1.5 sm:gap-2 w-full">
               {showcaseItems.map((item, idx) => (
                 <button
                   type="button"
-                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all shrink-0 cursor-pointer whitespace-nowrap ${
+                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all duration-300 shrink-0 cursor-pointer whitespace-nowrap relative ${
                     idx === 0
-                      ? 'bg-[var(--primary)] text-white shadow-md font-bold'
-                      : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
+                      ? 'bg-[var(--primary)] text-white shadow-[0_0_15px_rgba(255,102,54,0.4)] font-bold scale-[1.03]'
+                      : 'text-slate-400 hover:text-white hover:bg-white/[0.06]'
                   }`}
                   data-index={idx}
                 >
-                  {item.tabName}
+                  <span class="relative z-10 flex items-center gap-1.5">
+                    {idx === 0 && <span class="w-1.5 h-1.5 rounded-full bg-white animate-pulse"></span>}
+                    {item.tabName}
+                  </span>
                 </button>
               ))}
             </div>
           </div>
 
-          <!-- Product Image & Highlight Banner -->
-          <div class="relative h-64 sm:h-76 overflow-hidden bg-black/60">
+          <!-- Micro Animated Countdown Progress Bar -->
+          <div class="h-0.5 w-full bg-white/[0.06] overflow-hidden relative">
+            <div id="heroProgressBar" class="h-full bg-gradient-to-r from-[var(--primary)] via-amber-400 to-[var(--primary)] w-0 transition-all shadow-[0_0_8px_var(--primary)]"></div>
+          </div>
+
+          <!-- Product Image & Highlight Banner with Cinematic Transition -->
+          <div class="relative h-64 sm:h-76 overflow-hidden bg-black/80">
             {showcaseItems.map((item, idx) => (
               <div
-                class={`hero-image-slide absolute inset-0 transition-opacity duration-500 ${
-                  idx === 0 ? 'block' : 'hidden'
+                class={`hero-image-slide absolute inset-0 transition-all duration-700 ease-out transform ${
+                  idx === 0 ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-95 pointer-events-none z-0'
                 }`}
                 data-slide-index={idx}
               >
                 <img
                   src={item.image}
                   alt={item.title}
-                  class="w-full h-full object-cover opacity-90 transition-transform duration-700 hover:scale-105"
+                  class="w-full h-full object-cover opacity-90 transition-transform duration-1000 ease-out hover:scale-105"
                 />
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0d1017] via-[#0d1017]/40 to-transparent"></div>
                 
-                <!-- Info Tag Inside Slide -->
-                <div class="absolute bottom-4 left-4 right-4 z-10 space-y-1.5">
-                  <span class={`inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border ${item.badgeColor}`}>
+                <!-- Info Tag Inside Slide with Slide-Up Transition -->
+                <div class="absolute bottom-4 left-4 right-4 z-10 space-y-1.5 transform transition-transform duration-500">
+                  <span class={`inline-block text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-md border backdrop-blur-md ${item.badgeColor} shadow-sm`}>
                     {item.badge}
                   </span>
-                  <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight" style="font-family:'Outfit',sans-serif;">
+                  <h3 class="text-xl sm:text-2xl font-bold text-white tracking-tight drop-shadow-md" style="font-family:'Outfit',sans-serif;">
                     {item.title}
                   </h3>
-                  <p class="text-xs text-slate-300 line-clamp-2 font-normal leading-relaxed">
+                  <p class="text-xs text-slate-300 line-clamp-2 font-normal leading-relaxed drop-shadow">
                     {item.tagline}
                   </p>
                 </div>
@@ -393,59 +401,132 @@ const showcaseItems = filteredSanityProducts.length === ALLOWED_HERO_SLUGS.lengt
   const productLink = document.getElementById('heroProductLink');
   const quoteBtn = document.getElementById('heroQuoteBtn');
 
+  const progressBar = document.getElementById('heroProgressBar');
+
   let autoScrollTimer = null;
-  const AUTO_SCROLL_INTERVAL = 3800; // auto-advance every 3.8 seconds
+  const AUTO_SCROLL_INTERVAL = 2600; // auto-advance every 2.6 seconds
+
+  function resetProgressBar() {
+    if (!progressBar) return;
+    progressBar.style.transition = 'none';
+    progressBar.style.width = '0%';
+    // Force reflow
+    void progressBar.offsetWidth;
+    progressBar.style.transition = `width ${AUTO_SCROLL_INTERVAL}ms linear`;
+    progressBar.style.width = '100%';
+  }
+
+  function pauseProgressBar() {
+    if (!progressBar) return;
+    const computedWidth = window.getComputedStyle(progressBar).width;
+    progressBar.style.transition = 'none';
+    progressBar.style.width = computedWidth;
+  }
 
   function switchTab(index, userTriggered = false) {
     if (!showcaseItems[index]) return;
     currentIndex = index;
     const item = showcaseItems[index];
 
-    // Update tab button styles
+    // Update tab button styles with smooth animations and tactile indicator
     tabs.forEach((tab, i) => {
       if (i === index) {
-        tab.classList.add('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
-        tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
-        // Scroll the active tab horizontally into view smoothly inside the container
-        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        tab.className = 'hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all duration-300 shrink-0 cursor-pointer whitespace-nowrap relative bg-[var(--primary)] text-white shadow-[0_0_15px_rgba(255,102,54,0.4)] font-bold scale-[1.03]';
+        
+        // Scroll ONLY the tabsContainer horizontally - NEVER scroll the window vertically!
+        if (tabsContainer) {
+          const tabOffsetLeft = tab.offsetLeft;
+          const tabWidth = tab.offsetWidth;
+          const containerWidth = tabsContainer.clientWidth;
+          const targetScrollLeft = tabOffsetLeft - (containerWidth / 2) + (tabWidth / 2);
+          tabsContainer.scrollTo({
+            left: Math.max(0, targetScrollLeft),
+            behavior: 'smooth'
+          });
+        }
       } else {
-        tab.classList.remove('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
-        tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
+        tab.className = 'hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all duration-300 shrink-0 cursor-pointer whitespace-nowrap relative text-slate-400 hover:text-white hover:bg-white/[0.06]';
       }
     });
 
-    // Update slides
+    // Update slides with smooth cinematic crossfade
     slides.forEach((slide, i) => {
       if (i === index) {
-        slide.classList.remove('hidden');
-        slide.classList.add('block');
+        slide.classList.remove('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
+        slide.classList.add('opacity-100', 'scale-100', 'z-10');
       } else {
-        slide.classList.remove('block');
-        slide.classList.add('hidden');
+        slide.classList.remove('opacity-100', 'scale-100', 'z-10');
+        slide.classList.add('opacity-0', 'scale-95', 'pointer-events-none', 'z-0');
       }
     });
 
-    // Update metrics and link
-    if (stat1Val) stat1Val.textContent = item.stat1Val;
-    if (stat1Lbl) stat1Lbl.textContent = item.stat1Lbl + ':';
-    if (stat2Val) stat2Val.textContent = item.stat2Val;
-    if (stat2Lbl) stat2Lbl.textContent = item.stat2Lbl + ':';
-    if (stat3Val) stat3Val.textContent = item.stat3Val;
-    if (stat3Lbl) stat3Lbl.textContent = item.stat3Lbl + ':';
+    // Animate stats change with subtle fade
+    [stat1Val, stat2Val, stat3Val].forEach(el => {
+      if (el) {
+        el.style.opacity = '0.4';
+        el.style.transform = 'translateY(-2px)';
+      }
+    });
+
+    setTimeout(() => {
+      if (stat1Val) {
+        stat1Val.textContent = item.stat1Val;
+        stat1Val.style.opacity = '1';
+        stat1Val.style.transform = 'translateY(0)';
+      }
+      if (stat1Lbl) stat1Lbl.textContent = item.stat1Lbl + ':';
+      if (stat2Val) {
+        stat2Val.textContent = item.stat2Val;
+        stat2Val.style.opacity = '1';
+        stat2Val.style.transform = 'translateY(0)';
+      }
+      if (stat2Lbl) stat2Lbl.textContent = item.stat2Lbl + ':';
+      if (stat3Val) {
+        stat3Val.textContent = item.stat3Val;
+        stat3Val.style.opacity = '1';
+        stat3Val.style.transform = 'translateY(0)';
+      }
+      if (stat3Lbl) stat3Lbl.textContent = item.stat3Lbl + ':';
+    }, 150);
+
     if (productLink) productLink.href = item.url;
     if (quoteBtn) {
       quoteBtn.setAttribute('data-product-name', item.title);
       quoteBtn.setAttribute('data-product-category', item.badge);
     }
 
+    resetProgressBar();
+
     if (userTriggered) {
       restartAutoScroll();
     }
   }
 
+  // Only auto-scroll when the hero section is visible on screen
+  let isHeroVisible = true;
+  if ('IntersectionObserver' in window && showcaseCard) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isHeroVisible = entry.isIntersecting;
+          if (!isHeroVisible) {
+            pauseProgressBar();
+          } else {
+            resetProgressBar();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    observer.observe(showcaseCard);
+  }
+
   function startAutoScroll() {
     stopAutoScroll();
+    resetProgressBar();
     autoScrollTimer = setInterval(() => {
+      // Don't auto-advance if the user has scrolled past the hero section
+      if (!isHeroVisible) return;
       const nextIndex = (currentIndex + 1) % showcaseItems.length;
       switchTab(nextIndex, false);
     }, AUTO_SCROLL_INTERVAL);
@@ -456,6 +537,7 @@ const showcaseItems = filteredSanityProducts.length === ALLOWED_HERO_SLUGS.lengt
       clearInterval(autoScrollTimer);
       autoScrollTimer = null;
     }
+    pauseProgressBar();
   }
 
   function restartAutoScroll() {
@@ -476,7 +558,7 @@ const showcaseItems = filteredSanityProducts.length === ALLOWED_HERO_SLUGS.lengt
     showcaseCard.addEventListener('mouseleave', startAutoScroll);
     showcaseCard.addEventListener('touchstart', stopAutoScroll, { passive: true });
     showcaseCard.addEventListener('touchend', () => {
-      setTimeout(startAutoScroll, 3000);
+      setTimeout(startAutoScroll, 2000);
     }, { passive: true });
   }
 
