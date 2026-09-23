@@ -90,10 +90,10 @@ const searchQuery = Astro.url.searchParams.get('search')?.toLowerCase() || '';
         <span class="text-[11px] text-slate-500">6 items per page</span>
       </div>
 
-      <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+      <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-stretch">
         {allProducts.map((product) => (
           <div
-            class="product-card-wrapper"
+            class="product-card-wrapper h-full flex flex-col"
             data-category={product.categorySlug}
             data-name={product.name.toLowerCase()}
             data-desc={product.shortDescription.toLowerCase()}

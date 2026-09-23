@@ -29,90 +29,141 @@ const parts = headline.split('&');
 const headlinePart1 = parts[0]?.trim() || headline;
 const headlinePart2 = parts[1]?.trim() || '';
 
-// Fallback showcase items if no products are explicitly selected in Sanity yet
+// 6 Main Featured Products requested for Hero Showcase
 const defaultShowcase = [
   {
-    id: 'crucibles',
-    tabName: 'Graphite Crucibles',
-    title: 'Isostatic Graphite Crucibles',
-    tagline: 'Engineered for extreme thermal metallurgy up to 3000°C with Alubonding™ anti-oxidation protection.',
-    image: '/images/products/graphite-crucibles.jpg',
-    url: '/products/graphite-crucibles',
-    badge: '3000°C Max Heat',
-    badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
-    stat1Val: '3000°C',
-    stat1Lbl: 'Thermal Rating',
-    stat2Val: '99.9%',
-    stat2Lbl: 'Carbon Purity',
-    stat3Val: '±0.02mm',
-    stat3Lbl: 'CNC Precision',
-  },
-  {
-    id: 'colloidal',
-    tabName: 'Colloidal Dispersions',
-    title: 'Colloidal Graphite Dispersions',
-    tagline: 'Ultra-fine sub-micron graphite suspensions for die-casting, hot forging, and industrial mold release.',
-    image: '/images/products/graphite-suspension.jpg',
+    id: 'graphite-suspension',
+    tabName: 'Graphite Suspension',
+    title: 'Graphite Suspension',
+    tagline: 'Colloidal aqueous and solvent-based graphite dispersion engineered for high-temperature forging die lubrication and conductive metal coating applications.',
+    image: '/images/products/colloidal-graphite-dispersion.jpg',
     url: '/products/graphite-suspension',
     badge: 'Sub-Micron Grade',
     badgeColor: 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10',
-    stat1Val: '< 1µm',
-    stat1Lbl: 'Particle Size',
-    stat2Val: 'Water / Oil',
-    stat2Lbl: 'Carrier Base',
-    stat3Val: 'Zero Smoke',
-    stat3Lbl: 'Eco Formulation',
+    stat1Val: '≥ 99.5%',
+    stat1Lbl: 'Carbon Purity',
+    stat2Val: '< 5.0 µm',
+    stat2Lbl: 'Particle Size',
+    stat3Val: '1100°C',
+    stat3Lbl: 'Max Temp',
   },
   {
-    id: 'seals',
-    tabName: 'Graphite Seals & Foil',
-    title: 'Pure Flexible Graphite Foil & Seals',
-    tagline: 'High-pressure expanded natural graphite gaskets and tapes offering impenetrable fluid containment.',
-    image: '/images/products/graphite-foil-tape.jpg',
+    id: 'graphite-foil-tape',
+    tabName: 'Graphite Foil Tape',
+    title: 'Graphite Foil Tape',
+    tagline: 'Self-adhesive corrugated flexible expanded graphite foil tape designed for instant valve stem packing and spiral wound gasket manufacturing.',
+    image: '/images/products/graphite-foil-tape-pallet.jpg',
     url: '/products/graphite-foil-tape',
     badge: '99.9% Carbon Foil',
     badgeColor: 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10',
-    stat1Val: '-200 to 650°C',
-    stat1Lbl: 'Temp Range',
-    stat2Val: '100%',
-    stat2Lbl: 'Non-Asbestos',
-    stat3Val: 'High PSI',
-    stat3Lbl: 'Pressure Class',
+    stat1Val: '≥ 99.0%',
+    stat1Lbl: 'Carbon Content',
+    stat2Val: '0.38 - 0.5mm',
+    stat2Lbl: 'Thickness',
+    stat3Val: '450°C',
+    stat3Lbl: 'Operating Temp',
   },
   {
-    id: 'doctor-blades',
-    tabName: 'Doctor Blades',
-    title: 'Precision High-Tensile Doctor Blades',
-    tagline: 'Micro-honed Swedish carbon and stainless steel doctor blades for streak-free rotogravure & flexo printing.',
-    image: '/images/products/carbon-steel-doctor-blades.jpg',
-    url: '/products/carbon-steel-doctor-blades',
-    badge: 'Micro-Honed Edge',
+    id: 'x-ray-grade-selenium-granules',
+    tabName: 'Selenium Granules',
+    title: 'X-Ray Grade Selenium Granules',
+    tagline: 'Ultra-pure 99.999% (5N) spherical selenium granules and vitreous beads engineered for X-ray photoreceptors and radiation detectors.',
+    image: '/images/products/selenium-granules.jpg',
+    url: '/products/x-ray-grade-selenium-granules',
+    badge: '5N 99.999% Ultra Pure',
     badgeColor: 'text-purple-400 border-purple-500/30 bg-purple-500/10',
-    stat1Val: 'Swedish',
-    stat1Lbl: 'Steel Grade',
-    stat2Val: 'Lamella / Bevel',
-    stat2Lbl: 'Edge Profiles',
-    stat3Val: 'Zero Streak',
-    stat3Lbl: 'Wiping Quality',
+    stat1Val: '≥ 99.999%',
+    stat1Lbl: 'Selenium Purity',
+    stat2Val: '1.0 - 3.5mm',
+    stat2Lbl: 'Granule Size',
+    stat3Val: '< 5 ppm',
+    stat3Lbl: 'Impurities',
+  },
+  {
+    id: 'graphite-powder',
+    tabName: 'Graphite Powder',
+    title: 'Graphite Powder',
+    tagline: 'Ultra-fine micronized synthetic and natural flake graphite powder for conductive coatings, metallurgy, and lubricant blending.',
+    image: '/images/products/graphite-powder.jpg',
+    url: '/products/graphite-powder',
+    badge: 'Micronized Grade',
+    badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
+    stat1Val: '≥ 99.9%',
+    stat1Lbl: 'Carbon Purity',
+    stat2Val: '< 10 µm',
+    stat2Lbl: 'D50 Size',
+    stat3Val: '≤ 0.05%',
+    stat3Lbl: 'Ash Content',
+  },
+  {
+    id: 'graphite-sleeves',
+    tabName: 'Graphite Sleeves',
+    title: 'Graphite Sleeves',
+    tagline: 'Custom machined graphite cylindrical sleeves and bushings designed for high-temperature pumps, casting dies, and thermal barriers.',
+    image: '/images/products/graphite-sleeves-machined.jpg',
+    url: '/products/graphite-sleeves',
+    badge: 'Precision Machined',
+    badgeColor: 'text-blue-400 border-blue-500/30 bg-blue-500/10',
+    stat1Val: '± 0.02 mm',
+    stat1Lbl: 'Tolerance',
+    stat2Val: '35 - 48 MPa',
+    stat2Lbl: 'Strength',
+    stat3Val: '2800°C',
+    stat3Lbl: 'Max Service Temp',
+  },
+  {
+    id: 'graphite-crucibles',
+    tabName: 'Graphite Crucibles',
+    title: 'Graphite Crucibles',
+    tagline: 'Isostatically pressed silicon-carbide bonded graphite crucibles crafted for melting non-ferrous alloys, copper, brass, and aluminum.',
+    image: '/images/products/graphite-crucibles-cups.jpg',
+    url: '/products/graphite-crucibles',
+    badge: '3000°C Max Heat',
+    badgeColor: 'text-amber-400 border-amber-500/30 bg-amber-500/10',
+    stat1Val: '1650°C',
+    stat1Lbl: 'Max Temp',
+    stat2Val: 'SiC-Graphite',
+    stat2Lbl: 'Material',
+    stat3Val: '1kg - 1000kg',
+    stat3Lbl: 'Capacity',
   },
 ];
 
-// Map Sanity products or fallback
-const productList = Array.isArray(products) && products.length > 0 ? products.filter(Boolean) : [];
-const showcaseItems = productList.length > 0
-  ? productList.map((p, idx) => {
-      const s1 = p.specifications?.[0] || { name: 'Thermal Rating', value: '3000°C' };
-      const s2 = p.specifications?.[1] || { name: 'Carbon Purity', value: '99.9%' };
-      const s3 = p.specifications?.[2] || { name: 'Precision', value: '±0.02mm' };
+// Strictly allowed slugs for the hero right-side showcase in exact requested order:
+const ALLOWED_HERO_SLUGS = [
+  'graphite-suspension',
+  'graphite-foil-tape',
+  'x-ray-grade-selenium-granules',
+  'graphite-powder',
+  'graphite-sleeves',
+  'graphite-crucibles',
+];
+
+// Map products passed from Sanity (homePage.heroProducts) or use defaultShowcase
+// Strictly filter so NO extra products can ever appear
+const rawProductList = Array.isArray(products) && products.length > 0 ? products.filter(Boolean) : [];
+const filteredSanityProducts = ALLOWED_HERO_SLUGS.map((slug) =>
+  rawProductList.find((p) => p.slug === slug)
+).filter(Boolean);
+
+const showcaseItems = filteredSanityProducts.length === ALLOWED_HERO_SLUGS.length
+  ? filteredSanityProducts.map((p, idx) => {
+      const s1 = p.specifications?.[0] || { name: 'Carbon Purity', value: '≥ 99.5%' };
+      const s2 = p.specifications?.[1] || { name: 'Specification', value: 'Industrial Grade' };
+      const s3 = p.specifications?.[2] || { name: 'Standard', value: 'High Performance' };
       return {
         id: p.slug || `prod-${idx}`,
         tabName: p.name && p.name.length > 22 ? p.name.substring(0, 20) + '...' : (p.name || 'Product'),
         title: p.name || 'Industrial Product',
         tagline: p.shortDescription || 'Engineered industrial graphite product with tight tolerances and extreme heat durability.',
-        image: p.mainImage || '/images/products/graphite-crucibles.jpg',
+        image: p.mainImage || '/images/products/colloidal-graphite-dispersion.jpg',
         url: `/products/${p.slug}`,
         badge: p.categoryName || 'Industrial Grade',
-        badgeColor: idx % 2 === 0 ? 'text-amber-400 border-amber-500/30 bg-amber-500/10' : 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10',
+        badgeColor: idx % 3 === 0
+          ? 'text-cyan-400 border-cyan-500/30 bg-cyan-500/10'
+          : idx % 3 === 1
+          ? 'text-emerald-400 border-emerald-500/30 bg-emerald-500/10'
+          : 'text-amber-400 border-amber-500/30 bg-amber-500/10',
         stat1Val: s1.value,
         stat1Lbl: s1.name,
         stat2Val: s2.value,
@@ -224,15 +275,15 @@ const showcaseItems = productList.length > 0
       <div class="lg:col-span-6 relative" data-reveal="zoom-in" data-reveal-delay="250">
 
         <!-- Main Showcase Frame with 3D Tilt -->
-        <div data-tilt data-tilt-max="5" class="relative bg-[#0d1017]/95 backdrop-blur-xl border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl glow-card">
+        <div id="heroShowcaseCard" data-tilt data-tilt-max="5" class="relative bg-[#0d1017]/95 backdrop-blur-xl border border-white/[0.14] rounded-3xl overflow-hidden shadow-2xl glow-card">
           
           <!-- Category Quick Selection Tabs -->
-          <div class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.03] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar">
+          <div id="heroTabsContainer" class="px-3 sm:px-4 py-3 border-b border-white/[0.08] bg-white/[0.03] flex items-center justify-between gap-2 overflow-x-auto no-scrollbar scroll-smooth">
             <div class="flex items-center gap-1.5 sm:gap-2 w-full">
               {showcaseItems.map((item, idx) => (
                 <button
                   type="button"
-                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all shrink-0 cursor-pointer ${
+                  class={`hero-tab text-xs font-mono font-medium py-1.5 px-3.5 rounded-xl transition-all shrink-0 cursor-pointer whitespace-nowrap ${
                     idx === 0
                       ? 'bg-[var(--primary)] text-white shadow-md font-bold'
                       : 'text-slate-400 hover:text-white hover:bg-white/[0.05]'
@@ -331,6 +382,8 @@ const showcaseItems = productList.length > 0
   let currentIndex = 0;
   const tabs = document.querySelectorAll('.hero-tab');
   const slides = document.querySelectorAll('.hero-image-slide');
+  const tabsContainer = document.getElementById('heroTabsContainer');
+  const showcaseCard = document.getElementById('heroShowcaseCard');
   const stat1Val = document.getElementById('heroStat1Val');
   const stat1Lbl = document.getElementById('heroStat1Lbl');
   const stat2Val = document.getElementById('heroStat2Val');
@@ -340,7 +393,10 @@ const showcaseItems = productList.length > 0
   const productLink = document.getElementById('heroProductLink');
   const quoteBtn = document.getElementById('heroQuoteBtn');
 
-  function switchTab(index) {
+  let autoScrollTimer = null;
+  const AUTO_SCROLL_INTERVAL = 3800; // auto-advance every 3.8 seconds
+
+  function switchTab(index, userTriggered = false) {
     if (!showcaseItems[index]) return;
     currentIndex = index;
     const item = showcaseItems[index];
@@ -350,6 +406,8 @@ const showcaseItems = productList.length > 0
       if (i === index) {
         tab.classList.add('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
         tab.classList.remove('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
+        // Scroll the active tab horizontally into view smoothly inside the container
+        tab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       } else {
         tab.classList.remove('bg-[var(--primary)]', 'text-white', 'shadow-md', 'font-bold');
         tab.classList.add('text-slate-400', 'hover:text-white', 'hover:bg-white/[0.05]');
@@ -379,12 +437,49 @@ const showcaseItems = productList.length > 0
       quoteBtn.setAttribute('data-product-name', item.title);
       quoteBtn.setAttribute('data-product-category', item.badge);
     }
+
+    if (userTriggered) {
+      restartAutoScroll();
+    }
+  }
+
+  function startAutoScroll() {
+    stopAutoScroll();
+    autoScrollTimer = setInterval(() => {
+      const nextIndex = (currentIndex + 1) % showcaseItems.length;
+      switchTab(nextIndex, false);
+    }, AUTO_SCROLL_INTERVAL);
+  }
+
+  function stopAutoScroll() {
+    if (autoScrollTimer) {
+      clearInterval(autoScrollTimer);
+      autoScrollTimer = null;
+    }
+  }
+
+  function restartAutoScroll() {
+    stopAutoScroll();
+    startAutoScroll();
   }
 
   tabs.forEach((tab) => {
     tab.addEventListener('click', (e) => {
       const idx = parseInt(e.currentTarget.getAttribute('data-index') || '0', 10);
-      switchTab(idx);
+      switchTab(idx, true);
     });
   });
+
+  // Pause auto-scrolling when hovering over the showcase card, resume on leave
+  if (showcaseCard) {
+    showcaseCard.addEventListener('mouseenter', stopAutoScroll);
+    showcaseCard.addEventListener('mouseleave', startAutoScroll);
+    showcaseCard.addEventListener('touchstart', stopAutoScroll, { passive: true });
+    showcaseCard.addEventListener('touchend', () => {
+      setTimeout(startAutoScroll, 3000);
+    }, { passive: true });
+  }
+
+  // Start auto-scroll initially
+  startAutoScroll();
 </script>

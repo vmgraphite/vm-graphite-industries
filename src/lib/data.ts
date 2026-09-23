@@ -97,8 +97,12 @@ export async function getAllProducts(): Promise<Product[]> {
     return MOCK_PRODUCTS;
   }
   try {
-    const data = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
-    return data && data.length > 0 ? data : MOCK_PRODUCTS;
+    const data: Product[] = await sanityClient.fetch(ALL_PRODUCTS_QUERY);
+    if (!data || data.length === 0) return MOCK_PRODUCTS;
+    // Merge any products from MOCK_PRODUCTS that aren't yet in Sanity (e.g. newly added products)
+    const existingSlugs = new Set(data.map((p) => p.slug));
+    const extraMockProducts = MOCK_PRODUCTS.filter((p) => !existingSlugs.has(p.slug));
+    return [...data, ...extraMockProducts];
   } catch (error) {
     console.warn('Error fetching products from Sanity, using fallback data:', error);
     return MOCK_PRODUCTS;
@@ -106,15 +110,8 @@ export async function getAllProducts(): Promise<Product[]> {
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
-  if (!isSanityConfigured || !sanityClient) {
-    return MOCK_PRODUCTS.filter((p) => p.isFeatured);
-  }
-  try {
-    const data = await sanityClient.fetch(FEATURED_PRODUCTS_QUERY);
-    return data && data.length > 0 ? data : MOCK_PRODUCTS.filter((p) => p.isFeatured);
-  } catch (error) {
-    return MOCK_PRODUCTS.filter((p) => p.isFeatured);
-  }
+  const all = await getAllProducts();
+  return all.filter((p) => p.isFeatured);
 }
 
 export async function getProductBySlug(slug: string): Promise<Product | undefined> {

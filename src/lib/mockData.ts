@@ -181,7 +181,6 @@ export const MOCK_CATEGORIES: Category[] = [
 ];
 
 export const MOCK_PRODUCTS: Product[] = [
-  // 1. Graphite & Carbon Products
   {
     _id: "prod-1",
     name: "Graphite Suspension",
@@ -192,7 +191,13 @@ export const MOCK_PRODUCTS: Product[] = [
       "Colloidal aqueous and solvent-based graphite dispersion engineered for high-temperature forging die lubrication and conductive metal coating applications.",
     fullDescription:
       "VM Graphite Suspension is a stable, ultra-fine micro-crystalline graphite formulation suspended in specialized fluid carriers. It forms a uniform, tenacious dry lubricant film on die cavities and metallic substrates operating at extreme thermal stress. Designed to minimize die wear, eliminate thermo-cracking, and ensure clean casting release.",
-    mainImage: "/images/products/graphite-suspension.jpg",
+    mainImage: "/images/products/colloidal-graphite-dispersion.jpg",
+    gallery: [
+      "/images/products/graphite-suspension-swirl.jpg",
+      "/images/products/graphite-dispersion-pour.jpg",
+      "/images/products/graphite-dispersion-splash.jpg",
+      "/images/products/graphite-suspension-thick.jpg"
+    ],
     specifications: [
       { name: "Graphite Purity", value: "≥ 99.5% Carbon" },
       { name: "Particle Size (D90)", value: "< 5.0 µm" },
@@ -218,7 +223,10 @@ export const MOCK_PRODUCTS: Product[] = [
       "Isostatically pressed silicon-carbide bonded graphite crucibles crafted for melting non-ferrous alloys, copper, brass, aluminum, and precious metals.",
     fullDescription:
       "Engineered using high-density isostatic pressing, VM Graphite Crucibles deliver exceptional thermal conductivity, outstanding mechanical strength, and superior resistance to chemical oxidation and flux erosion. Ideal for induction and fuel-fired tilting furnaces across foundry operations.",
-    mainImage: "/images/products/graphite-crucibles.jpg",
+    mainImage: "/images/products/graphite-crucibles-cups.jpg",
+    gallery: [
+      "/images/products/graphite-crucibles.jpg"
+    ],
     specifications: [
       { name: "Material Grade", value: "Iso-Pressed Clay / SiC-Graphite" },
       { name: "Bulk Density", value: "1.85 - 1.95 g/cm³" },
@@ -242,29 +250,33 @@ export const MOCK_PRODUCTS: Product[] = [
   },
   {
     _id: "prod-3",
-    name: "Graphite Sheets & Rods",
+    name: "Graphite Sheet",
     slug: "graphite-sheets-rods",
     categorySlug: "graphite-carbon-products",
     categoryName: "Graphite & Carbon Products",
     shortDescription:
-      "Extruded & fine-grain molded graphite rods and flexible graphite foil sheets for chemical gaskets, EDM electrodes, and thermal insulation.",
+      "Flexible expanded graphite sheets and rolls for high-temperature sealing gaskets, thermal heat spreaders, and furnace linings.",
     fullDescription:
-      "High-purity graphite rods and expanded graphite foil sheets manufactured to exact mechanical tolerances. Our sheets provide low friction, zero creep relaxation, and excellent chemical inertness against harsh acids and alkalis.",
-    mainImage: "/images/products/graphite-sheets-rods.jpg",
+      "High-purity expanded flexible graphite sheets and rolls precision calendered from natural crystalline flake graphite. Offering exceptional compressibility, superior recovery, low creep relaxation, and total chemical inertness against aggressive industrial media.",
+    mainImage: "/images/products/graphite-sheet-roll.jpg",
+    gallery: [
+      "/images/products/graphite-sheets-plates.jpg",
+      "/images/products/graphite-sheets-rods.jpg"
+    ],
     specifications: [
-      { name: "Carbon Content", value: "99.0% - 99.9%" },
-      { name: "Density (Rods)", value: "1.75 - 1.88 g/cm³" },
-      { name: "Density (Sheets)", value: "1.0 - 1.1 g/cm³" },
+      { name: "Carbon Content", value: "≥ 99.0% - 99.9%" },
+      { name: "Sheet Density", value: "1.0 - 1.1 g/cm³" },
       { name: "Compressibility", value: "40% - 50%" },
+      { name: "Recovery", value: "≥ 10%" },
       { name: "Tensile Strength", value: "≥ 5.0 MPa" },
-      { name: "Ash Content", value: "< 0.1%" },
+      { name: "Ash Content", value: "< 0.5%" },
     ],
     productPdfUrl: "/docs/Graphite_Sheets_Rods_Catalog.pdf",
     isFeatured: true,
     displayOrder: 3,
-    seoTitle: "High-Purity Graphite Sheets & Rods | Industrial Materials",
+    seoTitle: "High-Purity Flexible Graphite Sheet & Roll | VM Graphite",
     seoDescription:
-      "Extruded graphite rods & flexible expanded graphite sheets. Precision machined for EDM electrodes, seals, and furnace linings.",
+      "Flexible expanded graphite sheet and roll for thermal insulation, heat spreaders, and high-temp industrial gaskets.",
   },
   {
     _id: "prod-4",
@@ -276,7 +288,12 @@ export const MOCK_PRODUCTS: Product[] = [
       "Custom machined graphite cylindrical sleeves and bushings designed for high-temperature pumps, continuous casting dies, and thermal barriers.",
     fullDescription:
       "Self-lubricating graphite sleeves precision turned to tight dimensional tolerances. Resistant to molten metal wetting and chemical corrosion, offering reliable performance under dry-running or boundary lubrication conditions.",
-    mainImage: "/images/products/graphite-sleeves.jpg",
+    mainImage: "/images/products/graphite-sleeves-machined.jpg",
+    gallery: [
+      "/images/products/graphite-sleeves-machined-2.jpg",
+      "/images/products/graphite-sleeves-tubes.jpg",
+      "/images/products/graphite-tubes-long.jpg"
+    ],
     specifications: [
       { name: "Material Base", value: "Synthetic Machined Graphite" },
       { name: "Flexural Strength", value: "35 - 48 MPa" },
@@ -285,7 +302,7 @@ export const MOCK_PRODUCTS: Product[] = [
       { name: "Machining Tolerance", value: "± 0.02 mm" },
     ],
     productPdfUrl: "/docs/Graphite_Sleeves_Technical.pdf",
-    isFeatured: false,
+    isFeatured: true,
     displayOrder: 4,
     seoTitle: "Machined Graphite Sleeves & Bushings | VM Graphite",
     seoDescription:
@@ -301,7 +318,11 @@ export const MOCK_PRODUCTS: Product[] = [
       "Braided expanded flexible graphite gland packing reinforced with Inconel or nickel wire for valve stems and high-pressure steam pumps.",
     fullDescription:
       "VM Flexible Graphite Gland Rope is inter-braided from high-purity expanded graphite yarn. It features exceptionally low friction, self-lubricating properties, and superior thermal conductivity. Corrosion inhibitors integrated into the packing protect valve stems from pitting.",
-    mainImage: "/images/products/graphite-gland-rope.jpg",
+    mainImage: "/images/products/graphite-gland-packing-ring.jpg",
+    gallery: [
+      "/images/products/white-gland-packing.jpg",
+      "/images/products/graphite-gland-rope.jpg"
+    ],
     specifications: [
       {
         name: "Reinforcement Wire",
@@ -332,7 +353,11 @@ export const MOCK_PRODUCTS: Product[] = [
       "Self-adhesive corrugated flexible expanded graphite foil tape designed for instant valve stem packing and spiral wound gasket manufacturing.",
     fullDescription:
       "VM Graphite Foil Tape is manufactured from 99% pure flexible graphite sheet with a pressure-sensitive adhesive backing. Featuring crinkled/corrugated pattern options, it allows easy wrapping around small and large valve stems, creating an immediate seal under compression.",
-    mainImage: "/images/products/graphite-foil-tape.jpg",
+    mainImage: "/images/products/graphite-foil-tape-pallet.jpg",
+    gallery: [
+      "/images/products/graphite-strip-spools.jpg",
+      "/images/products/graphite-foil-tape.jpg"
+    ],
     specifications: [
       { name: "Carbon Content", value: "≥ 99.0%" },
       { name: "Standard Thickness", value: "0.38 mm, 0.50 mm" },
@@ -414,7 +439,10 @@ export const MOCK_PRODUCTS: Product[] = [
       "Molded felt, rubber, and felt-graphite hybrid end seal gaskets engineered for flexographic ink chambers and gravure doctor blade assemblies.",
     fullDescription:
       "VM End Seals are CNC-cut to exact OEM chamber profiles. Fabricated from lubricated wool felt, EPDM, polyurethane, and micro-graphite soaked felt to ensure leak-free ink containment at high web speeds while prolonging anilox roll longevity.",
-    mainImage: "/images/products/end-seals.jpg",
+    mainImage: "/images/products/custom-end-seals.jpg",
+    gallery: [
+      "/images/products/end-seals.jpg"
+    ],
     specifications: [
       {
         name: "Material Options",
@@ -482,7 +510,10 @@ export const MOCK_PRODUCTS: Product[] = [
       "Heavy-duty UHMW-PE and composite polyester doctor blades engineered for containment in flexo chambers and corrugated board printing.",
     fullDescription:
       "Corrosion-proof synthetic polymer doctor blades designed as durable containment blades. Engineered to prevent operator knife injuries, avoid anilox scoring, and outlast traditional steel blades by 3x to 5x in abrasive ink environments.",
-    mainImage: "/images/products/polymer-doctor-blades.jpg",
+    mainImage: "/images/products/orange-polymer-doctor-blade.jpg",
+    gallery: [
+      "/images/products/polymer-doctor-blades.jpg"
+    ],
     specifications: [
       {
         name: "Material Formulation",
@@ -572,7 +603,10 @@ export const MOCK_PRODUCTS: Product[] = [
       "High-corrosion-resistant Stainless Steel (SS) doctor blades engineered for water-based flexographic printing inks and corrosive fluid metering.",
     fullDescription:
       "VM Stainless Steel (SS) Doctor Blades are precision manufactured from premium surgical-grade stainless steel. Specially engineered to combat blade oxidation, pitting, and acid corrosion when operating with water-based flexo inks, aggressive coatings, and high-pH fluid solutions.",
-    mainImage: "/images/products/ss-doctor-blades.jpg",
+    mainImage: "/images/products/ss-doctor-blade-strip.jpg",
+    gallery: [
+      "/images/products/ss-doctor-blades.jpg"
+    ],
     specifications: [
       {
         name: "Material Grade",
@@ -632,7 +666,10 @@ export const MOCK_PRODUCTS: Product[] = [
       "Spiral rope-wound ink mixing rollers engineered for uniform ink distribution and anti-skinning fluid flow across printing press fountains.",
     fullDescription:
       "VM Rope Ink Mixing Rollers feature a continuous spiral rope winding over an aluminum/steel core. As the roller rotates, the spiraled rope surface continuously moves ink across the length of the fountain pan, preventing localized drying, color variation, and viscosity spikes.",
-    mainImage: "/images/products/rope-ink-mixing-roller.jpg",
+    mainImage: "/images/products/rope-mixing-rollers.jpg",
+    gallery: [
+      "/images/products/rope-ink-mixing-roller.jpg"
+    ],
     specifications: [
       { name: "Winding Material", value: "Solvent-Resistant Synthetic Rope" },
       {
@@ -649,6 +686,88 @@ export const MOCK_PRODUCTS: Product[] = [
     seoTitle: "Rope Ink Mixing Roller | Printing Press Fountain Rollers",
     seoDescription:
       "Spiral rope-wound ink mixing rollers for printing press ink pans. Ensures uniform ink circulation and prevents skinning.",
+  },
+  {
+    _id: "prod-17",
+    name: "Graphite Rod",
+    slug: "graphite-rod",
+    categorySlug: "graphite-carbon-products",
+    categoryName: "Graphite & Carbon Products",
+    shortDescription:
+      "Extruded & fine-grain molded high-purity graphite rods for EDM electrodes, metallurgical degassing, and high-temp furnace elements.",
+    fullDescription:
+      "VM Graphite Rods are precision manufactured from high-density, fine-grain synthetic graphite. Providing exceptional thermal conductivity, low electrical resistivity, and high thermal shock resistance under extreme furnace atmospheres up to 3000°C.",
+    mainImage: "/images/products/graphite-rods-clean.jpg",
+    gallery: [
+      "/images/products/graphite-rods-clean-2.jpg",
+      "/images/products/graphite-sheets-rods.jpg"
+    ],
+    specifications: [
+      { name: "Carbon Purity", value: "99.9% High Density" },
+      { name: "Bulk Density", value: "1.75 - 1.88 g/cm³" },
+      { name: "Specific Resistance", value: "8.5 - 11.5 µΩ·m" },
+      { name: "Flexural Strength", value: "≥ 32 MPa" },
+      { name: "Max Service Temp", value: "3000°C (Inert Atmospheres)" },
+      { name: "Standard Diameters", value: "10mm to 300mm (Custom Cut)" },
+    ],
+    productPdfUrl: "/docs/Graphite_Sheets_Rods_Catalog.pdf",
+    isFeatured: true,
+    displayOrder: 17,
+    seoTitle: "High-Purity Graphite Rods & Electrodes | VM Graphite",
+    seoDescription:
+      "Extruded fine-grain synthetic graphite rods for EDM machining, degassing tubes, and high-temperature furnace heating elements.",
+  },
+  {
+    _id: "prod-18",
+    name: "Graphite Powder",
+    slug: "graphite-powder",
+    categorySlug: "graphite-carbon-products",
+    categoryName: "Graphite & Carbon Products",
+    shortDescription:
+      "Ultra-fine micronized synthetic and natural flake graphite powder for conductive coatings, metallurgy, friction materials, and lubricant blending.",
+    fullDescription:
+      "VM High-Purity Graphite Powder is processed via ultra-fine mechanical and air jet milling. Characterized by high lubricity, thermal stability up to 3000°C, and exceptional electrical conductivity. Tailored for battery anodes, conductive polymers, dry lubricants, and sintering metallurgy.",
+    mainImage: "/images/products/graphite-powder.jpg",
+    specifications: [
+      { name: "Carbon Content", value: "≥ 99.9% Purity" },
+      { name: "Particle Size (D50)", value: "< 10 µm (Micronized)" },
+      { name: "Ash Content", value: "≤ 0.05%" },
+      { name: "Moisture Content", value: "≤ 0.2%" },
+      { name: "Electrical Conductivity", value: "High Conductive Grade" },
+      { name: "Mesh Size", value: "325 Mesh / 1000 Mesh / Sub-Micron" },
+    ],
+    productPdfUrl: "/docs/VM_Graphite_Corporate_Catalog_2026.pdf",
+    isFeatured: true,
+    displayOrder: 18,
+    seoTitle: "High Purity Graphite Powder | Synthetic & Natural Flake",
+    seoDescription:
+      "Micronized high-purity graphite powder for metallurgical additives, conductive inks, dry lubricants, and friction components.",
+  },
+  {
+    _id: "prod-19",
+    name: "X-Ray Grade Selenium Granules",
+    slug: "x-ray-grade-selenium-granules",
+    categorySlug: "graphite-carbon-products",
+    categoryName: "Graphite & Carbon Products",
+    shortDescription:
+      "Ultra-pure 99.999% (5N) spherical selenium granules and vitreous beads engineered for X-ray photoreceptors, radiation detectors, and glass color neutralization.",
+    fullDescription:
+      "VM Advanced Materials offers certified 99.999% (5N) X-Ray Grade Selenium Granules. Meticulously refined to eliminate trace heavy metals and impurities. Uniform spherical bead geometry ensures exceptional vapor deposition rates for digital X-ray flat panel detectors, selenium drums, and optical specialty glass alloys.",
+    mainImage: "/images/products/selenium-granules.jpg",
+    specifications: [
+      { name: "Selenium Purity (Se)", value: "≥ 99.999% (5N Grade)" },
+      { name: "Physical Form", value: "Vitreous Spherical Granules / Beads" },
+      { name: "Granule Diameter", value: "1.0 mm - 3.5 mm" },
+      { name: "Total Heavy Metal Impurities", value: "< 5 ppm (ICP-MS Tested)" },
+      { name: "Melting Point", value: "221°C" },
+      { name: "Boiling Point", value: "685°C" },
+    ],
+    productPdfUrl: "/docs/VM_Graphite_Corporate_Catalog_2026.pdf",
+    isFeatured: true,
+    displayOrder: 19,
+    seoTitle: "X-Ray Grade Selenium Granules (5N 99.999%) | VM Graphite",
+    seoDescription:
+      "Certified 99.999% 5N ultra-pure X-ray grade selenium granules and vitreous beads for digital radiography detectors and optical glass.",
   },
 ];
 

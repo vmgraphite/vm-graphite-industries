@@ -13,11 +13,11 @@ const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [
   data-tilt
   data-tilt-max="6"
   data-spotlight
-  class="glow-card card-shimmer-sweep group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(255,102,54,0.22)] transition-all duration-500 bg-[#0f1118] relative"
+  class="glow-card card-shimmer-sweep group flex flex-col justify-between overflow-hidden rounded-2xl border border-white/[0.08] hover:border-theme hover:shadow-[0_20px_50px_rgba(0,0,0,0.8),0_0_30px_rgba(255,102,54,0.22)] transition-all duration-500 bg-[#0f1118] relative h-full w-full"
 >
   
   <!-- Image Banner with HUD overlays -->
-  <a href={`/products/${product.slug}`} class="h-52 overflow-hidden relative bg-[#040508] block">
+  <a href={`/products/${product.slug}`} class="h-52 overflow-hidden relative bg-[#040508] block shrink-0">
     <img
       src={product.mainImage}
       alt={product.name}
@@ -33,7 +33,7 @@ const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [
     <div class="absolute top-2 right-2 w-2.5 h-2.5 border-t-2 border-r-2 border-white/20 group-hover:border-theme transition-colors pointer-events-none"></div>
     
     <!-- Category Pill -->
-    <div class="absolute top-3.5 left-3.5 bg-[#07090e]/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-theme-bright border border-white/10 font-mono shadow-md uppercase tracking-wider group-hover:border-theme transition-colors">
+    <div class="absolute top-3.5 left-3.5 bg-[#07090e]/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold text-theme-bright border border-white/10 font-mono shadow-md uppercase tracking-wider group-hover:border-theme transition-colors max-w-[65%] truncate">
       {product.categoryName}
     </div>
 
@@ -45,33 +45,37 @@ const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [
   </a>
 
   <!-- Content Body -->
-  <div class="p-5 sm:p-6 flex-grow flex flex-col justify-between space-y-4 relative z-10">
-    <div>
-      <h3 class="text-lg font-bold text-white group-hover:text-theme-bright transition-colors mb-2 leading-snug" style="font-family:'Outfit',sans-serif;">
-        <a href={`/products/${product.slug}`}>{product.name}</a>
+  <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between space-y-4 relative z-10">
+    <div class="space-y-2">
+      <h3 class="text-lg font-bold text-white group-hover:text-theme-bright transition-colors line-clamp-1 h-7 leading-snug" style="font-family:'Outfit',sans-serif;">
+        <a href={`/products/${product.slug}`} title={product.name}>{product.name}</a>
       </h3>
-      <p class="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">
+      <p class="text-xs text-slate-400 line-clamp-2 h-9 leading-relaxed font-normal">
         {product.shortDescription}
       </p>
     </div>
 
-    <!-- Key Spec Chips with glowing indicator dots -->
-    {topSpecs.length > 0 && (
-      <div class="bg-[#07090e] border border-white/[0.06] group-hover:border-white/10 rounded-xl p-3 space-y-2 transition-colors">
-        {topSpecs.map((spec) => (
+    <!-- Key Spec Chips with fixed height so cards never misalign -->
+    <div class="bg-[#07090e] border border-white/[0.06] group-hover:border-white/10 rounded-xl p-3 space-y-2 transition-colors min-h-[76px] flex flex-col justify-center">
+      {topSpecs.length > 0 ? (
+        topSpecs.map((spec) => (
           <div class="flex justify-between items-baseline gap-2 text-xs">
-            <span class="text-slate-400 font-medium shrink-0 font-mono text-[11px] flex items-center gap-1.5">
-              <span class="w-1.5 h-1.5 rounded-full bg-theme/50 group-hover:bg-theme group-hover:shadow-[0_0_6px_var(--primary)] transition-all"></span>
-              {spec.name}:
+            <span class="text-slate-400 font-medium shrink-0 font-mono text-[11px] flex items-center gap-1.5 truncate max-w-[55%]">
+              <span class="w-1.5 h-1.5 rounded-full bg-theme/50 group-hover:bg-theme group-hover:shadow-[0_0_6px_var(--primary)] transition-all shrink-0"></span>
+              <span class="truncate">{spec.name}:</span>
             </span>
-            <span class="text-slate-200 font-bold font-mono text-right min-w-0 break-words text-[11px]">{spec.value}</span>
+            <span class="text-slate-200 font-bold font-mono text-right min-w-0 break-words text-[11px] truncate">{spec.value}</span>
           </div>
-        ))}
-      </div>
-    )}
+        ))
+      ) : (
+        <div class="flex items-center justify-center text-[11px] font-mono text-slate-500 italic">
+          High Performance Industrial Grade
+        </div>
+      )}
+    </div>
 
     <!-- Action Buttons -->
-    <div class="pt-1 grid grid-cols-2 gap-2.5">
+    <div class="pt-1 grid grid-cols-2 gap-2.5 mt-auto">
       <button
         type="button"
         data-open-quote-modal
