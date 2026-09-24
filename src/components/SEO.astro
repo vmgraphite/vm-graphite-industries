@@ -1,4 +1,6 @@
 ---
+import { getSiteSettings } from '../lib/data';
+
 export interface Props {
   title?: string;
   description?: string;
@@ -13,87 +15,174 @@ export interface Props {
     sku?: string;
   };
   breadcrumbs?: { name: string; item: string }[];
+  seo?: any;
 }
 
 const {
   title = 'VM Graphite Industries LLP | Advanced Industrial Graphite Solutions',
   description = 'Leading manufacturer of high-purity industrial graphite crucibles, colloidal graphite suspensions, sealing tapes, flexible foil gaskets, and doctor blades in India.',
-  image = '/images/logo.svg',
+  image = '/images/og-social-share.jpg',
   canonicalUrl = Astro.url.href,
   type = 'website',
   productData,
   breadcrumbs,
 } = Astro.props;
 
+// Pull live address data from Sanity — never a stale hardcoded placeholder
+const siteSettings = await getSiteSettings();
+
 const siteName = 'VM Graphite Industries LLP';
+const siteUrl = 'https://vmgraphiteindustries.com';
 const formattedTitle = title.includes(siteName) ? title : `${title} | ${siteName}`;
 const fullImageUrl = image.startsWith('http') ? image : new URL(image, Astro.site).href;
 
-// JSON-LD Organization Schema
+// Parse address from siteSettings into structured parts
+const officeAddress = siteSettings.officeAddress || 'New Delhi - 110020, India';
+const officeAddressParts = officeAddress.split(',').map((s: string) => s.trim());
+const streetAddress = officeAddressParts.slice(0, -2).join(', ') || officeAddress;
+const addressLocality = officeAddressParts[officeAddressParts.length - 2]?.replace(/[-–]\s*\d+/, '').trim() || 'New Delhi';
+const postalRaw = officeAddressParts[officeAddressParts.length - 1] || '';
+const postalMatch = postalRaw.match(/\d{6}/);
+const postalCode = postalMatch ? postalMatch[0] : '110020';
+
+const primaryPhone = siteSettings.primaryPhone || '+91 94221 02425';
+const siteEmail = siteSettings.email || 'info@vmgraphiteindustries.com';
+
+// JSON-LD Organization + LocalBusiness (unified) — gives Google entity verification & Maps integration
 const organizationSchema = {
   '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'VM Graphite Industries LLP',
-  url: 'https://vmgraphiteindustries.com',
-  logo: new URL('/images/logo.svg', Astro.site).href,
-  description: 'Manufacturer of high-performance industrial graphite products, colloidal suspensions, sealing materials, and printing doctor blades.',
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+91 94221 02425',
-    contactType: 'sales',
-    areaServed: 'IN',
-    availableLanguage: ['English', 'Hindi'],
+  '@type': ['Organization', 'LocalBusiness'],
+  '@id': `${siteUrl}/#organization`,
+  name: siteName,
+  url: siteUrl,
+  logo: {
+    '@type': 'ImageObject',
+    url: new URL('/images/logo.svg', Astro.site).href,
+    width: 200,
+    height: 60,
   },
+  image: new URL('/images/og-social-share.jpg', Astro.site).href,
+  description: 'Manufacturer of high-performance industrial graphite products, colloidal suspensions, sealing materials, and printing doctor blades. Exporting to 20+ countries.',
+  foundingDate: '2021',
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: primaryPhone,
+      contactType: 'sales',
+      areaServed: ['IN', 'WORLDWIDE'],
+      availableLanguage: ['English', 'Hindi'],
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: primaryPhone,
+      contactType: 'customer support',
+      areaServed: 'IN',
+      availableLanguage: ['English', 'Hindi'],
+    },
+  ],
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'Plot No. 42, Industrial Area, Phase II',
-    addressLocality: 'New Delhi',
-    postalCode: '110020',
+    streetAddress,
+    addressLocality,
+    postalCode,
+    addressRegion: 'Delhi',
     addressCountry: 'IN',
   },
+  email: siteEmail,
+  telephone: primaryPhone,
+  hasMap: siteSettings.googleMapsUrl || `https://maps.google.com/?q=VM+Graphite+Industries+New+Delhi`,
+  // sameAs links tell Google this is the same business entity across the web
+  sameAs: [
+    'https://www.indiamart.com/vm-graphite-industries/',
+    'https://www.linkedin.com/company/vm-graphite-industries',
+    'https://www.tradeindia.com/vm-graphite-industries/',
+    siteUrl,
+  ],
+  knowsAbout: [
+    'Graphite Crucibles',
+    'Colloidal Graphite Suspension',
+    'Expanded Graphite Foil Tape',
+    'Graphite Doctor Blades',
+    'Industrial Sealing Materials',
+    'Selenium Granules',
+  ],
 };
 
-// JSON-LD WebSite Schema
+// JSON-LD WebSite Schema with SearchAction (Sitelinks Searchbox)
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'VM Graphite Industries LLP',
-  url: 'https://vmgraphiteindustries.com',
+  '@id': `${siteUrl}/#website`,
+  name: siteName,
+  url: siteUrl,
+  inLanguage: 'en-IN',
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: `${siteUrl}/products?search={search_term_string}`,
+    'query-input': 'required name=search_term_string',
+  },
 };
 
 // JSON-LD Product Schema (if product page)
+// price:0.00 is intentionally removed — B2B products are "on request".
+// Using PriceSpecification avoids Google flagging the product as free or invalid.
 const productSchema = productData
   ? {
       '@context': 'https://schema.org',
       '@type': 'Product',
       name: productData.name,
-      image: [productData.image.startsWith('http') ? productData.image : new URL(productData.image, Astro.site).href],
+      image: [productData.image?.startsWith('http') ? productData.image : new URL(productData.image || '/images/og-social-share.jpg', Astro.site).href],
       description: productData.description,
       category: productData.category,
       brand: {
         '@type': 'Brand',
         name: 'VM Graphite Industries',
+        '@id': `${siteUrl}/#organization`,
+      },
+      manufacturer: {
+        '@type': 'Organization',
+        name: siteName,
+        '@id': `${siteUrl}/#organization`,
       },
       offers: {
-        '@type': 'AggregateOffer',
+        '@type': 'Offer',
         priceCurrency: 'INR',
-        price: 'Contact for Quote',
+        priceSpecification: {
+          '@type': 'PriceSpecification',
+          priceCurrency: 'INR',
+          description: 'Price on request — contact our sales team for a custom quote.',
+        },
+        url: canonicalUrl,
         availability: 'https://schema.org/InStock',
+        itemCondition: 'https://schema.org/NewCondition',
+        seller: {
+          '@type': 'Organization',
+          name: siteName,
+          '@id': `${siteUrl}/#organization`,
+        },
       },
     }
   : null;
 
-// JSON-LD Breadcrumb Schema
+// JSON-LD Breadcrumb Schema — always prepends Home as position 1
 const breadcrumbSchema = breadcrumbs
   ? {
       '@context': 'https://schema.org',
       '@type': 'BreadcrumbList',
-      itemListElement: breadcrumbs.map((crumb, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: crumb.name,
-        item: crumb.item.startsWith('http') ? crumb.item : new URL(crumb.item, Astro.site).href,
-      })),
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: siteUrl,
+        },
+        ...breadcrumbs.map((crumb, index) => ({
+          '@type': 'ListItem',
+          position: index + 2,
+          name: crumb.name,
+          item: crumb.item.startsWith('http') ? crumb.item : new URL(crumb.item, Astro.site).href,
+        })),
+      ],
     }
   : null;
 ---
@@ -103,6 +192,17 @@ const breadcrumbSchema = breadcrumbs
 <meta name="title" content={formattedTitle} />
 <meta name="description" content={description} />
 <link rel="canonical" href={canonicalUrl} />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+
+<!-- Language & Locale -->
+<meta property="og:locale" content="en_IN" />
+
+<!-- Geo & Location Tags for Industrial Ranking -->
+<meta name="geo.region" content="IN-DL" />
+<meta name="geo.placename" content="New Delhi" />
+<meta name="geo.position" content="28.5355;77.2717" />
+<meta name="ICBM" content="28.5355, 77.2717" />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />
@@ -110,6 +210,9 @@ const breadcrumbSchema = breadcrumbs
 <meta property="og:title" content={formattedTitle} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={fullImageUrl} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={`${siteName} — Advanced Industrial Graphite Solutions`} />
 <meta property="og:site_name" content={siteName} />
 
 <!-- Twitter -->
@@ -118,6 +221,7 @@ const breadcrumbSchema = breadcrumbs
 <meta property="twitter:title" content={formattedTitle} />
 <meta property="twitter:description" content={description} />
 <meta property="twitter:image" content={fullImageUrl} />
+<meta property="twitter:image:alt" content={`${siteName} — Advanced Industrial Graphite Solutions`} />
 
 <!-- JSON-LD Structured Data -->
 <script is:inline type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />

@@ -2,6 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
+import sitemap from '@astrojs/sitemap';
 
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'twycammz';
 const dataset = process.env.PUBLIC_SANITY_DATASET || 'production';
@@ -18,6 +19,9 @@ export default defineConfig({
       studioBasePath: '/admin',
     }),
     react(),
+    sitemap({
+      filter: (page) => !page.includes('/admin'),
+    }),
   ],
   output: 'static',
   vite: {

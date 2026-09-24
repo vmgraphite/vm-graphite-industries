@@ -1,0 +1,11 @@
+# Robots.txt for VM Graphite Industries LLP
+# https://vmgraphiteindustries.com
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /admin
+Disallow: /api/
+
+# XML Sitemap — submit this URL in Google Search Console
+Sitemap: https://vmgraphiteindustries.com/sitemap-index.xml
