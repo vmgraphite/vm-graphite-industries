@@ -2,7 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="404 - Page Not Found | VM Graphite Industries LLP">
+<Layout
+  title="404 - Page Not Found | VM Graphite Industries LLP"
+  description="The page you were looking for could not be found. Browse our graphite product catalog or return to the homepage."
+>
+  <!-- Override robots to noindex for 404 pages -->
+  <meta slot="head" name="robots" content="noindex, nofollow" />
   <section class="py-24 bg-slate-950 text-white min-h-[70vh] flex items-center justify-center industrial-grid-bg">
     <div class="max-w-md mx-auto px-4 text-center space-y-6">
       <div class="w-20 h-20 bg-industrial-copper/20 text-industrial-copper rounded-2xl flex items-center justify-center mx-auto border border-industrial-copper/30">

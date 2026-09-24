@@ -40,7 +40,7 @@ function renderProductDescription(desc: any) {
 ---
 
 <Layout
-  title={product.seoTitle || `${product.name} | VM Graphite Industries`}
+  title={product.seoTitle || product.name}
   description={product.seoDescription || product.shortDescription}
   image={product.mainImage}
   type="product"
@@ -50,7 +50,7 @@ function renderProductDescription(desc: any) {
     image: product.mainImage,
     category: product.categoryName,
   }}
-  breadcrumbs={breadcrumbItems.map((b) => ({ name: b.name, item: b.href || Astro.url.href }))}
+  breadcrumbs={breadcrumbItems.map((b) => ({ name: b.name, item: b.href ?? Astro.url.href }))}
 >
   <!-- Detail Header Banner -->
   <section class="bg-[#07090e] text-white py-14 industrial-grid-bg border-b border-white/10 relative overflow-hidden">
