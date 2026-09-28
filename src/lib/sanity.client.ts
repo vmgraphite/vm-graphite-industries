@@ -1,7 +1,7 @@
 import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || '';
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'vvhsg9ix';
 const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
 const apiVersion = import.meta.env.PUBLIC_SANITY_API_VERSION || '2024-08-01';
 

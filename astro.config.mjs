@@ -5,7 +5,7 @@ import sanity from '@sanity/astro';
 import sitemap from '@astrojs/sitemap';
 import netlify from '@astrojs/netlify';
 
-const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'twycammz';
+const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'vvhsg9ix';
 const dataset = process.env.PUBLIC_SANITY_DATASET || 'production';
 
 // https://astro.build/config
@@ -30,9 +30,6 @@ export default defineConfig({
   adapter: netlify(),
   vite: {
     plugins: [tailwindcss()],
-    define: {
-      'process.env': {},
-    },
     optimizeDeps: {
       exclude: ['refractor'],
     },

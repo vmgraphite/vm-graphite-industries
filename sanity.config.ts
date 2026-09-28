@@ -2,7 +2,7 @@ import { defineConfig } from 'sanity';
 import { structureTool } from 'sanity/structure';
 import { schemaTypes } from './sanity/schemas';
 
-const projectId = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_PROJECT_ID) || 'twycammz';
+const projectId = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_PROJECT_ID) || 'vvhsg9ix';
 const dataset = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_DATASET) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_DATASET) || 'production';
 
 export default defineConfig({
