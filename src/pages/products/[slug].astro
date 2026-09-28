@@ -4,14 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductSpecs from '../../components/ProductSpecs.astro';
 import BrochureCTA from '../../components/BrochureCTA.astro';
 
-import { getProductBySlug, getAllProducts } from '../../lib/data';
-
-export async function getStaticPaths() {
-  const products = await getAllProducts();
-  return products.map((product) => ({
-    params: { slug: product.slug },
-  }));
-}
+import { getProductBySlug } from '../../lib/data';
 
 const { slug } = Astro.params;
 const product = await getProductBySlug(slug as string);
