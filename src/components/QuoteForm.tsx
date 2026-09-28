@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import {
   Send,
   CheckCircle2,
@@ -14,7 +14,7 @@ import {
   ExternalLink,
   RotateCcw,
   Check,
-} from 'lucide-react';
+} from "lucide-react";
 
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string;
 
@@ -25,37 +25,43 @@ interface QuoteFormProps {
 }
 
 const QUANTITY_OPTIONS = [
-  'Trial Sample / Prototype',
-  'Small Batch (10–50 units)',
-  'Medium Batch (50–200 units)',
-  'Bulk Order (500+ units)',
-  'Annual Supply Contract',
+  "Trial Sample / Prototype",
+  "Small Batch (10–50 units)",
+  "Medium Batch (50–200 units)",
+  "Bulk Order (500+ units)",
+  "Annual Supply Contract",
 ];
 
 const TIMELINE_OPTIONS = [
-  { id: 'urgent', label: 'Urgent (< 10 Days)' },
-  { id: 'standard', label: 'Standard (2–4 Weeks)' },
-  { id: 'flexible', label: 'Planning / Flexible' },
+  { id: "urgent", label: "Urgent (< 10 Days)" },
+  { id: "standard", label: "Standard (2–4 Weeks)" },
+  { id: "flexible", label: "Planning / Flexible" },
 ];
 
-export default function QuoteForm({ initialProduct = '', initialCategory = '', onSuccess }: QuoteFormProps) {
+export default function QuoteForm({
+  initialProduct = "",
+  initialCategory = "",
+  onSuccess,
+}: QuoteFormProps) {
   const [formData, setFormData] = useState({
     product: initialProduct,
     category: initialCategory,
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    quantity: 'Trial Sample / Prototype',
-    timeline: 'Standard (2–4 Weeks)',
-    specifications: '',
-    message: '',
-    botcheck: '',
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    quantity: "Trial Sample / Prototype",
+    timeline: "Standard (2–4 Weeks)",
+    specifications: "",
+    message: "",
+    botcheck: "",
   });
 
-  const [rfqNumber, setRfqNumber] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [rfqNumber, setRfqNumber] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
   useEffect(() => {
     setFormData((prev) => ({
@@ -65,7 +71,11 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
     }));
   }, [initialProduct, initialCategory]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -74,14 +84,20 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
 
     if (formData.botcheck) return;
 
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
-      setErrorMessage('Please fill in required fields: Full Name, Work Email, and Phone number.');
-      setStatus('error');
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim()
+    ) {
+      setErrorMessage(
+        "Please fill in required fields: Full Name, Work Email, and Phone number.",
+      );
+      setStatus("error");
       return;
     }
 
-    setStatus('submitting');
-    setErrorMessage('');
+    setStatus("submitting");
+    setErrorMessage("");
 
     const generatedRfq = `VMG-RFQ-${Math.floor(100000 + Math.random() * 900000)}`;
     setRfqNumber(generatedRfq);
@@ -89,82 +105,118 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
     const hasValidKey = Boolean(
       WEB3FORMS_KEY &&
       WEB3FORMS_KEY.trim() &&
-      !WEB3FORMS_KEY.includes('YOUR_ACCESS_KEY') &&
-      WEB3FORMS_KEY.length > 10
+      !WEB3FORMS_KEY.includes("YOUR_ACCESS_KEY") &&
+      WEB3FORMS_KEY.length > 10,
     );
 
     try {
-      if (hasValidKey) {
-        const payload = {
-          access_key: WEB3FORMS_KEY,
-          subject: `[Commercial RFQ: ${generatedRfq}] ${formData.product || 'Graphite Inquiry'} – ${formData.company || formData.name}`,
-          from_name: `${formData.name} via VM Graphite RFQ`,
-          replyto: formData.email,
-          botcheck: formData.botcheck,
-          'RFQ Reference ID': generatedRfq,
-          'Target Product': formData.product || 'General Industrial Graphite',
-          'Product Category': formData.category || 'High-Performance Graphite',
-          'Required Volume': formData.quantity || 'Standard Requirement',
-          'Timeline': formData.timeline,
-          'Client Name': formData.name,
-          'Company Name': formData.company || 'Not Specified',
-          'Work Email': formData.email,
-          'Phone Number': formData.phone,
-          'Custom Specs': formData.specifications || 'None Provided',
-          'Notes & Application': formData.message || 'Standard quote inquiry',
-          'Timestamp': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' (IST)',
-        };
-
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          setStatus('success');
-          return;
-        }
+      if (!hasValidKey) {
+        throw new Error(
+          "Web3Forms Access Key is not configured on the server. Please email us directly.",
+        );
       }
 
-      // Smooth fallback: confirms RFQ generation for visitor, logs reference, and provides WhatsApp fast-track
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setStatus('success');
+      const payload = {
+        access_key: WEB3FORMS_KEY,
+        subject: `[Commercial RFQ: ${generatedRfq}] ${formData.product || "Graphite Inquiry"} – ${formData.company || formData.name}`,
+        from_name: `${formData.name} via VM Graphite RFQ`,
+        replyto: formData.email,
+        botcheck: formData.botcheck,
+        "RFQ Reference ID": generatedRfq,
+        "Target Product": formData.product || "General Industrial Graphite",
+        "Product Category": formData.category || "High-Performance Graphite",
+        "Required Volume": formData.quantity || "Standard Requirement",
+        Timeline: formData.timeline,
+        "Client Name": formData.name,
+        "Company Name": formData.company || "Not Specified",
+        "Work Email": formData.email,
+        "Phone Number": formData.phone,
+        "Custom Specs": formData.specifications || "None Provided",
+        "Notes & Application": formData.message || "Standard quote inquiry",
+        Timestamp:
+          new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) +
+          " (IST)",
+      };
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setStatus("success");
+        return;
+      } else {
+        throw new Error(
+          result.message ||
+            "Automated RFQ delivery failed. Please send your quotation details via direct email.",
+        );
+      }
     } catch (err: any) {
-      console.warn('Quote form submission notice:', err);
-      setStatus('success');
+      console.error("Quote form submission error:", err);
+      setErrorMessage(
+        err?.message ||
+          "We could not send your quote request automatically. Please use the button below to email info@vmgraphiteindustries.com directly.",
+      );
+      setStatus("error");
     }
   };
 
   const handleReset = () => {
-    setStatus('idle');
+    setStatus("idle");
     setFormData({
       product: initialProduct,
       category: initialCategory,
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
-      quantity: 'Trial Sample / Prototype',
-      timeline: 'Standard (2–4 Weeks)',
-      specifications: '',
-      message: '',
-      botcheck: '',
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      quantity: "Trial Sample / Prototype",
+      timeline: "Standard (2–4 Weeks)",
+      specifications: "",
+      message: "",
+      botcheck: "",
     });
   };
 
   const whatsappText = encodeURIComponent(
-    `Hello VM Graphite Sales Desk, I submitted RFQ #${rfqNumber || 'Direct'} for "${formData.product || 'Industrial Graphite Solutions'}". Looking forward to your quotation.`
+    `Hello VM Graphite Sales Desk, I would like to request a quote for "${formData.product || "Industrial Graphite Solutions"}". Volume: ${formData.quantity}, Name: ${formData.name}, Company: ${formData.company || "N/A"}.`,
   );
   const whatsappUrl = `https://wa.me/919422102425?text=${whatsappText}`;
 
+  const mailtoSubject = encodeURIComponent(
+    `[RFQ Quotation: ${rfqNumber || "Direct"}] Quote Request: ${formData.product || "Industrial Graphite"}`,
+  );
+  const mailtoBody = encodeURIComponent(
+    `Hello V.M. Graphite Sales Desk,
+
+I would like to request a quotation for:
+
+Product: ${formData.product || "Industrial Graphite"}
+Category: ${formData.category || "N/A"}
+Required Quantity: ${formData.quantity}
+Timeline: ${formData.timeline}
+
+Client Name: ${formData.name}
+Company Name: ${formData.company || "N/A"}
+Work Email: ${formData.email}
+Phone Number: ${formData.phone}
+Custom Specifications: ${formData.specifications || "None"}
+Application / Notes: ${formData.message || "None"}
+
+Reference: ${rfqNumber || "Direct"}
+`,
+  );
+  const mailtoUrl = `mailto:info@vmgraphiteindustries.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+
   // ================= SUCCESS VIEW =================
-  if (status === 'success') {
+  if (status === "success") {
     return (
       <div className="py-6 sm:py-8 text-center space-y-6">
         <div className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/10">
@@ -176,39 +228,67 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
             <Sparkles className="w-3.5 h-3.5" />
             <span>RFQ Submitted Successfully</span>
           </span>
-          <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight" style={{ fontFamily: "'Outfit', sans-serif" }}>
+          <h3
+            className="text-2xl sm:text-3xl font-bold text-white tracking-tight"
+            style={{ fontFamily: "'Outfit', sans-serif" }}
+          >
             Quotation Request Received!
           </h3>
           <p className="text-slate-300 text-sm max-w-md mx-auto leading-relaxed">
-            Thank you, <span className="text-white font-semibold">{formData.name}</span>. Our technical commercial desk will email your customized pricing &amp; datasheet proposal within <span className="text-emerald-400 font-semibold font-mono">24 hours</span>.
+            Thank you,{" "}
+            <span className="text-white font-semibold">{formData.name}</span>.
+            Our technical commercial desk will email your customized pricing
+            &amp; datasheet proposal within{" "}
+            <span className="text-emerald-400 font-semibold font-mono">
+              24 hours
+            </span>
+            .
           </p>
         </div>
 
         {/* Reference summary box */}
         <div className="bg-white/[0.03] border border-white/10 rounded-2xl p-5 max-w-md mx-auto text-left space-y-3">
           <div className="flex items-center justify-between pb-3 border-b border-white/[0.08]">
-            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">Tracking Reference</span>
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">
+              Tracking Reference
+            </span>
             <span className="text-xs font-mono font-bold text-theme-bright px-2.5 py-1 rounded-md bg-theme-tint border border-theme">
-              {rfqNumber || 'VMG-RFQ-84291'}
+              {rfqNumber || "VMG-RFQ-84291"}
             </span>
           </div>
 
           <div className="grid grid-cols-2 gap-3 text-xs">
             <div>
-              <span className="text-slate-400 block text-[11px] mb-0.5">Target Product</span>
-              <span className="text-white font-medium truncate block">{formData.product || 'Industrial Graphite'}</span>
+              <span className="text-slate-400 block text-[11px] mb-0.5">
+                Target Product
+              </span>
+              <span className="text-white font-medium truncate block">
+                {formData.product || "Industrial Graphite"}
+              </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px] mb-0.5">Volume</span>
-              <span className="text-white font-medium truncate block">{formData.quantity}</span>
+              <span className="text-slate-400 block text-[11px] mb-0.5">
+                Volume
+              </span>
+              <span className="text-white font-medium truncate block">
+                {formData.quantity}
+              </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px] mb-0.5">Email</span>
-              <span className="text-white font-medium truncate block">{formData.email}</span>
+              <span className="text-slate-400 block text-[11px] mb-0.5">
+                Email
+              </span>
+              <span className="text-white font-medium truncate block">
+                {formData.email}
+              </span>
             </div>
             <div>
-              <span className="text-slate-400 block text-[11px] mb-0.5">Phone</span>
-              <span className="text-white font-medium truncate block">{formData.phone}</span>
+              <span className="text-slate-400 block text-[11px] mb-0.5">
+                Phone
+              </span>
+              <span className="text-white font-medium truncate block">
+                {formData.phone}
+              </span>
             </div>
           </div>
         </div>
@@ -242,12 +322,36 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
   return (
     <form onSubmit={handleSubmit} className="space-y-6 text-white">
       {/* Error alert banner */}
-      {status === 'error' && (
-        <div className="p-4 bg-red-950/60 border border-red-500/40 rounded-2xl flex items-start gap-3 text-red-200 text-xs">
-          <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
-          <div className="space-y-1">
-            <span className="font-bold text-white block">Required Details Missing</span>
-            <p className="leading-relaxed">{errorMessage}</p>
+      {status === "error" && (
+        <div className="p-5 bg-red-950/80 border border-red-500/60 rounded-2xl space-y-3 text-xs shadow-xl">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+            <div className="space-y-1 flex-1">
+              <span className="font-bold text-white text-sm block">
+                Automated Dispatch Not Available
+              </span>
+              <p className="text-red-200 leading-relaxed">{errorMessage}</p>
+            </div>
+          </div>
+          <div className="pt-2 border-t border-red-500/30 flex flex-col sm:flex-row gap-2">
+            <a
+              href={mailtoUrl}
+              className="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow transition-all"
+            >
+              <Mail className="w-4 h-4" />
+              <span>
+                Send Pre-filled Email to info@vmgraphiteindustries.com
+              </span>
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-2.5 px-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-xl text-xs flex items-center justify-center gap-2 transition-all"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>Send via WhatsApp</span>
+            </a>
           </div>
         </div>
       )}
@@ -257,11 +361,16 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
         type="checkbox"
         name="botcheck"
         className="hidden"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         tabIndex={-1}
         autoComplete="off"
         checked={!!formData.botcheck}
-        onChange={(e) => setFormData((prev) => ({ ...prev, botcheck: e.target.checked ? 'on' : '' }))}
+        onChange={(e) =>
+          setFormData((prev) => ({
+            ...prev,
+            botcheck: e.target.checked ? "on" : "",
+          }))
+        }
       />
 
       {/* SECTION 1: Product & Quantity */}
@@ -275,7 +384,8 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
           {/* Target Product */}
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5">
-              Product / Material <span className="text-[var(--primary)]">*</span>
+              Product / Material{" "}
+              <span className="text-[var(--primary)]">*</span>
             </label>
             <input
               type="text"
@@ -291,7 +401,8 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
           {/* Volume Dropdown */}
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5">
-              Order Volume / Quantity <span className="text-[var(--primary)]">*</span>
+              Order Volume / Quantity{" "}
+              <span className="text-[var(--primary)]">*</span>
             </label>
             <select
               name="quantity"
@@ -300,7 +411,11 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
               className="w-full bg-[#080b12] border border-white/10 focus:border-[var(--primary)] focus:ring-1 focus:ring-[var(--primary)] rounded-xl px-3.5 py-2.5 text-sm text-white transition-colors outline-none cursor-pointer"
             >
               {QUANTITY_OPTIONS.map((opt) => (
-                <option key={opt} value={opt} className="bg-[#0b0e15] text-white">
+                <option
+                  key={opt}
+                  value={opt}
+                  className="bg-[#0b0e15] text-white"
+                >
                   {opt}
                 </option>
               ))}
@@ -320,14 +435,18 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
                 <button
                   key={t.id}
                   type="button"
-                  onClick={() => setFormData((prev) => ({ ...prev, timeline: t.label }))}
+                  onClick={() =>
+                    setFormData((prev) => ({ ...prev, timeline: t.label }))
+                  }
                   className={`py-2 px-3 rounded-xl text-xs font-medium border text-center transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     isSelected
-                      ? 'bg-theme-tint border-theme text-theme-bright font-semibold shadow-sm'
-                      : 'bg-white/[0.02] border-white/10 text-slate-400 hover:text-white hover:border-white/20'
+                      ? "bg-theme-tint border-theme text-theme-bright font-semibold shadow-sm"
+                      : "bg-white/[0.02] border-white/10 text-slate-400 hover:text-white hover:border-white/20"
                   }`}
                 >
-                  {isSelected && <Check className="w-3 h-3 text-[var(--primary)] shrink-0" />}
+                  {isSelected && (
+                    <Check className="w-3 h-3 text-[var(--primary)] shrink-0" />
+                  )}
                   <span className="truncate">{t.label}</span>
                 </button>
               );
@@ -368,7 +487,8 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
           {/* Company Name */}
           <div>
             <label className="block text-xs font-medium text-slate-300 mb-1.5">
-              Company / Enterprise <span className="text-slate-500 text-[11px]">(Optional)</span>
+              Company / Enterprise{" "}
+              <span className="text-slate-500 text-[11px]">(Optional)</span>
             </label>
             <div className="relative">
               <input
@@ -429,7 +549,12 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
       <div className="space-y-4">
         <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-theme-bright font-mono">
           <MessageSquare className="w-4 h-4 text-[var(--primary)]" />
-          <span>Specifications &amp; Remarks <span className="text-slate-500 font-normal lowercase">(optional)</span></span>
+          <span>
+            Specifications &amp; Remarks{" "}
+            <span className="text-slate-500 font-normal lowercase">
+              (optional)
+            </span>
+          </span>
         </div>
 
         <div>
@@ -448,10 +573,10 @@ export default function QuoteForm({ initialProduct = '', initialCategory = '', o
       <div className="pt-2">
         <button
           type="submit"
-          disabled={status === 'submitting'}
+          disabled={status === "submitting"}
           className="forge-btn-primary w-full justify-center py-3.5 rounded-full text-xs font-bold uppercase tracking-wider shadow-lg shadow-[var(--primary)]/15 disabled:opacity-50 cursor-pointer"
         >
-          {status === 'submitting' ? (
+          {status === "submitting" ? (
             <>
               <Loader2 className="w-4 h-4 animate-spin" />
               <span>Transmitting Request...</span>

@@ -1,5 +1,19 @@
-import React, { useState } from 'react';
-import { Send, CheckCircle2, AlertCircle, Loader2, User, Mail, Phone, Building2, MessageSquare, Sparkles, Zap, ExternalLink, ChevronDown } from 'lucide-react';
+import React, { useState } from "react";
+import {
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Loader2,
+  User,
+  Mail,
+  Phone,
+  Building2,
+  MessageSquare,
+  Sparkles,
+  Zap,
+  ExternalLink,
+  ChevronDown,
+} from "lucide-react";
 
 // Reads the Web3Forms access key injected by Astro via import.meta.env
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string;
@@ -30,58 +44,65 @@ export interface ContactFormProps {
 }
 
 const DEFAULT_SUBJECT_OPTIONS = [
-  'Graphite & Carbon Products',
-  'Tapes & Sealing Solutions',
-  'Industrial Blades & Materials',
-  'Custom Material Synthesis / R&D Trial',
-  'Bulk Commercial Export Inquiry',
-  'Technical Datasheet / Sample Request',
-  'Other Commercial Inquiry',
+  "Graphite & Carbon Products",
+  "Tapes & Sealing Solutions",
+  "Industrial Blades & Materials",
+  "Custom Material Synthesis / R&D Trial",
+  "Bulk Commercial Export Inquiry",
+  "Technical Datasheet / Sample Request",
+  "Other Commercial Inquiry",
 ];
 
 export default function ContactForm({
-  nameLabel = 'Full Name',
-  namePlaceholder = 'John Doe',
-  companyLabel = 'Company / Business Name',
-  companyPlaceholder = 'Acme Manufacturing Ltd',
-  emailLabel = 'Official Email',
-  emailPlaceholder = 'john@acme.com',
-  phoneLabel = 'Phone / Mobile Number',
-  phonePlaceholder = '+91 98765 43210',
-  subjectLabel = 'Subject / Product Category',
-  subjectPlaceholder = '-- Select Product Category / Inquiry Type --',
+  nameLabel = "Full Name",
+  namePlaceholder = "John Doe",
+  companyLabel = "Company / Business Name",
+  companyPlaceholder = "Acme Manufacturing Ltd",
+  emailLabel = "Official Email",
+  emailPlaceholder = "john@acme.com",
+  phoneLabel = "Phone / Mobile Number",
+  phonePlaceholder = "+91 98765 43210",
+  subjectLabel = "Subject / Product Category",
+  subjectPlaceholder = "-- Select Product Category / Inquiry Type --",
   subjectOptions,
-  messageLabel = 'Detailed Message',
-  messagePlaceholder = 'Please detail your industrial requirements, material grades, or annual volume estimates...',
-  submitButtonText = 'Send Direct Message',
-  submittingButtonText = 'Transmitting inquiry...',
+  messageLabel = "Detailed Message",
+  messagePlaceholder = "Please detail your industrial requirements, material grades, or annual volume estimates...",
+  submitButtonText = "Send Direct Message",
+  submittingButtonText = "Transmitting inquiry...",
   formDisclaimerText,
-  successHeading = 'Message Delivered!',
-  successMessage = 'Thank you for contacting VM Graphite Industries LLP. Your message has been routed to our corporate sales team.',
-  whatsappFollowupButtonText = 'WhatsApp Follow-up',
-  resetButtonText = 'Send Another Message',
-  whatsappNumber = '919422102425',
-  recipientEmail = 'info@vmgraphiteindustries.com',
+  successHeading = "Message Delivered!",
+  successMessage = "Thank you for contacting VM Graphite Industries LLP. Your message has been routed to our corporate sales team.",
+  whatsappFollowupButtonText = "WhatsApp Follow-up",
+  resetButtonText = "Send Another Message",
+  whatsappNumber = "919422102425",
+  recipientEmail = "info@vmgraphiteindustries.com",
 }: ContactFormProps) {
   const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-    botcheck: '', // Web3Forms honeypot field
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    botcheck: "", // Web3Forms honeypot field
   });
 
-  const [ticketId, setTicketId] = useState('');
-  const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
+  const [ticketId, setTicketId] = useState("");
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const optionsList = Array.isArray(subjectOptions) && subjectOptions.length > 0
-    ? subjectOptions
-    : DEFAULT_SUBJECT_OPTIONS;
+  const optionsList =
+    Array.isArray(subjectOptions) && subjectOptions.length > 0
+      ? subjectOptions
+      : DEFAULT_SUBJECT_OPTIONS;
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -91,14 +112,21 @@ export default function ContactForm({
     // Silently discard bots that fill the honeypot
     if (formData.botcheck) return;
 
-    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
-      setErrorMessage(`Please complete all required fields (${nameLabel}, ${emailLabel}, ${phoneLabel}, and ${messageLabel}).`);
-      setStatus('error');
+    if (
+      !formData.name.trim() ||
+      !formData.email.trim() ||
+      !formData.phone.trim() ||
+      !formData.message.trim()
+    ) {
+      setErrorMessage(
+        `Please complete all required fields (${nameLabel}, ${emailLabel}, ${phoneLabel}, and ${messageLabel}).`,
+      );
+      setStatus("error");
       return;
     }
 
-    setStatus('submitting');
-    setErrorMessage('');
+    setStatus("submitting");
+    setErrorMessage("");
 
     const generatedId = `VMG-MSG-${Math.floor(100000 + Math.random() * 900000)}`;
     setTicketId(generatedId);
@@ -106,78 +134,110 @@ export default function ContactForm({
     const hasValidKey = Boolean(
       WEB3FORMS_KEY &&
       WEB3FORMS_KEY.trim() &&
-      !WEB3FORMS_KEY.includes('YOUR_ACCESS_KEY') &&
-      WEB3FORMS_KEY.length > 10
+      !WEB3FORMS_KEY.includes("YOUR_ACCESS_KEY") &&
+      WEB3FORMS_KEY.length > 10,
     );
 
     try {
-      if (hasValidKey) {
-        const payload = {
-          access_key: WEB3FORMS_KEY,
-          subject: `📩 [Direct Contact: ${generatedId}] ${formData.subject || 'Website Inquiry'} – ${formData.company || formData.name}`,
-          from_name: `${formData.name} via VM Graphite Contact Form`,
-          replyto: formData.email,
-          botcheck: formData.botcheck,
-          'Ticket Reference': generatedId,
-          'Subject / Area': formData.subject || 'General Commercial Inquiry',
-          'Sender Full Name': formData.name,
-          'Company Name': formData.company || 'Not Specified',
-          'Official Email': formData.email,
-          'Phone Number': formData.phone,
-          'Message Body': formData.message,
-          'Submission Timestamp': new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) + ' (IST)',
-        };
-
-        const response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            Accept: 'application/json',
-          },
-          body: JSON.stringify(payload),
-        });
-
-        const result = await response.json();
-
-        if (response.ok && result.success) {
-          setStatus('success');
-          return;
-        }
+      if (!hasValidKey) {
+        throw new Error(
+          "Web3Forms Access Key is not configured on the server. Please email us directly.",
+        );
       }
 
-      // Fallback: If Web3Forms key is not yet configured or fails, smoothly mark as received
-      // and provide user with their reference number and direct fast-track options
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      setStatus('success');
+      const payload = {
+        access_key: WEB3FORMS_KEY,
+        subject: `📩 [Direct Contact: ${generatedId}] ${formData.subject || "Website Inquiry"} – ${formData.company || formData.name}`,
+        from_name: `${formData.name} via VM Graphite Contact Form`,
+        replyto: formData.email,
+        botcheck: formData.botcheck,
+        "Ticket Reference": generatedId,
+        "Subject / Area": formData.subject || "General Commercial Inquiry",
+        "Sender Full Name": formData.name,
+        "Company Name": formData.company || "Not Specified",
+        "Official Email": formData.email,
+        "Phone Number": formData.phone,
+        "Message Body": formData.message,
+        "Submission Timestamp":
+          new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) +
+          " (IST)",
+      };
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setStatus("success");
+        return;
+      } else {
+        throw new Error(
+          result.message ||
+            "Email delivery failed. Please send your inquiry directly via email or WhatsApp.",
+        );
+      }
     } catch (err: any) {
-      console.warn('Contact submission notice:', err);
-      // Even upon network failure, provide success confirmation with tracking reference
-      setStatus('success');
+      console.error("Contact submission error:", err);
+      setErrorMessage(
+        err?.message ||
+          "We could not send your message automatically. Please click the button below to email info@vmgraphiteindustries.com directly.",
+      );
+      setStatus("error");
     }
   };
 
   const handleReset = () => {
-    setStatus('idle');
+    setStatus("idle");
     setFormData({
-      name: '',
-      company: '',
-      email: '',
-      phone: '',
-      subject: '',
-      message: '',
-      botcheck: '',
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+      botcheck: "",
     });
   };
 
   const whatsappText = encodeURIComponent(
-    `Hello VM Graphite Team, I have sent an inquiry (Ref #${ticketId || 'Direct'}) regarding "${formData.subject || 'Commercial Products'}". Please connect with me.`
+    `Hello VM Graphite Team, I would like to inquire regarding "${formData.subject || "Commercial Products"}". Name: ${formData.name || ""}, Company: ${formData.company || ""}. Message: ${formData.message || ""}`,
   );
-  const cleanPhone = String(whatsappNumber).replace(/[^0-9]/g, '');
+  const cleanPhone = String(whatsappNumber).replace(/[^0-9]/g, "");
   const whatsappUrl = `https://wa.me/${cleanPhone}?text=${whatsappText}`;
 
-  const disclaimer = formDisclaimerText || `All messages are dispatched to ${recipientEmail}.`;
+  const mailtoSubject = encodeURIComponent(
+    `[Website Inquiry: ${ticketId || "Direct"}] ${formData.subject || "General Inquiry"} – ${formData.company || formData.name}`,
+  );
+  const mailtoBody = encodeURIComponent(
+    `Hello V.M. Graphite Team,
 
-  if (status === 'success') {
+Here are my inquiry details:
+
+Full Name: ${formData.name}
+Company: ${formData.company || "N/A"}
+Official Email: ${formData.email}
+Phone Number: ${formData.phone}
+Subject: ${formData.subject || "General Inquiry"}
+
+Message:
+${formData.message}
+
+Reference ID: ${ticketId || "Direct"}
+`,
+  );
+  const mailtoUrl = `mailto:${recipientEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
+
+  const disclaimer =
+    formDisclaimerText || `All messages are dispatched to ${recipientEmail}.`;
+
+  if (status === "success") {
     return (
       <div className="bg-[#0b0e17] border border-emerald-500/40 p-8 rounded-2xl text-center space-y-5">
         <div className="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto shadow-md">
@@ -186,11 +246,15 @@ export default function ContactForm({
         <div>
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono mb-2">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>DISPATCHED TO {recipientEmail.toUpperCase()}</span>
+            <span>DELIVERED TO {recipientEmail.toUpperCase()}</span>
           </div>
           <h3 className="text-2xl font-black text-white">{successHeading}</h3>
           <p className="text-slate-300 max-w-md mx-auto text-sm mt-1 leading-relaxed font-normal">
-            {successMessage} (Ref: <span className="font-mono text-theme-bright font-bold">{ticketId}</span>)
+            {successMessage} (Ref:{" "}
+            <span className="font-mono text-theme-bright font-bold">
+              {ticketId}
+            </span>
+            )
           </p>
         </div>
 
@@ -219,12 +283,34 @@ export default function ContactForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 text-white">
-      {status === 'error' && (
-        <div className="p-4 bg-red-950/60 border border-red-500/50 rounded-xl flex items-start gap-3 text-red-200 text-xs shadow-lg">
-          <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
-          <div>
-            <span className="font-bold text-white block">Submission Error</span>
-            <p className="font-normal">{errorMessage}</p>
+      {status === "error" && (
+        <div className="p-5 bg-red-950/80 border border-red-500/60 rounded-2xl space-y-3 text-xs shadow-xl">
+          <div className="flex items-start gap-3">
+            <AlertCircle className="w-5 h-5 text-red-400 shrink-0 mt-0.5" />
+            <div className="space-y-1 flex-1">
+              <span className="font-bold text-white text-sm block">
+                Automated Dispatch Not Available
+              </span>
+              <p className="text-red-200 leading-relaxed">{errorMessage}</p>
+            </div>
+          </div>
+          <div className="pt-2 border-t border-red-500/30 flex flex-col sm:flex-row gap-2">
+            <a
+              href={mailtoUrl}
+              className="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl text-xs flex items-center justify-center gap-2 shadow transition-all"
+            >
+              <Mail className="w-4 h-4" />
+              <span>Send Pre-filled Email to {recipientEmail}</span>
+            </a>
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-2.5 px-4 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-xl text-xs flex items-center justify-center gap-2 transition-all"
+            >
+              <Zap className="w-3.5 h-3.5" />
+              <span>Send via WhatsApp</span>
+            </a>
           </div>
         </div>
       )}
@@ -234,11 +320,16 @@ export default function ContactForm({
         type="checkbox"
         name="botcheck"
         className="hidden"
-        style={{ display: 'none' }}
+        style={{ display: "none" }}
         tabIndex={-1}
         autoComplete="off"
         checked={!!formData.botcheck}
-        onChange={(e) => setFormData((prev) => ({ ...prev, botcheck: e.target.checked ? 'on' : '' }))}
+        onChange={(e) =>
+          setFormData((prev) => ({
+            ...prev,
+            botcheck: e.target.checked ? "on" : "",
+          }))
+        }
       />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -360,10 +451,10 @@ export default function ContactForm({
 
       <button
         type="submit"
-        disabled={status === 'submitting'}
+        disabled={status === "submitting"}
         className="w-full py-3.5 px-6 bg-gradient-to-r from-[var(--primary-light)] via-[var(--primary)] to-[var(--primary-dark)] hover:opacity-95 text-slate-950 font-black rounded-xl border border-white/30 shadow-[0_4px_20px_var(--primary-glow)] flex items-center justify-center gap-2 transition-all disabled:opacity-50 cursor-pointer uppercase tracking-wider font-sans"
       >
-        {status === 'submitting' ? (
+        {status === "submitting" ? (
           <>
             <Loader2 className="w-5 h-5 animate-spin text-slate-950" />
             <span>{submittingButtonText}</span>
@@ -376,9 +467,7 @@ export default function ContactForm({
         )}
       </button>
 
-      <p className="text-center text-[11px] text-slate-400">
-        {disclaimer}
-      </p>
+      <p className="text-center text-[11px] text-slate-400">{disclaimer}</p>
     </form>
   );
 }
