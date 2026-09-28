@@ -1,9 +1,13 @@
 import { createClient } from '@sanity/client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'vvhsg9ix';
-const dataset = import.meta.env.PUBLIC_SANITY_DATASET || 'production';
-const apiVersion = import.meta.env.PUBLIC_SANITY_API_VERSION || '2024-08-01';
+const rawProjectId = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_PROJECT_ID) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_PROJECT_ID) || '';
+const rawDataset = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_DATASET) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_DATASET) || '';
+const rawApiVersion = (typeof import.meta !== 'undefined' && import.meta.env?.PUBLIC_SANITY_API_VERSION) || (typeof process !== 'undefined' && process.env?.PUBLIC_SANITY_API_VERSION) || '2024-08-01';
+
+const projectId = String(rawProjectId).trim().replace(/['"]/g, '');
+const dataset = String(rawDataset).trim().toLowerCase().replace(/['"]/g, '');
+const apiVersion = String(rawApiVersion).trim().replace(/['"]/g, '');
 
 export const isSanityConfigured = Boolean(projectId && projectId !== 'your_sanity_project_id_here' && projectId !== 'demo_project_id');
 

@@ -1,11 +1,13 @@
 import { defineConfig } from 'astro/config';
+import { loadEnv } from 'vite';
 import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import sitemap from '@astrojs/sitemap';
 
-const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'vvhsg9ix';
-const dataset = process.env.PUBLIC_SANITY_DATASET || 'production';
+const env = loadEnv(process.env.NODE_ENV || 'production', process.cwd(), '');
+const projectId = String(env.PUBLIC_SANITY_PROJECT_ID || process.env.PUBLIC_SANITY_PROJECT_ID || '').trim().replace(/['"]/g, '');
+const dataset = String(env.PUBLIC_SANITY_DATASET || process.env.PUBLIC_SANITY_DATASET || '').trim().toLowerCase().replace(/['"]/g, '');
 
 export default defineConfig({
   site: 'https://vmgraphiteindustries.com',
