@@ -8,7 +8,6 @@ import netlify from '@astrojs/netlify';
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'vvhsg9ix';
 const dataset = process.env.PUBLIC_SANITY_DATASET || 'production';
 
-// https://astro.build/config
 export default defineConfig({
   site: 'https://vmgraphiteindustries.com',
   integrations: [
@@ -24,10 +23,6 @@ export default defineConfig({
       filter: (page) => !page.includes('/admin'),
     }),
   ],
-  // SSR mode: pages render fresh from Sanity on every request.
-  // New products published in the CMS appear on the live site immediately.
-  output: 'server',
-  adapter: netlify(),
   vite: {
     plugins: [tailwindcss()],
     optimizeDeps: {

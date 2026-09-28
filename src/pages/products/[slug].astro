@@ -4,10 +4,18 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductSpecs from '../../components/ProductSpecs.astro';
 import BrochureCTA from '../../components/BrochureCTA.astro';
 
-import { getProductBySlug } from '../../lib/data';
+import { getAllProducts, getProductBySlug } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const products = await getAllProducts();
+  return products.map((product) => ({
+    params: { slug: product.slug },
+    props: { product },
+  }));
+}
 
 const { slug } = Astro.params;
-const product = await getProductBySlug(slug as string);
+const product = Astro.props.product || (await getProductBySlug(slug as string));
 
 if (!product) {
   return Astro.redirect('/404');
