@@ -93,16 +93,8 @@ export const productSchema = defineType({
 
     // ⑤ DISPLAY & SEO SETTINGS
     defineField({
-      name: 'isFeatured',
-      title: '9. Feature on Home Page?',
-      description: 'Check to highlight this product on the home page showcase.',
-      type: 'boolean',
-      group: 'content',
-      initialValue: false,
-    }),
-    defineField({
       name: 'slug',
-      title: '10. Website URL Slug',
+      title: '9. Website URL Slug',
       description: 'Click "Generate" to automatically create the web URL path for this product.',
       type: 'slug',
       group: 'content',
