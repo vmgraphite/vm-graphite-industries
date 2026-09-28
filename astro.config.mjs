@@ -3,7 +3,6 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@astrojs/react';
 import sanity from '@sanity/astro';
 import sitemap from '@astrojs/sitemap';
-import netlify from '@astrojs/netlify';
 
 const projectId = process.env.PUBLIC_SANITY_PROJECT_ID || 'vvhsg9ix';
 const dataset = process.env.PUBLIC_SANITY_DATASET || 'production';

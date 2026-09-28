@@ -12,7 +12,6 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/netlify": "^8.2.6",
     "@astrojs/react": "^6.0.2",
     "@astrojs/sitemap": "^3.7.4",
     "@sanity/astro": "^3.5.1",
