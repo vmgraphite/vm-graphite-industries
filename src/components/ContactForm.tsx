@@ -145,12 +145,15 @@ export default function ContactForm({
         );
       }
 
-      const payload = {
+      const payload: Record<string, any> = {
         access_key: WEB3FORMS_KEY,
         subject: `📩 [Direct Contact: ${generatedId}] ${formData.subject || "Website Inquiry"} – ${formData.company || formData.name}`,
-        from_name: `${formData.name} via VM Graphite Contact Form`,
+        from_name: "VM Graphite Contact Desk",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
         replyto: formData.email,
-        botcheck: formData.botcheck,
         "Ticket Reference": generatedId,
         "Subject / Area": formData.subject || "General Commercial Inquiry",
         "Sender Full Name": formData.name,
@@ -162,6 +165,10 @@ export default function ContactForm({
           new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) +
           " (IST)",
       };
+
+      if (formData.botcheck) {
+        payload.botcheck = formData.botcheck;
+      }
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",

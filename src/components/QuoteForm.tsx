@@ -117,27 +117,36 @@ export default function QuoteForm({
         );
       }
 
-      const payload = {
+      const payload: Record<string, any> = {
         access_key: WEB3FORMS_KEY,
-        subject: `[Commercial RFQ: ${generatedRfq}] ${formData.product || "Graphite Inquiry"} – ${formData.company || formData.name}`,
-        from_name: `${formData.name} via VM Graphite RFQ`,
+        subject: `📋 [Quote Request: ${generatedRfq}] ${formData.product || "Graphite Inquiry"} – ${formData.company || formData.name}`,
+        from_name: "VM Graphite RFQ Desk",
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+        message:
+          formData.message ||
+          `Quote request for ${formData.product || "Industrial Graphite"} (Volume: ${formData.quantity}, Timeline: ${formData.timeline})`,
         replyto: formData.email,
-        botcheck: formData.botcheck,
         "RFQ Reference ID": generatedRfq,
         "Target Product": formData.product || "General Industrial Graphite",
         "Product Category": formData.category || "High-Performance Graphite",
         "Required Volume": formData.quantity || "Standard Requirement",
-        Timeline: formData.timeline,
+        "Target Delivery Timeline": formData.timeline,
         "Client Name": formData.name,
         "Company Name": formData.company || "Not Specified",
         "Work Email": formData.email,
         "Phone Number": formData.phone,
-        "Custom Specs": formData.specifications || "None Provided",
+        "Custom Specifications": formData.specifications || "None Provided",
         "Notes & Application": formData.message || "Standard quote inquiry",
-        Timestamp:
+        "Submission Timestamp":
           new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }) +
           " (IST)",
       };
+
+      if (formData.botcheck) {
+        payload.botcheck = formData.botcheck;
+      }
 
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
