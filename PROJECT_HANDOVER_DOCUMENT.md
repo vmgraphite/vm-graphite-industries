@@ -1,131 +1,87 @@
-# 📋 Client Project Handover Document
-**Project Name:** V.M. Graphite Industries Official Web Platform  
-**Live Website URL:** [https://vmgraphiteindustries.com](https://vmgraphiteindustries.com)  
-**Content Management Admin Portal:** [https://vmgraphiteindustries.com/admin](https://vmgraphiteindustries.com/admin)  
-**Handover Date:** September 2026  
-**Document Version:** 2.0 (Client Account Final)
+# Project Hand-off Document: VM Graphite Website
+
+**Main Domain:** [www.vmgraphiteindustries.com](https://www.vmgraphiteindustries.com), [vmgraphiteindustries.com](https://vmgraphiteindustries.com)  
+**CMS Admin Portal:** [https://vmgraphiteindustries.com/admin](https://vmgraphiteindustries.com/admin)  
+**Primary Admin Account:**  
+* **Email:** `vmgraphite@gmail.com`  
+* **Login Method:** Sign in with Google (Google SSO)  
 
 ---
 
-## 📌 Executive Summary
+## 1. Master Account Access
 
-This document serves as the complete technical and operational handover for **V.M. Graphite Industries LLP**. It is designed specifically for management, non-technical team members, and administrators. 
+All project accounts are linked to the primary admin account according to the information mentioned above.
 
-All core accounts across hosting, domain management, content management, source code, and lead generation have been consolidated under the official master Google Account: **`vmgraphite@gmail.com`**.
+**Important:** To access any of the services below, simply go to the login page and sign in with the primary admin Google account (`vmgraphite@gmail.com`).
 
----
-
-## 🏗️ Master Account & Services Architecture
-
-```
-[ Domain: Hostinger ] ──► [ DNS & Security: Cloudflare ] ──► [ CDN Hosting: Netlify ]
-                                                                       │
-                                              ┌────────────────────────┴────────────────────────┐
-                                              ▼                                                 ▼
-                                    [ Sanity.io Studio ]                             [ Web3Forms Service ]
-                              (Product Catalog & Web Content)                   (Quote & Inquiry Lead Routing)
-```
+| Service | Purpose (What it does) | Website Link |
+| :--- | :--- | :--- |
+| **Sanity.io** | Visual Content Management (CMS) where you add, edit, and manage all products, specs, and page text | [sanity.io/manage](https://www.sanity.io/manage) *(or `/admin`)* |
+| **Netlify** | Web hosting server that keeps the site fast, online globally, and auto-updates when you publish in Sanity | [app.netlify.com](https://app.netlify.com) |
+| **Cloudflare** | Manages domain DNS routing, SSL security certificate, and DDoS protection | [dash.cloudflare.com](https://dash.cloudflare.com) |
+| **Web3Forms** | Sends an email to your inbox whenever a customer submits the "Contact Us" or "Request Quote" form | [web3forms.com](https://web3forms.com) |
+| **GitHub** | Securely stores all the behind-the-scenes website source code | [github.com](https://github.com) |
+| **Hostinger** | Domain registrar where the domain name `vmgraphiteindustries.com` is owned and renewed | [hpanel.hostinger.com](https://hpanel.hostinger.com) |
 
 ---
 
-## 🔑 Master Accounts & Access Directory
+## 2. Service Limits (Free Tier)
 
-All services use single-sign-on (SSO) via **"Sign in with Google"** using the primary email: **`vmgraphite@gmail.com`**.
+We have utilized the professional Free Tiers for your setup. Below are the limits to keep in mind as the business grows:
 
-| Service | Purpose | Login URL | Login Method / Account | Notes / Credentials |
-| :--- | :--- | :--- | :--- | :--- |
-| **Google Master Account** | Master identity for all services | [accounts.google.com](https://accounts.google.com) | `vmgraphite@gmail.com` | Primary admin recovery email |
-| **Sanity.io** | Visual Content Manager (CMS) | [sanity.io/manage](https://www.sanity.io/manage) | **"Sign in with Google"** (`vmgraphite@gmail.com`) | Project ID: `vvhsg9ix`<br>Dataset: `production` |
-| **Netlify** | Global CDN Web Hosting | [app.netlify.com](https://app.netlify.com) | **"Sign in with Google"** (`vmgraphite@gmail.com`) | Site Name: `vm-graphite-industries`<br>Live SSL active |
-| **Cloudflare** | DNS Routing, SSL & Security | [dash.cloudflare.com](https://dash.cloudflare.com) | **"Sign in with Google"** (`vmgraphite@gmail.com`) | Domain: `vmgraphiteindustries.com`<br>Email routing active |
-| **GitHub** | Source Code Repository | [github.com](https://github.com) | **"Sign in with Google"** (`vmgraphite@gmail.com`) | Org/Repo: `vmgraphite/vm-graphite-industries` |
-| **Web3Forms** | Contact & RFQ Lead Delivery | [web3forms.com](https://web3forms.com) | Email: `vmgraphite@gmail.com` | Access Key: `1d7c6d2b-7e3b-43da-9921-48fe9da2ac8a`<br>Delivers to `info@vmgraphiteindustries.com` |
-| **Hostinger** | Domain Registrar | [hpanel.hostinger.com](https://hpanel.hostinger.com) | Client Hostinger Account | Owns `vmgraphiteindustries.com`<br>Nameservers pointed to Cloudflare |
+### Netlify (Hosting & Deployments)
+* **Bandwidth:** 100 GB per month (More than enough for thousands of monthly visitors).
+* **Build Minutes:** 300 minutes per month (Each update or product publish uses only ~20 seconds of build time).
+* **SSL Certificate:** Free and renews automatically.
 
----
+### Sanity.io (Content Management / CMS)
+* **API Requests:** 100,000 requests per month (Generous free tier).
+* **Asset Storage:** Up to 5 GB for product images and PDF brochures.
+* **Bandwidth:** 10 GB per month.
+* **Admin Seats:** Up to 3 users with full editing access.
 
-## 🛠️ Non-Technical Guide: How to Manage Website Content (Sanity Studio)
+### Cloudflare (DNS & Security)
+* **Bandwidth:** Unlimited. Unlike traditional hosts, Cloudflare does not charge for how many people visit your site.
+* **DNS Records:** Up to 200 records (You are currently using fewer than 10).
+* **SSL & DDoS Protection:** Unlimited and active 24/7.
 
-Your visual management studio is accessible at:  
-👉 **[https://vmgraphiteindustries.com/admin](https://vmgraphiteindustries.com/admin)** *(or via [sanity.io/manage](https://www.sanity.io/manage))*
-
-### 1. Adding a New Product
-1. Log into **`https://vmgraphiteindustries.com/admin`** using Google (`vmgraphite@gmail.com`).
-2. In the left sidebar, click **6. Products Catalog**.
-3. Click the **Create New (pencil icon)** at the top.
-4. Fill in:
-   - **Product Title:** e.g., *Synthetic Graphite Crucible 99%*
-   - **Product Category:** Select from the dropdown (e.g., *Graphite & Carbon Products*).
-   - **Short Summary:** 1–2 sentence overview for catalog cards.
-   - **Primary Product Photo:** Upload a high-resolution image.
-   - **Technical Specifications Table:** Click *Add Item* to enter property-value pairs (e.g., *Carbon Content: 99.5%*, *Max Temp: 3000°C*).
-   - **Downloadable TDS / Brochure (PDF):** Upload technical data sheets for client downloads.
-   - **Website URL Slug:** Click **Generate** to create the web address.
-5. Click the green **Publish** button in the bottom right corner.
-
-### 2. Editing Homepage Content
-1. In the sidebar, click **1. Home Page Content**.
-2. Edit banners, statistics (e.g., *99.9% Carbon Purity, 3000°C Max Thermal Rating*), and showcase products.
-3. Click **Publish**.
-
-### 3. Updating Contact Information & Addresses
-1. Click **3. Contact Us Page Content** or **5. Header & Footer Settings**.
-2. Update phone numbers, WhatsApp direct numbers, plant addresses, or emails.
-3. Click **Publish**.
+### Web3Forms (Contact & RFQ Form)
+* **Monthly Submissions:** 250 forms per month. If you receive more than 250 inquiries in a month, the form will stop sending emails until the next month unless upgraded.
+* **Submission History:** Viewable in the dashboard for 30 days.
+* **File Uploads:** Not supported on the free plan (standard text inquiries and quote requests).
 
 ---
 
-## ⚡ Automated Publishing Pipeline (Sanity ➔ Netlify)
+## 3. Maintenance Guide for the Client
 
-Whenever you click **Publish** in Sanity, the system uses an automated webhook so you never need a developer to rebuild the site:
+### Managing Products & Content (Sanity Studio)
+1. Go to **`https://vmgraphiteindustries.com/admin`** and sign in with Google (`vmgraphite@gmail.com`).
+2. **To Add a Product:** Click **6. Products Catalog** ➔ Click the **(+) Create New** button ➔ Fill in title, category, description, images, technical specifications table, and PDF datasheet ➔ Click the green **Publish** button.
+3. **Automated Publishing:** Within ~20 seconds of clicking **Publish**, the live website automatically updates and displays your new product.
 
-1. **You Publish in Sanity** ➔ 
-2. **Sanity Webhook pings Netlify** ➔ 
-3. **Netlify rebuilds the catalog in ~20 seconds** ➔ 
-4. **New product is live on `vmgraphiteindustries.com/products/`**.
+### Email Inquiries & Quote Requests
+When a client submits a form on [vmgraphiteindustries.com](https://vmgraphiteindustries.com) or clicks "Request Quote", the email will arrive directly in your **`info@vmgraphiteindustries.com`** (and `vmgraphite@gmail.com`) inbox. It is sent via Web3Forms. If you ever stop receiving emails, check your Web3Forms dashboard to see if you have exceeded the 250-submission monthly limit.
 
-### Webhook Configuration Reference:
-* **Netlify Build Hook:** Created under Netlify *Site configuration* ➔ *Build & deploy* ➔ *Build hooks*.
-* **Sanity Webhook:** Set up in Sanity *API* ➔ *Webhooks* (Dataset: `production`, Triggers: Create/Update/Delete).
+### Domain Renewal
+You must renew the domain `vmgraphiteindustries.com` every year. This is registered and managed through **Hostinger**. Cloudflare and Netlify provide the DNS and hosting for free, but the "name" itself must be paid for annually at the registrar (Hostinger). Ensure auto-renewal is turned on in Hostinger.
 
----
-
-## 📬 Customer Inquiries & Lead Generation Workflow
-
-1. When a visitor submits a query via **"Contact Us"** or clicks **"Request Quote"** on any product page:
-   - The inquiry is delivered instantly to **`info@vmgraphiteindustries.com`** via Web3Forms.
-   - The lead includes: Client Name, Company Name, Work Email, Phone Number, Target Product, Quantity Required, Timeline, Specifications, and Timestamp.
-2. **Manual Fail-Safe:** If a customer's internet connection glitches, the form displays a 1-click **"Send Pre-filled Email to info@vmgraphiteindustries.com"** and **"Fast-Track on WhatsApp"** button so no lead is ever lost.
+### Security & SSL
+The "Padlock" icon (SSL) is handled automatically by Cloudflare and Netlify. It will never expire as long as the domain points to Cloudflare’s nameservers.
 
 ---
 
-## 🌐 DNS & Domain Infrastructure Reference
+## 4. Instructions for Future Developers
 
-* **Domain:** `vmgraphiteindustries.com`
-* **Registrar:** Hostinger (Nameservers pointed to Cloudflare)
-* **Cloudflare DNS Records:**
-  - `A` Record (`@`): Pointing to Netlify (`75.2.60.5`)
-  - `CNAME` Record (`www`): Pointing to `vm-graphite-industries.netlify.app`
-  - `MX` Records: Cloudflare Email Routing to `info@vmgraphiteindustries.com` / `vmgraphite@gmail.com`
-  - `SSL/TLS Mode`: **Full (Strict)** with Always Use HTTPS enabled.
+If a new developer takes over this project, provide them with this document and the following technical notes:
 
----
-
-## ✅ Client Handover Checklist: Is anything else required?
-
-| Item | Status | Action Required |
-| :--- | :---: | :--- |
-| **All Google Logins (`vmgraphite@gmail.com`)** | ✅ Configured | Client has master ownership across all tools |
-| **Sanity Project (`vvhsg9ix`)** | ✅ Active | Data imported & live |
-| **Netlify Global Hosting** | ✅ Active | Custom domain connected with SSL |
-| **Cloudflare DNS & SSL** | ✅ Active | Full SSL & email routing active |
-| **Contact & RFQ Email Routing** | ✅ Active | Delivers to `info@vmgraphiteindustries.com` |
-| **Sanity ➔ Netlify Auto-Deploy Webhook** | ℹ️ Verify | Ensure Webhook URL is added in Sanity Dashboard |
-| **Domain Auto-Renewal on Hostinger** | ℹ️ Verify | Ensure a payment card is saved in Hostinger for yearly renewal |
-
----
-
-## 📞 Technical Support Contact
-
-* **Project Developer:** Kanuka Bhagat
-* **Project Documentation File:** `PROJECT_HANDOVER_DOCUMENT.md`
+* **Framework:** Built with **Astro** (Static Generation) + **React** + **Tailwind CSS**.
+* **CMS:** **Sanity.io** Studio integrated at `/admin` (Project ID: `vvhsg9ix`, Dataset: `production`, API Version: `2024-08-01`).
+* **Repository:** Hosted on GitHub at [https://github.com/vmgraphite/vm-graphite-industries.git](https://github.com/vmgraphite/vm-graphite-industries.git).
+* **Hosting & Deployment:** Hosted via **Netlify** with automatic deployments on `git push` to `main` and automated rebuilds triggered via **Sanity Webhook ➔ Netlify Build Hook**.
+* **DNS Management:** Managed entirely through **Cloudflare**. Do not modify DNS settings at Hostinger unless migrating the entire infrastructure.
+* **Environment Variables in Netlify:**
+  * `PUBLIC_SANITY_PROJECT_ID=vvhsg9ix`
+  * `PUBLIC_SANITY_DATASET=production`
+  * `PUBLIC_SANITY_API_VERSION=2024-08-01`
+  * `CONTACT_EMAIL=info@vmgraphiteindustries.com`
+  * `PUBLIC_WEB3FORMS_ACCESS_KEY=1d7c6d2b-7e3b-43da-9921-48fe9da2ac8a`
