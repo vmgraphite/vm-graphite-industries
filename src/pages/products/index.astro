@@ -3,10 +3,11 @@ import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductCard from '../../components/ProductCard.astro';
 import EmptyState from '../../components/EmptyState.astro';
-import { getCategories, getAllProducts } from '../../lib/data';
+import { getCategories, getAllProducts, getSiteSettings } from '../../lib/data';
 
 const categories = await getCategories();
 const allProducts = await getAllProducts();
+const siteSettings = await getSiteSettings();
 
 const selectedCategory = Astro.url.searchParams.get('category') || 'all';
 const searchQuery = Astro.url.searchParams.get('search')?.toLowerCase() || '';
@@ -100,7 +101,7 @@ const searchQuery = Astro.url.searchParams.get('search')?.toLowerCase() || '';
             data-catname={product.categoryName.toLowerCase()}
             data-specs={product.specifications ? product.specifications.map(s => `${s.name} ${s.value}`).join(' ').toLowerCase() : ''}
           >
-            <ProductCard product={product} />
+            <ProductCard product={product} hideAllSpecs={siteSettings?.hideAllSpecifications} />
           </div>
         ))}
       </div>

@@ -14,8 +14,24 @@ export const siteSettingsSchema = defineType({
       name: 'footer',
       title: '🔻 Footer Settings',
     },
+    {
+      name: 'catalog',
+      title: '📦 Product & Catalog Settings',
+    },
   ],
   fields: [
+    // ==========================================
+    // ⓪ GLOBAL CATALOG SETTINGS (Tab 3: Catalog)
+    // ==========================================
+    defineField({
+      name: 'hideAllSpecifications',
+      title: 'Hide Technical Specifications Across All Products',
+      description: 'When enabled, technical specifications matrices and badges will be hidden globally across the entire website for all products.',
+      type: 'boolean',
+      group: 'catalog',
+      initialValue: false,
+    }),
+
     // ==========================================
     // ① HEADER SETTINGS (Tab 1: Header - Default)
     // ==========================================

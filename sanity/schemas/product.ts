@@ -73,12 +73,21 @@ export const productSchema = defineType({
 
     // ③ TECHNICAL SPECIFICATIONS MATRIX (Middle of Product Page)
     defineField({
+      name: 'hideSpecifications',
+      title: 'Hide Specifications for this Product',
+      description: 'Check this to hide the technical specifications matrix and summary badges for this specific product.',
+      type: 'boolean',
+      group: 'content',
+      initialValue: false,
+    }),
+    defineField({
       name: 'specifications',
       title: '7. Technical Specifications Matrix',
       description: 'Add rows for attributes shown in the table (e.g. Material: Synthetic Graphite, Max Temp: 3000°C, Density: 1.85 g/cm³, Carbon: 99.9%).',
       type: 'array',
       group: 'content',
       of: [{ type: 'specRow' }],
+      hidden: ({ document }) => !!document?.hideSpecifications,
     }),
 
     // ④ DETAILED DESCRIPTION & APPLICATIONS (Lower Section)

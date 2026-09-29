@@ -14,6 +14,7 @@ import {
   ExternalLink,
   RotateCcw,
   Check,
+  Zap,
 } from "lucide-react";
 
 const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string;

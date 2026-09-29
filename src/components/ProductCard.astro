@@ -3,10 +3,12 @@ import type { Product } from '../lib/mockData';
 
 export interface Props {
   product: Product;
+  hideAllSpecs?: boolean;
 }
 
-const { product } = Astro.props;
-const topSpecs = product.specifications ? product.specifications.slice(0, 2) : [];
+const { product, hideAllSpecs = false } = Astro.props;
+const shouldHideSpecs = hideAllSpecs || product.hideSpecifications;
+const topSpecs = !shouldHideSpecs && product.specifications ? product.specifications.slice(0, 2) : [];
 ---
 
 <div

@@ -2,6 +2,7 @@ export const SITE_SETTINGS_QUERY = `
   *[_type == "siteSettings"][0] {
     "logoUrl": logo.asset->url,
     "companyBrochureUrl": companyBrochure.asset->url,
+    hideAllSpecifications,
     headerTickerText,
     primaryPhone,
     workingHours,
@@ -39,7 +40,8 @@ export const HOME_PAGE_QUERY = `
       "categorySlug": category->slug.current,
       shortDescription,
       "mainImage": mainImage.asset->url,
-      specifications
+      specifications,
+      hideSpecifications
     },
     metrics,
     categoriesSectionBadge,
@@ -68,7 +70,8 @@ export const HOME_PAGE_QUERY = `
       "categorySlug": category->slug.current,
       shortDescription,
       "mainImage": mainImage.asset->url,
-      specifications
+      specifications,
+      hideSpecifications
     },
     capabilitiesBadge,
     capabilitiesHeadline,
@@ -203,6 +206,7 @@ export const ALL_PRODUCTS_QUERY = `
     shortDescription,
     "mainImage": mainImage.asset->url,
     specifications,
+    hideSpecifications,
     "productPdfUrl": productPdf.asset->url,
     isFeatured,
     displayOrder
@@ -219,6 +223,7 @@ export const FEATURED_PRODUCTS_QUERY = `
     shortDescription,
     "mainImage": mainImage.asset->url,
     specifications,
+    hideSpecifications,
     "productPdfUrl": productPdf.asset->url,
     isFeatured,
     displayOrder
@@ -237,6 +242,7 @@ export const PRODUCT_BY_SLUG_QUERY = `
     "mainImage": mainImage.asset->url,
     "gallery": gallery[].asset->url,
     specifications,
+    hideSpecifications,
     "productPdfUrl": productPdf.asset->url,
     isFeatured,
     displayOrder,

@@ -14,6 +14,7 @@ export interface Product {
   mainImage: string;
   gallery?: string[];
   specifications: SpecRow[];
+  hideSpecifications?: boolean;
   productPdfUrl?: string;
   isFeatured?: boolean;
   displayOrder: number;
@@ -96,6 +97,7 @@ export interface SiteSettings {
   plantTitle?: string;
   footerCopyrightText?: string;
   footerBadgeText?: string;
+  hideAllSpecifications?: boolean;
 }
 
 export const MOCK_SITE_SETTINGS: SiteSettings = {

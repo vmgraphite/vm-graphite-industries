@@ -4,7 +4,7 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import ProductSpecs from '../../components/ProductSpecs.astro';
 import BrochureCTA from '../../components/BrochureCTA.astro';
 
-import { getAllProducts, getProductBySlug } from '../../lib/data';
+import { getAllProducts, getProductBySlug, getSiteSettings } from '../../lib/data';
 
 export async function getStaticPaths() {
   const products = await getAllProducts();
@@ -16,10 +16,13 @@ export async function getStaticPaths() {
 
 const { slug } = Astro.params;
 const product = Astro.props.product || (await getProductBySlug(slug as string));
+const siteSettings = await getSiteSettings();
 
 if (!product) {
   return Astro.redirect('/404');
 }
+
+const showSpecs = !siteSettings?.hideAllSpecifications && !product.hideSpecifications && Boolean(product.specifications && product.specifications.length > 0);
 
 const breadcrumbItems = [
   { name: 'Products Catalog', href: '/products' },
@@ -116,7 +119,7 @@ function renderProductDescription(desc: any) {
           </p>
 
           <!-- Top Spec Summary Highlights -->
-          {product.specifications && product.specifications.length > 0 && (
+          {showSpecs && (
             <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#0d1117] border border-white/10 p-4 rounded-xl" data-reveal="fade-up" data-reveal-delay="100">
               {product.specifications.slice(0, 3).map((spec) => (
                 <div data-tilt data-tilt-max="4" data-spotlight class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05] glow-card">
@@ -176,14 +179,16 @@ function renderProductDescription(desc: any) {
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
       <!-- Structured Specifications Table -->
-      <div class="space-y-4" data-reveal="fade-up">
-        <div class="flex items-center justify-between">
-          <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Technical Specifications Matrix</h2>
-          <span class="text-xs font-mono text-theme-bright uppercase bg-theme-tint px-2.5 py-1 rounded border border-theme">ISO / ASTM METALLURGICAL</span>
+      {showSpecs && (
+        <div class="space-y-4" data-reveal="fade-up">
+          <div class="flex items-center justify-between">
+            <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Technical Specifications Matrix</h2>
+            <span class="text-xs font-mono text-theme-bright uppercase bg-theme-tint px-2.5 py-1 rounded border border-theme">ISO / ASTM METALLURGICAL</span>
+          </div>
+          
+          <ProductSpecs specifications={product.specifications} />
         </div>
-        
-        <ProductSpecs specifications={product.specifications} />
-      </div>
+      )}
 
       <!-- Detailed Description / Application Notes -->
       <div class="space-y-4 pt-6 border-t border-white/10" data-reveal="fade-up">
