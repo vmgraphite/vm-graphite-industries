@@ -22,7 +22,8 @@ if (!product) {
   return Astro.redirect('/404');
 }
 
-const showSpecs = !siteSettings?.hideAllSpecifications && !product.hideSpecifications && Boolean(product.specifications && product.specifications.length > 0);
+const hasSpecs = Boolean(!product.hideSpecifications && product.specifications && product.specifications.length > 0);
+const hideByDefault = Boolean(siteSettings?.hideAllSpecifications);
 
 const breadcrumbItems = [
   { name: 'Products Catalog', href: '/products' },
@@ -119,8 +120,13 @@ function renderProductDescription(desc: any) {
           </p>
 
           <!-- Top Spec Summary Highlights -->
-          {showSpecs && (
-            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#0d1117] border border-white/10 p-4 rounded-xl" data-reveal="fade-up" data-reveal-delay="100">
+          {hasSpecs && (
+            <div
+              id="top-specs-summary"
+              class={`grid grid-cols-2 sm:grid-cols-3 gap-3 bg-[#0d1117] border border-white/10 p-4 rounded-xl transition-all duration-300 ${hideByDefault ? 'hidden' : ''}`}
+              data-reveal="fade-up"
+              data-reveal-delay="100"
+            >
               {product.specifications.slice(0, 3).map((spec) => (
                 <div data-tilt data-tilt-max="4" data-spotlight class="p-2.5 rounded-lg bg-white/[0.02] border border-white/[0.05] glow-card">
                   <div class="text-[10px] font-semibold text-slate-400 uppercase tracking-wider font-mono">{spec.name}</div>
@@ -178,15 +184,41 @@ function renderProductDescription(desc: any) {
   <section class="py-16 bg-[#07090e] text-slate-100 border-b border-white/10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
       
-      <!-- Structured Specifications Table -->
-      {showSpecs && (
-        <div class="space-y-4" data-reveal="fade-up">
-          <div class="flex items-center justify-between">
-            <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">Technical Specifications Matrix</h2>
-            <span class="text-xs font-mono text-theme-bright uppercase bg-theme-tint px-2.5 py-1 rounded border border-theme">ISO / ASTM METALLURGICAL</span>
+      <!-- Structured Specifications Table (Collapsible on demand if hidden by default) -->
+      {hasSpecs && (
+        <div id="product-specs-section" class="space-y-4" data-reveal="fade-up">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/[0.08] pb-4">
+            <div>
+              <div class="flex items-center gap-3">
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white" style="font-family:'Outfit',sans-serif;">
+                  Technical Specifications Matrix
+                </h2>
+                <span class="text-xs font-mono text-theme-bright uppercase bg-theme-tint px-2.5 py-1 rounded border border-theme">
+                  ISO / ASTM METALLURGICAL
+                </span>
+              </div>
+              <p class="text-xs text-slate-400 mt-1 font-mono">
+                Purity, particle sizing, thermal limits, and metallurgical tolerances.
+              </p>
+            </div>
+
+            <!-- Interactive Toggle Button -->
+            <button
+              id="specs-toggle-btn"
+              type="button"
+              class="self-start sm:self-auto px-4 py-2 rounded-xl text-xs font-bold font-mono transition-all flex items-center gap-2 cursor-pointer bg-white/[0.05] hover:bg-white/[0.1] text-slate-200 border border-white/10 hover:border-theme shadow-sm"
+              aria-expanded={!hideByDefault ? "true" : "false"}
+            >
+              <svg id="specs-toggle-icon" class={`w-4 h-4 text-theme-bright transition-transform duration-300 ${!hideByDefault ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+              </svg>
+              <span id="specs-toggle-text">{hideByDefault ? 'Show Technical Specifications' : 'Hide Specifications'}</span>
+            </button>
           </div>
           
-          <ProductSpecs specifications={product.specifications} />
+          <div id="specs-table-container" class={`transition-all duration-300 ${hideByDefault ? 'hidden' : ''}`}>
+            <ProductSpecs specifications={product.specifications} />
+          </div>
         </div>
       )}
 
@@ -228,4 +260,31 @@ function renderProductDescription(desc: any) {
 
   <!-- Brochure CTA Banner -->
   <BrochureCTA />
+
+  <script is:inline>
+    const toggleBtn = document.getElementById('specs-toggle-btn');
+    const tableContainer = document.getElementById('specs-table-container');
+    const topSummary = document.getElementById('top-specs-summary');
+    const toggleIcon = document.getElementById('specs-toggle-icon');
+    const toggleText = document.getElementById('specs-toggle-text');
+
+    if (toggleBtn && tableContainer) {
+      toggleBtn.addEventListener('click', () => {
+        const isHidden = tableContainer.classList.contains('hidden');
+        if (isHidden) {
+          tableContainer.classList.remove('hidden');
+          topSummary?.classList.remove('hidden');
+          toggleIcon?.classList.add('rotate-180');
+          if (toggleText) toggleText.textContent = 'Hide Specifications';
+          toggleBtn.setAttribute('aria-expanded', 'true');
+        } else {
+          tableContainer.classList.add('hidden');
+          topSummary?.classList.add('hidden');
+          toggleIcon?.classList.remove('rotate-180');
+          if (toggleText) toggleText.textContent = 'Show Technical Specifications';
+          toggleBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+  </script>
 </Layout>
