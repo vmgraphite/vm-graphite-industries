@@ -74,8 +74,8 @@ export default function ContactForm({
   successMessage = "Thank you for contacting VM Graphite Industries LLP. Your message has been routed to our corporate sales team.",
   whatsappFollowupButtonText = "WhatsApp Follow-up",
   resetButtonText = "Send Another Message",
-  whatsappNumber = "919422102425",
-  recipientEmail = "info@vmgraphiteindustries.com",
+  whatsappNumber = "",
+  recipientEmail = "",
 }: ContactFormProps) {
   const [formData, setFormData] = useState({
     name: "",

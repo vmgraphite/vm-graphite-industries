@@ -8,27 +8,20 @@ const safeFooterDesc = siteSettings.footerBadgeText || 'A Complete Solution For 
 const safeDownloadBtn = siteSettings.footerDownloadButtonText || 'Download Brochure';
 const safeCopyright = siteSettings.footerCopyrightText || '© 2006 VM Graphite Industries LLP. All rights reserved.';
 
-// Determine Footer Locations (Dynamic unlimited array support with fallbacks)
-const defaultFooterLocations = [
-  {
-    title: siteSettings.corporateOfficeTitle || 'Corporate Office',
-    badge: 'Corporate HQ',
-    address: siteSettings.officeAddress || 'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India',
-    phone: siteSettings.footerPhone || siteSettings.primaryPhone || '+91 94221 02425',
-    email: siteSettings.email || 'info@vmgraphiteindustries.com',
-  },
-  {
-    title: siteSettings.plantTitle || 'Manufacturing Plant',
-    badge: 'Manufacturing Unit',
-    address: siteSettings.plantAddress || 'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India',
-    phone: siteSettings.footerPhone || siteSettings.primaryPhone || '+91 94221 02425',
-    email: siteSettings.email || 'info@vmgraphiteindustries.com',
-  },
-];
-
-const footerLocationsList = Array.isArray(siteSettings.footerLocations) && siteSettings.footerLocations.length > 0
+// Determine Footer Locations directly from Sanity siteSettings
+const footerLocationsList = Array.isArray(siteSettings?.footerLocations) && siteSettings.footerLocations.length > 0
   ? siteSettings.footerLocations
-  : defaultFooterLocations;
+  : siteSettings?.officeAddress
+  ? [
+      {
+        title: siteSettings.corporateOfficeTitle || 'Registered Office & Works',
+        badge: 'Registered Office',
+        address: siteSettings.officeAddress,
+        phone: siteSettings.footerPhone || siteSettings.primaryPhone,
+        email: siteSettings.email,
+      },
+    ]
+  : [];
 
 const numLocations = footerLocationsList.length;
 

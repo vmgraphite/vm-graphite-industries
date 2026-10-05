@@ -37,15 +37,23 @@ const formattedTitle = title.includes(siteName) ? title : `${title} | ${siteName
 const fullImageUrl = image.startsWith('http') ? image : new URL(image, Astro.site).href;
 
 // Parse address from siteSettings into structured parts
-const officeAddress = siteSettings.officeAddress || 'New Delhi - 110020, India';
+const officeAddress = siteSettings.officeAddress || 'Surat, Gujarat - 394235, India';
 const officeAddressParts = officeAddress.split(',').map((s: string) => s.trim());
 const streetAddress = officeAddressParts.slice(0, -2).join(', ') || officeAddress;
-const addressLocality = officeAddressParts[officeAddressParts.length - 2]?.replace(/[-–]\s*\d+/, '').trim() || 'New Delhi';
+const addressLocality = officeAddress.includes('Surat') ? 'Surat' : officeAddressParts[officeAddressParts.length - 2]?.replace(/[-–]\s*\d+/, '').trim() || 'Surat';
+const isGujarat = officeAddress.toLowerCase().includes('gujarat');
+const addressRegion = isGujarat ? 'Gujarat' : 'Delhi';
 const postalRaw = officeAddressParts[officeAddressParts.length - 1] || '';
-const postalMatch = postalRaw.match(/\d{6}/);
-const postalCode = postalMatch ? postalMatch[0] : '110020';
+const postalMatch = officeAddress.match(/\b\d{6}\b/);
+const postalCode = postalMatch ? postalMatch[0] : (isGujarat ? '394235' : '110020');
 
-const primaryPhone = siteSettings.primaryPhone || '+91 94221 02425';
+// Geo coordinates based on verified business location (Surat / Gujarat)
+const geoRegion = isGujarat ? 'IN-GJ' : 'IN-DL';
+const geoPlacename = isGujarat ? 'Surat' : 'New Delhi';
+const geoPosition = isGujarat ? '21.1702;72.8311' : '28.5355;77.2717';
+const geoICBM = isGujarat ? '21.1702, 72.8311' : '28.5355, 77.2717';
+
+const primaryPhone = siteSettings.primaryPhone || '+91 82008 47699';
 const siteEmail = siteSettings.email || 'info@vmgraphiteindustries.com';
 
 // JSON-LD Organization + LocalBusiness (unified) — gives Google entity verification & Maps integration
@@ -85,12 +93,12 @@ const organizationSchema = {
     streetAddress,
     addressLocality,
     postalCode,
-    addressRegion: 'Delhi',
+    addressRegion,
     addressCountry: 'IN',
   },
   email: siteEmail,
   telephone: primaryPhone,
-  hasMap: siteSettings.googleMapsUrl || `https://maps.google.com/?q=VM+Graphite+Industries+New+Delhi`,
+  hasMap: siteSettings.googleMapsUrl || `https://maps.google.com/?q=VM+Graphite+Industries+Surat+Gujarat`,
   // sameAs links tell Google this is the same business entity across the web
   sameAs: [
     'https://www.indiamart.com/vm-graphite-industries/',
@@ -199,10 +207,10 @@ const breadcrumbSchema = breadcrumbs
 <meta property="og:locale" content="en_IN" />
 
 <!-- Geo & Location Tags for Industrial Ranking -->
-<meta name="geo.region" content="IN-DL" />
-<meta name="geo.placename" content="New Delhi" />
-<meta name="geo.position" content="28.5355;77.2717" />
-<meta name="ICBM" content="28.5355, 77.2717" />
+<meta name="geo.region" content={geoRegion} />
+<meta name="geo.placename" content={geoPlacename} />
+<meta name="geo.position" content={geoPosition} />
+<meta name="ICBM" content={geoICBM} />
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content={type} />

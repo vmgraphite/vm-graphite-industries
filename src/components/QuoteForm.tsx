@@ -22,6 +22,8 @@ const WEB3FORMS_KEY = import.meta.env.PUBLIC_WEB3FORMS_ACCESS_KEY as string;
 interface QuoteFormProps {
   initialProduct?: string;
   initialCategory?: string;
+  whatsappNumber?: string;
+  recipientEmail?: string;
   onSuccess?: () => void;
 }
 
@@ -42,6 +44,8 @@ const TIMELINE_OPTIONS = [
 export default function QuoteForm({
   initialProduct = "",
   initialCategory = "",
+  whatsappNumber = "",
+  recipientEmail = "",
   onSuccess,
 }: QuoteFormProps) {
   const [formData, setFormData] = useState({
@@ -198,7 +202,8 @@ export default function QuoteForm({
   const whatsappText = encodeURIComponent(
     `Hello VM Graphite Sales Desk, I would like to request a quote for "${formData.product || "Industrial Graphite Solutions"}". Volume: ${formData.quantity}, Name: ${formData.name}, Company: ${formData.company || "N/A"}.`,
   );
-  const whatsappUrl = `https://wa.me/919422102425?text=${whatsappText}`;
+  const cleanWhatsapp = whatsappNumber.replace(/[^0-9]/g, "");
+  const whatsappUrl = `https://wa.me/${cleanWhatsapp}?text=${whatsappText}`;
 
   const mailtoSubject = encodeURIComponent(
     `[RFQ Quotation: ${rfqNumber || "Direct"}] Quote Request: ${formData.product || "Industrial Graphite"}`,
@@ -223,7 +228,7 @@ Application / Notes: ${formData.message || "None"}
 Reference: ${rfqNumber || "Direct"}
 `,
   );
-  const mailtoUrl = `mailto:info@vmgraphiteindustries.com?subject=${mailtoSubject}&body=${mailtoBody}`;
+  const mailtoUrl = `mailto:${recipientEmail}?subject=${mailtoSubject}&body=${mailtoBody}`;
 
   // ================= SUCCESS VIEW =================
   if (status === "success") {

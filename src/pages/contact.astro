@@ -13,83 +13,57 @@ const pageBadge = contactContent?.badge || 'Direct Industrial Channels';
 const pageTitle = contactContent?.title || 'Contact & Factory Locations';
 const pageSubtitle = contactContent?.subtitle || 'Connect directly with our metallurgical engineering team, request custom sample trials, or plan a plant visit.';
 
-// Robust resolution for ALL locations added across Sanity Schemas (contactPage or siteSettings)
+// Resolve locations directly from Sanity CMS (contactPage or siteSettings)
 let locationsList: any[] = [];
 
 if (Array.isArray(contactContent?.locations) && contactContent.locations.length > 0) {
-  // 1. Primary: Multiple locations array configured on Contact Us Page Content
   locationsList = contactContent.locations;
-} else if (Array.isArray(siteSettings.footerLocations) && siteSettings.footerLocations.length >= 2) {
-  // 2. SiteSettings multiple locations array (if user added 2+ in site settings)
+} else if (Array.isArray(siteSettings?.footerLocations) && siteSettings.footerLocations.length > 0) {
   locationsList = siteSettings.footerLocations;
-} else {
-  // 3. Fallback: Build comprehensive list from all available address & plant fields
-  const corporateAddress =
-    contactContent?.officeAddress ||
-    siteSettings.officeAddress ||
-    siteSettings.footerLocations?.[0]?.address ||
-    'Plot No. 42, Industrial Area, Phase II, New Delhi - 110020, India';
-
-  const plantAddress =
-    contactContent?.plantAddress ||
-    siteSettings.plantAddress ||
-    siteSettings.footerLocations?.[1]?.address ||
-    'Survey No. 108/2, GIDC Industrial Estate, Sector 3, Gujarat - 392130, India';
-
+} else if (siteSettings?.officeAddress) {
   locationsList = [
     {
-      title: contactContent?.corporateOfficeHeading || siteSettings.corporateOfficeTitle || siteSettings.footerLocations?.[0]?.title || 'Corporate & Sales Office',
-      city: 'New Delhi',
-      badge: 'Corporate HQ',
-      address: corporateAddress,
-      phone: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
-      email: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
-      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(corporateAddress)}`,
-    },
-    {
-      title: contactContent?.manufacturingPlantHeading || siteSettings.plantTitle || siteSettings.footerLocations?.[1]?.title || 'Manufacturing Plant Unit',
-      city: 'Gujarat',
-      badge: 'Manufacturing Unit',
-      address: plantAddress,
-      phone: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
-      email: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
-      googleMapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(plantAddress)}`,
+      title: siteSettings.corporateOfficeTitle || 'Registered Office & Works',
+      city: 'Surat, Gujarat',
+      badge: 'Registered Office & Works',
+      address: siteSettings.officeAddress,
+      phone: siteSettings.primaryPhone,
+      email: siteSettings.email,
+      googleMapsUrl: siteSettings.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(siteSettings.officeAddress)}`,
     },
   ];
 }
 
-// Presence & Maps Section Headers
-const locationsSectionBadge = contactContent?.locationsSectionBadge || 'Manufacturing & Corporate Infrastructure';
-const locationsSectionHeading = contactContent?.locationsSectionHeading || 'Our Manufacturing & Corporate Presence';
-const locationsSectionSubtitle = contactContent?.locationsSectionSubtitle || 'Visit our corporate headquarters in New Delhi or our high-temperature graphite manufacturing plant in Gujarat.';
+// Presence & Maps Section Headers directly from Sanity
+const locationsSectionBadge = contactContent?.locationsSectionBadge || 'Infrastructure & Facilities';
+const locationsSectionHeading = contactContent?.locationsSectionHeading || 'Our Facilities & Presence';
+const locationsSectionSubtitle = contactContent?.locationsSectionSubtitle || '';
 
-// Direct Communication Channels (Dynamic List)
-const directCommHeading = contactContent?.directCommHeading || 'Direct Communication Helpdesks';
-
-const defaultChannels = [
-  {
-    title: 'Primary Phone Support',
-    type: 'phone',
-    value: contactContent?.primaryPhone || siteSettings.primaryPhone || '+91 94221 02425',
-    subtext: siteSettings.workingHours || 'Mon - Sat: 9:00 AM - 6:30 PM IST',
-  },
-  {
-    title: 'Official Commercial Email',
-    type: 'email',
-    value: contactContent?.email || siteSettings.email || 'info@vmgraphiteindustries.com',
-    subtext: 'Direct technical RFQ & quotation desk',
-  },
-  {
-    title: 'Instant WhatsApp Sales Desk',
-    type: 'whatsapp',
-    value: contactContent?.whatsappNumber || siteSettings.whatsappNumber || '919422102425',
-    subtext: 'Fast track engineering response in 2-4 hrs',
-  },
-];
+// Direct Communication Channels directly from Sanity
+const directCommHeading = contactContent?.directCommHeading || 'Direct Communication Channels';
 
 const contactChannelsList = Array.isArray(contactContent?.contactChannels) && contactContent.contactChannels.length > 0
   ? contactContent.contactChannels
-  : defaultChannels;
+  : [
+      siteSettings?.primaryPhone && {
+        title: 'Primary Phone',
+        type: 'phone',
+        value: siteSettings.primaryPhone,
+        subtext: siteSettings.workingHours || '',
+      },
+      siteSettings?.email && {
+        title: 'Official Email',
+        type: 'email',
+        value: siteSettings.email,
+        subtext: 'Official Commercial Inquiry',
+      },
+      siteSettings?.whatsappNumber && {
+        title: 'WhatsApp Sales Desk',
+        type: 'whatsapp',
+        value: siteSettings.whatsappNumber,
+        subtext: 'Direct technical chat',
+      },
+    ].filter(Boolean);
 
 // Contact Form Dynamic Settings
 const formBadge = contactContent?.formBadge || 'Direct RFQ Desk';
@@ -157,8 +131,8 @@ function getDirectionsUrl(loc: any) {
 ---
 
 <Layout
-  title={contactContent?.seo?.metaTitle || "Contact Us & Factory Units | VM Graphite Industries LLP"}
-  description={contactContent?.seo?.metaDescription || "Contact VM Graphite Industries LLP. Corporate office in New Delhi, manufacturing plant in Gujarat. Call, WhatsApp or send inquiry."}
+  title={contactContent?.seo?.metaTitle || "Contact Us | VM Graphite Industries LLP"}
+  description={contactContent?.seo?.metaDescription || "Contact VM Graphite Industries LLP technical sales team. Call, WhatsApp or send inquiry."}
   seo={contactContent?.seo}
   breadcrumbs={[{ name: 'Contact Us', item: '/contact' }]}
 >

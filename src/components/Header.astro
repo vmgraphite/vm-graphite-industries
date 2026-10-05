@@ -180,10 +180,12 @@ const navItems = rawNavItems.filter((item) => !item.hide && item.name);
       >
         Request Commercial Quote
       </button>
-      <div class="flex items-center justify-center gap-2 text-xs text-slate-400 font-mono">
-        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        Plant: New Delhi &amp; Gujarat
-      </div>
+      {(siteSettings.footerLocations?.[0]?.title || siteSettings.officeAddress) && (
+        <div class="flex items-center justify-center gap-2 text-xs text-slate-400 font-mono">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span>{siteSettings.footerLocations?.[0]?.title || 'Works'}: {siteSettings.footerLocations?.[0]?.badge || 'Surat, Gujarat'}</span>
+        </div>
+      )}
     </div>
   </div>
 </header>

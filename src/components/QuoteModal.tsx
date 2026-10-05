@@ -2,7 +2,15 @@ import { useState, useEffect, useCallback } from "react";
 import { X, FileSpreadsheet, Sparkles } from "lucide-react";
 import QuoteForm from "./QuoteForm";
 
-export default function QuoteModal() {
+interface QuoteModalProps {
+  whatsappNumber?: string;
+  recipientEmail?: string;
+}
+
+export default function QuoteModal({
+  whatsappNumber,
+  recipientEmail,
+}: QuoteModalProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [productName, setProductName] = useState("");
   const [categoryName, setCategoryName] = useState("");
@@ -90,6 +98,8 @@ export default function QuoteModal() {
           <QuoteForm
             initialProduct={productName}
             initialCategory={categoryName}
+            whatsappNumber={whatsappNumber}
+            recipientEmail={recipientEmail}
             onSuccess={handleClose}
           />
         </div>

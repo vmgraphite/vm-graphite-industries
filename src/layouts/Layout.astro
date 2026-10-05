@@ -52,7 +52,7 @@ const categories = await getCategories();
     <WhatsAppButton whatsappNumber={siteSettings.whatsappNumber} />
 
     <!-- Global Product Quote Request Modal -->
-    <QuoteModal client:idle />
+    <QuoteModal client:idle whatsappNumber={siteSettings.whatsappNumber} recipientEmail={siteSettings.email} />
 
     <!-- Global Quote Modal Event Listener -->
     <script is:inline>
