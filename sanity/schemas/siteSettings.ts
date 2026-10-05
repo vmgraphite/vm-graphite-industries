@@ -25,8 +25,8 @@ export const siteSettingsSchema = defineType({
     // ==========================================
     defineField({
       name: 'hideAllSpecifications',
-      title: 'Hide Specifications By Default Across All Products',
-      description: 'When enabled, Technical Specifications Matrix, purity, and particle size tables are collapsed/hidden by default across all products. Site visitors can click "Show Technical Specifications" to reveal them on demand.',
+      title: 'Hide Technical Specifications Across All Products',
+      description: 'When enabled, the entire Technical Specifications Matrix table, graphite purity badges, and particle size (D90) rows are completely hidden across all product pages.',
       type: 'boolean',
       group: 'catalog',
       initialValue: false,
