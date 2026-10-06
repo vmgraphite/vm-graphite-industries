@@ -62,17 +62,11 @@ const locationsGridClass =
       <!-- Brand & Capabilities (Left Column) -->
       <div class={brandColSpan}>
         <div class="flex items-center gap-3">
-          {siteSettings.logo?.asset?.url ? (
-            <img src={siteSettings.logo.asset.url} alt={siteSettings.companyName || 'VM Graphite'} class="h-10 w-auto object-contain" />
-          ) : (
-            <div class="w-10 h-10 rounded-xl bg-theme-tint border border-theme flex items-center justify-center font-black text-theme-bright font-mono text-base">
-              VM
-            </div>
-          )}
-          <div>
-            <span class="font-extrabold text-white text-lg tracking-tight block font-['Outfit']">{siteSettings.companyName || 'VM GRAPHITE'}</span>
-            <span class="text-[10px] font-mono text-slate-400 tracking-wider uppercase block">INDUSTRIES LLP</span>
-          </div>
+          <img
+            src={siteSettings.logoUrl || '/images/logo.png'}
+            alt={siteSettings.companyName || 'VM Graphite Industries'}
+            class="h-10 sm:h-11 w-auto max-w-[170px] object-contain rounded-lg"
+          />
         </div>
         
         <p class="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
