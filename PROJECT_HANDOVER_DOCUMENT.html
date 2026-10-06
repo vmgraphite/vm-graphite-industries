@@ -59,31 +59,40 @@
     width: 100%;
     border-collapse: collapse;
     margin: 16px 0 24px 0;
-    font-size: 13px;
+    font-size: 13.5px;
   }
   th, td {
-    border: 1px solid #ccc;
-    padding: 8px 12px;
+    border: 1px solid #e0e0e0;
+    padding: 10px 14px;
     text-align: left;
     vertical-align: top;
   }
   th {
     background-color: #f7f7f8;
-    font-weight: 700;
+    font-weight: 600;
+    color: #111;
+  }
+  code {
+    background-color: #f0f0f2;
+    padding: 2px 5px;
+    border-radius: 4px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 12.5px;
   }
   a {
-    color: #0056b3;
+    color: #0969da;
     text-decoration: none;
   }
   a:hover {
     text-decoration: underline;
   }
-  code {
-    background: #f1f3f5;
-    padding: 2px 5px;
-    border-radius: 3px;
-    font-family: Menlo, Monaco, Consolas, monospace;
-    font-size: 12.5px;
+  .note {
+    background-color: #f8f9fa;
+    border-left: 3px solid #0969da;
+    padding: 10px 14px;
+    margin: 16px 0;
+    font-size: 13px;
+    color: #444;
   }
 </style>
 </head>
@@ -95,15 +104,18 @@
   <strong>Main Domain:</strong> <a href="https://www.vmgraphiteindustries.com">www.vmgraphiteindustries.com</a>, <a href="https://vmgraphiteindustries.com">vmgraphiteindustries.com</a><br>
   <strong>CMS Admin Portal:</strong> <a href="https://vmgraphiteindustries.com/admin">https://vmgraphiteindustries.com/admin</a><br>
   <strong>Primary Admin Account:</strong><br>
-  &nbsp;&nbsp;<strong>Email:</strong> vmgraphite@gmail.com<br>
-  &nbsp;&nbsp;<strong>Login Method:</strong> Sign in with Google (Google SSO)
+  &bull; Email: <code>vmgraphite@gmail.com</code><br>
+  &bull; Login Method: Sign in with Google (Google SSO)
 </div>
 
 <hr>
 
 <h2>1. Master Account Access</h2>
-<p>All project accounts are linked to the primary admin according to the information mentioned above.</p>
-<p><strong>Important:</strong> To access any of the services below, simply go to the login page and sign in with the primary admin Google credentials mentioned above.</p>
+<p>All project accounts are linked to the primary admin account according to the information mentioned above.</p>
+
+<div class="note">
+  <strong>Important:</strong> To access any of the services below, simply go to the login page and sign in with the primary admin Google account (<code>vmgraphite@gmail.com</code>).
+</div>
 
 <table>
   <thead>
@@ -120,13 +132,8 @@
       <td><a href="https://www.sanity.io/manage">sanity.io/manage</a></td>
     </tr>
     <tr>
-      <td><strong>Netlify</strong></td>
-      <td>Web hosting server that keeps the site online, fast globally, and auto-updates when you publish in Sanity</td>
-      <td><a href="https://app.netlify.com">app.netlify.com</a></td>
-    </tr>
-    <tr>
       <td><strong>Cloudflare</strong></td>
-      <td>Manages domain DNS routing, SSL security certificate, and DDoS protection</td>
+      <td>Global web hosting (Cloudflare Pages), DNS routing, SSL security certificate, and DDoS protection</td>
       <td><a href="https://dash.cloudflare.com">dash.cloudflare.com</a></td>
     </tr>
     <tr>
@@ -150,11 +157,12 @@
 <h2>2. Service Limits (Free Tier)</h2>
 <p>We have utilized the professional Free Tiers for your setup. Below are the limits to keep in mind as the business grows:</p>
 
-<h3>Netlify (Hosting &amp; Deployments)</h3>
+<h3>Cloudflare Pages (Hosting, DNS &amp; Global CDN)</h3>
 <ul>
-  <li><strong>Bandwidth:</strong> 100 GB per month (More than enough for thousands of monthly visitors).</li>
-  <li><strong>Build Minutes:</strong> 300 minutes per month (Each update or product publish uses only ~20 seconds of build time).</li>
-  <li><strong>SSL Certificate:</strong> Free and renews automatically.</li>
+  <li><strong>Bandwidth:</strong> Unlimited. Unlike traditional hosts, Cloudflare does not charge for how many people visit your site.</li>
+  <li><strong>Builds &amp; Deployments:</strong> Unlimited static requests and 500 builds per month (each build takes ~30–45 seconds).</li>
+  <li><strong>DNS Records:</strong> Up to 200 records (You are currently using fewer than 10).</li>
+  <li><strong>SSL &amp; DDoS Protection:</strong> 100% Free, active 24/7, and renews automatically.</li>
 </ul>
 
 <h3>Sanity.io (Content Management / CMS)</h3>
@@ -163,13 +171,6 @@
   <li><strong>Asset Storage:</strong> Up to 5 GB for product images and PDF brochures.</li>
   <li><strong>Bandwidth:</strong> 10 GB per month.</li>
   <li><strong>Admin Seats:</strong> Up to 3 users with full editing access.</li>
-</ul>
-
-<h3>Cloudflare (DNS &amp; Security)</h3>
-<ul>
-  <li><strong>Bandwidth:</strong> Unlimited. Unlike other hosts, Cloudflare does not charge for how many people visit your site.</li>
-  <li><strong>DNS Records:</strong> Up to 200 records (You are currently using fewer than 10).</li>
-  <li><strong>SSL &amp; DDoS Protection:</strong> Unlimited and active 24/7.</li>
 </ul>
 
 <h3>Web3Forms (Contact &amp; RFQ Form)</h3>
@@ -185,17 +186,17 @@
 <ul>
   <li>Go to <strong><a href="https://vmgraphiteindustries.com/admin">https://vmgraphiteindustries.com/admin</a></strong> and sign in with Google (<code>vmgraphite@gmail.com</code>).</li>
   <li><strong>To Add a Product:</strong> Click <em>6. Products Catalog</em> ➔ Click <em>(+) Create New</em> ➔ Fill in title, category, description, images, technical specifications table, and PDF datasheet ➔ Click the green <strong>Publish</strong> button.</li>
-  <li><strong>Automated Publishing:</strong> Within ~20 seconds of clicking Publish, the live website automatically updates and displays your new product.</li>
+  <li><strong>Automated Publishing:</strong> Within ~30–45 seconds of clicking Publish, Sanity pings Cloudflare via Webhook to automatically build and display your new product on the live website.</li>
 </ul>
 
 <h3>Email Inquiries &amp; Quote Requests</h3>
-<p>When a client submits a form on <a href="https://vmgraphiteindustries.com">www.vmgraphiteindustries.com</a> or clicks "Request Quote", the email will arrive directly in your <code>info@vmgraphiteindustries.com</code> (and <code>vmgraphite@gmail.com</code>) inbox. It is sent via Web3Forms. If you ever stop receiving emails, check your Web3Forms dashboard to see if you have exceeded the 250-submission limit.</p>
+<p>When a client submits a form on <a href="https://vmgraphiteindustries.com">vmgraphiteindustries.com</a> or clicks "Request Quote", the email will arrive directly in your <code>info@vmgraphiteindustries.com</code> (and <code>vmgraphite@gmail.com</code>) inbox. It is sent via Web3Forms. If you ever stop receiving emails, check your Web3Forms dashboard to see if you have exceeded the 250-submission monthly limit.</p>
 
 <h3>Domain Renewal</h3>
-<p>You must renew the domain <code>vmgraphiteindustries.com</code> every year. This is registered and managed through <strong>Hostinger</strong>. Cloudflare and Netlify provide the DNS and hosting for free, but the "name" itself must be paid for annually at the registrar (Hostinger). Ensure auto-renewal is turned on in Hostinger.</p>
+<p>You must renew the domain <code>vmgraphiteindustries.com</code> every year. This is registered and managed through <strong>Hostinger</strong>. Cloudflare provides the DNS, SSL, and hosting for free, but the "name" itself must be paid for annually at the registrar (Hostinger). Ensure auto-renewal is turned on in Hostinger.</p>
 
 <h3>Security &amp; SSL</h3>
-<p>The "Padlock" icon (SSL) is handled automatically by Cloudflare and Netlify. It will never expire as long as the domain points to Cloudflare’s nameservers.</p>
+<p>The "Padlock" icon (SSL) is handled automatically by Cloudflare. It will never expire as long as the domain points to Cloudflare’s nameservers (<code>craig.ns.cloudflare.com</code> and <code>zariyah.ns.cloudflare.com</code>).</p>
 
 <h2>4. Instructions for Future Developers</h2>
 <p>If a new developer takes over this project, provide them with this document and the following technical notes:</p>
@@ -204,9 +205,9 @@
   <li><strong>Framework:</strong> Built with <strong>Astro</strong> (Static Generation) + <strong>React</strong> + <strong>Tailwind CSS</strong>.</li>
   <li><strong>CMS:</strong> <strong>Sanity.io</strong> Studio integrated at <code>/admin</code> (Project ID: <code>vvhsg9ix</code>, Dataset: <code>production</code>, API Version: <code>2024-08-01</code>).</li>
   <li><strong>Repository:</strong> Hosted on GitHub at <a href="https://github.com/vmgraphite/vm-graphite-industries.git">https://github.com/vmgraphite/vm-graphite-industries.git</a>.</li>
-  <li><strong>Hosting &amp; Deployment:</strong> Hosted via <strong>Netlify</strong> with automatic deployments on <code>git push</code> to <code>main</code> and automated rebuilds triggered via <strong>Sanity Webhook ➔ Netlify Build Hook</strong>.</li>
+  <li><strong>Hosting &amp; Deployment:</strong> Hosted via <strong>Cloudflare Pages</strong> (Project: <code>vm-graphite-industries</code>) with automatic deployments on <code>git push</code> to <code>main</code> and automated rebuilds triggered via <strong>Sanity Webhook ➔ Cloudflare Deploy Hook</strong>.</li>
   <li><strong>DNS Management:</strong> Managed entirely through <strong>Cloudflare</strong>. Do not modify DNS settings at Hostinger unless migrating the entire infrastructure.</li>
-  <li><strong>Environment Variables in Netlify:</strong>
+  <li><strong>Environment Variables in Cloudflare Pages:</strong>
     <ul>
       <li><code>PUBLIC_SANITY_PROJECT_ID=vvhsg9ix</code></li>
       <li><code>PUBLIC_SANITY_DATASET=production</code></li>
